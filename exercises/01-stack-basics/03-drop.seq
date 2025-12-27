@@ -1,0 +1,21 @@
+# Exercise: drop
+#
+# The `drop` word removes the top value from the stack.
+#
+# Stack effect: ( a -- )
+#
+# Example:
+#   5 10 drop    # Stack: ( 5 )  - the 10 is gone
+#
+# Your task: Use `drop` to remove the unwanted value from the stack.
+#
+# Remove the "# NOT DONE" marker when complete.
+
+# NOT DONE
+
+: test-drop ( -- )
+    42 99
+    # TODO: The stack has ( 42 99 ), but we only want 42
+    # Use drop to remove 99 from the top
+    42 test.assert-eq
+;

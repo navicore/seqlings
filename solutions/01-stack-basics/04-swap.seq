@@ -1,0 +1,8 @@
+# Exercise: swap - SOLUTION
+
+: test-swap ( -- )
+    20 10
+    swap
+    20 test.assert-eq
+    10 test.assert-eq
+;

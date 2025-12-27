@@ -1,0 +1,23 @@
+# Exercise: swap
+#
+# The `swap` word exchanges the top two values on the stack.
+#
+# Stack effect: ( a b -- b a )
+#
+# Example:
+#   1 2 swap    # Stack: ( 2 1 )  - they switched places!
+#
+# Your task: Use `swap` to put the values in the correct order.
+#
+# Remove the "# NOT DONE" marker when complete.
+
+# NOT DONE
+
+: test-swap ( -- )
+    # The values are pushed in the wrong order
+    20 10
+    # TODO: Use swap to fix the order
+    # After swap, 20 should be on top and 10 below
+    20 test.assert-eq  # top should be 20
+    10 test.assert-eq  # bottom should be 10
+;

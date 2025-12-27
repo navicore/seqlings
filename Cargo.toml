@@ -1,0 +1,17 @@
+[package]
+name = "seqlings"
+version = "0.1.0"
+edition = "2024"
+description = "Interactive exercises for learning Seq, a stack-based programming language"
+license = "MIT"
+repository = "https://github.com/navicore/seqlings"
+
+[[bin]]
+name = "seqlings"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+toml = "0.8"
+serde = { version = "1", features = ["derive"] }
+colored = "2"

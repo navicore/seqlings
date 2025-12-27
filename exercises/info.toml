@@ -1,0 +1,59 @@
+# Seqlings Exercise Definitions
+#
+# Each exercise has:
+#   name = unique identifier
+#   path = path to the .seq file
+#   mode = "compile" (just needs to compile) or "test" (needs to pass test.assert checks)
+
+# ============================================================
+# 00-intro: Introduction to Seq
+# ============================================================
+
+[[exercises]]
+name = "01-hello"
+path = "exercises/00-intro/01-hello.seq"
+mode = "compile"
+
+[[exercises]]
+name = "02-comments"
+path = "exercises/00-intro/02-comments.seq"
+mode = "compile"
+
+[[exercises]]
+name = "03-numbers"
+path = "exercises/00-intro/03-numbers.seq"
+mode = "test"
+
+# ============================================================
+# 01-stack-basics: Stack Manipulation
+# ============================================================
+
+[[exercises]]
+name = "01-push"
+path = "exercises/01-stack-basics/01-push.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-dup"
+path = "exercises/01-stack-basics/02-dup.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-drop"
+path = "exercises/01-stack-basics/03-drop.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-swap"
+path = "exercises/01-stack-basics/04-swap.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-over"
+path = "exercises/01-stack-basics/05-over.seq"
+mode = "test"
+
+[[exercises]]
+name = "06-rot"
+path = "exercises/01-stack-basics/06-rot.seq"
+mode = "test"

@@ -1,0 +1,5 @@
+# Exercise: Hello, Seq! - SOLUTION
+
+: main ( -- )
+    "Hello, Seq!" io.write-line
+;

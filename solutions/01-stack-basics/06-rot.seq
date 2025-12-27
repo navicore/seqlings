@@ -1,0 +1,9 @@
+# Exercise: rot - SOLUTION
+
+: test-rot ( -- )
+    3 1 2
+    rot
+    3 test.assert-eq
+    2 test.assert-eq
+    1 test.assert-eq
+;

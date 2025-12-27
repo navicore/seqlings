@@ -1,0 +1,9 @@
+# Exercise: over - SOLUTION
+
+: test-over ( -- )
+    5 10
+    over
+    5 test.assert-eq
+    10 test.assert-eq
+    5 test.assert-eq
+;

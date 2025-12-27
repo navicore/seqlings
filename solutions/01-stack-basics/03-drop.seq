@@ -1,0 +1,7 @@
+# Exercise: drop - SOLUTION
+
+: test-drop ( -- )
+    42 99
+    drop
+    42 test.assert-eq
+;

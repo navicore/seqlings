@@ -1,0 +1,9 @@
+# Exercise: Numbers - SOLUTION
+
+: answer ( -- Int )
+    42
+;
+
+: test-answer ( -- )
+    answer 42 test.assert-eq
+;

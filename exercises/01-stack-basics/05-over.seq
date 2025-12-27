@@ -1,0 +1,23 @@
+# Exercise: over
+#
+# The `over` word copies the second element to the top.
+#
+# Stack effect: ( a b -- a b a )
+#
+# Example:
+#   1 2 over    # Stack: ( 1 2 1 )  - copied 1 to the top
+#
+# Your task: Use `over` to make the test pass.
+#
+# Remove the "# NOT DONE" marker when complete.
+
+# NOT DONE
+
+: test-over ( -- )
+    5 10
+    # TODO: Use over to copy the 5 to the top
+    # Stack should become ( 5 10 5 )
+    5 test.assert-eq   # top is 5 (the copy)
+    10 test.assert-eq  # middle is 10
+    5 test.assert-eq   # bottom is 5 (original)
+;

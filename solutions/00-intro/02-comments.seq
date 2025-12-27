@@ -1,0 +1,6 @@
+# Exercise: Comments - SOLUTION
+
+: main ( -- )
+    # This is the correct comment syntax
+    "Comments work!" io.write-line
+;

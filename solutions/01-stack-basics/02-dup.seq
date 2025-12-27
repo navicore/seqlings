@@ -1,0 +1,7 @@
+# Exercise: dup - SOLUTION
+
+: test-dup ( -- )
+    7 dup
+    7 test.assert-eq
+    7 test.assert-eq
+;

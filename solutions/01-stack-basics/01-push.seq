@@ -1,0 +1,12 @@
+# Exercise: Push - SOLUTION
+
+: push-three ( -- Int Int Int )
+    1 2 3
+;
+
+: test-push ( -- )
+    push-three
+    3 test.assert-eq
+    2 test.assert-eq
+    1 test.assert-eq
+;

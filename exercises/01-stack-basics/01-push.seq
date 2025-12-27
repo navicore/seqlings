@@ -1,0 +1,27 @@
+# Exercise: Push
+#
+# In Seq, writing a literal value pushes it onto the stack.
+# The stack grows from left to right: ( bottom ... top )
+#
+# Examples:
+#   42        # Stack: ( 42 )
+#   42 10     # Stack: ( 42 10 )  - 10 is on top
+#
+# Your task: Push the numbers 1, 2, and 3 onto the stack (in that order).
+# After your code runs, 3 should be on top of the stack.
+#
+# Remove the "# NOT DONE" marker when complete.
+
+# NOT DONE
+
+: push-three ( -- Int Int Int )
+    # TODO: Push 1, 2, and 3 onto the stack
+    0 0 0
+;
+
+: test-push ( -- )
+    push-three
+    3 test.assert-eq  # top should be 3
+    2 test.assert-eq  # next should be 2
+    1 test.assert-eq  # bottom should be 1
+;

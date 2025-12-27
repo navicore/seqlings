@@ -1,0 +1,26 @@
+# Exercise: rot
+#
+# The `rot` word rotates the top three elements.
+# The third element moves to the top.
+#
+# Stack effect: ( a b c -- b c a )
+#
+# Example:
+#   1 2 3 rot    # Stack: ( 2 3 1 )
+#
+# Think of it as: the bottom of the three "rotates" to the top.
+#
+# Your task: Use `rot` to rearrange the stack correctly.
+#
+# Remove the "# NOT DONE" marker when complete.
+
+# NOT DONE
+
+: test-rot ( -- )
+    3 1 2
+    # Stack is ( 3 1 2 ) but we want ( 1 2 3 )
+    # TODO: Use rot to move 3 from the bottom to the top
+    3 test.assert-eq  # top should be 3
+    2 test.assert-eq  # middle should be 2
+    1 test.assert-eq  # bottom should be 1
+;
