@@ -1,5 +1,5 @@
 : test-if-else ( -- )
-    3 7 > if
+    3 7 i.> if
         1
     else
         2

@@ -20,8 +20,8 @@
     chan.make   # results channel
 
     # Spawn two workers that receive work, add 1, send to results
-    over over [ chan.receive 1 i.add chan.send ] spawn drop
-    over over [ chan.receive 1 i.add chan.send ] spawn drop
+    over over [ chan.receive 1 i.+ chan.send ] spawn drop
+    over over [ chan.receive 1 i.+ chan.send ] spawn drop
 
     # Send two work items
     over 10 chan.send

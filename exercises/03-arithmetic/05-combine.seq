@@ -5,8 +5,8 @@
 # for the next operation.
 #
 # Example:
-#   2 3 i.add 4 i.multiply    # (2+3)*4 = 20
-#   Stack: ( 5 ) after add, then ( 20 ) after multiply
+#   2 3 i.+ 4 i.*    # (2+3)*4 i.= 20
+#   Stack: ( 5 ) after i.+, then ( 20 ) after i.*
 #
 # Your task: Calculate (10 + 5) * 2 to get 30.
 # When done, delete the marker line below.
@@ -14,7 +14,7 @@
 # I AM NOT DONE
 
 : test-combine ( -- )
-    # Your code here - chain add and multiply
+    # Your code here - chain i.+ and i.*
     0
     # Do not edit below this line
     30 test.assert-eq

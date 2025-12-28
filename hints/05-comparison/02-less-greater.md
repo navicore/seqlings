@@ -1,6 +1,6 @@
 # Hint: Less Than and Greater Than
 
-`<` and `>` compare magnitude.
+`i.<` and `i.>` compare magnitude.
 
 ## Solution
 

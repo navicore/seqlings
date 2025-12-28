@@ -9,7 +9,7 @@ Two functions that call each other.
     dup 0 = if
         drop true
     else
-        1 i.subtract is-odd?
+        1 i.- is-odd?
     then
 ;
 
@@ -17,7 +17,7 @@ Two functions that call each other.
     dup 0 = if
         drop false
     else
-        1 i.subtract is-even?
+        1 i.- is-even?
     then
 ;
 ```

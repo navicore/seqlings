@@ -1,4 +1,4 @@
 : test-less-equal ( -- )
-    7 7 <=
+    7 7 i.<=
     test.assert
 ;

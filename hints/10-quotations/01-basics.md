@@ -6,13 +6,13 @@ A quotation is code as data - it doesn't execute until you tell it to.
 
 ```seq
 5
-[ dup i.add ] call
+[ dup i.+ ] call
 ```
 
 ## The Paradigm Shift
 
 This may seem simple, but you've just done something profound:
-1. You wrote code (`dup i.add`)
+1. You wrote code (`dup i.+`)
 2. You wrapped it as data (`[ ... ]`)
 3. You passed it around (put it on the stack)
 4. You executed it later (`call`)

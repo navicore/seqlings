@@ -6,8 +6,8 @@ You need to produce BOTH the sum and the product. That means preserving both inp
 
 ```seq
 : sum-and-product ( Int Int -- Int Int )
-    2dup i.multiply    # Stack: ( a b product )
-    rot rot i.add      # Stack: ( product sum )
+    2dup i.*    # Stack: ( a b product )
+    rot rot i.+      # Stack: ( product sum )
 ;
 ```
 
@@ -15,9 +15,9 @@ Wait, that's not quite right for the test. Let me trace more carefully:
 
 ```seq
 : sum-and-product ( Int Int -- Int Int )
-    2dup i.add      # ( a b sum )
+    2dup i.+      # ( a b sum )
     rot rot         # ( sum a b )
-    i.multiply      # ( sum product )
+    i.*      # ( sum product )
     swap            # ( product sum )
 ;
 ```
@@ -28,16 +28,16 @@ The test does `7 test.assert-eq` then `12 test.assert-eq`, meaning it pops 7 fir
 
 ```seq
 : sum-and-product ( Int Int -- Int Int )
-    2dup i.multiply   # ( a b product )
+    2dup i.*   # ( a b product )
     -rot              # ( product a b )
-    i.add             # ( product sum )
+    i.+             # ( product sum )
 ;
 ```
 
 Or more simply:
 ```seq
 : sum-and-product ( Int Int -- Int Int )
-    2dup i.multiply
-    rot rot i.add
+    2dup i.*
+    rot rot i.+
 ;
 ```

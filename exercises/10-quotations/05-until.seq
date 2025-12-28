@@ -6,7 +6,7 @@
 # Syntax: condition-quot body-quot until
 #
 # Example:
-#   0 [ dup 10 = ] [ 1 i.add ] until   # Counts up to 10
+#   0 [ dup 10 i.= ] [ 1 i.+ ] until   # Counts up to 10
 #
 # HIGHER-ORDER INSIGHT:
 # `until` is just `while` with inverted condition logic.
@@ -24,7 +24,7 @@
 : test-until ( -- )
     3
     # Your code here: double until > 100
-    # [ dup 100 > ] [ 2 i.multiply ] until
+    # [ dup 100 i.> ] [ 2 i.* ] until
     drop 0
     # Do not edit below this line
     192 test.assert-eq

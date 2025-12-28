@@ -1,5 +1,5 @@
 : test-call ( -- )
     7
-    [ dup i.multiply ] call
+    [ dup i.* ] call
     49 test.assert-eq
 ;

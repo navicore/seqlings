@@ -1,5 +1,5 @@
 : test-until ( -- )
     3
-    [ dup 100 > ] [ 2 i.multiply ] until
+    [ dup 100 i.> ] [ 2 i.* ] until
     192 test.assert-eq
 ;

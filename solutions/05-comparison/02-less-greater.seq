@@ -1,4 +1,4 @@
 : test-less-greater ( -- )
-    10 7 >
+    10 7 i.>
     test.assert
 ;

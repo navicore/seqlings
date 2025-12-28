@@ -7,8 +7,8 @@
 #   float->int  ( Float -- Int )    Convert float to int (truncates)
 #
 # Example:
-#   42 int->float 0.5 f.add    # 42.5
-#   3.7 float->int             # 3 (truncated, not rounded)
+#   42 int->float 0.5 f.+    # 42.5
+#   3.7 float->int           # 3 (truncated, not rounded)
 #
 # Your task: Multiply the integer 5 by the float 2.5 to get 12.5.
 # You'll need to convert 5 to a float first.

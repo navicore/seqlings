@@ -5,8 +5,8 @@
 # Stack effect: ( n quot -- )
 #
 # Example:
-#   0  5 [ 1 i.add ] times   # Stack: ( 5 )
-#   # Runs [ 1 i.add ] 5 times, so 0 becomes 5
+#   0  5 [ 1 i.+ ] times   # Stack: ( 5 )
+#   # Runs [ 1 i.+ ] 5 times, so 0 becomes 5
 #
 # HIGHER-ORDER INSIGHT:
 # `times` is a combinator - a higher-order word that takes
@@ -23,7 +23,7 @@
 
 : test-times ( -- )
     1
-    # Your code here: run [ dup i.add ] 3 times
+    # Your code here: run [ dup i.+ ] 3 times
     0
     # Do not edit below this line
     8 test.assert-eq

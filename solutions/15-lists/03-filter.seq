@@ -1,5 +1,5 @@
 : long-words-only ( Variant -- Variant )
-    [ string.length 4 > ] list.filter
+    [ string.length 4 i.> ] list.filter
 ;
 
 : test-filter ( -- )

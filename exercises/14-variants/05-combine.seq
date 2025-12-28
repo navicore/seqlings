@@ -42,7 +42,7 @@ union IntResult { Ok { value: Int }, Err { error: String } }
 ;
 
 : test-safe-divide-value ( -- )
-    # 10 / 2 = 5, extract the value using match
+    # 10 / 2 i.= 5, extract the value using match
     10 2 safe-divide
     match
         Ok { >value } -> value

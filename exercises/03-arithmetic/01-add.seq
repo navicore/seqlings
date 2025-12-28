@@ -1,11 +1,12 @@
-# Exercise: i.add
+# Exercise: i.+ (addition)
 #
-# The `i.add` word adds two integers from the stack.
+# The `i.+` operator adds two integers from the stack.
+# (You can also write `i.add` - both forms work.)
 #
 # Stack effect: ( a b -- sum )
 #
 # Example:
-#   3 4 i.add    # Stack: ( 7 )
+#   3 4 i.+    # Stack: ( 7 )
 #
 # Your task: Add 10 and 25 to get 35.
 # When done, delete the marker line below.

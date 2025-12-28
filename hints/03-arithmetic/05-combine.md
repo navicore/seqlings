@@ -9,9 +9,9 @@ Let's compute (10 + 5) * 2:
 ```seq
 10         # Stack: ( 10 )
 5          # Stack: ( 10 5 )
-i.add      # Stack: ( 15 )
+i.+      # Stack: ( 15 )
 2          # Stack: ( 15 2 )
-i.multiply # Stack: ( 30 )
+i.* # Stack: ( 30 )
 ```
 
 ## The Power of Composition
@@ -27,5 +27,5 @@ This pattern is universal in programming: Unix pipes, method chains, functional 
 ## Solution
 
 ```seq
-10 5 i.add 2 i.multiply
+10 5 i.+ 2 i.*
 ```

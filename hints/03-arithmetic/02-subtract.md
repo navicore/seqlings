@@ -1,12 +1,12 @@
-# Hint: i.subtract
+# Hint: i.-
 
-`i.subtract` computes: first operand MINUS second operand.
+`i.-` computes: first operand MINUS second operand.
 
 ## The Order
 
 ```seq
-100 42 i.subtract    # 100 - 42 = 58
-42 100 i.subtract    # 42 - 100 = -58
+100 42 i.-    # 100 - 42 = 58
+42 100 i.-    # 42 - 100 = -58
 ```
 
 The value pushed **first** is the minuend (what you subtract from).
@@ -19,5 +19,5 @@ This matches how you'd read it left-to-right: "100, 42, subtract" means "100 min
 ## Solution
 
 ```seq
-100 42 i.subtract
+100 42 i.-
 ```

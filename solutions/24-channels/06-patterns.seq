@@ -9,7 +9,7 @@
     0 swap
     [ dup chan.receive-safe ]
     [
-        drop rot i.add swap
+        drop rot i.+ swap
     ]
     while
     drop drop

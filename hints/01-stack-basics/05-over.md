@@ -35,7 +35,7 @@ over
 
 ```seq
 : add-and-keep-both ( Int Int -- Int Int Int )
-    over over i.add
+    over over i.+
 ;
 # 3 5 add-and-keep-both leaves ( 3 5 8 )
 ```

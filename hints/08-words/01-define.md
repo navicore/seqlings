@@ -1,14 +1,14 @@
 # Hint: Defining Words
 
 To multiply by 3, you can either:
-- `3 i.multiply`
-- `dup dup i.add i.add` (add to itself twice)
+- `3 i.*`
+- `dup dup i.+ i.+` (add to itself twice)
 
 ## Solution
 
 ```seq
 : triple ( Int -- Int )
-    3 i.multiply
+    3 i.*
 ;
 ```
 

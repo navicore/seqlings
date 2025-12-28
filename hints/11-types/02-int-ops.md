@@ -4,7 +4,7 @@
 
 ```seq
 : test-int-divide ( -- )
-    17 5 i.divide
+    17 5 i./
     3 test.assert-eq
 ;
 
@@ -14,4 +14,4 @@
 ;
 ```
 
-Integer operations: `i.add`, `i.subtract`, `i.multiply`, `i.divide`, `i.mod`
+Integer operations: `i.+`, `i.-`, `i.*`, `i./`, `i.mod`

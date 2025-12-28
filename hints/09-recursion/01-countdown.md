@@ -9,7 +9,7 @@ Sum the numbers from n down to 1.
     dup 0 <= if
         drop 0
     else
-        dup 1 i.subtract countdown i.add
+        dup 1 i.- countdown i.+
     then
 ;
 ```

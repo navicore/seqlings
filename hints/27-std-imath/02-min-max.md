@@ -6,7 +6,7 @@
 : range ( Int Int -- Int )
     2dup imath.max    # Get max
     rot rot imath.min # Get min
-    i.subtract               # max - min
+    i.-               # max - min
 ;
 ```
 
@@ -16,6 +16,6 @@ Or more simply using over:
 : range ( Int Int -- Int )
     over over imath.max
     rot rot imath.min
-    i.subtract
+    i.-
 ;
 ```

@@ -1,15 +1,16 @@
-# Exercise: f.add and f.subtract
+# Exercise: f.+ and f.- (float arithmetic)
 #
 # Float addition and subtraction work like their integer counterparts,
 # but operate on Float types.
+# (Word forms `f.add` and `f.subtract` also work.)
 #
 # Stack effects:
-#   f.add      ( a b -- sum )
-#   f.subtract ( a b -- diff )
+#   f.+ ( a b -- sum )
+#   f.- ( a b -- diff )
 #
 # Example:
-#   1.5 2.5 f.add        # Stack: ( 4.0 )
-#   10.0 3.5 f.subtract  # Stack: ( 6.5 )
+#   1.5 2.5 f.+     # Stack: ( 4.0 )
+#   10.0 3.5 f.-    # Stack: ( 6.5 )
 #
 # Your task: Calculate 3.5 + 1.5 to get 5.0.
 # When done, delete the marker line below.

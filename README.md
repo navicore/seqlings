@@ -108,12 +108,12 @@ Seq is a **stack-based**, **concatenative** language. Values go on a stack, and 
 # Push values onto the stack
 10 20
 
-# i.add pops two values, pushes their sum
-i.add          # Stack: ( 30 )
+# i.+ pops two values, pushes their sum
+i.+          # Stack: ( 30 )
 
 # Define a word (function)
 : square ( Int -- Int )
-    dup i.multiply
+    dup i.*
 ;
 
 # Use it
@@ -133,8 +133,8 @@ rot      # ( a b c -- b c a ) Rotate third to top
 
 **Quotations** are deferred code blocks:
 ```seq
-[ dup i.multiply ]     # A quotation (not executed yet)
-5 [ dup i.multiply ] call   # Execute it: result is 25
+[ dup i.* ]     # A quotation (not executed yet)
+5 [ dup i.* ] call   # Execute it: result is 25
 ```
 
 **Lists** are created from strings:

@@ -6,7 +6,7 @@
 
 ```seq
 7
-[ dup i.multiply ] call
+[ dup i.* ] call
 ```
 
 ## Understanding call
@@ -14,7 +14,7 @@
 `call` is the bridge between "code as data" and "code executing":
 
 ```
-Before call: ( 7 [dup i.multiply] )
+Before call: ( 7 [dup i.*] )
 After call:  ( 49 )
 ```
 

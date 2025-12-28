@@ -8,18 +8,18 @@
 #   then
 #
 # Example:
-#   5 3 > if
-#       42   # Only runs if 5 > 3 (which is true)
+#   5 3 i.> if
+#       42   # Only runs if 5 i.> 3 (which is true)
 #   then
 #
-# Your task: If 10 > 5, push 100 onto the stack.
+# Your task: If 10 i.> 5, push 100 onto the stack.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : test-if-then ( -- )
     # Your code here
-    # Check if 10 > 5, if so push 100
+    # Check if 10 i.> 5, if so push 100
     0
     # Do not edit below this line
     100 test.assert-eq

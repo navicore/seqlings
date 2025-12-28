@@ -3,8 +3,8 @@
 # Seq is statically typed - the compiler checks types at compile time.
 # Each operation works with specific types:
 #
-#   i.add expects two Int values
-#   f.add expects two Float values
+#   i.+ expects two Int values
+#   f.+ expects two Float values
 #   string.concat expects two String values
 #
 # The compiler ensures type safety. You don't need runtime type checks
@@ -16,8 +16,8 @@
 # I AM NOT DONE
 
 : add-integers ( Int Int -- Int )
-    # Add two integers using i.add
-    i.add
+    # Add two integers using i.+
+    i.+
 ;
 
 : test-int-type ( -- )
@@ -27,7 +27,7 @@
 ;
 
 : add-floats ( Float Float -- Float )
-    # Add two floats using f.add
+    # Add two floats using f.+
     # Your code here - replace drop drop with correct code
     drop drop 0.0
 ;

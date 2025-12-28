@@ -6,14 +6,14 @@ fold takes an initial value and combines it with each element.
 
 ```seq
 : sum-list ( List -- Int )
-    0 [ i.add ] list.fold
+    0 [ i.+ ] list.fold
 ;
 ```
 
 ## How fold Works
 
 ```
-[ 10 20 30 40 ] 0 [ i.add ] list.fold
+[ 10 20 30 40 ] 0 [ i.+ ] list.fold
 
 Step 1: acc=0, elem=10  → 0 + 10 = 10
 Step 2: acc=10, elem=20 → 10 + 20 = 30

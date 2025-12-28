@@ -1,5 +1,5 @@
 : test-if-then ( -- )
-    10 5 > if
+    10 5 i.> if
         100
     then
     100 test.assert-eq

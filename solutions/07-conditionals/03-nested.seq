@@ -1,9 +1,9 @@
 : test-nested ( -- )
     15
-    dup 10 > if
+    dup 10 i.> if
         drop 3
     else
-        dup 5 > if
+        dup 5 i.> if
             drop 2
         else
             drop 1

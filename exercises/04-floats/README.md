@@ -24,21 +24,31 @@ Float literals contain a decimal point:
 
 ## Float Operations
 
-Float operations have an `f.` prefix:
+Float operations have an `f.` prefix. Like integer ops, both symbol and word forms work:
 
-| Word         | Effect                    | Description        |
-|--------------|---------------------------|--------------------|
-| `f.add`      | `( a b -- sum )`          | a + b              |
-| `f.subtract` | `( a b -- diff )`         | a - b              |
-| `f.multiply` | `( a b -- product )`      | a × b              |
-| `f.divide`   | `( a b -- quotient )`     | a / b (real div)   |
+| Symbol  | Word Form    | Effect                    | Description        |
+|---------|--------------|---------------------------|--------------------|
+| `f.+`   | `f.add`      | `( a b -- sum )`          | a + b              |
+| `f.-`   | `f.subtract` | `( a b -- diff )`         | a - b              |
+| `f.*`   | `f.multiply` | `( a b -- product )`      | a × b              |
+| `f./`   | `f.divide`   | `( a b -- quotient )`     | a / b (real div)   |
+
+## Float Comparisons
+
+| Symbol  | Word Form | Effect              | Meaning                |
+|---------|-----------|---------------------|------------------------|
+| `f.=`   | `f.eq`    | `( a b -- bool )`   | Equal                  |
+| `f.<`   | `f.lt`    | `( a b -- bool )`   | Less than              |
+| `f.>`   | `f.gt`    | `( a b -- bool )`   | Greater than           |
+| `f.<=`  | `f.lte`   | `( a b -- bool )`   | Less than or equal     |
+| `f.>=`  | `f.gte`   | `( a b -- bool )`   | Greater than or equal  |
 
 ## Type Conversions
 
 To mix ints and floats, you must explicitly convert:
 
 ```seq
-42 int->float 3.14 f.add    # Convert 42 to 42.0, then add
+42 int->float 3.14 f.+    # Convert 42 to 42.0, then add
 ```
 
 This explicitness prevents subtle bugs and teaches you to think about type boundaries.
@@ -48,7 +58,7 @@ This explicitness prevents subtle bugs and teaches you to think about type bound
 Be aware that floats have limited precision:
 
 ```seq
-0.1 0.2 f.add    # Might not equal exactly 0.3!
+0.1 0.2 f.+    # Might not equal exactly 0.3!
 ```
 
 This isn't a Seq quirk - it's how all IEEE 754 floating-point works. Understanding this is essential for any programmer.

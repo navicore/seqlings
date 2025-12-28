@@ -1,5 +1,5 @@
 : string-to-quarter ( String -- Int )
-    string->int int->float 4.0 f.divide float->int
+    string->int int->float 4.0 f./ float->int
 ;
 
 : test-combine ( -- )

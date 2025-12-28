@@ -6,7 +6,7 @@
 #   Where quot transforms ...a into ...b
 #
 # Example:
-#   5 [ 1 i.add ] call    # Stack: ( 6 )
+#   5 [ 1 i.+ ] call    # Stack: ( 6 )
 #
 # HIGHER-ORDER INSIGHT:
 # `call` is itself a higher-order word - it takes a function
@@ -19,7 +19,7 @@
 
 : test-call ( -- )
     7
-    # Your code here: push [ dup i.multiply ] and call it
+    # Your code here: push [ dup i.* ] and call it
     0
     # Do not edit below this line
     49 test.assert-eq

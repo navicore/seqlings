@@ -10,7 +10,7 @@ Use receive-safe in a loop until it returns false.
     [ dup chan.receive-safe ]
     [
         # ( acc chan value true )
-        drop rot i.add swap
+        drop rot i.+ swap
     ]
     while
     # receive-safe returned false

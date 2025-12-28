@@ -1,6 +1,6 @@
 # Hint: Equality (=)
 
-The `=` operator checks if two values are equal.
+The `i.=` operator checks if two values are equal.
 
 ## Solution
 

@@ -1,4 +1,4 @@
 : test-not-equal ( -- )
-    100 99 <>
+    100 99 i.<>
     test.assert
 ;

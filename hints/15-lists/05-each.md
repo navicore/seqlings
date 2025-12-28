@@ -6,7 +6,7 @@ each is for side effects - it doesn't produce a new list.
 
 ```seq
 : print-doubled ( List -- )
-    [ dup i.add int->string io.write-line ] list.each
+    [ dup i.+ int->string io.write-line ] list.each
 ;
 ```
 

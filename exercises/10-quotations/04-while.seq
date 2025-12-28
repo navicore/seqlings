@@ -5,7 +5,7 @@
 # Syntax: condition-quot body-quot while
 #
 # Example:
-#   10 [ dup 0 > ] [ 1 i.subtract ] while   # Counts down to 0
+#   10 [ dup 0 i.> ] [ 1 i.- ] while   # Counts down to 0
 #
 # HIGHER-ORDER INSIGHT:
 # Both the condition AND the body are quotations!
@@ -27,7 +27,7 @@
 : test-while ( -- )
     80
     # Your code here: divide by 2 while >= 10
-    # [ dup 10 >= ] [ 2 i.divide ] while
+    # [ dup 10 i.>= ] [ 2 i./ ] while
     drop 0
     # Do not edit below this line
     5 test.assert-eq

@@ -3,7 +3,7 @@ use std:imath
 : range ( Int Int -- Int )
     over over imath.max
     rot rot imath.min
-    i.subtract
+    i.-
 ;
 
 : test-min ( -- )

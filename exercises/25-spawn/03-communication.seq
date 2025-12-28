@@ -24,7 +24,7 @@
 : test-communication ( -- )
     # This test is simplified - just verify you understand the pattern
     chan.make
-    dup dup [ chan.receive 2 i.multiply chan.send ] spawn drop
+    dup dup [ chan.receive 2 i.* chan.send ] spawn drop
     dup 21 chan.send
     chan.receive
     # Do not edit below this line

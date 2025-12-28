@@ -1,6 +1,6 @@
 # Hint: Less-or-Equal (<=)
 
-`<=` and `>=` include the equality case.
+`i.<=` and `i.>=` include the equality case.
 
 ## Solution
 
@@ -12,7 +12,7 @@
 
 ## Boundary Conditions
 
-`<=` and `>=` are essential for boundary checking:
+`i.<=` and `i.>=` are essential for boundary checking:
 
 ```seq
 index 0 >=           # Is index non-negative?

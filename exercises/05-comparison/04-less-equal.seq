@@ -1,15 +1,16 @@
-# Exercise: Less-or-Equal and Greater-or-Equal
+# Exercise: Less-or-Equal and Greater-or-Equal (i.<= and i.>=)
 #
-# The `<=` and `>=` operators include equality.
+# The `i.<=` and `i.>=` operators include equality.
+# (Word forms `i.lte` and `i.gte` also work.)
 #
 # Stack effects:
-#   <= ( a b -- bool )   true if a <= b
-#   >= ( a b -- bool )   true if a >= b
+#   i.<= ( a b -- bool )   true if a <= b
+#   i.>= ( a b -- bool )   true if a >= b
 #
 # Example:
-#   5 5 <=    # true (5 is less than or equal to 5)
-#   5 5 >=    # true (5 is greater than or equal to 5)
-#   3 5 <=    # true (3 is less than or equal to 5)
+#   5 5 i.<=    # true (5 is less than or equal to 5)
+#   5 5 i.>=    # true (5 is greater than or equal to 5)
+#   3 5 i.<=    # true (3 is less than or equal to 5)
 #
 # Your task: Check if 7 is less than or equal to 7.
 # When done, delete the marker line below.
@@ -17,7 +18,7 @@
 # I AM NOT DONE
 
 : test-less-equal ( -- )
-    # Your code here - is 7 <= 7?
+    # Your code here - is 7 i.<= 7?
     false
     # Do not edit below this line
     test.assert

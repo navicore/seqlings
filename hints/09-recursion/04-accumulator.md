@@ -9,8 +9,8 @@ Carry the result-so-far as a parameter.
     over 0 <= if
         nip   # Return accumulator
     else
-        over i.add      # acc + n
-        swap 1 i.subtract swap   # n-1, new-acc
+        over i.+      # acc + n
+        swap 1 i.- swap   # n-1, new-acc
         sum-to-acc
     then
 ;

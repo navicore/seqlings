@@ -1,6 +1,6 @@
 # Exercise: Float Comparisons
 #
-# Float comparison operators:
+# Float comparison operators (word forms also available, e.g., f.gt, f.lt):
 #   f.=   ( a b -- bool )   Equal
 #   f.<>  ( a b -- bool )   Not equal
 #   f.<   ( a b -- bool )   Less than
@@ -9,10 +9,10 @@
 #   f.>=  ( a b -- bool )   Greater or equal
 #
 # Example:
-#   3.14 2.0 f.>    # true (3.14 > 2.0)
+#   3.14 2.0 f.>    # true (3.14 i.> 2.0)
 #   1.0 1.0 f.=     # true
 #
-# Your task: Compare 5.5 and 3.0. Is 5.5 > 3.0?
+# Your task: Compare 5.5 and 3.0. Is 5.5 i.> 3.0?
 # The result should be true.
 # When done, delete the marker line below.
 

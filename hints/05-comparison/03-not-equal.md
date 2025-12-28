@@ -1,6 +1,6 @@
 # Hint: Not Equal (<>)
 
-`<>` is the negation of `=`.
+`i.<>` is the negation of `i.=`.
 
 ## Solution
 
@@ -12,4 +12,4 @@
 
 ## The <> Symbol
 
-The `<>` notation comes from mathematics and older programming languages. Think of it as "less than OR greater than" - if either is true, the values aren't equal.
+The `i.<>` notation comes from mathematics and older programming languages. Think of it as "less than OR greater than" - if either is true, the values aren't equal.

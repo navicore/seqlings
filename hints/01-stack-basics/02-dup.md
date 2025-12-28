@@ -25,7 +25,7 @@ Replace `0 0` with `7 dup`.
 
 ```seq
 : square ( Int -- Int )
-    dup i.multiply
+    dup i.*
 ;
 # 5 square leaves 25 on the stack
 ```

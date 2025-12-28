@@ -1,6 +1,6 @@
 : count-a-word-chars ( Variant -- Int )
-    [ 0 string.char-at 97 = ] list.filter
-    0 [ string.length i.add ] list.fold
+    [ 0 string.char-at 97 i.= ] list.filter
+    0 [ string.length i.+ ] list.fold
 ;
 
 : test-combine ( -- )

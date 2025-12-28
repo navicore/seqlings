@@ -1,5 +1,5 @@
 : square ( Int -- Int )
-    dup i.multiply
+    dup i.*
 ;
 
 : fourth-power ( Int -- Int )

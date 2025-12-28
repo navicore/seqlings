@@ -18,11 +18,11 @@ Converts a float to an integer by truncating toward zero:
 ## Solution
 
 ```seq
-7 int->float 0.5 f.add float->int
+7 int->float 0.5 f.+ float->int
 ```
 
 1. `7 int->float` gives 7.0
-2. `0.5 f.add` gives 7.5
+2. `0.5 f.+` gives 7.5
 3. `float->int` truncates to 7
 
 ## Key Insight

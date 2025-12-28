@@ -31,7 +31,7 @@ swap
 
 ```seq
 : subtract-from-10 ( Int -- Int )
-    10 swap i.subtract
+    10 swap i.-
 ;
 # 3 subtract-from-10 leaves 7 on the stack (10 - 3)
 ```

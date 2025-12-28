@@ -1,4 +1,4 @@
 : test-combine ( -- )
-    10 5 i.add 2 i.multiply
+    10 5 i.+ 2 i.*
     30 test.assert-eq
 ;

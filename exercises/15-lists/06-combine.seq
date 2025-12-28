@@ -4,8 +4,8 @@
 #
 # Example: Get total length of long words
 #   "a be see deep" " " string.split
-#   [ string.length 2 > ] list.filter   # keeps "see" "deep"
-#   0 [ string.length i.add ] list.fold  # 7 (3 + 4)
+#   [ string.length 2 i.> ] list.filter   # keeps "see" "deep"
+#   0 [ string.length i.+ ] list.fold  # 7 (3 + 4)
 #
 # HIGHER-ORDER INSIGHT:
 # Each operation is a building block. Combine them to express
@@ -22,9 +22,9 @@
 
 : count-a-word-chars ( Variant -- Int )
     # Your code here
-    # Step 1: filter words starting with 'a' using [ 0 string.char-at 97 = ]
+    # Step 1: filter words starting with 'a' using [ 0 string.char-at 97 i.= ]
     #         (97 is ASCII for 'a')
-    # Step 2: fold with [ string.length i.add ], starting from 0
+    # Step 2: fold with [ string.length i.+ ], starting from 0
     drop 0
 ;
 

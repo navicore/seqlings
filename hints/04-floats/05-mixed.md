@@ -12,7 +12,7 @@ When mixing integers and floats, you must explicitly convert.
 ## Solution
 
 ```seq
-5 int->float 2.5 f.multiply
+5 int->float 2.5 f.*
 ```
 
 Step by step:

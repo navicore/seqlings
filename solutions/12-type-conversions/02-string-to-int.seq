@@ -1,4 +1,4 @@
 : test-string-to-int ( -- )
-    "42" string->int 2 i.multiply
+    "42" string->int 2 i.*
     84 test.assert-eq
 ;

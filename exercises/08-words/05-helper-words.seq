@@ -5,7 +5,7 @@
 #
 # Example: A temperature converter
 #   : c-to-f ( Int -- Int )
-#       9 i.multiply 5 i.divide 32 i.add
+#       9 i.* 5 i./ 32 i.+
 #   ;
 #   # Now you can think in terms of c-to-f, not the formula
 #

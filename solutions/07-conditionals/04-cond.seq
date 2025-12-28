@@ -1,8 +1,8 @@
 : classify-grade ( Int -- Int )
     cond
-        dup 90 >= -> drop 4
-        dup 80 >= -> drop 3
-        dup 70 >= -> drop 2
+        dup 90 i.>= -> drop 4
+        dup 80 i.>= -> drop 3
+        dup 70 i.>= -> drop 2
         otherwise -> drop 1
     end
 ;

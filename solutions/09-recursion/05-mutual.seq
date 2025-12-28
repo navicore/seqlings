@@ -1,18 +1,18 @@
 : is-odd? ( Int -- Bool ) drop false ;
 
 : is-even? ( Int -- Bool )
-    dup 0 = if
+    dup 0 i.= if
         drop true
     else
-        1 i.subtract is-odd?
+        1 i.- is-odd?
     then
 ;
 
 : is-odd? ( Int -- Bool )
-    dup 0 = if
+    dup 0 i.= if
         drop false
     else
-        1 i.subtract is-even?
+        1 i.- is-even?
     then
 ;
 

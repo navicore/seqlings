@@ -37,5 +37,5 @@
 : test-accumulator ( -- )
     100 sum-to
     # Do not edit below this line
-    5050 test.assert-eq   # 1+2+...+100 = 5050
+    5050 test.assert-eq   # 1+2+...+100 i.= 5050
 ;

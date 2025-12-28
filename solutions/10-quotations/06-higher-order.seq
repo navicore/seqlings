@@ -3,9 +3,9 @@
 ;
 
 : test-higher-order ( -- )
-    5 [ 3 i.add ] apply-twice
+    5 [ 3 i.+ ] apply-twice
     11 test.assert-eq
 
-    2 [ dup i.multiply ] apply-twice
+    2 [ dup i.* ] apply-twice
     16 test.assert-eq
 ;

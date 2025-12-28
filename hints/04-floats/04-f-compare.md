@@ -22,7 +22,7 @@ Float comparisons produce boolean results (true/false).
 Be careful with `f.=` on computed values:
 
 ```seq
-0.1 0.2 f.add 0.3 f.=    # Might be false!
+0.1 0.2 f.+ 0.3 f.=    # Might be false!
 ```
 
 Due to floating-point representation, `0.1 + 0.2` may not equal exactly `0.3`. For computed values, compare within a tolerance instead of exact equality. This is a fundamental issue in all programming languages.

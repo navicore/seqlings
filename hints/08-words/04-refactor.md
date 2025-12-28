@@ -6,14 +6,14 @@
 
 ```seq
 : increment-double ( Int -- Int )
-    1 i.add dup i.add
+    1 i.+ dup i.+
 ;
 ```
 
 Or equivalently:
 ```seq
 : increment-double ( Int -- Int )
-    1 i.add 2 i.multiply
+    1 i.+ 2 i.*
 ;
 ```
 

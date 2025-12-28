@@ -9,7 +9,7 @@ n! = n × (n-1)!
     dup 1 <= if
         drop 1
     else
-        dup 1 i.subtract factorial i.multiply
+        dup 1 i.- factorial i.*
     then
 ;
 ```

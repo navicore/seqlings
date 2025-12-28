@@ -1,14 +1,15 @@
-# Exercise: i.subtract
+# Exercise: i.- (subtraction)
 #
-# The `i.subtract` word subtracts the top value FROM the second value.
+# The `i.-` operator subtracts the top value FROM the second value.
+# (You can also write `i.subtract` - both forms work.)
 # This order is important!
 #
 # Stack effect: ( a b -- difference )
 #   Result is: a - b (NOT b - a)
 #
 # Example:
-#   10 3 i.subtract    # Stack: ( 7 )  because 10 - 3 = 7
-#   3 10 i.subtract    # Stack: ( -7 ) because 3 - 10 = -7
+#   10 3 i.-    # Stack: ( 7 )  because 10 - 3 = 7
+#   3 10 i.-    # Stack: ( -7 ) because 3 - 10 = -7
 #
 # Your task: Calculate 100 - 42 to get 58.
 # When done, delete the marker line below.

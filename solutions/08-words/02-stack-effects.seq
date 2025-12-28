@@ -1,6 +1,6 @@
 : sum-and-product ( Int Int -- Int Int )
-    2dup i.multiply
-    rot rot i.add
+    2dup i.*
+    rot rot i.+
 ;
 
 : test-stack-effects ( -- )

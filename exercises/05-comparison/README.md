@@ -10,22 +10,26 @@ Comparison operators produce boolean values:
 
 ## Integer Comparison Operators
 
-| Word  | Effect              | Meaning                |
-|-------|---------------------|------------------------|
-| `=`   | `( a b -- bool )`   | Equal                  |
-| `<>`  | `( a b -- bool )`   | Not equal              |
-| `<`   | `( a b -- bool )`   | Less than              |
-| `>`   | `( a b -- bool )`   | Greater than           |
-| `<=`  | `( a b -- bool )`   | Less than or equal     |
-| `>=`  | `( a b -- bool )`   | Greater than or equal  |
+Like arithmetic, comparison operators are prefixed with `i.` for integers:
+
+| Symbol  | Word Form    | Effect              | Meaning                |
+|---------|--------------|---------------------|------------------------|
+| `i.=`   | `i.eq`       | `( a b -- bool )`   | Equal                  |
+| `i.<>`  | `i.neq`      | `( a b -- bool )`   | Not equal              |
+| `i.<`   | `i.lt`       | `( a b -- bool )`   | Less than              |
+| `i.>`   | `i.gt`       | `( a b -- bool )`   | Greater than           |
+| `i.<=`  | `i.lte`      | `( a b -- bool )`   | Less than or equal     |
+| `i.>=`  | `i.gte`      | `( a b -- bool )`   | Greater than or equal  |
+
+Both forms are equivalent - use whichever reads better in context. Symbol forms are more common in practice.
 
 ## Operand Order
 
 For non-symmetric comparisons, order matters:
 
 ```seq
-3 5 <    # true  (3 < 5)
-5 3 <    # false (5 < 3)
+3 5 i.<    # true  (3 < 5)
+5 3 i.<    # false (5 < 3)
 ```
 
 Think: "first value, compared to second value."
@@ -45,8 +49,8 @@ This is **abstraction** - hiding the details of the numbers and exposing only th
 Multiple comparisons can be chained:
 
 ```seq
-10 5 >    # true
-3 =       # Compare 10>5 result (true) with 3? Type error!
+10 5 i.>    # true
+3 i.=       # Compare 10>5 result (true) with 3? Type error!
 ```
 
 Wait - that's a type error! Booleans and integers are different types. You can't compare `true` with `3`. To check multiple conditions, you need boolean logic (next section).

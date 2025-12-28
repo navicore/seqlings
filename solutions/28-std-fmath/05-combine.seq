@@ -1,27 +1,27 @@
 use std:fmath
 
 : circle-area ( Float -- Float )
-    dup f.multiply fmath.pi f.multiply
+    dup f.* fmath.pi f.*
 ;
 
 : test-circle-area ( -- )
     2.0 circle-area
-    12.566 f.subtract fmath.abs 0.01 f.< test.assert
+    12.566 f.- fmath.abs 0.01 f.< test.assert
 ;
 
 : degrees-to-radians ( Float -- Float )
-    fmath.pi f.multiply 180.0 f.divide
+    fmath.pi f.* 180.0 f./
 ;
 
 : test-degrees ( -- )
     180.0 degrees-to-radians
-    fmath.pi f.subtract fmath.abs 0.0001 f.< test.assert
+    fmath.pi f.- fmath.abs 0.0001 f.< test.assert
 ;
 
 : distance ( Float Float Float Float -- Float )
-    rot f.subtract dup f.multiply
-    rot rot f.subtract dup f.multiply
-    f.add fmath.sqrt
+    rot f.- dup f.*
+    rot rot f.- dup f.*
+    f.+ fmath.sqrt
 ;
 
 : test-distance ( -- )

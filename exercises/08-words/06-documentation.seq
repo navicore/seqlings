@@ -4,13 +4,13 @@
 #
 # BAD:
 #   : f ( Int Int -- Int )
-#       swap dup rot i.add i.multiply
+#       swap dup rot i.+ i.*
 #   ;
 #
 # GOOD:
 #   : weighted-sum ( value weight -- result )
 #       # Computes: value * weight + weight
-#       swap dup rot i.add i.multiply
+#       swap dup rot i.+ i.*
 #   ;
 #
 # Your task: Implement `clamp` that restricts a value to a range.

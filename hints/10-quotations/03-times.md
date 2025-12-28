@@ -6,7 +6,7 @@
 
 ```seq
 1
-3 [ dup i.add ] times
+3 [ dup i.+ ] times
 ```
 
 Trace:
@@ -27,7 +27,7 @@ for (let i = 0; i < 3; i++) {
 }
 
 // Higher-order (what to do)
-1 3 [ dup i.add ] times
+1 3 [ dup i.+ ] times
 ```
 
 The higher-order version says WHAT (double) and HOW MANY (3), not HOW to loop.

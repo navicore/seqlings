@@ -3,10 +3,10 @@
 # Conditionals can be nested inside each other.
 #
 # Example: Classify a number as positive, negative, or zero
-#   x 0 > if
+#   x 0 i.> if
 #       "positive"
 #   else
-#       x 0 < if
+#       x 0 i.< if
 #           "negative"
 #       else
 #           "zero"
@@ -17,7 +17,7 @@
 #   - If > 10, push 3
 #   - Else if > 5, push 2
 #   - Else push 1
-# Since 15 > 10, the answer should be 3.
+# Since 15 i.> 10, the answer should be 3.
 # When done, delete the marker line below.
 
 # I AM NOT DONE

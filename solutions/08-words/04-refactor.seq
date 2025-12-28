@@ -1,5 +1,5 @@
 : increment-double ( Int -- Int )
-    1 i.add dup i.add
+    1 i.+ dup i.+
 ;
 
 : test-refactor ( -- )

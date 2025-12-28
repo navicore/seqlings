@@ -5,12 +5,12 @@ The `string->int` function parses a string as an integer.
 ## Solution
 
 ```seq
-"42" string->int 2 i.multiply
+"42" string->int 2 i.*
 ```
 
 1. `"42"` pushes the string
 2. `string->int` parses it to integer 42
-3. `2 i.multiply` multiplies by 2
+3. `2 i.*` multiplies by 2
 
 ## Note on Parsing
 

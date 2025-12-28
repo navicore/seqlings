@@ -16,11 +16,11 @@
     # Count up, yielding each iteration
     # This is cooperative - we're being a good citizen
     0 swap
-    [ dup 0 > ]
+    [ dup 0 i.> ]
     [
         chan.yield   # Let other strands run
-        swap 1 i.add swap
-        1 i.subtract
+        swap 1 i.+ swap
+        1 i.-
     ]
     while
     drop

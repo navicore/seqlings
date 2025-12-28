@@ -1,5 +1,5 @@
 : triple ( Int -- Int )
-    3 i.multiply
+    3 i.*
 ;
 
 : test-define ( -- )

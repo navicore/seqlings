@@ -4,9 +4,9 @@
 # But first, let's see how to structure a compound check.
 #
 # Example: Is x between 1 and 10 (inclusive)?
-#   x 1 >=    # Is x >= 1?
-#   x 10 <=   # Is x <= 10?
-#   and       # Both must be true
+#   x 1 i.>=    # Is x >= 1?
+#   x 10 i.<=   # Is x <= 10?
+#   and         # Both must be true
 #
 # But wait - we need to keep x around for both comparisons!
 # That's where dup comes in handy.
@@ -19,8 +19,8 @@
 
 : test-chaining ( -- )
     # Your code here
-    # Check: 5 > 3 AND 5 < 10
-    # Strategy: 5 dup 3 > swap 10 < and
+    # Check: 5 i.> 3 AND 5 i.< 10
+    # Strategy: 5 dup 3 i.> swap 10 i.< and
     false
     # Do not edit below this line
     test.assert

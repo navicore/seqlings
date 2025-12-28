@@ -9,7 +9,7 @@
 #
 # Example:
 #   : double ( Int -- Int )
-#       dup i.add
+#       dup i.+
 #   ;
 #   # Now: 5 double leaves 10 on the stack
 #

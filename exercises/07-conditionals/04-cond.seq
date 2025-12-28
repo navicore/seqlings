@@ -11,8 +11,8 @@
 #
 # Example:
 #   cond
-#       x 0 < -> "negative"
-#       x 0 > -> "positive"
+#       x 0 i.< -> "negative"
+#       x 0 i.> -> "positive"
 #       otherwise -> "zero"
 #   end
 #

@@ -4,12 +4,12 @@
 # The order of words IS the order of operations.
 #
 # Infix: (3 + 4) * (10 - 2)
-# Postfix: 3 4 i.add  10 2 i.subtract  i.multiply
+# Postfix: 3 4 i.+  10 2 i.-  i.*
 #
 # Let's trace it:
-#   3 4 i.add           # Stack: ( 7 )
-#   10 2 i.subtract     # Stack: ( 7 8 )
-#   i.multiply          # Stack: ( 56 )
+#   3 4 i.+     # Stack: ( 7 )
+#   10 2 i.-    # Stack: ( 7 8 )
+#   i.*         # Stack: ( 56 )
 #
 # Your task: Calculate (20 - 5) * (8 + 2) to get 150.
 # Break it down: 20-5=15, 8+2=10, 15*10=150

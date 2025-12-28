@@ -1,11 +1,11 @@
-# Hint: i.add
+# Hint: i.+
 
-`i.add` takes two integers from the stack and pushes their sum.
+`i.+` takes two integers from the stack and pushes their sum.
 
 ## The Pattern
 
 ```seq
-a b i.add    # Leaves (a + b) on stack
+a b i.+    # Leaves (a + b) on stack
 ```
 
 ## Solution
@@ -13,9 +13,9 @@ a b i.add    # Leaves (a + b) on stack
 Push 10, push 25, then add:
 
 ```seq
-10 25 i.add
+10 25 i.+
 ```
 
 ## Thinking in Transformations
 
-Every operation transforms the stack. `i.add` transforms `( a b )` into `( sum )`. This transformation mindset is key to functional programming - data flows through a series of transformations.
+Every operation transforms the stack. `i.+` transforms `( a b )` into `( sum )`. This transformation mindset is key to functional programming - data flows through a series of transformations.

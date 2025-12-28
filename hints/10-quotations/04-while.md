@@ -6,7 +6,7 @@
 
 ```seq
 80
-[ dup 10 >= ] [ 2 i.divide ] while
+[ dup 10 >= ] [ 2 i./ ] while
 ```
 
 Trace:

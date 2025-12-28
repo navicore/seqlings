@@ -1,9 +1,9 @@
 : sum-to-acc ( Int Int -- Int )
-    over 0 <= if
+    over 0 i.<= if
         nip
     else
-        over i.add
-        swap 1 i.subtract swap
+        over i.+
+        swap 1 i.- swap
         sum-to-acc
     then
 ;

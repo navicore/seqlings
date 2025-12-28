@@ -1,14 +1,15 @@
-# Exercise: Less Than and Greater Than
+# Exercise: Less Than and Greater Than (i.< and i.>)
 #
-# The `<` and `>` operators compare two integers.
+# The `i.<` and `i.>` operators compare two integers.
+# (Word forms `i.lt` and `i.gt` also work.)
 #
 # Stack effects:
-#   < ( a b -- bool )   true if a < b
-#   > ( a b -- bool )   true if a > b
+#   i.< ( a b -- bool )   true if a < b
+#   i.> ( a b -- bool )   true if a > b
 #
 # Example:
-#   3 5 <    # true (3 is less than 5)
-#   3 5 >    # false (3 is not greater than 5)
+#   3 5 i.<    # true (3 is less than 5)
+#   3 5 i.>    # false (3 is not greater than 5)
 #
 # Your task: Check if 10 is greater than 7.
 # When done, delete the marker line below.
@@ -16,7 +17,7 @@
 # I AM NOT DONE
 
 : test-less-greater ( -- )
-    # Your code here - is 10 > 7?
+    # Your code here - is 10 i.> 7?
     false
     # Do not edit below this line
     test.assert

@@ -15,7 +15,7 @@
 #
 # Your task: Define `countdown` that counts from n down to 1.
 # It should return the sum of all numbers counted.
-# countdown(3) = 3 + 2 + 1 = 6
+# countdown(3) = 3 + 2 + 1 i.= 6
 #
 # Base case: n <= 0 returns 0
 # Recursive case: n + countdown(n-1)
@@ -32,5 +32,5 @@
 : test-countdown ( -- )
     5 countdown
     # Do not edit below this line
-    15 test.assert-eq   # 5+4+3+2+1 = 15
+    15 test.assert-eq   # 5+4+3+2+1 i.= 15
 ;

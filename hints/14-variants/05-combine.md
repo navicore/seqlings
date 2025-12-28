@@ -6,7 +6,7 @@
 : safe-divide ( Int Int -- Result )
     dup 0 =
     [ drop drop "division by zero" Err ]
-    [ i.divide Ok ]
+    [ i./ Ok ]
     if-else
 ;
 ```

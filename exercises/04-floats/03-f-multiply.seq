@@ -1,15 +1,16 @@
-# Exercise: f.multiply and f.divide
+# Exercise: f.* and f./ (float multiplication and division)
 #
 # Float multiplication and division.
-# Unlike integer division, f.divide produces a true quotient.
+# Unlike integer division, f./ produces a true quotient.
+# (Word forms `f.multiply` and `f.divide` also work.)
 #
 # Stack effects:
-#   f.multiply ( a b -- product )
-#   f.divide   ( a b -- quotient )
+#   f.* ( a b -- product )
+#   f./ ( a b -- quotient )
 #
 # Example:
-#   2.5 4.0 f.multiply   # Stack: ( 10.0 )
-#   7.0 2.0 f.divide     # Stack: ( 3.5 ) - not truncated!
+#   2.5 4.0 f.*    # Stack: ( 10.0 )
+#   7.0 2.0 f./    # Stack: ( 3.5 ) - not truncated!
 #
 # Your task: Calculate 15.0 / 4.0 to get 3.75.
 # When done, delete the marker line below.

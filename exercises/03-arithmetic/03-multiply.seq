@@ -1,11 +1,12 @@
-# Exercise: i.multiply
+# Exercise: i.* (multiplication)
 #
-# The `i.multiply` word multiplies two integers.
+# The `i.*` operator multiplies two integers.
+# (You can also write `i.multiply` - both forms work.)
 #
 # Stack effect: ( a b -- product )
 #
 # Example:
-#   6 7 i.multiply    # Stack: ( 42 )
+#   6 7 i.*    # Stack: ( 42 )
 #
 # Your task: Calculate 12 * 5 to get 60.
 # When done, delete the marker line below.

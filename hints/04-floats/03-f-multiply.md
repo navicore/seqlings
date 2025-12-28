@@ -1,18 +1,18 @@
-# Hint: f.multiply and f.divide
+# Hint: f.* and f./
 
 Float division gives you the true quotient, not a truncated integer.
 
 ## The Key Difference
 
 ```seq
-7 2 i.divide      # Integer division: 3
-7.0 2.0 f.divide  # Float division: 3.5
+7 2 i./      # Integer division: 3
+7.0 2.0 f./  # Float division: 3.5
 ```
 
 ## Solution
 
 ```seq
-15.0 4.0 f.divide
+15.0 4.0 f./
 ```
 
 Result: 3.75

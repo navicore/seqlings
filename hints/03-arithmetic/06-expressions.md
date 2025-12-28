@@ -15,9 +15,9 @@ Infix: (20 - 5) * (8 + 2)
 ## Stack Trace
 
 ```seq
-20 5 i.subtract    # Stack: ( 15 )
-8 2 i.add          # Stack: ( 15 10 )
-i.multiply         # Stack: ( 150 )
+20 5 i.-    # Stack: ( 15 )
+8 2 i.+          # Stack: ( 15 10 )
+i.*         # Stack: ( 150 )
 ```
 
 After step 1, the 15 stays on the stack. After step 2, both 15 and 10 are there. The final multiply consumes both.
@@ -29,5 +29,5 @@ In postfix notation, the structure is implicit in the order. No parentheses need
 ## Solution
 
 ```seq
-20 5 i.subtract 8 2 i.add i.multiply
+20 5 i.- 8 2 i.+ i.*
 ```

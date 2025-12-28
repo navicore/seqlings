@@ -1,8 +1,8 @@
 : factorial ( Int -- Int )
-    dup 1 <= if
+    dup 1 i.<= if
         drop 1
     else
-        dup 1 i.subtract factorial i.multiply
+        dup 1 i.- factorial i.*
     then
 ;
 

@@ -33,7 +33,7 @@ use std:imath
 ;
 
 : test-bounded-power ( -- )
-    # 2^10 = 1024, clamped to [0, 500] = 500
+    # 2^10 i.= 1024, clamped to [0, 500] = 500
     2 10 0 500 bounded-power
 
     # Do not edit below this line

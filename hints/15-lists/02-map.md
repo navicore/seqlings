@@ -6,14 +6,14 @@ Apply a transformation to every element.
 
 ```seq
 : double-all ( List -- List )
-    [ dup i.add ] list.map
+    [ dup i.+ ] list.map
 ;
 ```
 
 Or equivalently:
 ```seq
 : double-all ( List -- List )
-    [ 2 i.multiply ] list.map
+    [ 2 i.* ] list.map
 ;
 ```
 
@@ -22,6 +22,6 @@ Or equivalently:
 map is everywhere:
 - JavaScript: `arr.map(x => x * 2)`
 - Python: `list(map(lambda x: x * 2, lst))`
-- Seq: `list [ 2 i.multiply ] list.map`
+- Seq: `list [ 2 i.* ] list.map`
 
 Same concept, different syntax.

@@ -1,4 +1,4 @@
 : test-chaining ( -- )
-    5 dup 3 > swap 10 < and
+    5 dup 3 i.> swap 10 i.< and
     test.assert
 ;

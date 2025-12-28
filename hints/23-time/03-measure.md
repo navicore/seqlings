@@ -5,7 +5,7 @@
 ```seq
 : elapsed-is-non-negative ( -- Bool )
     time.now
-    time.now swap i.subtract
+    time.now swap i.-
     0 >=
 ;
 ```

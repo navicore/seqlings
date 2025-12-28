@@ -1,11 +1,11 @@
 : test-worker-pool ( -- )
     chan.make
     chan.make
-    over over [ chan.receive 1 i.add chan.send ] spawn drop
-    over over [ chan.receive 1 i.add chan.send ] spawn drop
+    over over [ chan.receive 1 i.+ chan.send ] spawn drop
+    over over [ chan.receive 1 i.+ chan.send ] spawn drop
     over 10 chan.send
     over 20 chan.send
-    dup chan.receive swap chan.receive i.add
+    dup chan.receive swap chan.receive i.+
     nip nip
     32 test.assert-eq
 ;

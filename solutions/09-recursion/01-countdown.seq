@@ -1,8 +1,8 @@
 : countdown ( Int -- Int )
-    dup 0 <= if
+    dup 0 i.<= if
         drop 0
     else
-        dup 1 i.subtract countdown i.add
+        dup 1 i.- countdown i.+
     then
 ;
 

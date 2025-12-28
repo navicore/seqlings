@@ -1,12 +1,13 @@
-# Exercise: Equality (=)
+# Exercise: Equality (i.=)
 #
-# The `=` operator tests if two integers are equal.
+# The `i.=` operator tests if two integers are equal.
+# (You can also write `i.eq` - both forms work.)
 #
 # Stack effect: ( a b -- bool )
 #
 # Example:
-#   5 5 =    # true
-#   5 3 =    # false
+#   5 5 i.=    # true
+#   5 3 i.=    # false
 #
 # Your task: Check if 42 equals 42.
 # When done, delete the marker line below.

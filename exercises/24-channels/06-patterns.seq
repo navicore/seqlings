@@ -37,5 +37,5 @@
     dup produce-values
     sum-from-channel
     # Do not edit below this line
-    6 test.assert-eq   # 1 + 2 + 3 = 6
+    6 test.assert-eq   # 1 + 2 + 3 i.= 6
 ;

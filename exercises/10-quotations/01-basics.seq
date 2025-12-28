@@ -4,11 +4,11 @@
 # It is NOT executed immediately - it's a VALUE.
 #
 # Example:
-#   [ 1 i.add ]    # This is data, not executed yet
+#   [ 1 i.+ ]    # This is data, not executed yet
 #
 # Quotations can be placed on the stack like any other value.
 #
-# Your task: Create a quotation that doubles a number (dup i.add)
+# Your task: Create a quotation that doubles a number (dup i.+)
 # and put it on the stack. Don't call it yet!
 #
 # IMPORTANT: You are learning HIGHER-ORDER PROGRAMMING.
@@ -21,7 +21,7 @@
 
 : test-basics ( -- )
     5
-    # Your code here - push a quotation [ dup i.add ] onto the stack
+    # Your code here - push a quotation [ dup i.+ ] onto the stack
     # Then call it
     drop
     0

@@ -1,24 +1,24 @@
-# Hint: f.add
+# Hint: f.+
 
-`f.add` works just like `i.add`, but for floats.
+`f.+` works just like `i.+`, but for floats.
 
 ## The Pattern
 
 ```seq
-a b f.add    # Leaves (a + b) as a float
+a b f.+    # Leaves (a + b) as a float
 ```
 
 ## Solution
 
 ```seq
-3.5 1.5 f.add
+3.5 1.5 f.+
 ```
 
 ## Why Separate Operations?
 
-You might wonder why Seq has `i.add` and `f.add` instead of just `add`.
+You might wonder why Seq has `i.+` and `f.+` instead of just `add`.
 
-The answer: **explicit is better than implicit**. When you write `f.add`, you know:
+The answer: **explicit is better than implicit**. When you write `f.+`, you know:
 - Both operands must be floats
 - The result will be a float
 - Float arithmetic rules apply (including precision limits)

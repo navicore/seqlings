@@ -7,7 +7,7 @@ Chain filter then fold.
 ```seq
 : product-of-odds ( List -- Int )
     [ 2 i.mod 1 = ] list.filter
-    1 [ i.multiply ] list.fold
+    1 [ i.* ] list.fold
 ;
 ```
 

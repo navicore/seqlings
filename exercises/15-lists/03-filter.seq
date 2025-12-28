@@ -5,7 +5,7 @@
 # Stack effect: ( Variant Quotation -- Variant )
 #
 # Example:
-#   "apple banana cherry" " " string.split [ string.length 5 > ] list.filter
+#   "apple banana cherry" " " string.split [ string.length 5 i.> ] list.filter
 #   # Keeps only "banana" and "cherry" (length > 5)
 #
 # HIGHER-ORDER PATTERN:
@@ -19,7 +19,7 @@
 
 : long-words-only ( Variant -- Variant )
     # Your code here - use list.filter
-    # Hint: [ string.length 4 > ] is the predicate
+    # Hint: [ string.length 4 i.> ] is the predicate
     drop "x" " " string.split
 ;
 

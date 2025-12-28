@@ -6,7 +6,7 @@ Each type has its own operations:
 
 ```seq
 : add-floats ( Float Float -- Float )
-    f.add
+    f.+
 ;
 
 : concat-strings ( String String -- String )
@@ -14,4 +14,4 @@ Each type has its own operations:
 ;
 ```
 
-Use `i.add` for integers, `f.add` for floats, `string.concat` for strings.
+Use `i.+` for integers, `f.+` for floats, `string.concat` for strings.

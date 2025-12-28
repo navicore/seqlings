@@ -12,8 +12,8 @@
 # Your task: Define `apply-twice` that runs a quotation 2 times.
 #
 # Example:
-#   5 [ 1 i.add ] apply-twice   # 5→6→7, result: 7
-#   3 [ dup i.multiply ] apply-twice  # 3→9→81, result: 81
+#   5 [ 1 i.+ ] apply-twice   # 5→6→7, result: 7
+#   3 [ dup i.* ] apply-twice  # 3→9→81, result: 81
 #
 # Hint: You could use `times`, or just call twice!
 # When done, delete the marker line below.
@@ -27,10 +27,10 @@
 ;
 
 : test-higher-order ( -- )
-    5 [ 3 i.add ] apply-twice
+    5 [ 3 i.+ ] apply-twice
     # Do not edit below this line
-    11 test.assert-eq   # 5+3+3 = 11
+    11 test.assert-eq   # 5+3+3 i.= 11
 
-    2 [ dup i.multiply ] apply-twice
+    2 [ dup i.* ] apply-twice
     16 test.assert-eq   # 2→4→16
 ;

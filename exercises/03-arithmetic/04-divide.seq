@@ -1,13 +1,14 @@
-# Exercise: i.divide
+# Exercise: i./ (division)
 #
-# The `i.divide` word performs INTEGER division (rounds toward zero).
+# The `i./` operator performs INTEGER division (rounds toward zero).
+# (You can also write `i.divide` - both forms work.)
 #
 # Stack effect: ( a b -- quotient )
 #   Result is: a / b
 #
 # Example:
-#   20 4 i.divide    # Stack: ( 5 )
-#   17 5 i.divide    # Stack: ( 3 )  - remainder is discarded
+#   20 4 i./    # Stack: ( 5 )
+#   17 5 i./    # Stack: ( 3 )  - remainder is discarded
 #
 # Your task: Calculate 100 / 8 (integer division gives 12).
 # When done, delete the marker line below.
