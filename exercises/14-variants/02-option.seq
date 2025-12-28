@@ -2,45 +2,56 @@
 #
 # The Option type represents a value that might or might not exist.
 #
-# variant Option
-#     | Some value
-#     | None
-# end
+# union Option { Some { value: Int }, None }
+#
+# The compiler generates:
+#   Make-Some  ( Int -- Option )
+#   Make-None  ( -- Option )
 #
 # Examples:
-#   42 Some      # An Option containing 42
-#   None         # An empty Option
+#   42 Make-Some     # An Option containing 42
+#   Make-None        # An empty Option
+#
+# Check which variant using variant.tag:
+#   Make-Some has tag 0, Make-None has tag 1
 #
 # Your task: Create and use Option values
 #
 # When done, delete the marker line below.
 
-variant Option
-    | Some value
-    | None
-end
+union Option { Some { value: Int }, None }
 
 # I AM NOT DONE
 
+# Helper to check if Option is Some (tag 0)
+: is-some? ( Option -- Int )
+    variant.tag 0 =
+;
+
+# Helper to check if Option is None (tag 1)
+: is-none? ( Option -- Int )
+    variant.tag 1 =
+;
+
 : test-some ( -- )
-    100 Some Some?
+    100 Make-Some is-some?
 
     # Do not edit below this line
-    true test.assert-eq
+    test.assert
 ;
 
 : test-none ( -- )
-    None None?
+    Make-None is-none?
 
     # Do not edit below this line
-    true test.assert-eq
+    test.assert
 ;
 
 : test-some-not-none ( -- )
     # Check that Some is NOT None
-    # Your code here
+    # Your code here - use Make-Some and is-none?
     true
 
     # Do not edit below this line
-    false test.assert-eq
+    not test.assert
 ;

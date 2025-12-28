@@ -1,11 +1,10 @@
-: double-all ( List -- List )
-    [ 2 i.multiply ] list.map
+: upcase-all ( Variant -- Variant )
+    [ string.to-upper ] list.map
 ;
 
 : test-map ( -- )
-    [ 1 2 3 ] double-all
-    dup list.length 3 test.assert-eq
-    dup 0 variant.field-at 2 test.assert-eq
-    dup 1 variant.field-at 4 test.assert-eq
-    2 variant.field-at 6 test.assert-eq
+    "hello world" " " string.split upcase-all
+    dup list.length 2 test.assert-eq
+    dup 0 variant.field-at "HELLO" string.equal? test.assert
+    1 variant.field-at "WORLD" string.equal? test.assert
 ;

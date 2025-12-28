@@ -7,7 +7,7 @@ Seq is statically typed - the compiler checks types at compile time. Understandi
 - **Int** - Integers: `42`, `-7`, `0`
 - **Float** - Floating-point: `3.14`, `-2.5`, `0.0`
 - **String** - Text: `"hello"`, `"world"`
-- **List** - Ordered collections: `[ 1 2 3 ]`
+- **List** - Ordered collections created via `string.split`
 - **Map** - Key-value stores: created with `map.make`
 - **Quotation** - Code blocks: `[ dup i.multiply ]`
 

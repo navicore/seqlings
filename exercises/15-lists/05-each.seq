@@ -3,30 +3,29 @@
 # `list.each` runs a quotation for each element but doesn't collect results.
 # Used when you want side effects (like printing).
 #
-# Stack effect: ( list quot -- )
+# Stack effect: ( Variant Quotation -- )
 #
 # Example:
-#   [ 1 2 3 ] [ int->string io.write-line ] list.each
-#   # Prints: 1, 2, 3 (each on its own line)
+#   "apple banana cherry" " " string.split [ io.write-line ] list.each
+#   # Prints each word on its own line
 #
 # HIGHER-ORDER PATTERN:
 # each is like map but for effects rather than transformation.
 #
-# Your task: Use each to count elements (by incrementing a value).
-# Actually, let's keep it simpler - just understand each.
+# Your task: Print each word in uppercase.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: print-doubled ( List -- )
-    # Your code here - print each element doubled
-    # Use: [ dup i.add int->string io.write-line ] list.each
+: print-uppercase ( Variant -- )
+    # Your code here - print each element in uppercase
+    # Use: [ string.to-upper io.write-line ] list.each
     drop
 ;
 
 : test-each ( -- )
     # This test just verifies the word exists and runs
-    [ 1 2 3 ] print-doubled
+    "hello world" " " string.split print-uppercase
     # Do not edit below this line
     true test.assert
 ;

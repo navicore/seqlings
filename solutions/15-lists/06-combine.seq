@@ -1,9 +1,9 @@
-: product-of-odds ( List -- Int )
-    [ 2 i.mod 1 = ] list.filter
-    1 [ i.multiply ] list.fold
+: count-a-word-chars ( Variant -- Int )
+    [ 0 string.char-at 97 = ] list.filter
+    0 [ string.length i.add ] list.fold
 ;
 
 : test-combine ( -- )
-    [ 1 2 3 4 5 ] product-of-odds
-    15 test.assert-eq
+    "apple banana apricot cherry" " " string.split count-a-word-chars
+    12 test.assert-eq   # "apple" (5) + "apricot" (7) = 12
 ;

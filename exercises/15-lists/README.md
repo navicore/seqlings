@@ -4,35 +4,37 @@ Lists are collections of values. What makes them powerful in Seq is the combinat
 
 ## Creating Lists
 
+In Seq, lists are created using `string.split`. Lists are actually variants (tagged unions) under the hood:
+
 ```seq
-[ 1 2 3 ]           # A list of integers
-[ "a" "b" "c" ]     # A list of strings
-[ ]                 # An empty list
+"apple banana cherry" " " string.split   # List of 3 strings
+"a,b,c" "," string.split                 # Split by comma
 ```
 
 ## Basic List Operations
 
-| Word           | Effect                          | Description              |
-|----------------|--------------------------------|--------------------------|
-| `list.length`  | `( list -- Int )`               | Number of elements       |
-| `list.empty?`  | `( list -- Bool )`              | True if no elements      |
-| `list.at`      | `( list n -- elem )`            | Get element at index n   |
+| Word              | Effect                          | Description              |
+|-------------------|--------------------------------|--------------------------|
+| `list.length`     | `( Variant -- Int )`           | Number of elements       |
+| `list.empty?`     | `( Variant -- Int )`           | 1 if empty, 0 otherwise  |
+| `variant.field-at`| `( Variant Int -- value )`     | Get element at index     |
 
 ## Higher-Order List Operations
 
 This is where lists and quotations combine powerfully:
 
-| Word          | Effect                                    | Description                    |
-|---------------|-------------------------------------------|--------------------------------|
-| `list.map`    | `( list quot -- list )`                   | Transform each element         |
-| `list.filter` | `( list quot -- list )`                   | Keep elements matching predicate |
-| `list.fold`   | `( list init quot -- result )`            | Reduce list to single value    |
-| `list.each`   | `( list quot -- )`                        | Execute for each element       |
+| Word          | Effect                                      | Description                    |
+|---------------|---------------------------------------------|--------------------------------|
+| `list.map`    | `( Variant Quotation -- Variant )`          | Transform each element         |
+| `list.filter` | `( Variant Quotation -- Variant )`          | Keep elements matching predicate |
+| `list.fold`   | `( Variant init Quotation -- result )`      | Reduce list to single value    |
+| `list.each`   | `( Variant Quotation -- )`                  | Execute for each element       |
 
 ## map: Transform Each Element
 
 ```seq
-[ 1 2 3 ] [ 10 i.multiply ] list.map   # [ 10 20 30 ]
+"apple banana" " " string.split [ string.to-upper ] list.map
+# Result: list of "APPLE" "BANANA"
 ```
 
 The quotation is applied to each element. This is the same pattern as JavaScript's `.map()`, Python's `map()`, etc.
@@ -40,28 +42,29 @@ The quotation is applied to each element. This is the same pattern as JavaScript
 ## filter: Select Elements
 
 ```seq
-[ 1 2 3 4 5 ] [ 2 i.mod 0 = ] list.filter   # [ 2 4 ]
+"apple banana cherry" " " string.split [ string.length 5 > ] list.filter
+# Result: list of "banana" "cherry" (length > 5)
 ```
 
-The quotation is a predicate (returns true/false). Elements where it returns true are kept.
+The quotation is a predicate (returns 0 or non-zero). Elements where it returns non-zero are kept.
 
 ## fold: Reduce to One Value
 
 ```seq
-[ 1 2 3 4 ] 0 [ i.add ] list.fold   # 10
+"apple banana cherry" " " string.split "" [ string.concat ] list.fold
+# Result: "applebananacherry"
 ```
 
-Starts with initial value (0), applies quotation to combine accumulator with each element.
+Starts with initial value (""), applies quotation to combine accumulator with each element.
 
 ## The Power of Composition
 
 These operations chain naturally:
 
 ```seq
-[ 1 2 3 4 5 6 ]
-[ 2 i.mod 0 = ] list.filter   # [ 2 4 6 ]
-[ dup i.multiply ] list.map   # [ 4 16 36 ]
-0 [ i.add ] list.fold         # 56
+"a be see deep" " " string.split
+[ string.length 2 > ] list.filter    # keeps "see" "deep"
+0 [ string.length i.add ] list.fold  # 7 (3 + 4)
 ```
 
-Filter evens, square them, sum the result. Each step is a higher-order operation with a quotation.
+Filter by length, then sum lengths. Each step is a higher-order operation with a quotation.

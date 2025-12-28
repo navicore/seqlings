@@ -1,14 +1,15 @@
 # Exercise: List Operations
 #
-# Lists are ordered collections: `[ 1 2 3 ]`
+# Lists are created using string.split:
+#   "a b c" " " string.split    # List of 3 strings
 #
 # List operations:
 #   list.length   - Get number of elements
 #   list.empty?   - Check if empty (returns 0 or 1)
 #
 # Access elements using variant.field-at:
-#   [ 10 20 30 ] 0 variant.field-at   # 10 (first element)
-#   [ 10 20 30 ] 1 variant.field-at   # 20 (second element)
+#   "a b c" " " string.split 0 variant.field-at   # "a" (first)
+#   "a b c" " " string.split 1 variant.field-at   # "b" (second)
 #
 # Your task: Work with list operations
 # When done, delete the marker line below.
@@ -16,31 +17,32 @@
 # I AM NOT DONE
 
 : test-list-length ( -- )
-    # Get the length of [ 10 20 30 40 ]
-    [ 10 20 30 40 ] list.length
+    # Get the length of a 4-element list
+    "one two three four" " " string.split list.length
     # Do not edit below this line
     4 test.assert-eq
 ;
 
 : test-list-first ( -- )
-    # Get the first element (index 0) of [ 5 10 15 ]
-    # Your code here - use variant.field-at
-    0
+    # Get the first element (index 0) of "alpha beta gamma"
+    # Your code here - use string.split and variant.field-at
+    ""
     # Do not edit below this line
-    5 test.assert-eq
+    "alpha" string.equal? test.assert
 ;
 
 : test-list-last ( -- )
-    # Get the last element (index 2) of [ 5 10 15 ]
+    # Get the last element (index 2) of "alpha beta gamma"
     # Your code here
-    0
+    ""
     # Do not edit below this line
-    15 test.assert-eq
+    "gamma" string.equal? test.assert
 ;
 
 : test-list-empty ( -- )
-    # Check if an empty list is empty (returns 1)
-    [ ] list.empty?
+    # An empty string split gives a list with one empty string element
+    # To check list operations, use a single element list
+    "single" " " string.split list.empty?
     # Do not edit below this line
-    1 test.assert-eq
+    not test.assert
 ;

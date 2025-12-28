@@ -1,11 +1,10 @@
-: evens-only ( List -- List )
-    [ 2 i.mod 0 = ] list.filter
+: long-words-only ( Variant -- Variant )
+    [ string.length 4 > ] list.filter
 ;
 
 : test-filter ( -- )
-    [ 1 2 3 4 5 6 ] evens-only
-    dup list.length 3 test.assert-eq
-    dup 0 variant.field-at 2 test.assert-eq
-    dup 1 variant.field-at 4 test.assert-eq
-    2 variant.field-at 6 test.assert-eq
+    "cat dog elephant mouse" " " string.split long-words-only
+    dup list.length 2 test.assert-eq
+    dup 0 variant.field-at "elephant" string.equal? test.assert
+    1 variant.field-at "mouse" string.equal? test.assert
 ;

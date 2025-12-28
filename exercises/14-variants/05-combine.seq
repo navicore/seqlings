@@ -2,44 +2,51 @@
 #
 # Combine variants with other operations.
 #
-# Your task: Build a safe division function that returns Result
+# Your task: Build a safe division function that returns IntResult
 #
 # When done, delete the marker line below.
 
-variant Result
-    | Ok value
-    | Err error
-end
+union IntResult { Ok { value: Int }, Err { error: String } }
 
 # I AM NOT DONE
 
-: safe-divide ( Int Int -- Result )
+# Helper to check if Result is Ok (tag 0)
+: is-ok? ( IntResult -- Int )
+    variant.tag 0 =
+;
+
+# Helper to check if Result is Err (tag 1)
+: is-err? ( IntResult -- Int )
+    variant.tag 1 =
+;
+
+: safe-divide ( Int Int -- IntResult )
     # If divisor is 0, return Err "division by zero"
     # Otherwise return Ok with the result
-    # Your code here
-    drop drop 0 Ok
+    # Your code here - use Make-Ok and Make-Err
+    drop drop 0 Make-Ok
 ;
 
 : test-safe-divide-ok ( -- )
-    10 2 safe-divide Ok?
+    10 2 safe-divide is-ok?
 
     # Do not edit below this line
-    true test.assert-eq
+    test.assert
 ;
 
 : test-safe-divide-err ( -- )
-    10 0 safe-divide Err?
+    10 0 safe-divide is-err?
 
     # Do not edit below this line
-    true test.assert-eq
+    test.assert
 ;
 
 : test-safe-divide-value ( -- )
-    # 10 / 2 = 5, extract the value
+    # 10 / 2 = 5, extract the value using match
     10 2 safe-divide
-    variant.match
-        | Ok -> [ ]
-        | Err -> [ drop 0 ]
+    match
+        Ok { >value } -> value
+        Err -> drop 0
     end
 
     # Do not edit below this line
