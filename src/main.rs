@@ -8,8 +8,72 @@ mod runner;
 use clap::{Parser, Subcommand};
 use colored::Colorize;
 use exercise::{Exercise, ExerciseStatus, load_exercises};
+use std::collections::HashMap;
+use std::path::PathBuf;
 use std::process;
-use std::time::Duration;
+use std::time::{Duration, SystemTime};
+
+/// Cache for exercise status to avoid repeated compiler invocations
+struct StatusCache {
+    /// Maps exercise path to (last_mtime, cached_status)
+    cache: HashMap<PathBuf, (SystemTime, ExerciseStatus)>,
+}
+
+impl StatusCache {
+    fn new() -> Self {
+        Self {
+            cache: HashMap::new(),
+        }
+    }
+
+    /// Get the status of an exercise, using cache when possible.
+    /// This is the main optimization: we only re-run the compiler
+    /// when the file has actually changed.
+    fn get_status(&mut self, exercise: &Exercise) -> ExerciseStatus {
+        // Get current file mtime
+        let current_mtime = match std::fs::metadata(&exercise.path) {
+            Ok(meta) => meta.modified().ok(),
+            Err(_) => return ExerciseStatus::CompileError,
+        };
+
+        // Quick pre-filter: if file contains "# I AM NOT DONE", skip expensive checks
+        // This is a cheap read that can short-circuit compiler invocation
+        if let Ok(content) = std::fs::read_to_string(&exercise.path) {
+            if content.contains("# I AM NOT DONE") {
+                // Update cache with NotDone status
+                if let Some(mtime) = current_mtime {
+                    self.cache.insert(exercise.path.clone(), (mtime, ExerciseStatus::NotDone));
+                }
+                return ExerciseStatus::NotDone;
+            }
+        }
+
+        // Check cache: if mtime unchanged, return cached status
+        if let Some(mtime) = current_mtime {
+            if let Some((cached_mtime, cached_status)) = self.cache.get(&exercise.path) {
+                if *cached_mtime == mtime {
+                    return cached_status.clone();
+                }
+            }
+        }
+
+        // Cache miss or file changed - run the full status check
+        let status = exercise.status();
+
+        // Update cache
+        if let Some(mtime) = current_mtime {
+            self.cache.insert(exercise.path.clone(), (mtime, status.clone()));
+        }
+
+        status
+    }
+
+    /// Clear the cache (useful for commands that need fresh data)
+    #[allow(dead_code)]
+    fn clear(&mut self) {
+        self.cache.clear();
+    }
+}
 
 #[derive(Parser)]
 #[command(name = "seqlings")]
@@ -78,9 +142,12 @@ fn cmd_watch(exercises: &[Exercise]) {
     println!("{}", "Edit exercises in your editor. Progress updates automatically.".dimmed());
     println!("{}", "Press Ctrl+C to exit.\n".dimmed());
 
+    // Create status cache to avoid repeated compiler invocations
+    let mut cache = StatusCache::new();
+
     // Initial display
     let mut current_exercise_name = String::new();
-    display_current_exercise(exercises, &mut current_exercise_name);
+    display_current_exercise(exercises, &mut current_exercise_name, &mut cache);
 
     loop {
         std::thread::sleep(Duration::from_millis(250));
@@ -100,7 +167,7 @@ fn cmd_watch(exercises: &[Exercise]) {
 
         if changed {
             clear_screen();
-            display_current_exercise(exercises, &mut current_exercise_name);
+            display_current_exercise(exercises, &mut current_exercise_name, &mut cache);
         }
     }
 }
@@ -112,18 +179,18 @@ fn clear_screen() {
     std::io::stdout().flush().ok();
 }
 
-fn display_current_exercise(exercises: &[Exercise], previous_name: &mut String) {
-    // Find first incomplete exercise
+fn display_current_exercise(exercises: &[Exercise], previous_name: &mut String, cache: &mut StatusCache) {
+    // Find first incomplete exercise using cached status
     let current = exercises.iter().find(|e| {
         matches!(
-            e.status(),
+            cache.get_status(e),
             ExerciseStatus::NotDone | ExerciseStatus::CompileError | ExerciseStatus::TestFail
         )
     });
 
     match current {
         Some(exercise) => {
-            let status = exercise.status();
+            let status = cache.get_status(exercise);
 
             // Check if we moved to a new exercise
             if !previous_name.is_empty() && *previous_name != exercise.name {
@@ -209,7 +276,7 @@ fn display_current_exercise(exercises: &[Exercise], previous_name: &mut String) 
                 "  {} seqlings hint",
                 "Hint:".cyan()
             );
-            show_progress(exercises);
+            show_progress(exercises, cache);
         }
         None => {
             // All done!
@@ -220,7 +287,7 @@ fn display_current_exercise(exercises: &[Exercise], previous_name: &mut String) 
                 "  Congratulations! You've completed all exercises!".green().bold()
             );
             println!("{}\n", "=".repeat(50).green());
-            show_progress(exercises);
+            show_progress(exercises, cache);
             println!("\n{}", "You're now a Seq programmer!".cyan().bold());
             process::exit(0);
         }
@@ -230,23 +297,26 @@ fn display_current_exercise(exercises: &[Exercise], previous_name: &mut String) 
 /// Open exercise in editor (alternative to watch mode)
 #[allow(dead_code)]
 fn cmd_run(exercises: &[Exercise]) {
+    let mut cache = StatusCache::new();
+
     // Find first incomplete exercise
     let current = exercises.iter().find(|e| {
         matches!(
-            e.status(),
+            cache.get_status(e),
             ExerciseStatus::NotDone | ExerciseStatus::CompileError | ExerciseStatus::TestFail
         )
     });
 
     match current {
         Some(exercise) => {
+            let status = cache.get_status(exercise);
             println!(
                 "\n{} {}\n",
                 "Current exercise:".green().bold(),
                 exercise.name.cyan()
             );
             println!("  Path: {}", exercise.path.display());
-            println!("  Status: {}", format_status(&exercise.status()));
+            println!("  Status: {}", format_status(&status));
             println!();
 
             // Show the exercise description
@@ -275,11 +345,11 @@ fn cmd_run(exercises: &[Exercise]) {
             // Open in $EDITOR if set
             if let Ok(editor) = std::env::var("EDITOR") {
                 println!("Opening in {}...", editor.cyan());
-                let status = process::Command::new(&editor)
+                let cmd_status = process::Command::new(&editor)
                     .arg(&exercise.path)
                     .status();
 
-                match status {
+                match cmd_status {
                     Ok(s) if s.success() => {
                         // After editor closes, verify the exercise
                         println!();
@@ -304,13 +374,15 @@ fn cmd_run(exercises: &[Exercise]) {
                 "\n{}",
                 "Congratulations! You've completed all exercises!".green().bold()
             );
-            show_progress(exercises);
+            show_progress(exercises, &mut cache);
         }
     }
 }
 
 /// List all exercises
 fn cmd_list(exercises: &[Exercise]) {
+    let mut cache = StatusCache::new();
+
     println!("\n{}\n", "Seqlings Exercises".green().bold());
 
     let mut current_topic = String::new();
@@ -328,7 +400,7 @@ fn cmd_list(exercises: &[Exercise]) {
             current_topic = topic.to_string();
         }
 
-        let status = exercise.status();
+        let status = cache.get_status(exercise);
         let status_icon = match status {
             ExerciseStatus::Done => "✓".green(),
             ExerciseStatus::NotDone => "○".yellow(),
@@ -340,17 +412,18 @@ fn cmd_list(exercises: &[Exercise]) {
     }
 
     println!();
-    show_progress(exercises);
+    show_progress(exercises, &mut cache);
 }
 
 /// Show hint for an exercise
 fn cmd_hint(exercises: &[Exercise], name: Option<String>) {
+    let mut cache = StatusCache::new();
     let name_provided = name.is_some();
     let exercise = match &name {
         Some(n) => exercises.iter().find(|e| &e.name == n),
         None => exercises.iter().find(|e| {
             matches!(
-                e.status(),
+                cache.get_status(e),
                 ExerciseStatus::NotDone | ExerciseStatus::CompileError | ExerciseStatus::TestFail
             )
         }),
@@ -391,11 +464,12 @@ fn cmd_hint(exercises: &[Exercise], name: Option<String>) {
 
 /// Reset an exercise
 fn cmd_reset(exercises: &[Exercise], name: Option<String>) {
+    let mut cache = StatusCache::new();
     let exercise = match name {
         Some(n) => exercises.iter().find(|e| e.name == n),
         None => exercises.iter().find(|e| {
             matches!(
-                e.status(),
+                cache.get_status(e),
                 ExerciseStatus::NotDone | ExerciseStatus::CompileError | ExerciseStatus::TestFail
             )
         }),
@@ -442,10 +516,12 @@ fn cmd_reset(exercises: &[Exercise], name: Option<String>) {
 
 /// Verify all exercises
 fn cmd_verify(exercises: &[Exercise]) {
+    let mut cache = StatusCache::new();
+
     println!("\n{}\n", "Verifying all exercises...".green().bold());
 
     for exercise in exercises {
-        let status = exercise.status();
+        let status = cache.get_status(exercise);
         let status_str = format_status(&status);
         let icon = match status {
             ExerciseStatus::Done => "✓".green(),
@@ -455,15 +531,17 @@ fn cmd_verify(exercises: &[Exercise]) {
     }
 
     println!();
-    show_progress(exercises);
+    show_progress(exercises, &mut cache);
 }
 
 /// Skip to next exercise
 fn cmd_next(exercises: &[Exercise]) {
+    let mut cache = StatusCache::new();
+
     // Find current incomplete
     let current_idx = exercises.iter().position(|e| {
         matches!(
-            e.status(),
+            cache.get_status(e),
             ExerciseStatus::NotDone | ExerciseStatus::CompileError | ExerciseStatus::TestFail
         )
     });
@@ -484,7 +562,8 @@ fn cmd_next(exercises: &[Exercise]) {
 /// Verify a single exercise and show result
 #[allow(dead_code)]
 fn verify_exercise(exercise: &Exercise) {
-    let status = exercise.status();
+    let mut cache = StatusCache::new();
+    let status = cache.get_status(exercise);
     println!(
         "{} {}",
         "Exercise status:".bold(),
@@ -526,10 +605,10 @@ fn format_status(status: &ExerciseStatus) -> colored::ColoredString {
     }
 }
 
-fn show_progress(exercises: &[Exercise]) {
+fn show_progress(exercises: &[Exercise], cache: &mut StatusCache) {
     let done = exercises
         .iter()
-        .filter(|e| matches!(e.status(), ExerciseStatus::Done))
+        .filter(|e| matches!(cache.get_status(e), ExerciseStatus::Done))
         .count();
     let total = exercises.len();
     let pct = (done as f64 / total as f64 * 100.0) as usize;
