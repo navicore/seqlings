@@ -10,11 +10,11 @@ Parse a string as a floating-point number:
 ## Solution
 
 ```seq
-"3.5" string->float 1.5 f.+
+"3.5" string->float 1.5 f.add
 ```
 
 1. `"3.5" string->float` gives 3.5
-2. `1.5 f.+` adds to get 5.0
+2. `1.5 f.add` adds to get 5.0
 
 ## float->string
 

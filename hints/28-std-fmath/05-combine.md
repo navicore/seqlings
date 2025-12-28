@@ -4,7 +4,7 @@
 
 ```seq
 : circle-area ( Float -- Float )
-    dup f.* fmath.pi f.*
+    dup f.multiply fmath.pi f.multiply
 ;
 ```
 
@@ -12,7 +12,7 @@
 
 ```seq
 : degrees-to-radians ( Float -- Float )
-    fmath.pi f.* 180.0 f./
+    fmath.pi f.multiply 180.0 f.divide
 ;
 ```
 
@@ -21,8 +21,8 @@
 ```seq
 : distance ( Float Float Float Float -- Float )
     # Stack: x1 y1 x2 y2
-    rot f.- dup f.*    # (y2-y1)^2
-    rot rot f.- dup f.*  # (x2-x1)^2
-    f.+ fmath.sqrt
+    rot f.subtract dup f.multiply    # (y2-y1)^2
+    rot rot f.subtract dup f.multiply  # (x2-x1)^2
+    f.add fmath.sqrt
 ;
 ```

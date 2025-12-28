@@ -1,41 +1,41 @@
 # Exercise: Float Operations
 #
 # Float operations use the `f.` prefix:
-#   f.+    Add
-#   f.-    Subtract
-#   f.*    Multiply
-#   f./    Divide
-#   f.=    Equal (with tolerance)
+#   f.add       Add
+#   f.subtract  Subtract
+#   f.multiply  Multiply
+#   f.divide    Divide
+#
+# Float comparisons:
+#   f.=    Equal
 #   f.<    Less than
 #   f.>    Greater than
+#   f.<=   Less than or equal
+#   f.>=   Greater than or equal
 #
 # Your task: Perform floating-point arithmetic
-#
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : test-float-add ( -- )
-    1.5 2.5 f.+
-
+    1.5 2.5 f.add
     # Do not edit below this line
     4.0 f.= test.assert
 ;
 
 : test-float-multiply ( -- )
     # Multiply 2.5 by 4.0
-    # Your code here
+    # Your code here - use f.multiply
     0.0
-
     # Do not edit below this line
     10.0 f.= test.assert
 ;
 
 : test-float-divide ( -- )
     # Divide 7.5 by 2.5
-    # Your code here
+    # Your code here - use f.divide
     0.0
-
     # Do not edit below this line
     3.0 f.= test.assert
 ;

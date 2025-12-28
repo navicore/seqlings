@@ -9,7 +9,7 @@
 ;
 
 : test-sin-pi-half ( -- )
-    fmath.pi 2.0 f./ fmath.sin
+    fmath.pi 2.0 f.divide fmath.sin
     1.0 f.= test.assert
 ;
 ```

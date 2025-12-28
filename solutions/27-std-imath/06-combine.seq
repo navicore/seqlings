@@ -1,9 +1,9 @@
 use std:imath
 
 : manhattan-distance ( Int Int Int Int -- Int )
-    rot i.- imath.abs
-    rot rot i.- imath.abs
-    i.+
+    rot i.subtract imath.abs
+    rot rot i.subtract imath.abs
+    i.add
 ;
 
 : test-manhattan ( -- )

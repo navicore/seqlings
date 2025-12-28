@@ -4,7 +4,7 @@
 
 ```seq
 : abs-diff ( Int Int -- Int )
-    i.- imath.abs
+    i.subtract imath.abs
 ;
 ```
 

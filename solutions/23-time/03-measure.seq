@@ -1,6 +1,6 @@
 : elapsed-is-non-negative ( -- Bool )
     time.now
-    time.now swap i.-
+    time.now swap i.subtract
     0 >=
 ;
 

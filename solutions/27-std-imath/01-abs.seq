@@ -1,7 +1,7 @@
 use std:imath
 
 : abs-diff ( Int Int -- Int )
-    i.- imath.abs
+    i.subtract imath.abs
 ;
 
 : test-abs ( -- )

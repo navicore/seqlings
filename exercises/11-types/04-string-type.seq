@@ -1,28 +1,19 @@
-# Exercise: String Type
+# Exercise: String Operations
 #
 # Strings are sequences of characters. String operations:
-#   string.length   - Get length
-#   string.concat   - Join strings
-#   string?         - Type check
+#   string.length    - Get length (number of characters)
+#   string.concat    - Join two strings
+#   string.equal?    - Check if two strings are equal
+#   string.empty?    - Check if string is empty
 #
-# Your task: Work with string types
-#
+# Your task: Work with string operations
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: test-string-check ( -- )
-    "Seq" string?
-
-    # Do not edit below this line
-    true test.assert-eq
-;
-
 : test-string-length ( -- )
     # Get the length of "hello"
-    # Your code here
-    0
-
+    "hello" string.length
     # Do not edit below this line
     5 test.assert-eq
 ;
@@ -31,7 +22,20 @@
     # Concatenate "hello" and " world"
     # Your code here
     ""
-
     # Do not edit below this line
-    "hello world" test.assert-eq
+    "hello world" string.equal? test.assert
+;
+
+: test-string-empty ( -- )
+    # Check if "" is empty (returns 1 for true)
+    "" string.empty?
+    # Do not edit below this line
+    1 test.assert-eq
+;
+
+: test-string-not-empty ( -- )
+    # Check that "hi" is not empty
+    "hi" string.empty?
+    # Do not edit below this line
+    0 test.assert-eq
 ;

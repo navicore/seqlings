@@ -1,19 +1,19 @@
-: test-list-check ( -- )
-    [ 1 2 3 ] list?
-    true test.assert-eq
-;
-
 : test-list-length ( -- )
     [ 10 20 30 40 ] list.length
     4 test.assert-eq
 ;
 
 : test-list-first ( -- )
-    [ 5 10 15 ] list.first
+    [ 5 10 15 ] 0 variant.field-at
     5 test.assert-eq
+;
+
+: test-list-last ( -- )
+    [ 5 10 15 ] 2 variant.field-at
+    15 test.assert-eq
 ;
 
 : test-list-empty ( -- )
     [ ] list.empty?
-    true test.assert-eq
+    1 test.assert-eq
 ;

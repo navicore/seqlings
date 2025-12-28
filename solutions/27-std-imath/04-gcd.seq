@@ -3,7 +3,7 @@ use std:imath
 : simplify-numerator ( Int Int -- Int )
     over over imath.gcd
     swap drop
-    i./
+    i.divide
 ;
 
 : test-gcd ( -- )

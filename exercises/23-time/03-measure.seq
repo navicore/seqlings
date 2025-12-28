@@ -4,7 +4,7 @@
 #
 #   time.now          # Start
 #   do-work
-#   time.now swap i.- # End - Start = elapsed ms
+#   time.now swap i.subtract # End - Start = elapsed ms
 #
 # Your task: Understand duration measurement
 #
@@ -14,7 +14,7 @@
 
 : elapsed-is-non-negative ( -- Bool )
     # Taking two timestamps should give non-negative difference
-    # time.now ... time.now swap i.- should be >= 0
+    # time.now ... time.now swap i.subtract should be >= 0
     # Your code here (conceptual)
     true
 ;

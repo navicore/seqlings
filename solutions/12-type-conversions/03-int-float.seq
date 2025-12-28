@@ -1,5 +1,5 @@
 : test-int-float ( -- )
-    7 int->float 0.5 f.+ float->int
+    7 int->float 0.5 f.add float->int
     7 test.assert-eq
 ;
 

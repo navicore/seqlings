@@ -1,51 +1,51 @@
-# Exercise: Type Predicates
+# Exercise: Understanding Types
 #
-# Type predicates check what type a value has:
-#   int?     - Is it an integer?
-#   float?   - Is it a float?
-#   string?  - Is it a string?
-#   bool?    - Is it a boolean?
-#   list?    - Is it a list?
+# Seq is statically typed - the compiler checks types at compile time.
+# Each operation works with specific types:
 #
-# Example:
-#   42 int?        # true
-#   "hi" int?      # false
-#   "hi" string?   # true
+#   i.add expects two Int values
+#   f.add expects two Float values
+#   string.concat expects two String values
 #
-# Your task: Check types of various values
+# The compiler ensures type safety. You don't need runtime type checks
+# because the compiler catches type errors before your code runs.
 #
+# Your task: Understand that different operations require different types
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: test-int-predicate ( -- )
-    100 int?
-
-    # Do not edit below this line
-    true test.assert-eq
+: add-integers ( Int Int -- Int )
+    # Add two integers using i.add
+    i.add
 ;
 
-: test-float-predicate ( -- )
-    3.14 float?
-
+: test-int-type ( -- )
+    10 20 add-integers
     # Do not edit below this line
-    true test.assert-eq
+    30 test.assert-eq
 ;
 
-: test-string-predicate ( -- )
-    # Check if "hello" is a string
+: add-floats ( Float Float -- Float )
+    # Add two floats using f.add
+    # Your code here - replace drop drop with correct code
+    drop drop 0.0
+;
+
+: test-float-type ( -- )
+    1.5 2.5 add-floats
+    # Do not edit below this line
+    4.0 f.= test.assert
+;
+
+: concat-strings ( String String -- String )
+    # Concatenate two strings
     # Your code here
-    false
-
-    # Do not edit below this line
-    true test.assert-eq
+    drop drop ""
 ;
 
-: test-not-int ( -- )
-    # Check that "42" (string) is NOT an int
-    # Your code here
-    true
-
+: test-string-type ( -- )
+    "Hello, " "World!" concat-strings
     # Do not edit below this line
-    false test.assert-eq
+    "Hello, World!" string.equal? test.assert
 ;

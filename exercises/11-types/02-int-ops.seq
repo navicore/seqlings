@@ -1,48 +1,43 @@
 # Exercise: Integer Operations
 #
 # Integer operations use the `i.` prefix:
-#   i.+    Add
-#   i.-    Subtract
-#   i.*    Multiply
-#   i./    Divide (integer division)
-#   i.mod  Modulo (remainder)
+#   i.add       Add
+#   i.subtract  Subtract
+#   i.multiply  Multiply
+#   i.divide    Divide (integer division, truncates)
+#   i.mod       Modulo (remainder)
 #
 # These operations require both operands to be integers.
 #
 # Your task: Perform integer arithmetic
-#
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : test-int-add ( -- )
-    15 7 i.+
-
+    15 7 i.add
     # Do not edit below this line
     22 test.assert-eq
 ;
 
 : test-int-multiply ( -- )
-    6 7 i.*
-
+    6 7 i.multiply
     # Do not edit below this line
     42 test.assert-eq
 ;
 
 : test-int-divide ( -- )
     # Integer division: 17 / 5 = 3 (truncates)
-    # Your code here
+    # Your code here - use i.divide
     0
-
     # Do not edit below this line
     3 test.assert-eq
 ;
 
 : test-int-mod ( -- )
     # Modulo: 17 mod 5 = 2 (remainder)
-    # Your code here
+    # Your code here - use i.mod
     0
-
     # Do not edit below this line
     2 test.assert-eq
 ;

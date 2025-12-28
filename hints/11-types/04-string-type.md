@@ -1,17 +1,12 @@
-# Hint: String Type
+# Hint: String Operations
 
 ## Solution
 
 ```seq
-: test-string-length ( -- )
-    "hello" string.length
-    5 test.assert-eq
-;
-
 : test-string-concat ( -- )
     "hello" " world" string.concat
-    "hello world" test.assert-eq
+    "hello world" string.equal? test.assert
 ;
 ```
 
-`string.concat` joins two strings together.
+Use `string.concat` to join strings, `string.equal?` to compare them.

@@ -26,7 +26,7 @@ time.now time.format-iso    # ISO 8601 format string
 ```seq
 time.now
 do-some-work
-time.now swap i.-    # Elapsed time in ms
+time.now swap i.subtract    # Elapsed time in ms
 ```
 
 ## Exercises in This Section

@@ -1,17 +1,17 @@
-# Hint: Type Predicates
+# Hint: Understanding Types
 
 ## Solution
 
+Each type has its own operations:
+
 ```seq
-: test-string-predicate ( -- )
-    "hello" string?
-    true test.assert-eq
+: add-floats ( Float Float -- Float )
+    f.add
 ;
 
-: test-not-int ( -- )
-    "42" int?
-    false test.assert-eq
+: concat-strings ( String String -- String )
+    string.concat
 ;
 ```
 
-The string `"42"` is NOT an integer - it's a string that happens to contain digits.
+Use `i.add` for integers, `f.add` for floats, `string.concat` for strings.

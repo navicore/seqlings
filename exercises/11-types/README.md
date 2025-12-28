@@ -1,49 +1,47 @@
 # Types in Seq
 
-Seq is dynamically typed but every value has a type at runtime. Understanding types helps you write correct code and debug effectively.
+Seq is statically typed - the compiler checks types at compile time. Understanding types helps you write correct code.
 
 ## Basic Types
 
 - **Int** - Integers: `42`, `-7`, `0`
 - **Float** - Floating-point: `3.14`, `-2.5`, `0.0`
-- **Bool** - Booleans: `true`, `false`
 - **String** - Text: `"hello"`, `"world"`
 - **List** - Ordered collections: `[ 1 2 3 ]`
 - **Map** - Key-value stores: created with `map.make`
-- **Quotation** - Code blocks: `[ dup i.* ]`
-
-## Type Predicates
-
-Seq provides predicates to check types at runtime:
-
-```seq
-42 int?        # true
-3.14 float?    # true
-"hi" string?   # true
-true bool?     # true
-[ 1 2 ] list?  # true
-```
+- **Quotation** - Code blocks: `[ dup i.multiply ]`
 
 ## Type-Specific Operations
 
-Operations are type-specific:
-- Integer ops: `i.+`, `i.-`, `i.*`, `i./`
-- Float ops: `f.+`, `f.-`, `f.*`, `f./`
-- String ops: `string.concat`, `string.length`
-- List ops: `list.length`, `list.first`
+Operations are namespaced by type:
 
-## Why Explicit Types?
+**Integer operations:**
+- `i.add`, `i.subtract`, `i.multiply`, `i.divide`, `i.mod`
+- `i.negate`, `i.abs`
 
-Explicit type operations prevent accidental type mixing:
+**Float operations:**
+- `f.add`, `f.subtract`, `f.multiply`, `f.divide`
+- `f.=`, `f.<`, `f.>`, `f.<=`, `f.>=`
+
+**String operations:**
+- `string.concat`, `string.length`, `string.substring`
+
+**List operations:**
+- `list.length`, `list.empty?`, `list.map`, `list.filter`, `list.fold`
+
+## Stack Effects Document Types
+
+Stack effect comments show the types:
 ```seq
-5 3.0 f.+    # Error! Can't add Int to Float directly
-5 int->float 3.0 f.+    # Correct: convert first
+: double ( Int -- Int )
+    dup i.add
+;
 ```
 
 ## Exercises in This Section
 
-1. **predicates** - Using type predicates
-2. **int-ops** - Integer-specific operations
-3. **float-ops** - Float-specific operations
+1. **predicates** - Understanding type checking
+2. **int-ops** - Integer operations
+3. **float-ops** - Float operations
 4. **string-type** - String operations
-5. **list-type** - List type checking
+5. **list-type** - List operations

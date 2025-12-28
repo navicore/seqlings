@@ -9,7 +9,7 @@
 ;
 
 : hypotenuse ( Float Float -- Float )
-    dup f.* swap dup f.* f.+ fmath.sqrt
+    dup f.multiply swap dup f.multiply f.add fmath.sqrt
 ;
 ```
 

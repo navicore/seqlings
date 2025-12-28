@@ -1,19 +1,26 @@
-: test-int-predicate ( -- )
-    100 int?
-    true test.assert-eq
+: add-integers ( Int Int -- Int )
+    i.add
 ;
 
-: test-float-predicate ( -- )
-    3.14 float?
-    true test.assert-eq
+: test-int-type ( -- )
+    10 20 add-integers
+    30 test.assert-eq
 ;
 
-: test-string-predicate ( -- )
-    "hello" string?
-    true test.assert-eq
+: add-floats ( Float Float -- Float )
+    f.add
 ;
 
-: test-not-int ( -- )
-    "42" int?
-    false test.assert-eq
+: test-float-type ( -- )
+    1.5 2.5 add-floats
+    4.0 f.= test.assert
+;
+
+: concat-strings ( String String -- String )
+    string.concat
+;
+
+: test-string-type ( -- )
+    "Hello, " "World!" concat-strings
+    "Hello, World!" string.equal? test.assert
 ;

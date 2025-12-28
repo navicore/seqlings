@@ -4,7 +4,7 @@
 
 ```seq
 : test-int-divide ( -- )
-    17 5 i./
+    17 5 i.divide
     3 test.assert-eq
 ;
 
@@ -14,4 +14,4 @@
 ;
 ```
 
-Integer division truncates toward zero. Modulo gives the remainder.
+Integer operations: `i.add`, `i.subtract`, `i.multiply`, `i.divide`, `i.mod`

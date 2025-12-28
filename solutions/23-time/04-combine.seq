@@ -1,5 +1,5 @@
 : is-recent ( Int Int -- Bool )
-    swap time.now swap i.- swap <
+    swap time.now swap i.subtract swap <
 ;
 
 : test-recent ( -- )

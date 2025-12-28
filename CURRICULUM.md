@@ -309,7 +309,7 @@ Combining concepts from previous sections:
 - [x] args.* (count, at)
 - [x] file.* (slurp, slurp-safe, exists?, for-each-line+)
 - [x] Type conversions (int->string, string->int, etc.)
-- [x] i.* arithmetic (add, subtract, multiply, divide)
+- [x] i.multiply arithmetic (add, subtract, multiply, divide)
 - [x] Comparison (=, <, >, <=, >=, <>)
 - [x] Boolean (and, or, not)
 - [x] Bitwise (band, bor, bxor, shl, shr, bnot, popcount, clz, ctz)
@@ -322,7 +322,7 @@ Combining concepts from previous sections:
 - [x] variant.* (all operations)
 - [x] list.* (length, empty?, map, filter, fold, each)
 - [x] map.* (all operations)
-- [x] f.* arithmetic and comparison
+- [x] f.multiply arithmetic and comparison
 - [x] time.* (now, nanos, sleep-ms)
 - [x] test.* (covered implicitly in all exercises)
 
