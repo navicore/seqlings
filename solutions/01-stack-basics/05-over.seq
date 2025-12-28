@@ -1,4 +1,4 @@
-# Exercise: over - SOLUTION
+# Solution: over
 
 : test-over ( -- )
     5 10

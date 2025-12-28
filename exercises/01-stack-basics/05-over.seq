@@ -5,19 +5,18 @@
 # Stack effect: ( a b -- a b a )
 #
 # Example:
-#   1 2 over    # Stack: ( 1 2 1 )  - copied 1 to the top
+#   1 2 over    # Stack: ( 1 2 1 )
 #
-# Your task: Use `over` to make the test pass.
-#
-# Remove the "# NOT DONE" marker when complete.
+# Your task: Use `over` to copy the 5 to the top.
+# When done, delete the marker line below.
 
-# NOT DONE
+# I AM NOT DONE
 
 : test-over ( -- )
     5 10
-    # TODO: Use over to copy the 5 to the top
-    # Stack should become ( 5 10 5 )
-    5 test.assert-eq   # top is 5 (the copy)
-    10 test.assert-eq  # middle is 10
-    5 test.assert-eq   # bottom is 5 (original)
+    # Your code here - add over
+    # Do not edit below this line
+    5 test.assert-eq
+    10 test.assert-eq
+    5 test.assert-eq
 ;

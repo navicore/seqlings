@@ -1,4 +1,4 @@
-# Exercise: rot - SOLUTION
+# Solution: rot
 
 : test-rot ( -- )
     3 1 2

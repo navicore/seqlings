@@ -1,4 +1,4 @@
-# Exercise: dup - SOLUTION
+# Solution: dup
 
 : test-dup ( -- )
     7 dup

@@ -7,17 +7,15 @@
 # Example:
 #   5 dup    # Stack: ( 5 5 )
 #
-# Your task: Use `dup` to make the test pass.
-# You need to duplicate a number so both assertions succeed.
-#
-# Remove the "# NOT DONE" marker when complete.
+# Your task: Use `dup` to put two 7s on the stack.
+# When done, delete the marker line below.
 
-# NOT DONE
+# I AM NOT DONE
 
 : test-dup ( -- )
-    # TODO: Push a number and duplicate it so both asserts pass
-    # Hint: What number, when duplicated, gives you two copies of 7?
+    # Your code here - replace the line below
     0 0
+    # Do not edit below this line
     7 test.assert-eq
     7 test.assert-eq
 ;

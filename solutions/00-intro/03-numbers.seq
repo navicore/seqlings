@@ -1,4 +1,4 @@
-# Exercise: Numbers - SOLUTION
+# Solution: Numbers
 
 : answer ( -- Int )
     42

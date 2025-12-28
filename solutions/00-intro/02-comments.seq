@@ -1,4 +1,4 @@
-# Exercise: Comments - SOLUTION
+# Solution: Comments
 
 : main ( -- )
     # This is the correct comment syntax

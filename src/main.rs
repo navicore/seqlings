@@ -8,10 +8,7 @@ mod runner;
 use clap::{Parser, Subcommand};
 use colored::Colorize;
 use exercise::{Exercise, ExerciseStatus, load_exercises};
-use notify::{Event, RecursiveMode, Watcher};
-use std::path::Path;
 use std::process;
-use std::sync::mpsc;
 use std::time::Duration;
 
 #[derive(Parser)]
@@ -74,24 +71,6 @@ fn main() {
 
 /// Watch mode: continuously monitor exercises and provide feedback
 fn cmd_watch(exercises: &[Exercise]) {
-    // Set up file watcher
-    let (tx, rx) = mpsc::channel();
-
-    let mut watcher = notify::recommended_watcher(move |res: Result<Event, _>| {
-        if let Ok(event) = res {
-            // Only care about modifications
-            if event.kind.is_modify() {
-                let _ = tx.send(());
-            }
-        }
-    })
-    .expect("Failed to create file watcher");
-
-    // Watch the exercises directory
-    watcher
-        .watch(Path::new("exercises"), RecursiveMode::Recursive)
-        .expect("Failed to watch exercises directory");
-
     println!(
         "\n{}",
         "Welcome to seqlings watch mode!".green().bold()
@@ -103,24 +82,25 @@ fn cmd_watch(exercises: &[Exercise]) {
     let mut current_exercise_name = String::new();
     display_current_exercise(exercises, &mut current_exercise_name);
 
-    // Watch loop
     loop {
-        // Wait for file change with timeout (allows checking for completion)
-        match rx.recv_timeout(Duration::from_millis(500)) {
-            Ok(()) => {
-                // Small delay to let file writes complete
-                std::thread::sleep(Duration::from_millis(100));
+        std::thread::sleep(Duration::from_millis(250));
 
-                // Clear screen and redisplay
-                clear_screen();
-                display_current_exercise(exercises, &mut current_exercise_name);
+        // Check files every 250ms
+        let mut changed = false;
+        for ex in exercises {
+            if let Ok(meta) = std::fs::metadata(&ex.path) {
+                if let Ok(mtime) = meta.modified() {
+                    if mtime.elapsed().unwrap_or(Duration::from_secs(1000)) < Duration::from_millis(500) {
+                        changed = true;
+                        break;
+                    }
+                }
             }
-            Err(mpsc::RecvTimeoutError::Timeout) => {
-                // No change, continue waiting
-            }
-            Err(mpsc::RecvTimeoutError::Disconnected) => {
-                break;
-            }
+        }
+
+        if changed {
+            clear_screen();
+            display_current_exercise(exercises, &mut current_exercise_name);
         }
     }
 }
@@ -162,8 +142,11 @@ fn display_current_exercise(exercises: &[Exercise], previous_name: &mut String) 
                 exercise.name.cyan()
             );
 
-            // Show file path
-            println!("  File: {}", exercise.path.display().to_string().dimmed());
+            // Show file path (absolute)
+            let abs_path = std::env::current_dir()
+                .map(|cwd| cwd.join(&exercise.path))
+                .unwrap_or_else(|_| exercise.path.clone());
+            println!("  File: {}", abs_path.display().to_string().dimmed());
 
             // Show status with details
             match status {
@@ -175,7 +158,7 @@ fn display_current_exercise(exercises: &[Exercise], previous_name: &mut String) 
                         let header: Vec<&str> = content
                             .lines()
                             .take_while(|l| l.starts_with('#'))
-                            .filter(|l| !l.contains("NOT DONE"))
+                            .filter(|l| !l.contains("I AM NOT DONE"))
                             .collect();
                         for line in header {
                             println!("  {}", line.dimmed());
@@ -185,7 +168,7 @@ fn display_current_exercise(exercises: &[Exercise], previous_name: &mut String) 
                     println!();
                     println!(
                         "  {}",
-                        "Remove '# NOT DONE' when you've completed the exercise.".yellow()
+                        "Delete the '# I AM NOT DONE' line when you've solved it.".yellow()
                     );
                 }
                 ExerciseStatus::CompileError => {

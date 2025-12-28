@@ -1,4 +1,4 @@
-# Exercise: swap - SOLUTION
+# Solution: swap
 
 : test-swap ( -- )
     20 10

@@ -1,21 +1,20 @@
 # Exercise: Numbers
 #
-# Seq supports integers and floats. When you write a number, it gets
-# pushed onto the stack.
+# Seq supports integers and floats. Writing a number pushes it onto the stack.
 #
 # Stack effects are written as: ( inputs -- outputs )
 # For example, ( -- Int ) means "takes nothing, leaves an Int on the stack"
 #
-# Your task: Make the test pass by pushing the correct number onto the stack.
-#
-# Remove the "# NOT DONE" marker when complete.
+# Your task: Return 42 (the answer to life, the universe, and everything).
+# When done, delete the marker line below.
 
-# NOT DONE
+# I AM NOT DONE
 
 : answer ( -- Int )
-    # TODO: Replace 0 with the answer to life, the universe, and everything
     0
 ;
+
+# Do not edit below this line
 
 : test-answer ( -- )
     answer 42 test.assert-eq

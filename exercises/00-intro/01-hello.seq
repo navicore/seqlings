@@ -5,15 +5,11 @@
 # Seq is a stack-based language. When you write a value like a number
 # or string, it gets pushed onto the stack.
 #
-# Your task: Fix the code below so it prints "Hello, Seq!" to the screen.
-#
-# The `io.write-line` word takes a string from the stack and prints it.
-#
-# Remove the "# NOT DONE" marker when complete.
+# Your task: Change "Hello, World!" to "Hello, Seq!"
+# When done, delete the marker line below.
 
-# NOT DONE
+# I AM NOT DONE
 
 : main ( -- )
-    # TODO: Replace "Hello, World!" with "Hello, Seq!"
     "Hello, World!" io.write-line
 ;

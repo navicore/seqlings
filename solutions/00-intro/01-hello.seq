@@ -1,4 +1,4 @@
-# Exercise: Hello, Seq! - SOLUTION
+# Solution: Hello, Seq!
 
 : main ( -- )
     "Hello, Seq!" io.write-line

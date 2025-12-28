@@ -15,4 +15,6 @@ clap = { version = "4", features = ["derive"] }
 toml = "0.8"
 serde = { version = "1", features = ["derive"] }
 colored = "2"
+ctrlc = "3"
 notify = "7"
+notify-debouncer-mini = "0.5"

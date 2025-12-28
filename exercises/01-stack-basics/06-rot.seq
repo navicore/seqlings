@@ -8,19 +8,16 @@
 # Example:
 #   1 2 3 rot    # Stack: ( 2 3 1 )
 #
-# Think of it as: the bottom of the three "rotates" to the top.
-#
-# Your task: Use `rot` to rearrange the stack correctly.
-#
-# Remove the "# NOT DONE" marker when complete.
+# Your task: Use `rot` to move 3 to the top.
+# When done, delete the marker line below.
 
-# NOT DONE
+# I AM NOT DONE
 
 : test-rot ( -- )
     3 1 2
-    # Stack is ( 3 1 2 ) but we want ( 1 2 3 )
-    # TODO: Use rot to move 3 from the bottom to the top
-    3 test.assert-eq  # top should be 3
-    2 test.assert-eq  # middle should be 2
-    1 test.assert-eq  # bottom should be 1
+    # Your code here - add rot
+    # Do not edit below this line
+    3 test.assert-eq
+    2 test.assert-eq
+    1 test.assert-eq
 ;

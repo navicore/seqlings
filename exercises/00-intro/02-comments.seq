@@ -1,16 +1,13 @@
 # Exercise: Comments
 #
-# Comments in Seq start with a # character and continue to the end of the line.
-# They help document your code for others (and your future self!).
+# Comments in Seq start with a # and continue to the end of the line.
 #
-# Your task: Fix the broken comment on the line marked TODO.
-# The comment syntax is incorrect - can you spot the problem?
-#
-# Remove the "# NOT DONE" marker when complete.
+# Your task: Fix the broken comment below - it uses the wrong syntax.
+# When done, delete the marker line below.
 
-# NOT DONE
+# I AM NOT DONE
 
 : main ( -- )
-    // TODO: This comment uses the wrong syntax! Fix it.
+    // This comment uses the wrong syntax! Change // to #
     "Comments work!" io.write-line
 ;

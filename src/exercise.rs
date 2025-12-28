@@ -67,7 +67,7 @@ impl Exercise {
         };
 
         // Check for NOT DONE marker
-        if content.contains("# NOT DONE") {
+        if content.contains("# I AM NOT DONE") {
             return ExerciseStatus::NotDone;
         }
 

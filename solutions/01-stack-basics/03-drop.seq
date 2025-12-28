@@ -1,4 +1,4 @@
-# Exercise: drop - SOLUTION
+# Solution: drop
 
 : test-drop ( -- )
     42 99

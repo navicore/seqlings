@@ -1,4 +1,4 @@
-# Exercise: Push - SOLUTION
+# Solution: Push
 
 : push-three ( -- Int Int Int )
     1 2 3
