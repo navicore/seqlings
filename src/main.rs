@@ -8,7 +8,11 @@ mod runner;
 use clap::{Parser, Subcommand};
 use colored::Colorize;
 use exercise::{Exercise, ExerciseStatus, load_exercises};
+use notify::{Event, RecursiveMode, Watcher};
+use std::path::Path;
 use std::process;
+use std::sync::mpsc;
+use std::time::Duration;
 
 #[derive(Parser)]
 #[command(name = "seqlings")]
@@ -20,6 +24,8 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
+    /// Watch for file changes and auto-verify exercises
+    Watch,
     /// List all exercises with their status
     List,
     /// Show hint for the current or specified exercise
@@ -56,16 +62,190 @@ fn main() {
     }
 
     match cli.command {
+        Some(Commands::Watch) => cmd_watch(&exercises),
         Some(Commands::List) => cmd_list(&exercises),
         Some(Commands::Hint { name }) => cmd_hint(&exercises, name),
         Some(Commands::Reset { name }) => cmd_reset(&exercises, name),
         Some(Commands::Verify) => cmd_verify(&exercises),
         Some(Commands::Next) => cmd_next(&exercises),
-        None => cmd_run(&exercises),
+        None => cmd_watch(&exercises), // Default to watch mode
     }
 }
 
-/// Default command: find first incomplete exercise and open in editor
+/// Watch mode: continuously monitor exercises and provide feedback
+fn cmd_watch(exercises: &[Exercise]) {
+    // Set up file watcher
+    let (tx, rx) = mpsc::channel();
+
+    let mut watcher = notify::recommended_watcher(move |res: Result<Event, _>| {
+        if let Ok(event) = res {
+            // Only care about modifications
+            if event.kind.is_modify() {
+                let _ = tx.send(());
+            }
+        }
+    })
+    .expect("Failed to create file watcher");
+
+    // Watch the exercises directory
+    watcher
+        .watch(Path::new("exercises"), RecursiveMode::Recursive)
+        .expect("Failed to watch exercises directory");
+
+    println!(
+        "\n{}",
+        "Welcome to seqlings watch mode!".green().bold()
+    );
+    println!("{}", "Edit exercises in your editor. Progress updates automatically.".dimmed());
+    println!("{}", "Press Ctrl+C to exit.\n".dimmed());
+
+    // Initial display
+    let mut current_exercise_name = String::new();
+    display_current_exercise(exercises, &mut current_exercise_name);
+
+    // Watch loop
+    loop {
+        // Wait for file change with timeout (allows checking for completion)
+        match rx.recv_timeout(Duration::from_millis(500)) {
+            Ok(()) => {
+                // Small delay to let file writes complete
+                std::thread::sleep(Duration::from_millis(100));
+
+                // Clear screen and redisplay
+                clear_screen();
+                display_current_exercise(exercises, &mut current_exercise_name);
+            }
+            Err(mpsc::RecvTimeoutError::Timeout) => {
+                // No change, continue waiting
+            }
+            Err(mpsc::RecvTimeoutError::Disconnected) => {
+                break;
+            }
+        }
+    }
+}
+
+fn clear_screen() {
+    // ANSI escape to clear screen and move cursor to top
+    print!("\x1B[2J\x1B[1;1H");
+    use std::io::Write;
+    std::io::stdout().flush().ok();
+}
+
+fn display_current_exercise(exercises: &[Exercise], previous_name: &mut String) {
+    // Find first incomplete exercise
+    let current = exercises.iter().find(|e| {
+        matches!(
+            e.status(),
+            ExerciseStatus::NotDone | ExerciseStatus::CompileError | ExerciseStatus::TestFail
+        )
+    });
+
+    match current {
+        Some(exercise) => {
+            let status = exercise.status();
+
+            // Check if we moved to a new exercise
+            if !previous_name.is_empty() && *previous_name != exercise.name {
+                println!(
+                    "{} Completed {}!\n",
+                    "✓".green().bold(),
+                    previous_name.cyan()
+                );
+            }
+            *previous_name = exercise.name.clone();
+
+            // Show exercise header
+            println!(
+                "{} {}\n",
+                "Current exercise:".green().bold(),
+                exercise.name.cyan()
+            );
+
+            // Show file path
+            println!("  File: {}", exercise.path.display().to_string().dimmed());
+
+            // Show status with details
+            match status {
+                ExerciseStatus::NotDone => {
+                    println!("  Status: {}\n", "Waiting for you to start...".yellow());
+
+                    // Show exercise description
+                    if let Ok(content) = std::fs::read_to_string(&exercise.path) {
+                        let header: Vec<&str> = content
+                            .lines()
+                            .take_while(|l| l.starts_with('#'))
+                            .filter(|l| !l.contains("NOT DONE"))
+                            .collect();
+                        for line in header {
+                            println!("  {}", line.dimmed());
+                        }
+                    }
+
+                    println!();
+                    println!(
+                        "  {}",
+                        "Remove '# NOT DONE' when you've completed the exercise.".yellow()
+                    );
+                }
+                ExerciseStatus::CompileError => {
+                    println!("  Status: {}\n", "Compile Error".red().bold());
+
+                    if let Err(e) = runner::compile(&exercise.path) {
+                        // Show first few lines of error
+                        for line in e.lines().take(15) {
+                            println!("  {}", line.red());
+                        }
+                    }
+                }
+                ExerciseStatus::TestFail => {
+                    println!("  Status: {}\n", "Tests Failed".red().bold());
+
+                    match runner::run_tests(&exercise.path) {
+                        Ok(output) | Err(output) => {
+                            for line in output.lines().take(20) {
+                                if line.contains("FAIL") || line.contains("panicked") {
+                                    println!("  {}", line.red());
+                                } else if line.contains("ok") {
+                                    println!("  {}", line.green());
+                                } else {
+                                    println!("  {}", line);
+                                }
+                            }
+                        }
+                    }
+                }
+                ExerciseStatus::Done => {
+                    // Shouldn't happen in this branch, but handle it
+                    println!("  Status: {}", "Done".green());
+                }
+            }
+
+            println!();
+            println!(
+                "  {} seqlings hint",
+                "Hint:".cyan()
+            );
+            show_progress(exercises);
+        }
+        None => {
+            // All done!
+            clear_screen();
+            println!("\n{}", "=".repeat(50).green());
+            println!(
+                "{}",
+                "  Congratulations! You've completed all exercises!".green().bold()
+            );
+            println!("{}\n", "=".repeat(50).green());
+            show_progress(exercises);
+            println!("\n{}", "You're now a Seq programmer!".cyan().bold());
+            process::exit(0);
+        }
+    }
+}
+
+/// Open exercise in editor (alternative to watch mode)
+#[allow(dead_code)]
 fn cmd_run(exercises: &[Exercise]) {
     // Find first incomplete exercise
     let current = exercises.iter().find(|e| {
@@ -319,6 +499,7 @@ fn cmd_next(exercises: &[Exercise]) {
 }
 
 /// Verify a single exercise and show result
+#[allow(dead_code)]
 fn verify_exercise(exercise: &Exercise) {
     let status = exercise.status();
     println!(
