@@ -1,0 +1,32 @@
+# Exercise: Working with Lines
+#
+# Files often contain multiple lines. After reading, you can split
+# the content into lines using string operations.
+#
+# Example workflow:
+#   "data.txt" file.read    # Get full content
+#   "\n" string.split       # Split on newlines -> List of strings
+#
+# You can also join lines to write:
+#   my-lines "\n" string.join    # Join with newlines
+#   "output.txt" file.write
+#
+# Your task: Understand the line processing workflow
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: split-on-newlines ( String -- List )
+    # Split a string on newlines
+    # Your code here
+    drop [ ]
+;
+
+: test-lines ( -- )
+    "a\nb\nc" split-on-newlines
+    list.length
+
+    # Do not edit below this line
+    3 test.assert-eq
+;

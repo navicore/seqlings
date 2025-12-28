@@ -1,0 +1,19 @@
+: test-list-check ( -- )
+    [ 1 2 3 ] list?
+    true test.assert-eq
+;
+
+: test-list-length ( -- )
+    [ 10 20 30 40 ] list.length
+    4 test.assert-eq
+;
+
+: test-list-first ( -- )
+    [ 5 10 15 ] list.first
+    5 test.assert-eq
+;
+
+: test-list-empty ( -- )
+    [ ] list.empty?
+    true test.assert-eq
+;

@@ -1,0 +1,25 @@
+# Exercise: Time-Based Patterns
+#
+# Combine time operations for useful patterns.
+#
+# Your task: Build time utility functions
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: is-recent ( Int Int -- Bool )
+    # Check if timestamp is within threshold ms of now
+    # Args: timestamp threshold
+    # Returns true if (now - timestamp) < threshold
+    # Your code here
+    drop drop false
+;
+
+: test-recent ( -- )
+    # Current time should be "recent" within 1 second
+    time.now 1000 is-recent
+
+    # Do not edit below this line
+    true test.assert-eq
+;

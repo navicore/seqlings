@@ -1,0 +1,8 @@
+: sleep-takes-int ( -- String )
+    "int"
+;
+
+: test-sleep-type ( -- )
+    sleep-takes-int
+    "int" test.assert-eq
+;

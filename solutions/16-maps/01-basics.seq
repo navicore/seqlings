@@ -1,0 +1,4 @@
+: test-basics ( -- )
+    map.make "fruit" "apple" map.set
+    "fruit" map.get "apple" test.assert-eq
+;

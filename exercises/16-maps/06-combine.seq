@@ -1,0 +1,40 @@
+# Exercise: Building a Map Workflow
+#
+# Combine map operations to build a useful data structure.
+#
+# Your task: Create a word that builds a user profile map
+# with name, age, and email fields.
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: make-profile ( String Int String -- Map )
+    # Arguments on stack: name, age, email (email on top)
+    # Create a map with keys "name", "age", "email"
+    # Hint: You'll need to use rot and swap to access values
+    # Your code here
+    drop drop drop map.make
+;
+
+: test-profile ( -- )
+    "Alice" 30 "alice@example.com" make-profile
+    dup "name" map.get "Alice" test.assert-eq
+    dup "age" map.get 30 test.assert-eq
+    "email" map.get "alice@example.com" test.assert-eq
+;
+
+: update-age ( Map Int -- Map )
+    # Update the "age" field with a new value
+    # Your code here
+    drop
+;
+
+: test-update ( -- )
+    "Bob" 25 "bob@example.com" make-profile
+    31 update-age
+    "age" map.get
+
+    # Do not edit below this line
+    31 test.assert-eq
+;

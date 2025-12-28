@@ -1,0 +1,19 @@
+: test-int-add ( -- )
+    15 7 i.+
+    22 test.assert-eq
+;
+
+: test-int-multiply ( -- )
+    6 7 i.*
+    42 test.assert-eq
+;
+
+: test-int-divide ( -- )
+    17 5 i./
+    3 test.assert-eq
+;
+
+: test-int-mod ( -- )
+    17 5 i.mod
+    2 test.assert-eq
+;

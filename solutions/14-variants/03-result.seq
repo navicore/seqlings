@@ -1,0 +1,22 @@
+variant Result
+    | Ok value
+    | Err error
+end
+
+: success ( Int -- Result )
+    Ok
+;
+
+: failure ( String -- Result )
+    Err
+;
+
+: test-ok ( -- )
+    42 success Ok?
+    true test.assert-eq
+;
+
+: test-err ( -- )
+    "oops" failure Err?
+    true test.assert-eq
+;

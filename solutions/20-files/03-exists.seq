@@ -1,0 +1,8 @@
+: exists-returns ( -- String )
+    "bool"
+;
+
+: test-exists ( -- )
+    exists-returns
+    "bool" test.assert-eq
+;

@@ -1,0 +1,41 @@
+# Exercise: Getting Values from Maps
+#
+# Use `map.get` to retrieve values by key.
+#
+# Example:
+#   my-map "name" map.get    # Gets value for "name"
+#
+# Note: map.get will fail if the key doesn't exist!
+# Use map.get-or for safe access (next exercise).
+#
+# Your task: Get the value for key "color" and verify it equals "blue"
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: make-test-map ( -- Map )
+    map.make
+    "color" "blue" map.set
+    "size" "large" map.set
+;
+
+: test-get ( -- )
+    make-test-map
+    # Get the value for "color"
+    # Your code here
+    drop ""
+
+    # Do not edit below this line
+    "blue" test.assert-eq
+;
+
+: test-get-other ( -- )
+    make-test-map
+    # Get the value for "size"
+    # Your code here
+    drop ""
+
+    # Do not edit below this line
+    "large" test.assert-eq
+;

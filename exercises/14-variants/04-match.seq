@@ -1,0 +1,40 @@
+# Exercise: Pattern Matching
+#
+# Use variant.match to handle each variant case:
+#
+# my-option
+# variant.match
+#     | Some -> [ process-value ]
+#     | None -> [ handle-none ]
+# end
+#
+# Your task: Match on variant values
+#
+# When done, delete the marker line below.
+
+variant Option
+    | Some value
+    | None
+end
+
+# I AM NOT DONE
+
+: unwrap-or ( Option Int -- Int )
+    # If Some, return the value. If None, return the default.
+    # Your code here (use variant.match)
+    drop drop 0
+;
+
+: test-unwrap-some ( -- )
+    42 Some 0 unwrap-or
+
+    # Do not edit below this line
+    42 test.assert-eq
+;
+
+: test-unwrap-none ( -- )
+    None 99 unwrap-or
+
+    # Do not edit below this line
+    99 test.assert-eq
+;

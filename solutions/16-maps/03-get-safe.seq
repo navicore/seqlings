@@ -1,0 +1,16 @@
+: make-test-map ( -- Map )
+    map.make
+    "name" "Bob" map.set
+;
+
+: test-get-existing ( -- )
+    make-test-map
+    "name" "Unknown" map.get-or
+    "Bob" test.assert-eq
+;
+
+: test-get-missing ( -- )
+    make-test-map
+    "age" "Unknown" map.get-or
+    "Unknown" test.assert-eq
+;

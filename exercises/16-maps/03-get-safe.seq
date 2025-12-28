@@ -1,0 +1,41 @@
+# Exercise: Safe Access with get-or
+#
+# The `map.get-or` operation provides a default value when a key is missing.
+# This is safer than `map.get` which fails on missing keys.
+#
+# Syntax:
+#   map key default map.get-or    # Returns value or default
+#
+# Example:
+#   my-map "missing" "N/A" map.get-or    # Returns "N/A" if key missing
+#
+# Your task: Use get-or to safely access keys
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: make-test-map ( -- Map )
+    map.make
+    "name" "Bob" map.set
+;
+
+: test-get-existing ( -- )
+    make-test-map
+    # Get "name" with default "Unknown"
+    # Your code here
+    drop ""
+
+    # Do not edit below this line
+    "Bob" test.assert-eq
+;
+
+: test-get-missing ( -- )
+    make-test-map
+    # Get "age" (doesn't exist) with default "Unknown"
+    # Your code here
+    drop ""
+
+    # Do not edit below this line
+    "Unknown" test.assert-eq
+;

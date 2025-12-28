@@ -1,0 +1,35 @@
+# Exercise: Building Argument Parsers
+#
+# Combine argument operations to build useful patterns.
+#
+# Your task: Create an argument validation function
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: require-args ( Int -- Bool )
+    # Check if we have at least n arguments
+    # Your code here
+    drop false
+;
+
+: test-require ( -- )
+    # We should have at least 1 arg (the program)
+    1 require-args
+
+    # Do not edit below this line
+    true test.assert-eq
+;
+
+: usage-message ( -- String )
+    # Return a usage string
+    "Usage: program <input> <output>"
+;
+
+: test-usage ( -- )
+    usage-message string.length 0 >
+
+    # Do not edit below this line
+    true test.assert-eq
+;

@@ -1,0 +1,37 @@
+# Exercise: String Type
+#
+# Strings are sequences of characters. String operations:
+#   string.length   - Get length
+#   string.concat   - Join strings
+#   string?         - Type check
+#
+# Your task: Work with string types
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-string-check ( -- )
+    "Seq" string?
+
+    # Do not edit below this line
+    true test.assert-eq
+;
+
+: test-string-length ( -- )
+    # Get the length of "hello"
+    # Your code here
+    0
+
+    # Do not edit below this line
+    5 test.assert-eq
+;
+
+: test-string-concat ( -- )
+    # Concatenate "hello" and " world"
+    # Your code here
+    ""
+
+    # Do not edit below this line
+    "hello world" test.assert-eq
+;

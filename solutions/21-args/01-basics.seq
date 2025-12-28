@@ -1,0 +1,8 @@
+: args-type ( -- String )
+    "list"
+;
+
+: test-args-type ( -- )
+    args-type
+    "list" test.assert-eq
+;

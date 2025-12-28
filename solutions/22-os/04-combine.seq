@@ -1,0 +1,11 @@
+: get-home-or-default ( -- String )
+    "HOME" os.env-has?
+    [ "HOME" os.env-get ]
+    [ "/tmp" ]
+    if-else
+;
+
+: test-home ( -- )
+    get-home-or-default string.length 0 >
+    true test.assert-eq
+;

@@ -1,0 +1,23 @@
+# Exercise: String to Integer Conversion
+#
+# The `string->int` function parses a string as an integer.
+# This is essential when reading numeric input from users or files.
+#
+# Example:
+#   "123" string->int    # Stack: ( 123 )
+#   "-50" string->int    # Stack: ( -50 )
+#
+# Your task: Parse the string "42" and double it.
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-string-to-int ( -- )
+    # Parse "42" to an integer and multiply by 2
+    # Your code here
+    0
+
+    # Do not edit below this line
+    84 test.assert-eq
+;

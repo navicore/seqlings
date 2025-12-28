@@ -1,0 +1,19 @@
+: test-int-predicate ( -- )
+    100 int?
+    true test.assert-eq
+;
+
+: test-float-predicate ( -- )
+    3.14 float?
+    true test.assert-eq
+;
+
+: test-string-predicate ( -- )
+    "hello" string?
+    true test.assert-eq
+;
+
+: test-not-int ( -- )
+    "42" int?
+    false test.assert-eq
+;

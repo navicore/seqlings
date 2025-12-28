@@ -1,0 +1,8 @@
+: cwd-is-string ( -- Bool )
+    os.cwd string?
+;
+
+: test-cwd ( -- )
+    cwd-is-string
+    true test.assert-eq
+;

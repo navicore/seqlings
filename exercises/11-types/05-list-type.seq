@@ -1,0 +1,49 @@
+# Exercise: List Type
+#
+# Lists are ordered collections: `[ 1 2 3 ]`
+#
+# List operations:
+#   list?         - Type check
+#   list.length   - Get length
+#   list.first    - Get first element
+#   list.rest     - Get all but first
+#   list.empty?   - Check if empty
+#
+# Your task: Work with list types
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-list-check ( -- )
+    [ 1 2 3 ] list?
+
+    # Do not edit below this line
+    true test.assert-eq
+;
+
+: test-list-length ( -- )
+    # Get the length of [ 10 20 30 40 ]
+    # Your code here
+    0
+
+    # Do not edit below this line
+    4 test.assert-eq
+;
+
+: test-list-first ( -- )
+    # Get the first element of [ 5 10 15 ]
+    # Your code here
+    0
+
+    # Do not edit below this line
+    5 test.assert-eq
+;
+
+: test-list-empty ( -- )
+    # Check if an empty list is empty
+    [ ] list.empty?
+
+    # Do not edit below this line
+    true test.assert-eq
+;

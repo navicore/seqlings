@@ -1,0 +1,29 @@
+# Exercise: Checking File Existence
+#
+# Before reading a file, you might want to check if it exists.
+# The `file.exists?` operation returns a boolean.
+#
+# Example:
+#   "config.txt" file.exists?    # Stack: ( true ) or ( false )
+#
+# This is useful for conditional file processing.
+#
+# Your task: Write a word that would safely process a file
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: exists-returns ( -- String )
+    # What type does file.exists? return?
+    # Return "bool" for boolean
+    # Your code here
+    ""
+;
+
+: test-exists ( -- )
+    exists-returns
+
+    # Do not edit below this line
+    "bool" test.assert-eq
+;

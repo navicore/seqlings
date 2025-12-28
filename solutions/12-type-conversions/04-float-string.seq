@@ -1,0 +1,4 @@
+: test-float-string ( -- )
+    "3.5" string->float 1.5 f.+
+    5.0 f.= test.assert
+;

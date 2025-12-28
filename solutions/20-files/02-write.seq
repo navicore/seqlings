@@ -1,0 +1,8 @@
+: write-order ( -- String )
+    "content"
+;
+
+: test-write ( -- )
+    write-order
+    "content" test.assert-eq
+;

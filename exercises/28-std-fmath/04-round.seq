@@ -1,0 +1,49 @@
+# Exercise: Rounding Functions
+#
+# Rounding operations:
+#   fmath.floor   - Round down
+#   fmath.ceil    - Round up
+#   fmath.round   - Round to nearest
+#   fmath.abs     - Absolute value
+#
+# Your task: Use rounding functions
+#
+# When done, delete the marker line below.
+
+use std:fmath
+
+# I AM NOT DONE
+
+: test-floor ( -- )
+    3.7 fmath.floor
+
+    # Do not edit below this line
+    3.0 f.= test.assert
+;
+
+: test-ceil ( -- )
+    # Ceiling of 3.2
+    # Your code here
+    0.0
+
+    # Do not edit below this line
+    4.0 f.= test.assert
+;
+
+: test-round ( -- )
+    # Round 2.6 to nearest
+    # Your code here
+    0.0
+
+    # Do not edit below this line
+    3.0 f.= test.assert
+;
+
+: test-abs ( -- )
+    # Absolute value of -7.5
+    # Your code here
+    0.0
+
+    # Do not edit below this line
+    7.5 f.= test.assert
+;

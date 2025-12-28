@@ -1,0 +1,43 @@
+# Exercise: Absolute Value
+#
+# The `imath.abs` function returns the absolute value of an integer.
+#
+# Example:
+#   -42 imath.abs    # Stack: ( 42 )
+#   5 imath.abs      # Stack: ( 5 )
+#
+# Your task: Implement a word that returns the absolute difference
+# between two numbers.
+#
+# When done, delete the marker line below.
+
+use std:imath
+
+# I AM NOT DONE
+
+: abs-diff ( Int Int -- Int )
+    # Calculate |a - b|
+    # Your code here
+    drop drop 0
+;
+
+: test-abs ( -- )
+    -10 imath.abs
+
+    # Do not edit below this line
+    10 test.assert-eq
+;
+
+: test-abs-diff ( -- )
+    7 3 abs-diff
+
+    # Do not edit below this line
+    4 test.assert-eq
+;
+
+: test-abs-diff-negative ( -- )
+    3 7 abs-diff
+
+    # Do not edit below this line
+    4 test.assert-eq
+;

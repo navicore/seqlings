@@ -1,0 +1,22 @@
+use std:imath
+
+: manhattan-distance ( Int Int Int Int -- Int )
+    rot i.- imath.abs
+    rot rot i.- imath.abs
+    i.+
+;
+
+: test-manhattan ( -- )
+    0 0 3 4 manhattan-distance
+    7 test.assert-eq
+;
+
+: bounded-power ( Int Int Int Int -- Int )
+    2swap imath.pow
+    rot rot imath.clamp
+;
+
+: test-bounded-power ( -- )
+    2 10 0 500 bounded-power
+    500 test.assert-eq
+;

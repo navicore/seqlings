@@ -1,0 +1,19 @@
+: make-test-map ( -- Map )
+    map.make
+    "a" 1 map.set
+    "b" 2 map.set
+    "c" 3 map.set
+;
+
+: test-remove ( -- )
+    make-test-map
+    "b" map.remove
+    "b" map.contains?
+    false test.assert-eq
+;
+
+: test-contains ( -- )
+    make-test-map
+    "a" map.contains?
+    true test.assert-eq
+;

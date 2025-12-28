@@ -1,0 +1,23 @@
+# Exercise: Map Basics
+#
+# Maps are key-value stores. Create them with `map.make` and add entries
+# with `map.set`.
+#
+# Example:
+#   map.make                     # Create empty map
+#   "key" "value" map.set        # Add entry, returns updated map
+#
+# Your task: Create a map with key "fruit" and value "apple"
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-basics ( -- )
+    # Create a map and set "fruit" to "apple"
+    # Your code here
+    map.make
+
+    # Do not edit below this line
+    "fruit" map.get "apple" test.assert-eq
+;

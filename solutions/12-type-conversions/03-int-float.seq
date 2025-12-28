@@ -1,0 +1,9 @@
+: test-int-float ( -- )
+    7 int->float 0.5 f.+ float->int
+    7 test.assert-eq
+;
+
+: test-truncation ( -- )
+    9.9 float->int
+    9 test.assert-eq
+;

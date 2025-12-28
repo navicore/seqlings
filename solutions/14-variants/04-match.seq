@@ -1,0 +1,22 @@
+variant Option
+    | Some value
+    | None
+end
+
+: unwrap-or ( Option Int -- Int )
+    swap
+    variant.match
+        | Some -> [ swap drop ]
+        | None -> [ ]
+    end
+;
+
+: test-unwrap-some ( -- )
+    42 Some 0 unwrap-or
+    42 test.assert-eq
+;
+
+: test-unwrap-none ( -- )
+    None 99 unwrap-or
+    99 test.assert-eq
+;

@@ -1,0 +1,24 @@
+# Exercise: Float and String Conversions
+#
+# Converting floats to/from strings:
+#   `float->string` - Convert float to string representation
+#   `string->float` - Parse a string as a float
+#
+# Examples:
+#   3.14 float->string     # Stack: ( "3.14" )
+#   "2.5" string->float    # Stack: ( 2.5 )
+#
+# Your task: Parse "3.5" as a float and add 1.5 to get 5.0
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-float-string ( -- )
+    # Parse "3.5" and add 1.5
+    # Your code here
+    0.0
+
+    # Do not edit below this line
+    5.0 f.= test.assert
+;

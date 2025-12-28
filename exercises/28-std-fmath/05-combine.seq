@@ -1,0 +1,53 @@
+# Exercise: Mathematical Formulas
+#
+# Combine fmath functions to implement formulas.
+#
+# Your task: Implement useful mathematical functions
+#
+# When done, delete the marker line below.
+
+use std:fmath
+
+# I AM NOT DONE
+
+: circle-area ( Float -- Float )
+    # Area of circle: pi * r^2
+    # Your code here
+    drop 0.0
+;
+
+: test-circle-area ( -- )
+    # Area of circle with radius 2
+    2.0 circle-area
+
+    # Do not edit below this line (approximately 12.566...)
+    12.566 f.- fmath.abs 0.01 f.< test.assert
+;
+
+: degrees-to-radians ( Float -- Float )
+    # Convert degrees to radians: degrees * pi / 180
+    # Your code here
+    drop 0.0
+;
+
+: test-degrees ( -- )
+    # 180 degrees = pi radians
+    180.0 degrees-to-radians
+
+    # Do not edit below this line
+    fmath.pi f.- fmath.abs 0.0001 f.< test.assert
+;
+
+: distance ( Float Float Float Float -- Float )
+    # Euclidean distance between (x1,y1) and (x2,y2)
+    # sqrt((x2-x1)^2 + (y2-y1)^2)
+    # Your code here
+    drop drop drop drop 0.0
+;
+
+: test-distance ( -- )
+    0.0 0.0 3.0 4.0 distance
+
+    # Do not edit below this line
+    5.0 f.= test.assert
+;

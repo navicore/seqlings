@@ -1,0 +1,51 @@
+# Exercise: Exponential and Logarithmic
+#
+# Exponential:
+#   fmath.exp     - e^x
+#   fmath.pow     - base^exponent
+#
+# Logarithmic:
+#   fmath.ln      - natural log (base e)
+#   fmath.log10   - log base 10
+#
+# Your task: Use exp and log functions
+#
+# When done, delete the marker line below.
+
+use std:fmath
+
+# I AM NOT DONE
+
+: test-exp-zero ( -- )
+    # e^0 = 1
+    0.0 fmath.exp
+
+    # Do not edit below this line
+    1.0 f.= test.assert
+;
+
+: test-ln-e ( -- )
+    # ln(e) = 1
+    fmath.e fmath.ln
+
+    # Do not edit below this line
+    1.0 f.= test.assert
+;
+
+: test-log10 ( -- )
+    # log10(100) = 2
+    # Your code here
+    0.0
+
+    # Do not edit below this line
+    2.0 f.= test.assert
+;
+
+: test-pow ( -- )
+    # 2^8 = 256
+    # Your code here
+    0.0
+
+    # Do not edit below this line
+    256.0 f.= test.assert
+;

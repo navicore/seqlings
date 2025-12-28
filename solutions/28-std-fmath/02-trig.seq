@@ -1,0 +1,16 @@
+use std:fmath
+
+: test-sin-zero ( -- )
+    0.0 fmath.sin
+    0.0 f.= test.assert
+;
+
+: test-cos-zero ( -- )
+    0.0 fmath.cos
+    1.0 f.= test.assert
+;
+
+: test-sin-pi-half ( -- )
+    fmath.pi 2.0 f./ fmath.sin
+    1.0 f.= test.assert
+;

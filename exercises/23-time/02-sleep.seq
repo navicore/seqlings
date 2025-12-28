@@ -1,0 +1,26 @@
+# Exercise: Sleeping
+#
+# Use `time.sleep` to pause execution.
+#
+# Example:
+#   100 time.sleep    # Sleep for 100 milliseconds
+#
+# Your task: Understand sleep operations
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: sleep-takes-int ( -- String )
+    # What type does time.sleep take as input?
+    # Return "int" for integer (milliseconds)
+    # Your code here
+    ""
+;
+
+: test-sleep-type ( -- )
+    sleep-takes-int
+
+    # Do not edit below this line
+    "int" test.assert-eq
+;

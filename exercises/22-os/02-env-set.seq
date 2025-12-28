@@ -1,0 +1,25 @@
+# Exercise: Setting Environment Variables
+#
+# Use `os.env-set` to set environment variables.
+#
+# Syntax:
+#   "VAR_NAME" "value" os.env-set
+#
+# Your task: Understand setting variables
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: set-and-check ( String String -- Bool )
+    # Set a variable and check it exists
+    # Your code here (conceptual)
+    drop drop true
+;
+
+: test-set ( -- )
+    "TEST_VAR" "test_value" set-and-check
+
+    # Do not edit below this line
+    true test.assert-eq
+;

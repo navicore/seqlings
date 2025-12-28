@@ -1,0 +1,25 @@
+: make-profile ( String Int String -- Map )
+    # Stack: name age email (email on top)
+    map.make
+    "email" rot map.set
+    "age" rot map.set
+    "name" rot map.set
+;
+
+: test-profile ( -- )
+    "Alice" 30 "alice@example.com" make-profile
+    dup "name" map.get "Alice" test.assert-eq
+    dup "age" map.get 30 test.assert-eq
+    "email" map.get "alice@example.com" test.assert-eq
+;
+
+: update-age ( Map Int -- Map )
+    "age" swap map.set
+;
+
+: test-update ( -- )
+    "Bob" 25 "bob@example.com" make-profile
+    31 update-age
+    "age" map.get
+    31 test.assert-eq
+;

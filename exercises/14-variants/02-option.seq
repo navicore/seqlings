@@ -1,0 +1,46 @@
+# Exercise: Option Type
+#
+# The Option type represents a value that might or might not exist.
+#
+# variant Option
+#     | Some value
+#     | None
+# end
+#
+# Examples:
+#   42 Some      # An Option containing 42
+#   None         # An empty Option
+#
+# Your task: Create and use Option values
+#
+# When done, delete the marker line below.
+
+variant Option
+    | Some value
+    | None
+end
+
+# I AM NOT DONE
+
+: test-some ( -- )
+    100 Some Some?
+
+    # Do not edit below this line
+    true test.assert-eq
+;
+
+: test-none ( -- )
+    None None?
+
+    # Do not edit below this line
+    true test.assert-eq
+;
+
+: test-some-not-none ( -- )
+    # Check that Some is NOT None
+    # Your code here
+    true
+
+    # Do not edit below this line
+    false test.assert-eq
+;

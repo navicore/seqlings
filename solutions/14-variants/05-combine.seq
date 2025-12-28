@@ -1,0 +1,30 @@
+variant Result
+    | Ok value
+    | Err error
+end
+
+: safe-divide ( Int Int -- Result )
+    dup 0 =
+    [ drop drop "division by zero" Err ]
+    [ i./ Ok ]
+    if-else
+;
+
+: test-safe-divide-ok ( -- )
+    10 2 safe-divide Ok?
+    true test.assert-eq
+;
+
+: test-safe-divide-err ( -- )
+    10 0 safe-divide Err?
+    true test.assert-eq
+;
+
+: test-safe-divide-value ( -- )
+    10 2 safe-divide
+    variant.match
+        | Ok -> [ ]
+        | Err -> [ drop 0 ]
+    end
+    5 test.assert-eq
+;

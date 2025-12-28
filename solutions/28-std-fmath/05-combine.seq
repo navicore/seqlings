@@ -1,0 +1,30 @@
+use std:fmath
+
+: circle-area ( Float -- Float )
+    dup f.* fmath.pi f.*
+;
+
+: test-circle-area ( -- )
+    2.0 circle-area
+    12.566 f.- fmath.abs 0.01 f.< test.assert
+;
+
+: degrees-to-radians ( Float -- Float )
+    fmath.pi f.* 180.0 f./
+;
+
+: test-degrees ( -- )
+    180.0 degrees-to-radians
+    fmath.pi f.- fmath.abs 0.0001 f.< test.assert
+;
+
+: distance ( Float Float Float Float -- Float )
+    rot f.- dup f.*
+    rot rot f.- dup f.*
+    f.+ fmath.sqrt
+;
+
+: test-distance ( -- )
+    0.0 0.0 3.0 4.0 distance
+    5.0 f.= test.assert
+;

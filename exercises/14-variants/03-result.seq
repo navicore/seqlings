@@ -1,0 +1,49 @@
+# Exercise: Result Type
+#
+# The Result type represents success or failure.
+#
+# variant Result
+#     | Ok value
+#     | Err error
+# end
+#
+# Examples:
+#   42 Ok           # Success with value 42
+#   "failed" Err    # Failure with message
+#
+# Your task: Create success and failure results
+#
+# When done, delete the marker line below.
+
+variant Result
+    | Ok value
+    | Err error
+end
+
+# I AM NOT DONE
+
+: success ( Int -- Result )
+    # Wrap an integer in Ok
+    # Your code here
+    drop "error" Err
+;
+
+: failure ( String -- Result )
+    # Wrap an error message in Err
+    # Your code here
+    drop 0 Ok
+;
+
+: test-ok ( -- )
+    42 success Ok?
+
+    # Do not edit below this line
+    true test.assert-eq
+;
+
+: test-err ( -- )
+    "oops" failure Err?
+
+    # Do not edit below this line
+    true test.assert-eq
+;

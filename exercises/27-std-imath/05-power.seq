@@ -1,0 +1,45 @@
+# Exercise: Integer Power
+#
+# The `imath.pow` function calculates integer exponentiation.
+#
+# Stack effect: ( base exponent -- result )
+#
+# Examples:
+#   2 3 imath.pow     # 2^3 = 8
+#   5 0 imath.pow     # 5^0 = 1
+#   10 2 imath.pow    # 10^2 = 100
+#
+# Your task: Calculate powers of 2
+#
+# When done, delete the marker line below.
+
+use std:imath
+
+# I AM NOT DONE
+
+: power-of-2 ( Int -- Int )
+    # Calculate 2^n
+    # Your code here
+    drop 0
+;
+
+: test-pow ( -- )
+    3 4 imath.pow
+
+    # Do not edit below this line
+    81 test.assert-eq
+;
+
+: test-power-of-2 ( -- )
+    8 power-of-2
+
+    # Do not edit below this line
+    256 test.assert-eq
+;
+
+: test-power-zero ( -- )
+    0 power-of-2
+
+    # Do not edit below this line
+    1 test.assert-eq
+;

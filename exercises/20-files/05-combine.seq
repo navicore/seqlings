@@ -1,0 +1,44 @@
+# Exercise: File Workflow
+#
+# Combine file operations into a complete workflow.
+#
+# A typical pattern:
+# 1. Check if file exists
+# 2. Read contents
+# 3. Process data
+# 4. Write results
+#
+# Your task: Complete the file processing workflow
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: count-lines ( String -- Int )
+    # Count the number of lines in a string
+    # Hint: split on "\n" and get length
+    # Your code here
+    drop 0
+;
+
+: test-count-lines ( -- )
+    "line1\nline2\nline3\nline4" count-lines
+
+    # Do not edit below this line
+    4 test.assert-eq
+;
+
+: add-header ( String String -- String )
+    # Prepend a header line to content
+    # Args: content header (header on top)
+    # Result: header + newline + content
+    # Your code here
+    drop
+;
+
+: test-add-header ( -- )
+    "data here" "# Header" add-header
+
+    # Do not edit below this line
+    "# Header\ndata here" test.assert-eq
+;

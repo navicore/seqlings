@@ -1,0 +1,27 @@
+# Exercise: Measuring Duration
+#
+# Measure elapsed time between two points:
+#
+#   time.now          # Start
+#   do-work
+#   time.now swap i.- # End - Start = elapsed ms
+#
+# Your task: Understand duration measurement
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: elapsed-is-non-negative ( -- Bool )
+    # Taking two timestamps should give non-negative difference
+    # time.now ... time.now swap i.- should be >= 0
+    # Your code here (conceptual)
+    true
+;
+
+: test-elapsed ( -- )
+    elapsed-is-non-negative
+
+    # Do not edit below this line
+    true test.assert-eq
+;

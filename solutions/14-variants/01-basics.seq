@@ -1,0 +1,20 @@
+variant TrafficLight
+    | Stop
+    | Go
+    | Caution
+end
+
+: test-create-stop ( -- )
+    Stop variant.tag
+    "Stop" test.assert-eq
+;
+
+: test-create-go ( -- )
+    Go variant.tag
+    "Go" test.assert-eq
+;
+
+: test-check-stop ( -- )
+    Stop Stop?
+    true test.assert-eq
+;

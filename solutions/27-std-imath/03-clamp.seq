@@ -1,0 +1,20 @@
+use std:imath
+
+: clamp-percent ( Int -- Int )
+    0 100 imath.clamp
+;
+
+: test-clamp-high ( -- )
+    150 clamp-percent
+    100 test.assert-eq
+;
+
+: test-clamp-low ( -- )
+    -20 clamp-percent
+    0 test.assert-eq
+;
+
+: test-clamp-ok ( -- )
+    50 clamp-percent
+    50 test.assert-eq
+;

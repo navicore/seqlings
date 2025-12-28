@@ -1,0 +1,24 @@
+: make-test-map ( -- Map )
+    map.make
+    "x" 10 map.set
+    "y" 20 map.set
+    "z" 30 map.set
+;
+
+: test-size ( -- )
+    make-test-map
+    map.size
+    3 test.assert-eq
+;
+
+: test-empty ( -- )
+    map.make
+    map.empty?
+    true test.assert-eq
+;
+
+: test-keys-count ( -- )
+    make-test-map
+    map.keys list.length
+    3 test.assert-eq
+;

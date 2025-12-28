@@ -1,0 +1,9 @@
+: set-and-check ( String String -- Bool )
+    os.env-set
+    os.env-has?
+;
+
+: test-set ( -- )
+    "TEST_VAR" "test_value" set-and-check
+    true test.assert-eq
+;

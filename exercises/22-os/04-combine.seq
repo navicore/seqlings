@@ -1,0 +1,22 @@
+# Exercise: OS Operation Patterns
+#
+# Combine OS operations for common tasks.
+#
+# Your task: Build useful OS utility functions
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: get-home-or-default ( -- String )
+    # Get HOME env var, or "/tmp" if not set
+    # Your code here
+    "/tmp"
+;
+
+: test-home ( -- )
+    get-home-or-default string.length 0 >
+
+    # Do not edit below this line
+    true test.assert-eq
+;

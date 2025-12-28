@@ -1,0 +1,13 @@
+: string-to-quarter ( String -- Int )
+    string->int int->float 4.0 f./ float->int
+;
+
+: test-combine ( -- )
+    "100" string-to-quarter
+    25 test.assert-eq
+;
+
+: test-round-trip ( -- )
+    42 int->string string->int
+    42 test.assert-eq
+;

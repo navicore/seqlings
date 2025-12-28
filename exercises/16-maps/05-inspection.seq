@@ -1,0 +1,50 @@
+# Exercise: Map Inspection
+#
+# Inspect maps with these operations:
+#   map.size      # Number of key-value pairs
+#   map.keys      # List of all keys
+#   map.values    # List of all values
+#   map.empty?    # true if no entries
+#
+# Your task: Use inspection operations
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: make-test-map ( -- Map )
+    map.make
+    "x" 10 map.set
+    "y" 20 map.set
+    "z" 30 map.set
+;
+
+: test-size ( -- )
+    make-test-map
+    # Get the size of the map
+    # Your code here
+    drop 0
+
+    # Do not edit below this line
+    3 test.assert-eq
+;
+
+: test-empty ( -- )
+    map.make
+    # Check if an empty map is empty
+    # Your code here
+    drop false
+
+    # Do not edit below this line
+    true test.assert-eq
+;
+
+: test-keys-count ( -- )
+    make-test-map
+    # Get keys and count them with list.length
+    # Your code here
+    drop 0
+
+    # Do not edit below this line
+    3 test.assert-eq
+;

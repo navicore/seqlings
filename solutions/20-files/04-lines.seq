@@ -1,0 +1,9 @@
+: split-on-newlines ( String -- List )
+    "\n" string.split
+;
+
+: test-lines ( -- )
+    "a\nb\nc" split-on-newlines
+    list.length
+    3 test.assert-eq
+;

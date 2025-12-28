@@ -1,0 +1,27 @@
+# Exercise: Counting Arguments
+#
+# Use `args.count` to get the number of command line arguments.
+#
+# Note: The program name itself counts as the first argument.
+#
+# Your task: Understand argument counting
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: has-args ( Int -- Bool )
+    # Return true if there are more than n arguments
+    # Hint: compare args.count with n using >
+    # Your code here
+    drop false
+;
+
+: test-has-args ( -- )
+    # This test conceptually checks the logic
+    # In reality, seqlings runs with at least 1 arg (the file)
+    0 has-args
+
+    # Do not edit below this line
+    true test.assert-eq
+;

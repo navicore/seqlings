@@ -1,0 +1,8 @@
+: get-or-default ( Int String -- String )
+    args.get-or
+;
+
+: test-default ( -- )
+    100 "fallback" get-or-default
+    "fallback" test.assert-eq
+;

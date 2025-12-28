@@ -1,0 +1,23 @@
+# Exercise: Integer to String Conversion
+#
+# The `int->string` function converts an integer to its string representation.
+# This is useful when building messages or formatting output.
+#
+# Example:
+#   42 int->string    # Stack: ( "42" )
+#   -7 int->string    # Stack: ( "-7" )
+#
+# Your task: Convert the number 2024 to a string.
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-int-to-string ( -- )
+    # Convert 2024 to a string
+    # Your code here
+    0
+
+    # Do not edit below this line
+    "2024" test.assert-eq
+;

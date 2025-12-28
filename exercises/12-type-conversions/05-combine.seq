@@ -1,0 +1,39 @@
+# Exercise: Chaining Type Conversions
+#
+# Sometimes you need to chain multiple conversions.
+#
+# Example: Convert a float to a string via integer
+#   3.7 float->int int->string    # Stack: ( "3" )
+#
+# Your task:
+#   1. Start with the string "100"
+#   2. Parse it as an integer
+#   3. Convert to float
+#   4. Divide by 4.0
+#   5. Convert back to int
+#   6. Result should be 25
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: string-to-quarter ( String -- Int )
+    # Parse string, convert to float, divide by 4, convert to int
+    # Your code here
+    drop 0
+;
+
+: test-combine ( -- )
+    "100" string-to-quarter
+
+    # Do not edit below this line
+    25 test.assert-eq
+;
+
+: test-round-trip ( -- )
+    # Verify that int->string->int round-trips correctly
+    42 int->string string->int
+
+    # Do not edit below this line
+    42 test.assert-eq
+;

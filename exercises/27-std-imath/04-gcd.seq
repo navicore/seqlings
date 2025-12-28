@@ -1,0 +1,39 @@
+# Exercise: Greatest Common Divisor
+#
+# The `imath.gcd` function finds the greatest common divisor of
+# two integers using the Euclidean algorithm.
+#
+# Examples:
+#   12 8 imath.gcd     # Stack: ( 4 )
+#   15 10 imath.gcd    # Stack: ( 5 )
+#   7 13 imath.gcd     # Stack: ( 1 ) - coprime
+#
+# Your task: Use GCD to simplify a fraction
+#
+# When done, delete the marker line below.
+
+use std:imath
+
+# I AM NOT DONE
+
+: simplify-numerator ( Int Int -- Int )
+    # Given numerator and denominator, return simplified numerator
+    # Hint: divide both by their GCD
+    # Your code here
+    drop
+;
+
+: test-gcd ( -- )
+    48 18 imath.gcd
+
+    # Do not edit below this line
+    6 test.assert-eq
+;
+
+: test-simplify ( -- )
+    # 12/8 simplifies to 3/2, so numerator becomes 3
+    12 8 simplify-numerator
+
+    # Do not edit below this line
+    3 test.assert-eq
+;

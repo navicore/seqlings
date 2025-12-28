@@ -1,0 +1,20 @@
+use std:imath
+
+: abs-diff ( Int Int -- Int )
+    i.- imath.abs
+;
+
+: test-abs ( -- )
+    -10 imath.abs
+    10 test.assert-eq
+;
+
+: test-abs-diff ( -- )
+    7 3 abs-diff
+    4 test.assert-eq
+;
+
+: test-abs-diff-negative ( -- )
+    3 7 abs-diff
+    4 test.assert-eq
+;

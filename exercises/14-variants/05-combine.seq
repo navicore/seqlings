@@ -1,0 +1,47 @@
+# Exercise: Building with Variants
+#
+# Combine variants with other operations.
+#
+# Your task: Build a safe division function that returns Result
+#
+# When done, delete the marker line below.
+
+variant Result
+    | Ok value
+    | Err error
+end
+
+# I AM NOT DONE
+
+: safe-divide ( Int Int -- Result )
+    # If divisor is 0, return Err "division by zero"
+    # Otherwise return Ok with the result
+    # Your code here
+    drop drop 0 Ok
+;
+
+: test-safe-divide-ok ( -- )
+    10 2 safe-divide Ok?
+
+    # Do not edit below this line
+    true test.assert-eq
+;
+
+: test-safe-divide-err ( -- )
+    10 0 safe-divide Err?
+
+    # Do not edit below this line
+    true test.assert-eq
+;
+
+: test-safe-divide-value ( -- )
+    # 10 / 2 = 5, extract the value
+    10 2 safe-divide
+    variant.match
+        | Ok -> [ ]
+        | Err -> [ drop 0 ]
+    end
+
+    # Do not edit below this line
+    5 test.assert-eq
+;

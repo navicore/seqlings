@@ -1,0 +1,25 @@
+# Exercise: Working Directory
+#
+# Use `os.cwd` to get the current working directory.
+#
+# Example:
+#   os.cwd    # Returns something like "/home/user/project"
+#
+# Your task: Understand directory operations
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: cwd-is-string ( -- Bool )
+    # Check that os.cwd returns a string
+    # Your code here
+    false
+;
+
+: test-cwd ( -- )
+    cwd-is-string
+
+    # Do not edit below this line
+    true test.assert-eq
+;

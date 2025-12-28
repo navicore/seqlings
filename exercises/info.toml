@@ -503,3 +503,288 @@ mode = "test"
 name = "05-io-interactive"
 path = "exercises/19-io/05-interactive.seq"
 mode = "test"
+
+# ============================================================
+# 12-type-conversions: Type Conversions
+# ============================================================
+
+[[exercises]]
+name = "01-int-to-string"
+path = "exercises/12-type-conversions/01-int-to-string.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-string-to-int"
+path = "exercises/12-type-conversions/02-string-to-int.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-int-float"
+path = "exercises/12-type-conversions/03-int-float.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-float-string"
+path = "exercises/12-type-conversions/04-float-string.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-conversions-combine"
+path = "exercises/12-type-conversions/05-combine.seq"
+mode = "test"
+
+# ============================================================
+# 16-maps: Maps (Dictionaries)
+# ============================================================
+
+[[exercises]]
+name = "01-map-basics"
+path = "exercises/16-maps/01-basics.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-map-get"
+path = "exercises/16-maps/02-get.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-map-get-safe"
+path = "exercises/16-maps/03-get-safe.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-map-remove"
+path = "exercises/16-maps/04-remove.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-map-inspection"
+path = "exercises/16-maps/05-inspection.seq"
+mode = "test"
+
+[[exercises]]
+name = "06-map-combine"
+path = "exercises/16-maps/06-combine.seq"
+mode = "test"
+
+# ============================================================
+# 20-files: File Operations
+# ============================================================
+
+[[exercises]]
+name = "01-file-read"
+path = "exercises/20-files/01-read.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-file-write"
+path = "exercises/20-files/02-write.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-file-exists"
+path = "exercises/20-files/03-exists.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-file-lines"
+path = "exercises/20-files/04-lines.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-file-combine"
+path = "exercises/20-files/05-combine.seq"
+mode = "test"
+
+# ============================================================
+# 27-std-imath: Standard Library - Integer Math
+# ============================================================
+
+[[exercises]]
+name = "01-imath-abs"
+path = "exercises/27-std-imath/01-abs.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-imath-min-max"
+path = "exercises/27-std-imath/02-min-max.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-imath-clamp"
+path = "exercises/27-std-imath/03-clamp.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-imath-gcd"
+path = "exercises/27-std-imath/04-gcd.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-imath-power"
+path = "exercises/27-std-imath/05-power.seq"
+mode = "test"
+
+[[exercises]]
+name = "06-imath-combine"
+path = "exercises/27-std-imath/06-combine.seq"
+mode = "test"
+
+# ============================================================
+# 11-types: Types in Seq
+# ============================================================
+
+[[exercises]]
+name = "01-type-predicates"
+path = "exercises/11-types/01-predicates.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-int-ops"
+path = "exercises/11-types/02-int-ops.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-float-ops"
+path = "exercises/11-types/03-float-ops.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-string-type"
+path = "exercises/11-types/04-string-type.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-list-type"
+path = "exercises/11-types/05-list-type.seq"
+mode = "test"
+
+# ============================================================
+# 14-variants: Variants (Union Types)
+# ============================================================
+
+[[exercises]]
+name = "01-variant-basics"
+path = "exercises/14-variants/01-basics.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-variant-option"
+path = "exercises/14-variants/02-option.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-variant-result"
+path = "exercises/14-variants/03-result.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-variant-match"
+path = "exercises/14-variants/04-match.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-variant-combine"
+path = "exercises/14-variants/05-combine.seq"
+mode = "test"
+
+# ============================================================
+# 28-std-fmath: Standard Library - Floating-Point Math
+# ============================================================
+
+[[exercises]]
+name = "01-fmath-sqrt"
+path = "exercises/28-std-fmath/01-sqrt.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-fmath-trig"
+path = "exercises/28-std-fmath/02-trig.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-fmath-exp-log"
+path = "exercises/28-std-fmath/03-exp-log.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-fmath-round"
+path = "exercises/28-std-fmath/04-round.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-fmath-combine"
+path = "exercises/28-std-fmath/05-combine.seq"
+mode = "test"
+
+# ============================================================
+# 21-args: Command Line Arguments
+# ============================================================
+
+[[exercises]]
+name = "01-args-basics"
+path = "exercises/21-args/01-basics.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-args-count"
+path = "exercises/21-args/02-count.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-args-safe"
+path = "exercises/21-args/03-safe-access.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-args-combine"
+path = "exercises/21-args/04-combine.seq"
+mode = "test"
+
+# ============================================================
+# 22-os: Operating System Operations
+# ============================================================
+
+[[exercises]]
+name = "01-os-env-get"
+path = "exercises/22-os/01-env-get.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-os-env-set"
+path = "exercises/22-os/02-env-set.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-os-cwd"
+path = "exercises/22-os/03-cwd.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-os-combine"
+path = "exercises/22-os/04-combine.seq"
+mode = "test"
+
+# ============================================================
+# 23-time: Time Operations
+# ============================================================
+
+[[exercises]]
+name = "01-time-now"
+path = "exercises/23-time/01-now.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-time-sleep"
+path = "exercises/23-time/02-sleep.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-time-measure"
+path = "exercises/23-time/03-measure.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-time-combine"
+path = "exercises/23-time/04-combine.seq"
+mode = "test"

@@ -1,0 +1,26 @@
+# Exercise: Safe Argument Access
+#
+# Use `args.get-or` to safely access arguments with a default:
+#   n default args.get-or
+#
+# This returns the argument at index n, or the default if missing.
+#
+# Your task: Implement safe argument access patterns
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: get-or-default ( Int String -- String )
+    # Get argument at index, or return default
+    # Your code here
+    swap drop
+;
+
+: test-default ( -- )
+    # Testing the concept: if arg 100 doesn't exist, return default
+    100 "fallback" get-or-default
+
+    # Do not edit below this line
+    "fallback" test.assert-eq
+;

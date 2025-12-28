@@ -1,0 +1,30 @@
+# Exercise: Writing Files
+#
+# The `file.write` operation writes a string to a file.
+# Stack effect: ( String Path -- )
+#
+# Example:
+#   "Hello" "greeting.txt" file.write
+#
+# The content goes first, then the path (standard Seq convention:
+# data before destination).
+#
+# Your task: Understand the argument order for file.write
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: write-order ( -- String )
+    # Which comes first on the stack for file.write?
+    # Return "content" or "path"
+    # Your code here
+    ""
+;
+
+: test-write ( -- )
+    write-order
+
+    # Do not edit below this line
+    "content" test.assert-eq
+;

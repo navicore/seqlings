@@ -1,0 +1,28 @@
+# Exercise: Reading Environment Variables
+#
+# Use `os.env-get` to read environment variables.
+# Use `os.env-has?` to check if a variable exists.
+#
+# Example:
+#   "HOME" os.env-get    # Returns home directory path
+#   "PATH" os.env-has?   # Returns true
+#
+# Your task: Understand environment variable access
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: env-returns ( -- String )
+    # What type does os.env-get return?
+    # Return "string" for string type
+    # Your code here
+    ""
+;
+
+: test-env-type ( -- )
+    env-returns
+
+    # Do not edit below this line
+    "string" test.assert-eq
+;

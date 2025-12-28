@@ -1,0 +1,17 @@
+use std:imath
+
+: simplify-numerator ( Int Int -- Int )
+    over over imath.gcd
+    swap drop
+    i./
+;
+
+: test-gcd ( -- )
+    48 18 imath.gcd
+    6 test.assert-eq
+;
+
+: test-simplify ( -- )
+    12 8 simplify-numerator
+    3 test.assert-eq
+;

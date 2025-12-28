@@ -1,0 +1,8 @@
+: is-recent ( Int Int -- Bool )
+    swap time.now swap i.- swap <
+;
+
+: test-recent ( -- )
+    time.now 1000 is-recent
+    true test.assert-eq
+;

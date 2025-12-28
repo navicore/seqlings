@@ -1,0 +1,41 @@
+# Exercise: Combining Math Operations
+#
+# Combine multiple std:imath functions to solve problems.
+#
+# Your task: Implement a distance-like calculation
+#
+# When done, delete the marker line below.
+
+use std:imath
+
+# I AM NOT DONE
+
+: manhattan-distance ( Int Int Int Int -- Int )
+    # Calculate Manhattan distance between (x1,y1) and (x2,y2)
+    # Manhattan distance = |x2-x1| + |y2-y1|
+    # Stack: x1 y1 x2 y2 (y2 on top)
+    # Your code here
+    drop drop drop drop 0
+;
+
+: test-manhattan ( -- )
+    0 0 3 4 manhattan-distance
+
+    # Do not edit below this line
+    7 test.assert-eq
+;
+
+: bounded-power ( Int Int Int Int -- Int )
+    # Calculate base^exp, but clamp result to [min, max]
+    # Stack: base exp min max
+    # Your code here
+    drop drop drop drop 0
+;
+
+: test-bounded-power ( -- )
+    # 2^10 = 1024, clamped to [0, 500] = 500
+    2 10 0 500 bounded-power
+
+    # Do not edit below this line
+    500 test.assert-eq
+;

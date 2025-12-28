@@ -1,0 +1,51 @@
+# Exercise: Type Predicates
+#
+# Type predicates check what type a value has:
+#   int?     - Is it an integer?
+#   float?   - Is it a float?
+#   string?  - Is it a string?
+#   bool?    - Is it a boolean?
+#   list?    - Is it a list?
+#
+# Example:
+#   42 int?        # true
+#   "hi" int?      # false
+#   "hi" string?   # true
+#
+# Your task: Check types of various values
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-int-predicate ( -- )
+    100 int?
+
+    # Do not edit below this line
+    true test.assert-eq
+;
+
+: test-float-predicate ( -- )
+    3.14 float?
+
+    # Do not edit below this line
+    true test.assert-eq
+;
+
+: test-string-predicate ( -- )
+    # Check if "hello" is a string
+    # Your code here
+    false
+
+    # Do not edit below this line
+    true test.assert-eq
+;
+
+: test-not-int ( -- )
+    # Check that "42" (string) is NOT an int
+    # Your code here
+    true
+
+    # Do not edit below this line
+    false test.assert-eq
+;

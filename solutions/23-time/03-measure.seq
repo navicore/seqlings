@@ -1,0 +1,10 @@
+: elapsed-is-non-negative ( -- Bool )
+    time.now
+    time.now swap i.-
+    0 >=
+;
+
+: test-elapsed ( -- )
+    elapsed-is-non-negative
+    true test.assert-eq
+;

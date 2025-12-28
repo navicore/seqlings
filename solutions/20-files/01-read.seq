@@ -1,0 +1,8 @@
+: describe-read ( -- String )
+    "string"
+;
+
+: test-read ( -- )
+    describe-read
+    "string" test.assert-eq
+;

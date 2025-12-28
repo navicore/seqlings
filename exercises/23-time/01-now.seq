@@ -1,0 +1,25 @@
+# Exercise: Getting Current Time
+#
+# Use `time.now` to get the current timestamp in milliseconds.
+#
+# Example:
+#   time.now    # Returns something like 1703123456789
+#
+# Your task: Understand time operations
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: time-is-positive ( -- Bool )
+    # Check that time.now returns a positive number
+    # Your code here
+    false
+;
+
+: test-time ( -- )
+    time-is-positive
+
+    # Do not edit below this line
+    true test.assert-eq
+;

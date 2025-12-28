@@ -1,0 +1,29 @@
+# Exercise: Reading Files
+#
+# The `file.read` operation reads the entire contents of a file as a string.
+#
+# Example:
+#   "data.txt" file.read    # Stack: ( "file contents..." )
+#
+# Note: This exercise uses conceptual file operations that would
+# work in a real Seq environment. The test verifies your understanding.
+#
+# Your task: Understand the file.read operation
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: describe-read ( -- String )
+    # What does file.read return?
+    # Return "string" to indicate it returns file contents as a string
+    # Your code here
+    ""
+;
+
+: test-read ( -- )
+    describe-read
+
+    # Do not edit below this line
+    "string" test.assert-eq
+;

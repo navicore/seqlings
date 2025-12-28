@@ -1,0 +1,22 @@
+use std:imath
+
+: range ( Int Int -- Int )
+    over over imath.max
+    rot rot imath.min
+    i.-
+;
+
+: test-min ( -- )
+    10 3 imath.min
+    3 test.assert-eq
+;
+
+: test-max ( -- )
+    10 3 imath.max
+    10 test.assert-eq
+;
+
+: test-range ( -- )
+    15 5 range
+    10 test.assert-eq
+;

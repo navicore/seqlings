@@ -1,0 +1,19 @@
+variant Option
+    | Some value
+    | None
+end
+
+: test-some ( -- )
+    100 Some Some?
+    true test.assert-eq
+;
+
+: test-none ( -- )
+    None None?
+    true test.assert-eq
+;
+
+: test-some-not-none ( -- )
+    42 Some None?
+    false test.assert-eq
+;

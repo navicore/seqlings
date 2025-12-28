@@ -1,0 +1,42 @@
+# Exercise: Trigonometric Functions
+#
+# Basic trig functions (input in radians):
+#   fmath.sin    - sine
+#   fmath.cos    - cosine
+#   fmath.tan    - tangent
+#
+# The constant fmath.pi gives you pi.
+#
+# Your task: Work with trig functions
+#
+# When done, delete the marker line below.
+
+use std:fmath
+
+# I AM NOT DONE
+
+: test-sin-zero ( -- )
+    0.0 fmath.sin
+
+    # Do not edit below this line (sin(0) = 0)
+    0.0 f.= test.assert
+;
+
+: test-cos-zero ( -- )
+    # cos(0) = 1
+    # Your code here
+    0.0
+
+    # Do not edit below this line
+    1.0 f.= test.assert
+;
+
+: test-sin-pi-half ( -- )
+    # sin(pi/2) = 1
+    # Hint: fmath.pi gives pi
+    # Your code here
+    0.0
+
+    # Do not edit below this line
+    1.0 f.= test.assert
+;

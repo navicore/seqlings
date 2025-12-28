@@ -1,0 +1,25 @@
+# Exercise: Command Line Argument Basics
+#
+# Access command line arguments with:
+#   args.get-all   - Get all arguments as a list
+#   n args.get     - Get argument at index n
+#
+# Your task: Understand how arguments work
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: args-type ( -- String )
+    # What type does args.get-all return?
+    # Return "list" for a list of strings
+    # Your code here
+    ""
+;
+
+: test-args-type ( -- )
+    args-type
+
+    # Do not edit below this line
+    "list" test.assert-eq
+;

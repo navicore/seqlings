@@ -1,0 +1,17 @@
+: require-args ( Int -- Bool )
+    args.count swap >=
+;
+
+: test-require ( -- )
+    1 require-args
+    true test.assert-eq
+;
+
+: usage-message ( -- String )
+    "Usage: program <input> <output>"
+;
+
+: test-usage ( -- )
+    usage-message string.length 0 >
+    true test.assert-eq
+;

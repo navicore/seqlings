@@ -1,0 +1,35 @@
+# Exercise: Integer and Float Conversions
+#
+# Converting between integers and floats:
+#   `int->float` - Convert integer to float
+#   `float->int` - Convert float to integer (truncates toward zero)
+#
+# Examples:
+#   5 int->float       # Stack: ( 5.0 )
+#   3.7 float->int     # Stack: ( 3 )
+#   -2.9 float->int    # Stack: ( -2 )  (truncates toward zero)
+#
+# Your task:
+#   1. Convert 7 to a float, add 0.5, then convert back to int
+#   2. The result should be 7 (truncation drops the .5)
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-int-float ( -- )
+    # Convert 7 to float, add 0.5, convert back to int
+    # Your code here
+    0
+
+    # Do not edit below this line
+    7 test.assert-eq
+;
+
+: test-truncation ( -- )
+    # Show that 9.9 truncates to 9
+    9.9 float->int
+
+    # Do not edit below this line
+    9 test.assert-eq
+;
