@@ -8,42 +8,19 @@ Inspired by [Rustlings](https://github.com/rust-lang/rustlings), Seqlings guides
 
 You need the Seq compiler (`seqc`) installed and available in your PATH.
 
-### Option 1: Install via Cargo (Recommended)
-
-```bash
-cargo install seq-compiler
-
-# Verify installation
-seqc --version
-```
-
-### Option 2: Download from Releases
-
-Download a prebuilt binary from the [patch-seq releases page](https://github.com/navicore/patch-seq/releases) and add it to your PATH.
-
-### Option 3: Build from Source
-
-```bash
-git clone https://github.com/navicore/patch-seq
-cd patch-seq
-cargo build --release
-
-# Add to PATH (add to your shell profile for persistence)
-export PATH="$PATH:$(pwd)/target/release"
-```
+See the [patch-seq installation instructions](https://github.com/navicore/patch-seq#installation) for setup details.
 
 ## Quick Start
 
 ```bash
-# Clone seqlings
 git clone https://github.com/navicore/seqlings
 cd seqlings
-
-# Build and run
 cargo run
 ```
 
 This starts **watch mode** - Seqlings monitors your exercise files and provides instant feedback as you edit them.
+
+**Starting over:** If you want to reset all exercises to their original state, run `git checkout .` from the seqlings directory.
 
 ## How It Works
 
