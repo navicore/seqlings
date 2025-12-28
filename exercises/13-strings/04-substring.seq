@@ -1,0 +1,22 @@
+# Exercise: Substring
+#
+# `string.substring` extracts a portion of a string.
+#
+# Stack effect: ( str start length -- substr )
+#
+# Example:
+#   "Hello, World!" 0 5 string.substring   # "Hello"
+#   "Hello, World!" 7 5 string.substring   # "World"
+#
+# Your task: Extract "ling" from "Seqlings" (starts at index 3, length 4).
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-substring ( -- )
+    "Seqlings"
+    # Your code here - extract "ling"
+    drop ""
+    # Do not edit below this line
+    "ling" string.equal? test.assert
+;

@@ -1,0 +1,30 @@
+# Exercise: Getting Results from Strands
+#
+# Strands don't directly return values. Use channels!
+#
+# Pattern:
+#   1. Create a channel
+#   2. Spawn strand with channel access
+#   3. Strand sends result to channel
+#   4. Main receives from channel
+#
+# Your task: Spawn a strand that computes 10 * 5 and sends the result.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: compute-in-strand ( -- Int )
+    chan.make
+    # Your code here:
+    # 1. dup the channel
+    # 2. spawn a strand that computes 10 * 5 and sends it
+    # 3. drop the strand ID
+    # 4. receive from channel
+    drop 0
+;
+
+: test-return-value ( -- )
+    compute-in-strand
+    # Do not edit below this line
+    50 test.assert-eq
+;

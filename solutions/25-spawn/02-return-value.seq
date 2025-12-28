@@ -1,0 +1,11 @@
+: compute-in-strand ( -- Int )
+    chan.make
+    dup [ 10 5 i.multiply chan.send ] spawn
+    drop
+    chan.receive
+;
+
+: test-return-value ( -- )
+    compute-in-strand
+    50 test.assert-eq
+;

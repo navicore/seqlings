@@ -1,0 +1,35 @@
+# Exercise: Ping-Pong
+#
+# Two strands communicating back and forth.
+#
+# This is a classic concurrent programming exercise:
+#   Strand A sends "ping"
+#   Strand B receives, sends "pong"
+#   Strand A receives, sends "ping"
+#   ...and so on
+#
+# Your task: Set up a simple ping-pong (just one exchange).
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-ping-pong ( -- )
+    chan.make   # A -> B
+    chan.make   # B -> A
+
+    # Spawn "pong" responder
+    over over [
+        swap chan.receive drop  # Get ping
+        1 chan.send             # Send pong (as 1)
+    ] spawn drop
+
+    # Send ping (as 0)
+    over 0 chan.send
+
+    # Receive pong
+    # Your code here
+    drop drop
+    0
+    # Do not edit below this line
+    1 test.assert-eq
+;

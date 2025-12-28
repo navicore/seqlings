@@ -1,0 +1,20 @@
+# Exercise: String Concatenation
+#
+# `string.concat` joins two strings together.
+#
+# Stack effect: ( str1 str2 -- combined )
+#
+# Example:
+#   "Hello, " "World!" string.concat   # "Hello, World!"
+#
+# Your task: Concatenate "Seq" and "lings" to get "Seqlings".
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-concat ( -- )
+    # Your code here
+    ""
+    # Do not edit below this line
+    "Seqlings" string.equal? test.assert
+;

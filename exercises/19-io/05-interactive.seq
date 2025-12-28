@@ -1,0 +1,33 @@
+# Exercise: Building a Prompt
+#
+# Interactive programs combine reading and writing.
+#
+# Pattern: Print prompt, read response, process
+#
+#   : get-name ( -- String )
+#       "What is your name? " io.write
+#       io.read-line
+#   ;
+#
+#   : greet-user ( -- )
+#       "Hello, " io.write
+#       get-name io.write-line
+#   ;
+#
+# Your task: Design a simple prompt (conceptually).
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: prompt-for ( String -- String )
+    # Print the prompt string, then read input
+    io.write
+    # In real use: io.read-line
+    "placeholder"   # For testing
+;
+
+: test-interactive ( -- )
+    "Enter value: " prompt-for
+    drop
+    true test.assert
+;

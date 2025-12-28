@@ -1,0 +1,10 @@
+: prompt-for ( String -- String )
+    io.write
+    "placeholder"
+;
+
+: test-interactive ( -- )
+    "Enter value: " prompt-for
+    drop
+    true test.assert
+;

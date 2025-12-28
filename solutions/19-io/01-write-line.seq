@@ -1,0 +1,8 @@
+: greet ( -- )
+    "Seq is fun!" io.write-line
+;
+
+: test-write-line ( -- )
+    greet
+    true test.assert
+;

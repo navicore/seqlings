@@ -1,0 +1,3 @@
+: test-read-n ( -- )
+    true test.assert
+;

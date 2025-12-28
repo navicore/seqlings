@@ -1,0 +1,34 @@
+# Exercise: Handling EOF
+#
+# `io.read-line+` returns both the line AND a success status.
+#
+# Stack effect: ( -- String Bool )
+#   Returns ( line true ) on success
+#   Returns ( "" false ) on EOF
+#
+# This allows you to detect end-of-file:
+#
+#   io.read-line+ if
+#       # Got a line, process it
+#   else
+#       drop  # Drop the empty string
+#       # Handle EOF
+#   then
+#
+# Your task: Understand EOF handling.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: process-until-eof ( -- )
+    # Would process lines until EOF
+    # [ io.read-line+ ]
+    # [ io.write-line true ]
+    # while
+    # drop  # Drop final false/empty
+    "EOF handling concept" io.write-line
+;
+
+: test-read-status ( -- )
+    true test.assert
+;

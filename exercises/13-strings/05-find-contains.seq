@@ -1,0 +1,27 @@
+# Exercise: Finding Substrings
+#
+# `string.contains` checks if a substring exists.
+# `string.find` returns the index where it starts (-1 if not found).
+#
+# Stack effects:
+#   string.contains ( str sub -- Bool )
+#   string.find     ( str sub -- Int )
+#
+# Example:
+#   "Hello, World!" "World" string.contains   # true
+#   "Hello, World!" "World" string.find       # 7
+#   "Hello, World!" "Foo" string.find         # -1
+#
+# Your task: Check if "stack" is in "stack-based programming".
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-find-contains ( -- )
+    "stack-based programming" "stack" string.contains
+    # Do not edit below this line
+    test.assert
+
+    "stack-based programming" "heap" string.contains
+    not test.assert
+;

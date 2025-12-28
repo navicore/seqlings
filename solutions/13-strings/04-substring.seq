@@ -1,0 +1,4 @@
+: test-substring ( -- )
+    "Seqlings" 3 4 string.substring
+    "ling" string.equal? test.assert
+;

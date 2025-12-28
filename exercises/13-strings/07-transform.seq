@@ -1,0 +1,26 @@
+# Exercise: String Transformation
+#
+# `string.to-upper` converts to uppercase.
+# `string.to-lower` converts to lowercase.
+# `string.trim` removes leading/trailing whitespace.
+#
+# Stack effect: ( str -- str )
+#
+# Example:
+#   "Hello" string.to-upper   # "HELLO"
+#   "Hello" string.to-lower   # "hello"
+#   "  hi  " string.trim      # "hi"
+#
+# Your task: Convert "seq" to uppercase.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-transform ( -- )
+    "seq" string.to-upper
+    # Do not edit below this line
+    "SEQ" string.equal? test.assert
+
+    "  hello  " string.trim
+    "hello" string.equal? test.assert
+;

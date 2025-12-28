@@ -1,0 +1,6 @@
+: test-transform ( -- )
+    "seq" string.to-upper
+    "SEQ" string.equal? test.assert
+    "  hello  " string.trim
+    "hello" string.equal? test.assert
+;

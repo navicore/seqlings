@@ -1,0 +1,7 @@
+: test-communication ( -- )
+    chan.make
+    dup dup [ chan.receive 2 i.multiply chan.send ] spawn drop
+    dup 21 chan.send
+    chan.receive
+    42 test.assert-eq
+;

@@ -1,0 +1,10 @@
+: longer-than-five? ( String -- Bool )
+    string.length 5 >
+;
+
+: test-length ( -- )
+    "Seqlings" longer-than-five?
+    test.assert
+    "Seq" longer-than-five?
+    not test.assert
+;

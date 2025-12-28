@@ -1,0 +1,7 @@
+: test-basics ( -- )
+    chan.make
+    dup [ 42 chan.send ] spawn
+    drop
+    chan.receive
+    42 test.assert-eq
+;

@@ -1,0 +1,6 @@
+: test-find-contains ( -- )
+    "stack-based programming" "stack" string.contains
+    test.assert
+    "stack-based programming" "heap" string.contains
+    not test.assert
+;

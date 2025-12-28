@@ -1,0 +1,8 @@
+: first-char ( String -- String )
+    0 string.char-at
+;
+
+: test-char-at ( -- )
+    "Seqlings" first-char
+    "S" string.equal? test.assert
+;

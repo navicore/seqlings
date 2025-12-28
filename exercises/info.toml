@@ -401,3 +401,105 @@ mode = "test"
 name = "06-patterns"
 path = "exercises/24-channels/06-patterns.seq"
 mode = "test"
+
+# ============================================================
+# 13-strings: String Operations
+# ============================================================
+
+[[exercises]]
+name = "01-concat"
+path = "exercises/13-strings/01-concat.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-str-length"
+path = "exercises/13-strings/02-length.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-char-at"
+path = "exercises/13-strings/03-char-at.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-substring"
+path = "exercises/13-strings/04-substring.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-find-contains"
+path = "exercises/13-strings/05-find-contains.seq"
+mode = "test"
+
+[[exercises]]
+name = "06-split"
+path = "exercises/13-strings/06-split.seq"
+mode = "test"
+
+[[exercises]]
+name = "07-transform"
+path = "exercises/13-strings/07-transform.seq"
+mode = "test"
+
+[[exercises]]
+name = "08-compare"
+path = "exercises/13-strings/08-compare.seq"
+mode = "test"
+
+# ============================================================
+# 25-spawn: Spawning Strands
+# ============================================================
+
+[[exercises]]
+name = "01-spawn-basics"
+path = "exercises/25-spawn/01-basics.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-return-value"
+path = "exercises/25-spawn/02-return-value.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-strand-communication"
+path = "exercises/25-spawn/03-communication.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-ping-pong"
+path = "exercises/25-spawn/04-ping-pong.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-worker-pool"
+path = "exercises/25-spawn/05-worker-pool.seq"
+mode = "test"
+
+# ============================================================
+# 19-io: Input/Output
+# ============================================================
+
+[[exercises]]
+name = "01-write-line"
+path = "exercises/19-io/01-write-line.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-read-line"
+path = "exercises/19-io/02-read-line.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-read-status"
+path = "exercises/19-io/03-read-status.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-read-n"
+path = "exercises/19-io/04-read-n.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-io-interactive"
+path = "exercises/19-io/05-interactive.seq"
+mode = "test"

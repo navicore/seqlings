@@ -1,0 +1,27 @@
+# Exercise: String Length
+#
+# `string.length` returns the number of characters.
+#
+# Stack effect: ( str -- Int )
+#
+# Example:
+#   "Hello" string.length   # 5
+#
+# Your task: Check if a string has more than 5 characters.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: longer-than-five? ( String -- Bool )
+    # Your code here
+    drop false
+;
+
+: test-length ( -- )
+    "Seqlings" longer-than-five?
+    # Do not edit below this line
+    test.assert
+
+    "Seq" longer-than-five?
+    not test.assert
+;

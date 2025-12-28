@@ -1,0 +1,4 @@
+: test-concat ( -- )
+    "Seq" "lings" string.concat
+    "Seqlings" string.equal? test.assert
+;

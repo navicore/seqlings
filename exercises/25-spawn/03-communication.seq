@@ -1,0 +1,32 @@
+# Exercise: Two-Way Communication
+#
+# Strands can both send and receive through channels.
+#
+# Pattern: Request-Response
+#   1. Main sends request
+#   2. Worker receives, processes, sends response
+#   3. Main receives response
+#
+# Your task: Spawn a worker that doubles numbers.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: spawn-doubler ( -- Chan Chan )
+    # Create two channels: request and response
+    chan.make   # request channel
+    chan.make   # response channel
+    # Spawn worker that reads from request, doubles, sends to response
+    # Return both channels for main to use
+    # Your code here
+;
+
+: test-communication ( -- )
+    # This test is simplified - just verify you understand the pattern
+    chan.make
+    dup dup [ chan.receive 2 i.multiply chan.send ] spawn drop
+    dup 21 chan.send
+    chan.receive
+    # Do not edit below this line
+    42 test.assert-eq
+;

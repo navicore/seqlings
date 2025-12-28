@@ -1,0 +1,28 @@
+# Exercise: Writing Output
+#
+# `io.write-line` prints a string followed by a newline.
+# `io.write` prints without a newline.
+#
+# Stack effects:
+#   io.write-line ( str -- )
+#   io.write      ( str -- )
+#
+# Example:
+#   "Hello, World!" io.write-line
+#
+# Your task: Print "Seq is fun!" to the console.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: greet ( -- )
+    # Your code here
+    "placeholder" io.write-line
+;
+
+: test-write-line ( -- )
+    # We can't easily test output, so just verify the word runs
+    greet
+    # Do not edit below this line
+    true test.assert
+;

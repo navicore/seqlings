@@ -1,0 +1,25 @@
+# Exercise: Character Access
+#
+# `string.char-at` gets the character at a given index (0-based).
+#
+# Stack effect: ( str index -- char )
+#
+# Example:
+#   "Hello" 0 string.char-at   # "H"
+#   "Hello" 4 string.char-at   # "o"
+#
+# Your task: Get the first character of a string.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: first-char ( String -- String )
+    # Your code here
+    drop ""
+;
+
+: test-char-at ( -- )
+    "Seqlings" first-char
+    # Do not edit below this line
+    "S" string.equal? test.assert
+;

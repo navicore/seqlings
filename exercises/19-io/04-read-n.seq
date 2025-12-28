@@ -1,0 +1,20 @@
+# Exercise: Reading Fixed Bytes
+#
+# `io.read-n` reads exactly n bytes from input.
+#
+# Stack effect: ( n -- String )
+#
+# This is useful for binary protocols or fixed-format data.
+#
+# Example:
+#   4 io.read-n   # Read exactly 4 bytes
+#
+# Your task: Understand fixed-size reads.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-read-n ( -- )
+    # Can't test without actual input
+    true test.assert
+;

@@ -1,0 +1,36 @@
+# Exercise: Worker Pool
+#
+# Multiple workers processing from the same channel.
+#
+# Pattern:
+#   - Create a work channel
+#   - Spawn multiple workers, all reading from it
+#   - Send work items
+#   - Workers grab items as they're free
+#
+# This naturally load-balances work across workers.
+#
+# Your task: Spawn two workers that each process one item.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-worker-pool ( -- )
+    chan.make   # work channel
+    chan.make   # results channel
+
+    # Spawn two workers that receive work, add 1, send to results
+    over over [ chan.receive 1 i.add chan.send ] spawn drop
+    over over [ chan.receive 1 i.add chan.send ] spawn drop
+
+    # Send two work items
+    over 10 chan.send
+    over 20 chan.send
+
+    # Receive two results and sum them
+    # Your code here
+    drop drop 0
+    # Do not edit below this line
+    # Results are 11 and 21, sum is 32
+    32 test.assert-eq
+;

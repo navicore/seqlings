@@ -1,0 +1,10 @@
+: equal-ignore-case? ( String String -- Bool )
+    string.to-lower swap string.to-lower string.equal?
+;
+
+: test-compare ( -- )
+    "Hello" "hello" equal-ignore-case?
+    test.assert
+    "Hello" "World" equal-ignore-case?
+    not test.assert
+;

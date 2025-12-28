@@ -1,0 +1,12 @@
+: test-ping-pong ( -- )
+    chan.make
+    chan.make
+    over over [
+        swap chan.receive drop
+        1 chan.send
+    ] spawn drop
+    over 0 chan.send
+    chan.receive
+    nip
+    1 test.assert-eq
+;

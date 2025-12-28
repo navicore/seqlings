@@ -1,0 +1,8 @@
+: count-parts ( String String -- Int )
+    string.split list.length
+;
+
+: test-split ( -- )
+    "red:green:blue" ":" count-parts
+    3 test.assert-eq
+;

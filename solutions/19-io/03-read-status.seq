@@ -1,0 +1,7 @@
+: process-until-eof ( -- )
+    "EOF handling concept" io.write-line
+;
+
+: test-read-status ( -- )
+    true test.assert
+;

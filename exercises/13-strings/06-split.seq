@@ -1,0 +1,25 @@
+# Exercise: Splitting Strings
+#
+# `string.split` breaks a string into a list at each delimiter.
+#
+# Stack effect: ( str delimiter -- list )
+#
+# Example:
+#   "a,b,c" "," string.split   # [ "a" "b" "c" ]
+#   "one two three" " " string.split   # [ "one" "two" "three" ]
+#
+# Your task: Split "red:green:blue" by ":" and count the parts.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: count-parts ( String String -- Int )
+    # Your code here - split and get length
+    drop drop 0
+;
+
+: test-split ( -- )
+    "red:green:blue" ":" count-parts
+    # Do not edit below this line
+    3 test.assert-eq
+;

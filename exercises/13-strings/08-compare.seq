@@ -1,0 +1,33 @@
+# Exercise: String Comparison
+#
+# `string.equal?` compares two strings.
+# `string.empty?` checks if a string is empty.
+#
+# Stack effects:
+#   string.equal? ( str str -- Bool )
+#   string.empty? ( str -- Bool )
+#
+# Example:
+#   "foo" "foo" string.equal?   # true
+#   "foo" "bar" string.equal?   # false
+#   "" string.empty?            # true
+#
+# Your task: Check if two strings are equal (case-insensitive).
+# Hint: Convert both to lowercase first.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: equal-ignore-case? ( String String -- Bool )
+    # Your code here
+    drop drop false
+;
+
+: test-compare ( -- )
+    "Hello" "hello" equal-ignore-case?
+    # Do not edit below this line
+    test.assert
+
+    "Hello" "World" equal-ignore-case?
+    not test.assert
+;

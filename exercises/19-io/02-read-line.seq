@@ -1,0 +1,29 @@
+# Exercise: Reading Input
+#
+# `io.read-line` reads one line of text from standard input.
+#
+# Stack effect: ( -- String )
+#
+# The returned string does NOT include the newline character.
+#
+# Example:
+#   io.read-line   # User types "hello", returns "hello"
+#
+# Note: This exercise can't easily be auto-tested since it
+# requires interactive input. Just understand the concept!
+#
+# Your task: Understand that io.read-line waits for user input.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: echo-input ( -- )
+    # This would read a line and print it back
+    # io.read-line io.write-line
+    "echo would work here" io.write-line
+;
+
+: test-read-line ( -- )
+    # Can't test interactive input automatically
+    true test.assert
+;

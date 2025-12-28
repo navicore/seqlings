@@ -1,0 +1,7 @@
+: echo-input ( -- )
+    "echo would work here" io.write-line
+;
+
+: test-read-line ( -- )
+    true test.assert
+;
