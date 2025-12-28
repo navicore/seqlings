@@ -1,43 +1,35 @@
 # Exercise: Variant Basics
 #
-# Variants (unions) define types with multiple alternatives.
+# Unions define types with multiple alternatives (also called ADTs).
 #
-# Define a variant:
-#   variant Color
-#       | Red
-#       | Green
-#       | Blue
-#   end
+# Define a union:
+#   union Color { Red, Green, Blue }
 #
-# Create values by using the constructor name:
-#   Red     # Creates a Color variant
-#   Green   # Creates a Color variant
+# The compiler auto-generates constructor words:
+#   Make-Red     # ( -- Color ) Creates a Red Color
+#   Make-Green   # ( -- Color ) Creates a Green Color
 #
 # Check the variant tag (returns tag index as Int):
-#   Red variant.tag      # Returns 0 (first variant)
-#   Green variant.tag    # Returns 1 (second variant)
+#   Make-Red variant.tag      # Returns 0 (first variant)
+#   Make-Green variant.tag    # Returns 1 (second variant)
 #
 # Your task: Work with variant basics
 # When done, delete the marker line below.
 
-variant TrafficLight
-    | Stop
-    | Go
-    | Caution
-end
+union TrafficLight { Stop, Go, Caution }
 
 # I AM NOT DONE
 
 : test-create-stop ( -- )
     # Stop is the first variant, so its tag is 0
-    Stop variant.tag
+    Make-Stop variant.tag
     # Do not edit below this line
     0 test.assert-eq
 ;
 
 : test-create-go ( -- )
     # Go is the second variant (index 1)
-    # Your code here - create Go and get its tag
+    # Your code here - use Make-Go and get its tag
     0
     # Do not edit below this line
     1 test.assert-eq
@@ -45,7 +37,7 @@ end
 
 : test-create-caution ( -- )
     # Caution is the third variant (index 2)
-    # Your code here
+    # Your code here - use Make-Caution
     0
     # Do not edit below this line
     2 test.assert-eq

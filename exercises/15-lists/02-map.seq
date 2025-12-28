@@ -2,31 +2,31 @@
 #
 # `list.map` applies a quotation to every element, building a new list.
 #
-# Stack effect: ( list quot -- new-list )
+# Stack effect: ( Variant Quotation -- Variant )
 #
 # Example:
-#   [ 1 2 3 ] [ 2 i.multiply ] list.map   # [ 2 4 6 ]
+#   "apple banana" " " string.split [ string.to-upper ] list.map
+#   # Result: list of "APPLE" "BANANA"
 #
 # HIGHER-ORDER PATTERN:
 # map is one of the fundamental higher-order operations.
 # You provide WHAT to do to each element (the quotation).
 # map handles HOW to iterate and collect results.
 #
-# Your task: Double every number in a list.
+# Your task: Transform each word to uppercase.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: double-all ( List -- List )
-    # Your code here - use list.map
-    drop [ ]
+: upcase-all ( Variant -- Variant )
+    # Your code here - use list.map with string.to-upper
+    drop "x" " " string.split
 ;
 
 : test-map ( -- )
-    [ 1 2 3 ] double-all
+    "hello world" " " string.split upcase-all
     # Do not edit below this line
-    dup list.length 3 test.assert-eq
-    dup 0 variant.field-at 2 test.assert-eq
-    dup 1 variant.field-at 4 test.assert-eq
-    2 variant.field-at 6 test.assert-eq
+    dup list.length 2 test.assert-eq
+    dup 0 variant.field-at "HELLO" string.equal? test.assert
+    1 variant.field-at "WORLD" string.equal? test.assert
 ;

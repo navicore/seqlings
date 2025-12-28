@@ -1,19 +1,19 @@
 : test-list-length ( -- )
-    [ 10 20 30 40 ] list.length
+    "one two three four" " " string.split list.length
     4 test.assert-eq
 ;
 
 : test-list-first ( -- )
-    [ 5 10 15 ] 0 variant.field-at
-    5 test.assert-eq
+    "alpha beta gamma" " " string.split 0 variant.field-at
+    "alpha" string.equal? test.assert
 ;
 
 : test-list-last ( -- )
-    [ 5 10 15 ] 2 variant.field-at
-    15 test.assert-eq
+    "alpha beta gamma" " " string.split 2 variant.field-at
+    "gamma" string.equal? test.assert
 ;
 
 : test-list-empty ( -- )
-    [ ] list.empty?
-    1 test.assert-eq
+    "single" " " string.split list.empty?
+    not test.assert
 ;

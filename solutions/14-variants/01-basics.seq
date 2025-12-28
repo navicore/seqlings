@@ -1,20 +1,16 @@
-variant TrafficLight
-    | Stop
-    | Go
-    | Caution
-end
+union TrafficLight { Stop, Go, Caution }
 
 : test-create-stop ( -- )
-    Stop variant.tag
+    Make-Stop variant.tag
     0 test.assert-eq
 ;
 
 : test-create-go ( -- )
-    Go variant.tag
+    Make-Go variant.tag
     1 test.assert-eq
 ;
 
 : test-create-caution ( -- )
-    Caution variant.tag
+    Make-Caution variant.tag
     2 test.assert-eq
 ;

@@ -2,31 +2,31 @@
 #
 # `list.filter` keeps only elements where the quotation returns true.
 #
-# Stack effect: ( list quot -- filtered-list )
+# Stack effect: ( Variant Quotation -- Variant )
 #
 # Example:
-#   [ 1 2 3 4 5 ] [ 3 > ] list.filter   # [ 4 5 ]
+#   "apple banana cherry" " " string.split [ string.length 5 > ] list.filter
+#   # Keeps only "banana" and "cherry" (length > 5)
 #
 # HIGHER-ORDER PATTERN:
 # filter separates the WHAT (predicate) from the HOW (iteration).
-# The quotation is a predicate - it must return a boolean.
+# The quotation is a predicate - it must return a boolean (0 or non-zero).
 #
-# Your task: Keep only even numbers.
+# Your task: Keep only words longer than 4 characters.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: evens-only ( List -- List )
+: long-words-only ( Variant -- Variant )
     # Your code here - use list.filter
-    # Hint: [ 2 i.mod 0 = ] is the predicate for "is even"
-    drop [ ]
+    # Hint: [ string.length 4 > ] is the predicate
+    drop "x" " " string.split
 ;
 
 : test-filter ( -- )
-    [ 1 2 3 4 5 6 ] evens-only
+    "cat dog elephant mouse" " " string.split long-words-only
     # Do not edit below this line
-    dup list.length 3 test.assert-eq
-    dup 0 variant.field-at 2 test.assert-eq
-    dup 1 variant.field-at 4 test.assert-eq
-    2 variant.field-at 6 test.assert-eq
+    dup list.length 2 test.assert-eq
+    dup 0 variant.field-at "elephant" string.equal? test.assert
+    1 variant.field-at "mouse" string.equal? test.assert
 ;

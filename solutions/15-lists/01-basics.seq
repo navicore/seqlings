@@ -1,11 +1,11 @@
-: has-three-elements? ( List -- Bool )
+: has-three-elements? ( Variant -- Int )
     list.length 3 =
 ;
 
 : test-basics ( -- )
-    [ 1 2 3 ] has-three-elements?
+    "a b c" " " string.split has-three-elements?
     test.assert
 
-    [ 1 2 ] has-three-elements?
+    "a b" " " string.split has-three-elements?
     not test.assert
 ;

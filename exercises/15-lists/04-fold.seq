@@ -3,11 +3,11 @@
 # `list.fold` combines all elements into one value.
 # Also known as "reduce" in other languages.
 #
-# Stack effect: ( list initial quot -- result )
+# Stack effect: ( Variant initial Quotation -- result )
 #
 # Example:
-#   [ 1 2 3 ] 0 [ i.add ] list.fold   # 6 (0+1+2+3)
-#   [ 1 2 3 ] 1 [ i.multiply ] list.fold  # 6 (1*1*2*3)
+#   "apple banana cherry" " " string.split "" [ string.concat ] list.fold
+#   # Result: "applebananacherry"
 #
 # HIGHER-ORDER PATTERN:
 # fold is the most general list operation. You can implement
@@ -15,18 +15,20 @@
 #   - An initial accumulator value
 #   - A quotation that combines accumulator with each element
 #
-# Your task: Sum all numbers in a list.
+# Your task: Concatenate all words with dashes between them.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: sum-list ( List -- Int )
+: join-with-dash ( Variant -- String )
     # Your code here - use list.fold
-    drop 0
+    # Hint: Start with "" and use a quotation that adds "-" between words
+    # One approach: fold with [ swap dup string.empty? if drop else "-" string.concat then swap string.concat ]
+    drop ""
 ;
 
 : test-fold ( -- )
-    [ 10 20 30 40 ] sum-list
+    "one two three" " " string.split join-with-dash
     # Do not edit below this line
-    100 test.assert-eq
+    "one-two-three" string.equal? test.assert
 ;

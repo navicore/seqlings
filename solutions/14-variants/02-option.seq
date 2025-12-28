@@ -1,19 +1,24 @@
-variant Option
-    | Some value
-    | None
-end
+union Option { Some { value: Int }, None }
+
+: is-some? ( Option -- Int )
+    variant.tag 0 =
+;
+
+: is-none? ( Option -- Int )
+    variant.tag 1 =
+;
 
 : test-some ( -- )
-    100 Some Some?
-    true test.assert-eq
+    100 Make-Some is-some?
+    test.assert
 ;
 
 : test-none ( -- )
-    None None?
-    true test.assert-eq
+    Make-None is-none?
+    test.assert
 ;
 
 : test-some-not-none ( -- )
-    42 Some None?
-    false test.assert-eq
+    42 Make-Some is-none?
+    not test.assert
 ;

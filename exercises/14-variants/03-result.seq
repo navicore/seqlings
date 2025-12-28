@@ -2,48 +2,56 @@
 #
 # The Result type represents success or failure.
 #
-# variant Result
-#     | Ok value
-#     | Err error
-# end
+# union IntResult { Ok { value: Int }, Err { error: String } }
+#
+# The compiler generates:
+#   Make-Ok   ( Int -- IntResult )
+#   Make-Err  ( String -- IntResult )
 #
 # Examples:
-#   42 Ok           # Success with value 42
-#   "failed" Err    # Failure with message
+#   42 Make-Ok           # Success with value 42
+#   "failed" Make-Err    # Failure with message
 #
 # Your task: Create success and failure results
 #
 # When done, delete the marker line below.
 
-variant Result
-    | Ok value
-    | Err error
-end
+union IntResult { Ok { value: Int }, Err { error: String } }
 
 # I AM NOT DONE
 
-: success ( Int -- Result )
-    # Wrap an integer in Ok
-    # Your code here
-    drop "error" Err
+# Helper to check if Result is Ok (tag 0)
+: is-ok? ( IntResult -- Int )
+    variant.tag 0 =
 ;
 
-: failure ( String -- Result )
+# Helper to check if Result is Err (tag 1)
+: is-err? ( IntResult -- Int )
+    variant.tag 1 =
+;
+
+: success ( Int -- IntResult )
+    # Wrap an integer in Ok
+    # Your code here - use Make-Ok
+    drop "error" Make-Err
+;
+
+: failure ( String -- IntResult )
     # Wrap an error message in Err
-    # Your code here
-    drop 0 Ok
+    # Your code here - use Make-Err
+    drop 0 Make-Ok
 ;
 
 : test-ok ( -- )
-    42 success Ok?
+    42 success is-ok?
 
     # Do not edit below this line
-    true test.assert-eq
+    test.assert
 ;
 
 : test-err ( -- )
-    "oops" failure Err?
+    "oops" failure is-err?
 
     # Do not edit below this line
-    true test.assert-eq
+    test.assert
 ;

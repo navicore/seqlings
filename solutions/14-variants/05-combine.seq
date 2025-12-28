@@ -1,30 +1,36 @@
-variant Result
-    | Ok value
-    | Err error
-end
+union IntResult { Ok { value: Int }, Err { error: String } }
 
-: safe-divide ( Int Int -- Result )
-    dup 0 =
-    [ drop drop "division by zero" Err ]
-    [ i.divide Ok ]
-    if-else
+: is-ok? ( IntResult -- Int )
+    variant.tag 0 =
+;
+
+: is-err? ( IntResult -- Int )
+    variant.tag 1 =
+;
+
+: safe-divide ( Int Int -- IntResult )
+    dup 0 = if
+        drop drop "division by zero" Make-Err
+    else
+        i.divide Make-Ok
+    then
 ;
 
 : test-safe-divide-ok ( -- )
-    10 2 safe-divide Ok?
-    true test.assert-eq
+    10 2 safe-divide is-ok?
+    test.assert
 ;
 
 : test-safe-divide-err ( -- )
-    10 0 safe-divide Err?
-    true test.assert-eq
+    10 0 safe-divide is-err?
+    test.assert
 ;
 
 : test-safe-divide-value ( -- )
     10 2 safe-divide
-    variant.match
-        | Ok -> [ ]
-        | Err -> [ drop 0 ]
+    match
+        Ok { >value } -> value
+        Err -> drop 0
     end
     5 test.assert-eq
 ;

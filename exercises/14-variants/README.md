@@ -1,65 +1,63 @@
-# Variants (Union Types)
+# Unions (Algebraic Data Types)
 
-Variants let you define types that can be one of several alternatives. This is essential for representing values that could be in different states.
+Unions let you define types that can be one of several alternatives. This is essential for representing values that could be in different states.
 
-## Defining Variants
+## Defining Unions
 
 ```seq
-variant Result
-    | Ok value
-    | Err message
-end
+union IntResult { Ok { value: Int }, Err { error: String } }
 ```
 
-This defines `Result` as a type that is either `Ok` (with a value) or `Err` (with a message).
+This defines `IntResult` as a type that is either `Ok` (with an Int value) or `Err` (with a String error).
 
-## Creating Variant Values
+## Auto-Generated Constructors
+
+The compiler generates constructor words for each variant:
 
 ```seq
-42 Ok         # Create an Ok variant containing 42
-"fail" Err    # Create an Err variant containing "fail"
+42 Make-Ok           # Create an Ok variant containing 42
+"fail" Make-Err      # Create an Err variant containing "fail"
 ```
 
 ## Matching on Variants
 
-Use pattern matching to handle each case:
+Use `match/end` to handle each case:
 
 ```seq
 my-result
-variant.match
-    | Ok -> [ "Got: " swap int->string string.concat ]
-    | Err -> [ "Error: " swap string.concat ]
+match
+    Ok { >value } -> value int->string "Got: " swap string.concat
+    Err { >error } -> "Error: " swap string.concat
 end
 ```
+
+When matching, you can extract fields using `{ >fieldname }` syntax.
 
 ## Common Patterns
 
 ### Option Type
 ```seq
-variant Option
-    | Some value
-    | None
-end
+union Option { Some { value: Int }, None }
 ```
 
 ### Result Type
 ```seq
-variant Result
-    | Ok value
-    | Err error
-end
+union IntResult { Ok { value: Int }, Err { error: String } }
 ```
 
 ## Checking Variant Tags
 
 ```seq
-my-result variant.tag    # Returns "Ok" or "Err"
-my-result Ok?            # Returns true if Ok variant
+my-result variant.tag    # Returns tag number (0 for first variant, 1 for second, etc.)
+
+# Define helper predicates:
+: is-ok? ( IntResult -- Int )  variant.tag 0 = ;
+: is-err? ( IntResult -- Int ) variant.tag 1 = ;
 ```
 
 ## Exercises in This Section
 
-1. **basics** - Creating variant values
+1. **basics** - Creating variant values with constructors
 2. **option** - Working with Option types
 3. **result** - Working with Result types
 4. **match** - Pattern matching on variants

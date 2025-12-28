@@ -1,22 +1,27 @@
-variant Result
-    | Ok value
-    | Err error
-end
+union IntResult { Ok { value: Int }, Err { error: String } }
 
-: success ( Int -- Result )
-    Ok
+: is-ok? ( IntResult -- Int )
+    variant.tag 0 =
 ;
 
-: failure ( String -- Result )
-    Err
+: is-err? ( IntResult -- Int )
+    variant.tag 1 =
+;
+
+: success ( Int -- IntResult )
+    Make-Ok
+;
+
+: failure ( String -- IntResult )
+    Make-Err
 ;
 
 : test-ok ( -- )
-    42 success Ok?
-    true test.assert-eq
+    42 success is-ok?
+    test.assert
 ;
 
 : test-err ( -- )
-    "oops" failure Err?
-    true test.assert-eq
+    "oops" failure is-err?
+    test.assert
 ;

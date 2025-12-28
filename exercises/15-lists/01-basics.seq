@@ -1,10 +1,11 @@
 # Exercise: List Basics
 #
-# Lists hold multiple values of the same type.
+# In Seq, lists are created from strings using string.split.
+# Lists are actually variants (tagged unions) under the hood.
 #
 # Creating lists:
-#   [ 1 2 3 ]         # List of integers
-#   [ ]               # Empty list
+#   "a b c" " " string.split       # List of 3 strings
+#   "apple,banana" "," string.split  # Split by comma
 #
 # Basic operations:
 #   list.length       # How many elements
@@ -15,16 +16,16 @@
 
 # I AM NOT DONE
 
-: has-three-elements? ( List -- Bool )
+: has-three-elements? ( Variant -- Int )
     # Your code here
-    drop false
+    drop 0
 ;
 
 : test-basics ( -- )
-    [ 1 2 3 ] has-three-elements?
+    "a b c" " " string.split has-three-elements?
     # Do not edit below this line
     test.assert
 
-    [ 1 2 ] has-three-elements?
+    "a b" " " string.split has-three-elements?
     not test.assert
 ;

@@ -1,22 +1,19 @@
-variant Option
-    | Some value
-    | None
-end
+union Option { Some { value: Int }, None }
 
 : unwrap-or ( Option Int -- Int )
     swap
-    variant.match
-        | Some -> [ swap drop ]
-        | None -> [ ]
+    match
+        Some { >value } -> drop value
+        None -> # default is already on stack
     end
 ;
 
 : test-unwrap-some ( -- )
-    42 Some 0 unwrap-or
+    42 Make-Some 0 unwrap-or
     42 test.assert-eq
 ;
 
 : test-unwrap-none ( -- )
-    None 99 unwrap-or
+    Make-None 99 unwrap-or
     99 test.assert-eq
 ;

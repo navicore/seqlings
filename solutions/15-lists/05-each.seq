@@ -1,8 +1,8 @@
-: print-doubled ( List -- )
-    [ dup i.add int->string io.write-line ] list.each
+: print-uppercase ( Variant -- )
+    [ string.to-upper io.write-line ] list.each
 ;
 
 : test-each ( -- )
-    [ 1 2 3 ] print-doubled
+    "hello world" " " string.split print-uppercase
     true test.assert
 ;

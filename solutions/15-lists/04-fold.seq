@@ -1,8 +1,8 @@
-: sum-list ( List -- Int )
-    0 [ i.add ] list.fold
+: join-with-dash ( Variant -- String )
+    "" [ swap dup string.empty? if drop else "-" string.concat then swap string.concat ] list.fold
 ;
 
 : test-fold ( -- )
-    [ 10 20 30 40 ] sum-list
-    100 test.assert-eq
+    "one two three" " " string.split join-with-dash
+    "one-two-three" string.equal? test.assert
 ;
