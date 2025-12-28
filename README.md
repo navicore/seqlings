@@ -6,19 +6,30 @@ Inspired by [Rustlings](https://github.com/rust-lang/rustlings), Seqlings guides
 
 ## Prerequisites
 
-You need the Seq compiler (`seqc`) installed and available in your PATH:
+You need the Seq compiler (`seqc`) installed and available in your PATH.
+
+### Option 1: Install via Cargo (Recommended)
 
 ```bash
-# Clone and build patch-seq
+cargo install seq-compiler
+
+# Verify installation
+seqc --version
+```
+
+### Option 2: Download from Releases
+
+Download a prebuilt binary from the [patch-seq releases page](https://github.com/navicore/patch-seq/releases) and add it to your PATH.
+
+### Option 3: Build from Source
+
+```bash
 git clone https://github.com/navicore/patch-seq
 cd patch-seq
 cargo build --release
 
 # Add to PATH (add to your shell profile for persistence)
 export PATH="$PATH:$(pwd)/target/release"
-
-# Verify installation
-seqc --version
 ```
 
 ## Quick Start
