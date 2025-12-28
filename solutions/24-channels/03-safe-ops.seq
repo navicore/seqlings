@@ -1,0 +1,7 @@
+: test-safe-ops ( -- )
+    chan.make
+    dup 99 chan.send
+    chan.receive-safe
+    test.assert
+    99 test.assert-eq
+;

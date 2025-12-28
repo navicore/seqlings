@@ -1,0 +1,50 @@
+# Exercise: Mutual Recursion
+#
+# Mutual recursion: two (or more) functions that call each other.
+#
+# Classic example: is-even? and is-odd?
+#   is-even?(0) = true
+#   is-even?(n) = is-odd?(n-1)
+#
+#   is-odd?(0) = false
+#   is-odd?(n) = is-even?(n-1)
+#
+# Each function reduces the problem and hands off to the other.
+#
+# Your task: Implement is-even? and is-odd? using mutual recursion.
+# (Yes, there are simpler ways - this is to practice the pattern!)
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+# Forward declaration needed for mutual recursion
+: is-odd? ( Int -- Bool ) drop false ;
+
+: is-even? ( Int -- Bool )
+    # Base case: 0 is even
+    # Recursive: n is even if (n-1) is odd
+    drop false
+;
+
+# Now redefine is-odd? properly
+: is-odd? ( Int -- Bool )
+    # Base case: 0 is not odd
+    # Recursive: n is odd if (n-1) is even
+    drop false
+;
+
+: test-mutual ( -- )
+    4 is-even?
+    # Do not edit below this line
+    test.assert
+
+    4 is-odd?
+    not test.assert
+
+    7 is-odd?
+    test.assert
+
+    7 is-even?
+    not test.assert
+;

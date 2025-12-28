@@ -1,0 +1,24 @@
+# Exercise: Creating Channels
+#
+# Channels are created with `chan.make`.
+#
+# Stack effect: ( -- Chan )
+#
+# A channel is a typed conduit for passing values between
+# concurrent computations (strands).
+#
+# Your task: Create a channel, send a value, receive it back.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-create ( -- )
+    # Your code here:
+    # 1. Create a channel with chan.make
+    # 2. Dup it (need the channel twice)
+    # 3. Send 42 into it
+    # 4. Receive from it
+    0
+    # Do not edit below this line
+    42 test.assert-eq
+;

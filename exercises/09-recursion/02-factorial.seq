@@ -1,0 +1,33 @@
+# Exercise: Factorial
+#
+# The classic recursive example!
+#
+# n! = n × (n-1) × (n-2) × ... × 1
+# 0! = 1 (by definition)
+#
+# Recursive definition:
+#   factorial(0) = 1           (base case)
+#   factorial(n) = n × factorial(n-1)  (recursive case)
+#
+# Example: 4! = 4 × 3! = 4 × 3 × 2! = 4 × 3 × 2 × 1! = 4 × 3 × 2 × 1 = 24
+#
+# Your task: Implement factorial recursively.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: factorial ( Int -- Int )
+    # Your code here
+    # Base case: n <= 1 returns 1
+    # Recursive: n * factorial(n-1)
+    drop 0
+;
+
+: test-factorial ( -- )
+    5 factorial
+    # Do not edit below this line
+    120 test.assert-eq   # 5! = 120
+
+    0 factorial
+    1 test.assert-eq     # 0! = 1
+;

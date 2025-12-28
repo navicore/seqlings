@@ -1,0 +1,27 @@
+# Exercise: Send and Receive
+#
+# `chan.send` puts a value into a channel.
+# `chan.receive` takes a value out.
+#
+# Stack effects:
+#   chan.send    ( chan value -- )
+#   chan.receive ( chan -- value )
+#
+# Order matters! The value sent first is received first (FIFO).
+#
+# Your task: Send two values and receive them in order.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-send-receive ( -- )
+    chan.make
+    # Your code here:
+    # Send 10, then send 20
+    # Receive first (should be 10)
+    # Receive second (should be 20)
+    drop 0 0
+    # Do not edit below this line
+    20 test.assert-eq
+    10 test.assert-eq
+;

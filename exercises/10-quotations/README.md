@@ -2,7 +2,7 @@
 
 **This is one of the most important concepts in all of programming.**
 
-Quotations are Seq's mechanism for **higher-order programming** - the ability to treat functions as data. Most programmers use higher-order programming without understanding it. By the end of this section, you will.
+Quotations are Seq's mechanism for **higher-order programming** - the ability to treat functions as data. This section makes the concept explicit so you can apply it deliberately.
 
 ## What is Higher-Order Programming?
 
@@ -72,4 +72,4 @@ This pattern appears everywhere in modern programming:
 - Rust: `iter.map(|x| x + 1)`
 - Seq: `list [ 1 i.add ] list.map`
 
-You are now learning the concept behind all of these.
+Seq makes this concept explicit and first-class.

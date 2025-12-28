@@ -1,0 +1,20 @@
+: fib ( Int -- Int )
+    dup 1 <= if
+        # Base cases: fib(0)=0, fib(1)=1
+    else
+        dup 1 i.subtract fib
+        swap 2 i.subtract fib
+        i.add
+    then
+;
+
+: test-fibonacci ( -- )
+    10 fib
+    55 test.assert-eq
+
+    0 fib
+    0 test.assert-eq
+
+    1 fib
+    1 test.assert-eq
+;

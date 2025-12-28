@@ -1,0 +1,9 @@
+: test-send-receive ( -- )
+    chan.make
+    dup 10 chan.send
+    dup 20 chan.send
+    dup chan.receive
+    swap chan.receive
+    20 test.assert-eq
+    10 test.assert-eq
+;

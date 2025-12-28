@@ -1,0 +1,41 @@
+# Exercise: Accumulator Pattern (Tail Recursion)
+#
+# Tail recursion: the recursive call is the LAST thing the function does.
+# This allows the compiler to optimize away the stack frames.
+#
+# The trick: use an accumulator parameter to carry the result.
+#
+# Non-tail factorial:
+#   factorial(5) = 5 * factorial(4)  # Must wait for result, then multiply
+#
+# Tail-recursive with accumulator:
+#   factorial(5, 1) -> factorial(4, 5) -> factorial(3, 20) -> ...
+#   The accumulator carries the partial result.
+#
+# Your task: Implement sum-to using an accumulator.
+# sum-to(n) = 1 + 2 + ... + n
+#
+# Define a helper: sum-to-acc ( n acc -- result )
+# Then: sum-to ( n -- result ) calls sum-to-acc with acc=0
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: sum-to-acc ( Int Int -- Int )
+    # n acc on stack
+    # Base case: n <= 0, return acc
+    # Recursive: sum-to-acc(n-1, acc+n)
+    drop drop 0
+;
+
+: sum-to ( Int -- Int )
+    # Start with accumulator = 0
+    0 sum-to-acc
+;
+
+: test-accumulator ( -- )
+    100 sum-to
+    # Do not edit below this line
+    5050 test.assert-eq   # 1+2+...+100 = 5050
+;

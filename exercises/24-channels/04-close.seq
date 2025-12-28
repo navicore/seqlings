@@ -1,0 +1,26 @@
+# Exercise: Closing Channels
+#
+# `chan.close` signals that no more values will be sent.
+#
+# Stack effect: ( chan -- )
+#
+# After closing:
+#   - Remaining values can still be received
+#   - New sends will fail
+#   - After all values received, receives fail
+#
+# Your task: Send a value, close, then receive.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-close ( -- )
+    chan.make
+    dup 42 chan.send
+    dup chan.close
+    # Your code here:
+    # Receive the value (should still work after close)
+    drop 0
+    # Do not edit below this line
+    42 test.assert-eq
+;

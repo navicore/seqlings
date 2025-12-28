@@ -1,0 +1,38 @@
+# Exercise: Fibonacci
+#
+# The Fibonacci sequence: 0, 1, 1, 2, 3, 5, 8, 13, 21, ...
+# Each number is the sum of the two before it.
+#
+# fib(0) = 0
+# fib(1) = 1
+# fib(n) = fib(n-1) + fib(n-2)
+#
+# This has TWO recursive calls - it branches!
+#
+# Note: This naive implementation is slow for large n
+# because it recalculates the same values many times.
+# We'll see better approaches later.
+#
+# Your task: Implement fibonacci recursively.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: fib ( Int -- Int )
+    # Your code here
+    # Two base cases: n=0 returns 0, n=1 returns 1
+    # Recursive: fib(n-1) + fib(n-2)
+    drop 0
+;
+
+: test-fibonacci ( -- )
+    10 fib
+    # Do not edit below this line
+    55 test.assert-eq   # fib(10) = 55
+
+    0 fib
+    0 test.assert-eq    # fib(0) = 0
+
+    1 fib
+    1 test.assert-eq    # fib(1) = 1
+;

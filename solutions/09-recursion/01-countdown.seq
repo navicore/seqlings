@@ -1,0 +1,12 @@
+: countdown ( Int -- Int )
+    dup 0 <= if
+        drop 0
+    else
+        dup 1 i.subtract countdown i.add
+    then
+;
+
+: test-countdown ( -- )
+    5 countdown
+    15 test.assert-eq
+;

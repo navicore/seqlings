@@ -1,0 +1,18 @@
+: sum-to-acc ( Int Int -- Int )
+    over 0 <= if
+        nip
+    else
+        over i.add
+        swap 1 i.subtract swap
+        sum-to-acc
+    then
+;
+
+: sum-to ( Int -- Int )
+    0 sum-to-acc
+;
+
+: test-accumulator ( -- )
+    100 sum-to
+    5050 test.assert-eq
+;

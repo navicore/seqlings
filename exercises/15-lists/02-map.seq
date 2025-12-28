@@ -1,0 +1,29 @@
+# Exercise: list.map - Transform Each Element
+#
+# `list.map` applies a quotation to every element, building a new list.
+#
+# Stack effect: ( list quot -- new-list )
+#
+# Example:
+#   [ 1 2 3 ] [ 2 i.multiply ] list.map   # [ 2 4 6 ]
+#
+# HIGHER-ORDER PATTERN:
+# map is one of the fundamental higher-order operations.
+# You provide WHAT to do to each element (the quotation).
+# map handles HOW to iterate and collect results.
+#
+# Your task: Double every number in a list.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: double-all ( List -- List )
+    # Your code here - use list.map
+    drop [ ]
+;
+
+: test-map ( -- )
+    [ 1 2 3 ] double-all
+    # Do not edit below this line
+    [ 2 4 6 ] list.= test.assert
+;

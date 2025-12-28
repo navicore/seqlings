@@ -1,0 +1,35 @@
+# Exercise: Combining List Operations
+#
+# The real power emerges when you chain operations.
+#
+# Example: Sum of squares of even numbers
+#   [ 1 2 3 4 5 6 ]
+#   [ 2 i.mod 0 = ] list.filter   # [ 2 4 6 ]
+#   [ dup i.multiply ] list.map   # [ 4 16 36 ]
+#   0 [ i.add ] list.fold         # 56
+#
+# HIGHER-ORDER INSIGHT:
+# Each operation is a building block. Combine them to express
+# complex transformations clearly. This is the essence of
+# functional programming with higher-order functions.
+#
+# Your task: Find the product of all odd numbers in a list.
+#   1. Filter to keep only odd numbers
+#   2. Fold with multiplication (start with 1)
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: product-of-odds ( List -- Int )
+    # Your code here
+    # Step 1: filter odds (2 i.mod 0 <> or 2 i.mod 1 =)
+    # Step 2: fold with multiply, starting from 1
+    drop 0
+;
+
+: test-combine ( -- )
+    [ 1 2 3 4 5 ] product-of-odds
+    # Do not edit below this line
+    15 test.assert-eq   # 1 * 3 * 5 = 15
+;

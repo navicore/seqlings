@@ -1,0 +1,8 @@
+: print-doubled ( List -- )
+    [ dup i.add int->string io.write-line ] list.each
+;
+
+: test-each ( -- )
+    [ 1 2 3 ] print-doubled
+    true test.assert
+;

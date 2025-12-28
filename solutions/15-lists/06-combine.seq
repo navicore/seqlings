@@ -1,0 +1,9 @@
+: product-of-odds ( List -- Int )
+    [ 2 i.mod 1 = ] list.filter
+    1 [ i.multiply ] list.fold
+;
+
+: test-combine ( -- )
+    [ 1 2 3 4 5 ] product-of-odds
+    15 test.assert-eq
+;

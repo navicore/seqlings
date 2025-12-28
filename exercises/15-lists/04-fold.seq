@@ -1,0 +1,32 @@
+# Exercise: list.fold - Reduce to Single Value
+#
+# `list.fold` combines all elements into one value.
+# Also known as "reduce" in other languages.
+#
+# Stack effect: ( list initial quot -- result )
+#
+# Example:
+#   [ 1 2 3 ] 0 [ i.add ] list.fold   # 6 (0+1+2+3)
+#   [ 1 2 3 ] 1 [ i.multiply ] list.fold  # 6 (1*1*2*3)
+#
+# HIGHER-ORDER PATTERN:
+# fold is the most general list operation. You can implement
+# map and filter in terms of fold! It takes:
+#   - An initial accumulator value
+#   - A quotation that combines accumulator with each element
+#
+# Your task: Sum all numbers in a list.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: sum-list ( List -- Int )
+    # Your code here - use list.fold
+    drop 0
+;
+
+: test-fold ( -- )
+    [ 10 20 30 40 ] sum-list
+    # Do not edit below this line
+    100 test.assert-eq
+;

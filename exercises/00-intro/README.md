@@ -4,7 +4,7 @@ Welcome to Seqlings! You're about to learn **stack-based programming** - a parad
 
 ## Why Stack-Based Programming Matters
 
-Most programmers never learn that beneath every function call, every expression evaluation, and every local variable lies a **stack**. Your CPU has one. The JVM has one. Python's bytecode interpreter has one.
+Beneath every function call, every expression evaluation, and every local variable lies a **stack**. Your CPU has one. The JVM has one. Python's bytecode interpreter has one.
 
 By learning Seq, you're not just learning a language - you're learning how computation actually works at its core.
 

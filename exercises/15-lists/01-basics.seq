@@ -1,0 +1,30 @@
+# Exercise: List Basics
+#
+# Lists hold multiple values of the same type.
+#
+# Creating lists:
+#   [ 1 2 3 ]         # List of integers
+#   [ ]               # Empty list
+#
+# Basic operations:
+#   list.length       # How many elements
+#   list.empty?       # Is it empty?
+#
+# Your task: Check if a list has exactly 3 elements.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: has-three-elements? ( List -- Bool )
+    # Your code here
+    drop false
+;
+
+: test-basics ( -- )
+    [ 1 2 3 ] has-three-elements?
+    # Do not edit below this line
+    test.assert
+
+    [ 1 2 ] has-three-elements?
+    not test.assert
+;

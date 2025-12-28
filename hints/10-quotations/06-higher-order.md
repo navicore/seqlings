@@ -31,16 +31,16 @@ Actually simpler:
 ;
 ```
 
-## You Are Now a Higher-Order Programmer
+## What You've Built
 
-By writing `apply-twice`, you've created an abstraction over behavior. Your word doesn't know what the quotation does - it just knows to do it twice.
+`apply-twice` is an abstraction over behavior. It doesn't know what the quotation does - it just knows to do it twice.
 
 This is the same pattern as:
 - JavaScript's `array.map(fn)`
 - Python's `functools.reduce(fn, ...)`
 - Rust's `iter.filter(predicate)`
 
-You're not just using higher-order programming - you're creating higher-order abstractions.
+Writing words that accept quotations opens up powerful ways to structure code.
 
 ## The Stack Effect
 

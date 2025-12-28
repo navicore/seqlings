@@ -1,0 +1,23 @@
+: produce-values ( Chan -- )
+    dup 1 chan.send
+    dup 2 chan.send
+    dup 3 chan.send
+    chan.close
+;
+
+: sum-from-channel ( Chan -- Int )
+    0 swap
+    [ dup chan.receive-safe ]
+    [
+        drop rot i.add swap
+    ]
+    while
+    drop drop
+;
+
+: test-patterns ( -- )
+    chan.make
+    dup produce-values
+    sum-from-channel
+    6 test.assert-eq
+;

@@ -1,0 +1,27 @@
+# Exercise: Safe Channel Operations
+#
+# Regular receive blocks forever if no value is available.
+# Safe operations return status instead of blocking:
+#
+# chan.send-safe    ( chan value -- Bool )
+#   Returns true if sent, false if channel closed
+#
+# chan.receive-safe ( chan -- value Bool )
+#   Returns (value true) if received, or (dummy false) if closed
+#
+# Your task: Use receive-safe and check the status.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-safe-ops ( -- )
+    chan.make
+    dup 99 chan.send
+    # Your code here:
+    # Use chan.receive-safe
+    # Should get (99 true) - the value and success status
+    drop 0 false
+    # Do not edit below this line
+    test.assert      # Status should be true
+    99 test.assert-eq   # Value should be 99
+;

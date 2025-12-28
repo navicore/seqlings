@@ -3,11 +3,11 @@
 # Now YOU write a higher-order word - one that takes a quotation!
 #
 # HIGHER-ORDER INSIGHT:
-# You're not just using higher-order programming anymore.
-# You're now CREATING higher-order abstractions.
+# This exercise crosses a threshold: you're not just using
+# higher-order programming, you're creating higher-order abstractions.
 #
-# This is the leap from consumer to creator, from user to designer.
-# Most programmers never make this leap. You're about to.
+# Writing words that accept quotations is a powerful technique
+# for building flexible, reusable code.
 #
 # Your task: Define `apply-twice` that runs a quotation 2 times.
 #

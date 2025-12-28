@@ -1,0 +1,31 @@
+: is-odd? ( Int -- Bool ) drop false ;
+
+: is-even? ( Int -- Bool )
+    dup 0 = if
+        drop true
+    else
+        1 i.subtract is-odd?
+    then
+;
+
+: is-odd? ( Int -- Bool )
+    dup 0 = if
+        drop false
+    else
+        1 i.subtract is-even?
+    then
+;
+
+: test-mutual ( -- )
+    4 is-even?
+    test.assert
+
+    4 is-odd?
+    not test.assert
+
+    7 is-odd?
+    test.assert
+
+    7 is-even?
+    not test.assert
+;

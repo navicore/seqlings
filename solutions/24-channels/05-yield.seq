@@ -1,0 +1,16 @@
+: count-with-yields ( Int -- Int )
+    0 swap
+    [ dup 0 > ]
+    [
+        chan.yield
+        swap 1 i.add swap
+        1 i.subtract
+    ]
+    while
+    drop
+;
+
+: test-yield ( -- )
+    5 count-with-yields
+    5 test.assert-eq
+;

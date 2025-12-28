@@ -1,0 +1,8 @@
+: double-all ( List -- List )
+    [ 2 i.multiply ] list.map
+;
+
+: test-map ( -- )
+    [ 1 2 3 ] double-all
+    [ 2 4 6 ] list.= test.assert
+;

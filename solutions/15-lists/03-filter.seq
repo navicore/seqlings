@@ -1,0 +1,8 @@
+: evens-only ( List -- List )
+    [ 2 i.mod 0 = ] list.filter
+;
+
+: test-filter ( -- )
+    [ 1 2 3 4 5 6 ] evens-only
+    [ 2 4 6 ] list.= test.assert
+;

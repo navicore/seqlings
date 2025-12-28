@@ -1,0 +1,11 @@
+: has-three-elements? ( List -- Bool )
+    list.length 3 =
+;
+
+: test-basics ( -- )
+    [ 1 2 3 ] has-three-elements?
+    test.assert
+
+    [ 1 2 ] has-three-elements?
+    not test.assert
+;

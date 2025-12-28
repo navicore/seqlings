@@ -1,0 +1,8 @@
+: sum-list ( List -- Int )
+    0 [ i.add ] list.fold
+;
+
+: test-fold ( -- )
+    [ 10 20 30 40 ] sum-list
+    100 test.assert-eq
+;

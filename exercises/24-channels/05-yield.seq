@@ -1,0 +1,33 @@
+# Exercise: Yielding Control
+#
+# `chan.yield` voluntarily gives up the current strand's time slice.
+# This allows other strands to run.
+#
+# Stack effect: ( -- )
+#
+# In cooperative concurrency, yield is how strands share CPU time.
+#
+# Your task: Understand yield by using it in a loop.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: count-with-yields ( Int -- Int )
+    # Count up, yielding each iteration
+    # This is cooperative - we're being a good citizen
+    0 swap
+    [ dup 0 > ]
+    [
+        chan.yield   # Let other strands run
+        swap 1 i.add swap
+        1 i.subtract
+    ]
+    while
+    drop
+;
+
+: test-yield ( -- )
+    5 count-with-yields
+    # Do not edit below this line
+    5 test.assert-eq
+;
