@@ -1,0 +1,38 @@
+# Exercise: Multi-way cond
+#
+# The `cond` form handles multiple conditions more cleanly than nested ifs.
+#
+# Syntax:
+#   cond
+#       condition1 -> result1
+#       condition2 -> result2
+#       otherwise  -> default
+#   end
+#
+# Example:
+#   cond
+#       x 0 < -> "negative"
+#       x 0 > -> "positive"
+#       otherwise -> "zero"
+#   end
+#
+# Your task: Use cond to classify a grade.
+#   - score >= 90 -> push 4 (A)
+#   - score >= 80 -> push 3 (B)
+#   - score >= 70 -> push 2 (C)
+#   - otherwise   -> push 1 (D/F)
+# Test with score = 85, should give 3.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: classify-grade ( Int -- Int )
+    # Your code here - use cond
+    drop 0
+;
+
+: test-cond ( -- )
+    85 classify-grade
+    # Do not edit below this line
+    3 test.assert-eq
+;

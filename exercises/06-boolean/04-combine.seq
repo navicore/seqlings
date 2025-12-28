@@ -1,0 +1,25 @@
+# Exercise: Complex Boolean Expressions
+#
+# Boolean operators can be chained to express complex logic.
+#
+# Example: (a AND b) OR c
+#   a b and c or
+#
+# Example: a AND (b OR c)
+#   a  b c or  and
+#
+# The order of operations follows the order of words.
+#
+# Your task: Evaluate (true AND false) OR true
+# This should give true because the OR with true wins.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-combine ( -- )
+    # Your code here: (true AND false) OR true
+    # Hint: true false and true or
+    false
+    # Do not edit below this line
+    test.assert
+;

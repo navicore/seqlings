@@ -1,0 +1,25 @@
+# Exercise: Complex Expressions
+#
+# In postfix notation, there's no operator precedence to memorize.
+# The order of words IS the order of operations.
+#
+# Infix: (3 + 4) * (10 - 2)
+# Postfix: 3 4 i.add  10 2 i.subtract  i.multiply
+#
+# Let's trace it:
+#   3 4 i.add           # Stack: ( 7 )
+#   10 2 i.subtract     # Stack: ( 7 8 )
+#   i.multiply          # Stack: ( 56 )
+#
+# Your task: Calculate (20 - 5) * (8 + 2) to get 150.
+# Break it down: 20-5=15, 8+2=10, 15*10=150
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-expressions ( -- )
+    # Your code here - compute both parts, then multiply
+    0
+    # Do not edit below this line
+    150 test.assert-eq
+;

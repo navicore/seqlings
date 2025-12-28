@@ -1,0 +1,24 @@
+# Exercise: f.multiply and f.divide
+#
+# Float multiplication and division.
+# Unlike integer division, f.divide produces a true quotient.
+#
+# Stack effects:
+#   f.multiply ( a b -- product )
+#   f.divide   ( a b -- quotient )
+#
+# Example:
+#   2.5 4.0 f.multiply   # Stack: ( 10.0 )
+#   7.0 2.0 f.divide     # Stack: ( 3.5 ) - not truncated!
+#
+# Your task: Calculate 15.0 / 4.0 to get 3.75.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-f-multiply ( -- )
+    # Your code here
+    0.0
+    # Do not edit below this line
+    3.75 f.= test.assert
+;

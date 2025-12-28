@@ -1,0 +1,4 @@
+: test-f-compare ( -- )
+    5.5 3.0 f.>
+    test.assert
+;

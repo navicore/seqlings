@@ -1,0 +1,31 @@
+# Exercise: Defining Words
+#
+# Words are defined with the `: name ... ;` syntax.
+#
+# Syntax:
+#   : word-name ( stack-effect )
+#       body
+#   ;
+#
+# Example:
+#   : double ( Int -- Int )
+#       dup i.add
+#   ;
+#   # Now: 5 double leaves 10 on the stack
+#
+# Your task: Define a word `triple` that multiplies a number by 3.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+# Define your word here
+: triple ( Int -- Int )
+    # Your code - multiply by 3
+    drop 0
+;
+
+: test-define ( -- )
+    7 triple
+    # Do not edit below this line
+    21 test.assert-eq
+;

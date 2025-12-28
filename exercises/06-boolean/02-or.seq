@@ -1,0 +1,23 @@
+# Exercise: Boolean OR
+#
+# The `or` operator returns true if EITHER operand is true.
+#
+# Stack effect: ( bool bool -- bool )
+#
+# Truth table:
+#   true  true  or  → true
+#   true  false or  → true
+#   false true  or  → true
+#   false false or  → false
+#
+# Your task: Use 'or' with false and true to get true.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-or ( -- )
+    # Your code here - false or true should be true
+    false
+    # Do not edit below this line
+    test.assert
+;

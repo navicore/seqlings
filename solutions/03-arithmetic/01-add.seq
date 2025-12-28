@@ -1,0 +1,4 @@
+: test-add ( -- )
+    10 25 i.add
+    35 test.assert-eq
+;

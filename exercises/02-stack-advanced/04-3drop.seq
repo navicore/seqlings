@@ -1,0 +1,22 @@
+# Exercise: 3drop
+#
+# The `3drop` word removes the top three elements from the stack.
+#
+# Stack effect: ( a b c -- )
+#
+# Useful for cleaning up after operations that leave unwanted values.
+#
+# Example:
+#   1 2 3 4 5 3drop    # Stack: ( 1 2 )
+#
+# Your task: Use `3drop` to remove the garbage, leaving just 42.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-3drop ( -- )
+    42 99 88 77
+    # Your code here - add 3drop
+    # Do not edit below this line
+    42 test.assert-eq
+;

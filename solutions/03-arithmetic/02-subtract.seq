@@ -1,0 +1,4 @@
+: test-subtract ( -- )
+    100 42 i.subtract
+    58 test.assert-eq
+;

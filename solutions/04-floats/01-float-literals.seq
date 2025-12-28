@@ -1,0 +1,4 @@
+: test-float-literals ( -- )
+    2.5
+    2.5 f.= test.assert
+;

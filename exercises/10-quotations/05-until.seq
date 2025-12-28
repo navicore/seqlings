@@ -1,0 +1,31 @@
+# Exercise: The until Loop
+#
+# `until` runs a body quotation UNTIL a condition becomes true.
+# (Opposite of while)
+#
+# Syntax: condition-quot body-quot until
+#
+# Example:
+#   0 [ dup 10 = ] [ 1 i.add ] until   # Counts up to 10
+#
+# HIGHER-ORDER INSIGHT:
+# `until` is just `while` with inverted condition logic.
+# Both are higher-order - they take quotations as arguments.
+#
+# This shows how higher-order functions compose and vary:
+# same structure, different semantics.
+#
+# Your task: Use until to multiply by 2 until the value exceeds 100.
+# Starting from 3: 3→6→12→24→48→96→192 (stops at 192)
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-until ( -- )
+    3
+    # Your code here: double until > 100
+    # [ dup 100 > ] [ 2 i.multiply ] until
+    drop 0
+    # Do not edit below this line
+    192 test.assert-eq
+;

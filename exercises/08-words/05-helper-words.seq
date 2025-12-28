@@ -1,0 +1,29 @@
+# Exercise: Building Vocabulary
+#
+# Good Seq code builds up layers of abstraction.
+# Each word becomes part of your "vocabulary" for the problem.
+#
+# Example: A temperature converter
+#   : c-to-f ( Int -- Int )
+#       9 i.multiply 5 i.divide 32 i.add
+#   ;
+#   # Now you can think in terms of c-to-f, not the formula
+#
+# Your task: Build a word `is-even?` that checks if a number is even.
+# Hint: A number is even if n mod 2 equals 0.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: is-even? ( Int -- Bool )
+    # Your code here
+    # Hint: use i.mod with 2, then check if result is 0
+    drop false
+;
+
+: test-helper-words ( -- )
+    4 is-even?
+    # Do not edit below this line
+    test.assert
+    7 is-even? not test.assert
+;

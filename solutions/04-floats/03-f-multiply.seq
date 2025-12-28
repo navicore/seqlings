@@ -1,0 +1,4 @@
+: test-f-multiply ( -- )
+    15.0 4.0 f.divide
+    3.75 f.= test.assert
+;

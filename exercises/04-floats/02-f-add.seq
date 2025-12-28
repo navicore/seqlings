@@ -1,0 +1,24 @@
+# Exercise: f.add and f.subtract
+#
+# Float addition and subtraction work like their integer counterparts,
+# but operate on Float types.
+#
+# Stack effects:
+#   f.add      ( a b -- sum )
+#   f.subtract ( a b -- diff )
+#
+# Example:
+#   1.5 2.5 f.add        # Stack: ( 4.0 )
+#   10.0 3.5 f.subtract  # Stack: ( 6.5 )
+#
+# Your task: Calculate 3.5 + 1.5 to get 5.0.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-f-add ( -- )
+    # Your code here
+    0.0
+    # Do not edit below this line
+    5.0 f.= test.assert
+;

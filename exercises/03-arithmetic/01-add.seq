@@ -1,0 +1,20 @@
+# Exercise: i.add
+#
+# The `i.add` word adds two integers from the stack.
+#
+# Stack effect: ( a b -- sum )
+#
+# Example:
+#   3 4 i.add    # Stack: ( 7 )
+#
+# Your task: Add 10 and 25 to get 35.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-add ( -- )
+    # Your code here - push two numbers and add them
+    0
+    # Do not edit below this line
+    35 test.assert-eq
+;

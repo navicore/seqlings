@@ -1,0 +1,13 @@
+: fizzbuzz ( Int -- String )
+    cond
+        dup 15 i.mod 0 = -> drop "FizzBuzz"
+        dup 3 i.mod 0 = -> drop "Fizz"
+        dup 5 i.mod 0 = -> drop "Buzz"
+        otherwise -> int->string
+    end
+;
+
+: test-fizzbuzz ( -- )
+    15 fizzbuzz
+    "FizzBuzz" string.equal? test.assert
+;

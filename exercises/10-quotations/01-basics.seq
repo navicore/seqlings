@@ -1,0 +1,30 @@
+# Exercise: Quotation Basics
+#
+# A quotation is code wrapped in [ ... ] brackets.
+# It is NOT executed immediately - it's a VALUE.
+#
+# Example:
+#   [ 1 i.add ]    # This is data, not executed yet
+#
+# Quotations can be placed on the stack like any other value.
+#
+# Your task: Create a quotation that doubles a number (dup i.add)
+# and put it on the stack. Don't call it yet!
+#
+# IMPORTANT: You are learning HIGHER-ORDER PROGRAMMING.
+# The ability to treat code as data is one of the most
+# powerful concepts in computer science.
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-basics ( -- )
+    5
+    # Your code here - push a quotation [ dup i.add ] onto the stack
+    # Then call it
+    drop
+    0
+    # Do not edit below this line
+    10 test.assert-eq
+;

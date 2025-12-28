@@ -1,0 +1,5 @@
+: test-3drop ( -- )
+    42 99 88 77
+    3drop
+    42 test.assert-eq
+;

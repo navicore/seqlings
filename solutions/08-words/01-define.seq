@@ -1,0 +1,8 @@
+: triple ( Int -- Int )
+    3 i.multiply
+;
+
+: test-define ( -- )
+    7 triple
+    21 test.assert-eq
+;

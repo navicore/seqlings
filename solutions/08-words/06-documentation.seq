@@ -1,0 +1,29 @@
+: clamp ( Int Int Int -- Int )
+    # value min max
+    rot              # min max value
+    2dup <           # min max value (value<max)?
+    if
+        # value < max, now check min
+        nip          # min value
+        2dup >       # min value (value>min)?
+        if
+            nip      # value is in range
+        else
+            drop     # value < min, return min
+        then
+    else
+        # value >= max, return max
+        drop nip     # max
+    then
+;
+
+: test-documentation ( -- )
+    15 0 10 clamp
+    10 test.assert-eq
+
+    5 0 10 clamp
+    5 test.assert-eq
+
+    -3 0 10 clamp
+    0 test.assert-eq
+;

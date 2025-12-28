@@ -57,3 +57,250 @@ mode = "test"
 name = "06-rot"
 path = "exercises/01-stack-basics/06-rot.seq"
 mode = "test"
+
+# ============================================================
+# 02-stack-advanced: Advanced Stack Operations
+# ============================================================
+
+[[exercises]]
+name = "01-nip"
+path = "exercises/02-stack-advanced/01-nip.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-tuck"
+path = "exercises/02-stack-advanced/02-tuck.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-2dup"
+path = "exercises/02-stack-advanced/03-2dup.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-3drop"
+path = "exercises/02-stack-advanced/04-3drop.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-pick"
+path = "exercises/02-stack-advanced/05-pick.seq"
+mode = "test"
+
+[[exercises]]
+name = "06-roll"
+path = "exercises/02-stack-advanced/06-roll.seq"
+mode = "test"
+
+# ============================================================
+# 03-arithmetic: Integer Arithmetic
+# ============================================================
+
+[[exercises]]
+name = "01-add"
+path = "exercises/03-arithmetic/01-add.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-subtract"
+path = "exercises/03-arithmetic/02-subtract.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-multiply"
+path = "exercises/03-arithmetic/03-multiply.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-divide"
+path = "exercises/03-arithmetic/04-divide.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-combine"
+path = "exercises/03-arithmetic/05-combine.seq"
+mode = "test"
+
+[[exercises]]
+name = "06-expressions"
+path = "exercises/03-arithmetic/06-expressions.seq"
+mode = "test"
+
+# ============================================================
+# 04-floats: Floating-Point Numbers
+# ============================================================
+
+[[exercises]]
+name = "01-float-literals"
+path = "exercises/04-floats/01-float-literals.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-f-add"
+path = "exercises/04-floats/02-f-add.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-f-multiply"
+path = "exercises/04-floats/03-f-multiply.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-f-compare"
+path = "exercises/04-floats/04-f-compare.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-mixed"
+path = "exercises/04-floats/05-mixed.seq"
+mode = "test"
+
+# ============================================================
+# 05-comparison: Comparison Operators
+# ============================================================
+
+[[exercises]]
+name = "01-equals"
+path = "exercises/05-comparison/01-equals.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-less-greater"
+path = "exercises/05-comparison/02-less-greater.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-not-equal"
+path = "exercises/05-comparison/03-not-equal.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-less-equal"
+path = "exercises/05-comparison/04-less-equal.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-chaining"
+path = "exercises/05-comparison/05-chaining.seq"
+mode = "test"
+
+# ============================================================
+# 06-boolean: Boolean Logic
+# ============================================================
+
+[[exercises]]
+name = "01-and"
+path = "exercises/06-boolean/01-and.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-or"
+path = "exercises/06-boolean/02-or.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-not"
+path = "exercises/06-boolean/03-not.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-combine"
+path = "exercises/06-boolean/04-combine.seq"
+mode = "test"
+
+# ============================================================
+# 07-conditionals: Control Flow
+# ============================================================
+
+[[exercises]]
+name = "01-if-then"
+path = "exercises/07-conditionals/01-if-then.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-if-else"
+path = "exercises/07-conditionals/02-if-else.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-nested"
+path = "exercises/07-conditionals/03-nested.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-cond"
+path = "exercises/07-conditionals/04-cond.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-fizzbuzz"
+path = "exercises/07-conditionals/05-fizzbuzz.seq"
+mode = "test"
+
+# ============================================================
+# 08-words: Defining Words (Functions)
+# ============================================================
+
+[[exercises]]
+name = "01-define"
+path = "exercises/08-words/01-define.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-stack-effects"
+path = "exercises/08-words/02-stack-effects.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-calling"
+path = "exercises/08-words/03-calling.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-refactor"
+path = "exercises/08-words/04-refactor.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-helper-words"
+path = "exercises/08-words/05-helper-words.seq"
+mode = "test"
+
+[[exercises]]
+name = "06-documentation"
+path = "exercises/08-words/06-documentation.seq"
+mode = "test"
+
+# ============================================================
+# 10-quotations: Higher-Order Programming
+# ============================================================
+
+[[exercises]]
+name = "01-basics"
+path = "exercises/10-quotations/01-basics.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-call"
+path = "exercises/10-quotations/02-call.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-times"
+path = "exercises/10-quotations/03-times.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-while"
+path = "exercises/10-quotations/04-while.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-until"
+path = "exercises/10-quotations/05-until.seq"
+mode = "test"
+
+[[exercises]]
+name = "06-higher-order"
+path = "exercises/10-quotations/06-higher-order.seq"
+mode = "test"

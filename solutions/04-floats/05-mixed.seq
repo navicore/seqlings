@@ -1,0 +1,4 @@
+: test-mixed ( -- )
+    5 int->float 2.5 f.multiply
+    12.5 f.= test.assert
+;

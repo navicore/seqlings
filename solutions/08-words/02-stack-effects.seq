@@ -1,0 +1,10 @@
+: sum-and-product ( Int Int -- Int Int )
+    2dup i.multiply
+    rot rot i.add
+;
+
+: test-stack-effects ( -- )
+    3 4 sum-and-product
+    7 test.assert-eq
+    12 test.assert-eq
+;

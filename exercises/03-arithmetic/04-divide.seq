@@ -1,0 +1,22 @@
+# Exercise: i.divide
+#
+# The `i.divide` word performs INTEGER division (rounds toward zero).
+#
+# Stack effect: ( a b -- quotient )
+#   Result is: a / b
+#
+# Example:
+#   20 4 i.divide    # Stack: ( 5 )
+#   17 5 i.divide    # Stack: ( 3 )  - remainder is discarded
+#
+# Your task: Calculate 100 / 8 (integer division gives 12).
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-divide ( -- )
+    # Your code here - what's 100 divided by 8 (integer)?
+    0
+    # Do not edit below this line
+    12 test.assert-eq
+;

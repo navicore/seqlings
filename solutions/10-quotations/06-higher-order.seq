@@ -1,0 +1,11 @@
+: apply-twice ( ..a quot -- ..b )
+    dup call call
+;
+
+: test-higher-order ( -- )
+    5 [ 3 i.add ] apply-twice
+    11 test.assert-eq
+
+    2 [ dup i.multiply ] apply-twice
+    16 test.assert-eq
+;

@@ -1,0 +1,8 @@
+: increment-double ( Int -- Int )
+    1 i.add dup i.add
+;
+
+: test-refactor ( -- )
+    5 increment-double
+    12 test.assert-eq
+;

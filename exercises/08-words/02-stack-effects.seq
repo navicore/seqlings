@@ -1,0 +1,35 @@
+# Exercise: Stack Effects
+#
+# Stack effect comments document what a word does to the stack.
+#
+# Format: ( inputs -- outputs )
+#   - Before the -- : what the word consumes
+#   - After the -- : what the word produces
+#
+# Examples:
+#   ( Int -- Int )           # Takes 1, produces 1
+#   ( Int Int -- Int )       # Takes 2, produces 1
+#   ( -- Int )               # Takes nothing, produces 1
+#   ( Int -- )               # Takes 1, produces nothing
+#   ( Int Int -- Int Int )   # Takes 2, produces 2
+#
+# Your task: Define `sum-and-product` that takes two integers
+# and returns both their sum AND their product.
+# Stack effect: ( Int Int -- Int Int )
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: sum-and-product ( Int Int -- Int Int )
+    # Your code here
+    # Hint: You'll need 2dup to preserve both values
+    drop drop 0 0
+;
+
+: test-stack-effects ( -- )
+    3 4 sum-and-product
+    # Do not edit below this line
+    # Stack should have sum on top of product: ( 12 7 )
+    7 test.assert-eq     # sum = 7
+    12 test.assert-eq    # product = 12
+;

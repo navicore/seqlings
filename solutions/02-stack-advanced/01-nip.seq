@@ -1,0 +1,5 @@
+: test-nip ( -- )
+    100 42
+    nip
+    42 test.assert-eq
+;

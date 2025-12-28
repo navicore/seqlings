@@ -1,0 +1,4 @@
+: test-f-add ( -- )
+    3.5 1.5 f.add
+    5.0 f.= test.assert
+;

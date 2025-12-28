@@ -1,0 +1,30 @@
+# Exercise: pick
+#
+# The `pick` word copies an element from a given depth.
+# 0 pick = copy top (like dup)
+# 1 pick = copy second (like over)
+# 2 pick = copy third
+# ...and so on
+#
+# Stack effect: ( ...values n -- ...values x )
+#   where x is the element at depth n
+#
+# Example:
+#   10 20 30 40  2 pick    # Stack: ( 10 20 30 40 20 )
+#   The 2 means "copy from 2 positions down (0-indexed)"
+#
+# Your task: Use pick to copy the 100 to the top.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-pick ( -- )
+    100 200 300
+    # Your code here - use pick with the right depth
+    # Hint: Count from 0 at the top
+    # Do not edit below this line
+    100 test.assert-eq
+    300 test.assert-eq
+    200 test.assert-eq
+    100 test.assert-eq
+;

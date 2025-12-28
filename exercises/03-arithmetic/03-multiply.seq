@@ -1,0 +1,20 @@
+# Exercise: i.multiply
+#
+# The `i.multiply` word multiplies two integers.
+#
+# Stack effect: ( a b -- product )
+#
+# Example:
+#   6 7 i.multiply    # Stack: ( 42 )
+#
+# Your task: Calculate 12 * 5 to get 60.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-multiply ( -- )
+    # Your code here
+    0
+    # Do not edit below this line
+    60 test.assert-eq
+;

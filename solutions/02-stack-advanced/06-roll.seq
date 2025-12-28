@@ -1,0 +1,8 @@
+: test-roll ( -- )
+    10 20 30 40
+    4 roll
+    10 test.assert-eq
+    40 test.assert-eq
+    30 test.assert-eq
+    20 test.assert-eq
+;

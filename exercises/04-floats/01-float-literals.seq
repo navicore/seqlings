@@ -1,0 +1,20 @@
+# Exercise: Float Literals
+#
+# Float literals in Seq must contain a decimal point.
+#
+# Examples:
+#   3.14      # A float
+#   42.0      # Also a float (the .0 matters!)
+#   42        # This is an integer, NOT a float
+#
+# Your task: Push the float 2.5 onto the stack.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-float-literals ( -- )
+    # Your code here - push 2.5
+    0.0
+    # Do not edit below this line
+    2.5 f.= test.assert
+;

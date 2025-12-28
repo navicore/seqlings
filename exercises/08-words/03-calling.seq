@@ -1,0 +1,34 @@
+# Exercise: Words Calling Words
+#
+# Words can call other words, building up complex behavior
+# from simple pieces.
+#
+# Example:
+#   : square ( Int -- Int )
+#       dup i.multiply
+#   ;
+#
+#   : sum-of-squares ( Int Int -- Int )
+#       square swap square i.add
+#   ;
+#
+# Your task: Define `fourth-power` using the `square` word.
+# fourth-power should compute x^4 = (x^2)^2
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: square ( Int -- Int )
+    dup i.multiply
+;
+
+: fourth-power ( Int -- Int )
+    # Your code here - use square twice!
+    drop 0
+;
+
+: test-calling ( -- )
+    3 fourth-power
+    # Do not edit below this line
+    81 test.assert-eq   # 3^4 = 81
+;

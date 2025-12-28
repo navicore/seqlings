@@ -1,0 +1,23 @@
+# Exercise: nip
+#
+# The `nip` word removes the second element from the stack,
+# keeping only the top element.
+#
+# Stack effect: ( a b -- b )
+#
+# It's equivalent to: swap drop
+#
+# Example:
+#   1 2 nip    # Stack: ( 2 ) - the 1 is gone
+#
+# Your task: Use `nip` to remove the 100, keeping only 42.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-nip ( -- )
+    100 42
+    # Your code here - add nip
+    # Do not edit below this line
+    42 test.assert-eq
+;

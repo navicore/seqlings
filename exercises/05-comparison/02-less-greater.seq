@@ -1,0 +1,23 @@
+# Exercise: Less Than and Greater Than
+#
+# The `<` and `>` operators compare two integers.
+#
+# Stack effects:
+#   < ( a b -- bool )   true if a < b
+#   > ( a b -- bool )   true if a > b
+#
+# Example:
+#   3 5 <    # true (3 is less than 5)
+#   3 5 >    # false (3 is not greater than 5)
+#
+# Your task: Check if 10 is greater than 7.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-less-greater ( -- )
+    # Your code here - is 10 > 7?
+    false
+    # Do not edit below this line
+    test.assert
+;

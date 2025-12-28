@@ -1,0 +1,21 @@
+# Exercise: Boolean NOT
+#
+# The `not` operator inverts a boolean value.
+#
+# Stack effect: ( bool -- bool )
+#
+# Examples:
+#   true not   → false
+#   false not  → true
+#
+# Your task: Invert false to get true.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-not ( -- )
+    # Your code here - invert false
+    false
+    # Do not edit below this line
+    test.assert
+;

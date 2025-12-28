@@ -1,0 +1,23 @@
+# Exercise: i.subtract
+#
+# The `i.subtract` word subtracts the top value FROM the second value.
+# This order is important!
+#
+# Stack effect: ( a b -- difference )
+#   Result is: a - b (NOT b - a)
+#
+# Example:
+#   10 3 i.subtract    # Stack: ( 7 )  because 10 - 3 = 7
+#   3 10 i.subtract    # Stack: ( -7 ) because 3 - 10 = -7
+#
+# Your task: Calculate 100 - 42 to get 58.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-subtract ( -- )
+    # Your code here - remember: first value MINUS second value
+    0
+    # Do not edit below this line
+    58 test.assert-eq
+;

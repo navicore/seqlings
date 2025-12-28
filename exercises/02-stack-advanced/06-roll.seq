@@ -1,0 +1,27 @@
+# Exercise: roll
+#
+# The `roll` word rotates n elements, bringing the deepest to the top.
+# 1 roll = does nothing (rotate 1 element)
+# 2 roll = swap (rotate 2 elements)
+# 3 roll = rot (rotate 3 elements)
+#
+# Stack effect: ( ...values n -- ...rotated )
+#
+# Example:
+#   1 2 3 4  3 roll    # Rotates top 3: ( 1 3 4 2 )
+#                      # The 2 (3rd from top) moves to top
+#
+# Your task: Use roll to bring the 10 to the top.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-roll ( -- )
+    10 20 30 40
+    # Your code here - use roll with the right count
+    # Do not edit below this line
+    10 test.assert-eq
+    40 test.assert-eq
+    30 test.assert-eq
+    20 test.assert-eq
+;

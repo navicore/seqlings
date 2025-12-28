@@ -1,0 +1,13 @@
+: test-nested ( -- )
+    15
+    dup 10 > if
+        drop 3
+    else
+        dup 5 > if
+            drop 2
+        else
+            drop 1
+        then
+    then
+    3 test.assert-eq
+;

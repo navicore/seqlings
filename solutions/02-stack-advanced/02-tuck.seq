@@ -1,0 +1,7 @@
+: test-tuck ( -- )
+    5 10
+    tuck
+    10 test.assert-eq
+    5 test.assert-eq
+    10 test.assert-eq
+;

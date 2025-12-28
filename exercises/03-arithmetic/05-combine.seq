@@ -1,0 +1,21 @@
+# Exercise: Combining Operations
+#
+# Multiple arithmetic operations chain naturally.
+# Each operation consumes its inputs and produces output
+# for the next operation.
+#
+# Example:
+#   2 3 i.add 4 i.multiply    # (2+3)*4 = 20
+#   Stack: ( 5 ) after add, then ( 20 ) after multiply
+#
+# Your task: Calculate (10 + 5) * 2 to get 30.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-combine ( -- )
+    # Your code here - chain add and multiply
+    0
+    # Do not edit below this line
+    30 test.assert-eq
+;

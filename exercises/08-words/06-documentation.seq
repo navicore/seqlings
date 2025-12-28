@@ -1,0 +1,41 @@
+# Exercise: Self-Documenting Code
+#
+# Well-named words with clear stack effects document themselves.
+#
+# BAD:
+#   : f ( Int Int -- Int )
+#       swap dup rot i.add i.multiply
+#   ;
+#
+# GOOD:
+#   : weighted-sum ( value weight -- result )
+#       # Computes: value * weight + weight
+#       swap dup rot i.add i.multiply
+#   ;
+#
+# Your task: Implement `clamp` that restricts a value to a range.
+# clamp ( value min max -- clamped )
+#   - If value < min, return min
+#   - If value > max, return max
+#   - Otherwise, return value
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: clamp ( Int Int Int -- Int )
+    # value min max
+    # Your code here
+    drop drop drop 0
+;
+
+: test-documentation ( -- )
+    15 0 10 clamp
+    # Do not edit below this line
+    10 test.assert-eq   # 15 clamped to 0-10 is 10
+
+    5 0 10 clamp
+    5 test.assert-eq    # 5 is already in range
+
+    -3 0 10 clamp
+    0 test.assert-eq    # -3 clamped to 0-10 is 0
+;

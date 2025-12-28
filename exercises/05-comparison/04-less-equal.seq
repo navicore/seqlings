@@ -1,0 +1,24 @@
+# Exercise: Less-or-Equal and Greater-or-Equal
+#
+# The `<=` and `>=` operators include equality.
+#
+# Stack effects:
+#   <= ( a b -- bool )   true if a <= b
+#   >= ( a b -- bool )   true if a >= b
+#
+# Example:
+#   5 5 <=    # true (5 is less than or equal to 5)
+#   5 5 >=    # true (5 is greater than or equal to 5)
+#   3 5 <=    # true (3 is less than or equal to 5)
+#
+# Your task: Check if 7 is less than or equal to 7.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-less-equal ( -- )
+    # Your code here - is 7 <= 7?
+    false
+    # Do not edit below this line
+    test.assert
+;

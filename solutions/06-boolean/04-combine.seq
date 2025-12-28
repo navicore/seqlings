@@ -1,0 +1,4 @@
+: test-combine ( -- )
+    true false and true or
+    test.assert
+;

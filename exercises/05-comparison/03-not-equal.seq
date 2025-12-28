@@ -1,0 +1,21 @@
+# Exercise: Not Equal (<>)
+#
+# The `<>` operator tests if two integers are NOT equal.
+#
+# Stack effect: ( a b -- bool )
+#
+# Example:
+#   5 3 <>    # true (5 is not equal to 3)
+#   5 5 <>    # false (5 equals 5)
+#
+# Your task: Check if 100 is not equal to 99.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-not-equal ( -- )
+    # Your code here - is 100 <> 99?
+    false
+    # Do not edit below this line
+    test.assert
+;

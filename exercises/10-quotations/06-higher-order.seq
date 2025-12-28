@@ -1,0 +1,36 @@
+# Exercise: Writing Higher-Order Words
+#
+# Now YOU write a higher-order word - one that takes a quotation!
+#
+# HIGHER-ORDER INSIGHT:
+# You're not just using higher-order programming anymore.
+# You're now CREATING higher-order abstractions.
+#
+# This is the leap from consumer to creator, from user to designer.
+# Most programmers never make this leap. You're about to.
+#
+# Your task: Define `apply-twice` that runs a quotation 2 times.
+#
+# Example:
+#   5 [ 1 i.add ] apply-twice   # 5→6→7, result: 7
+#   3 [ dup i.multiply ] apply-twice  # 3→9→81, result: 81
+#
+# Hint: You could use `times`, or just call twice!
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: apply-twice ( ..a quot -- ..b )
+    # Your code here
+    # Takes a quotation and applies it twice
+    drop
+;
+
+: test-higher-order ( -- )
+    5 [ 3 i.add ] apply-twice
+    # Do not edit below this line
+    11 test.assert-eq   # 5+3+3 = 11
+
+    2 [ dup i.multiply ] apply-twice
+    16 test.assert-eq   # 2→4→16
+;

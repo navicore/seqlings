@@ -1,0 +1,9 @@
+: is-even? ( Int -- Bool )
+    2 i.mod 0 =
+;
+
+: test-helper-words ( -- )
+    4 is-even?
+    test.assert
+    7 is-even? not test.assert
+;

@@ -1,0 +1,24 @@
+# Exercise: tuck
+#
+# The `tuck` word copies the top element below the second element.
+#
+# Stack effect: ( a b -- b a b )
+#
+# It's equivalent to: swap over
+#
+# Example:
+#   1 2 tuck    # Stack: ( 2 1 2 )
+#
+# Your task: Use `tuck` to transform the stack.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-tuck ( -- )
+    5 10
+    # Your code here - add tuck
+    # Do not edit below this line
+    10 test.assert-eq
+    5 test.assert-eq
+    10 test.assert-eq
+;

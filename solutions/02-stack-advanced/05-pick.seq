@@ -1,0 +1,8 @@
+: test-pick ( -- )
+    100 200 300
+    2 pick
+    100 test.assert-eq
+    300 test.assert-eq
+    200 test.assert-eq
+    100 test.assert-eq
+;

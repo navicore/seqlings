@@ -1,0 +1,12 @@
+: square ( Int -- Int )
+    dup i.multiply
+;
+
+: fourth-power ( Int -- Int )
+    square square
+;
+
+: test-calling ( -- )
+    3 fourth-power
+    81 test.assert-eq
+;

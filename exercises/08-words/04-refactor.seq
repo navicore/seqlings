@@ -1,0 +1,33 @@
+# Exercise: Refactoring with Words
+#
+# When you see repeated patterns, extract them into words.
+# This is the essence of abstraction.
+#
+# Before refactoring:
+#   x dup i.multiply 2 i.add
+#   y dup i.multiply 2 i.add
+#   z dup i.multiply 2 i.add
+#
+# After refactoring:
+#   : transform ( Int -- Int ) dup i.multiply 2 i.add ;
+#   x transform
+#   y transform
+#   z transform
+#
+# Your task: The test uses a repeated pattern.
+# Define `increment-double` that adds 1, then doubles.
+# Pattern: 1 i.add dup i.add
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: increment-double ( Int -- Int )
+    # Your code here: add 1, then double
+    drop 0
+;
+
+: test-refactor ( -- )
+    5 increment-double
+    # Do not edit below this line
+    12 test.assert-eq   # (5+1)*2 = 12
+;

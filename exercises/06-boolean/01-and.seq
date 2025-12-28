@@ -1,0 +1,23 @@
+# Exercise: Boolean AND
+#
+# The `and` operator returns true only if BOTH operands are true.
+#
+# Stack effect: ( bool bool -- bool )
+#
+# Truth table:
+#   true  true  and  → true
+#   true  false and  → false
+#   false true  and  → false
+#   false false and  → false
+#
+# Your task: Use 'and' to combine two true values.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-and ( -- )
+    # Your code here - push two trues and combine with and
+    false
+    # Do not edit below this line
+    test.assert
+;

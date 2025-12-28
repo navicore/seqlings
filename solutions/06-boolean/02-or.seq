@@ -1,0 +1,4 @@
+: test-or ( -- )
+    false true or
+    test.assert
+;

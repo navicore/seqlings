@@ -1,0 +1,21 @@
+# Exercise: Equality (=)
+#
+# The `=` operator tests if two integers are equal.
+#
+# Stack effect: ( a b -- bool )
+#
+# Example:
+#   5 5 =    # true
+#   5 3 =    # false
+#
+# Your task: Check if 42 equals 42.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-equals ( -- )
+    # Your code here - compare 42 to 42
+    false
+    # Do not edit below this line
+    test.assert
+;

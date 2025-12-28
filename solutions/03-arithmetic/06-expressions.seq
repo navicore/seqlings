@@ -1,0 +1,4 @@
+: test-expressions ( -- )
+    20 5 i.subtract 8 2 i.add i.multiply
+    150 test.assert-eq
+;

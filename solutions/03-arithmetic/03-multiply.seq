@@ -1,0 +1,4 @@
+: test-multiply ( -- )
+    12 5 i.multiply
+    60 test.assert-eq
+;

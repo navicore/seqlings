@@ -1,0 +1,27 @@
+# Exercise: Chaining Comparisons
+#
+# To combine multiple comparisons, you need boolean operators.
+# But first, let's see how to structure a compound check.
+#
+# Example: Is x between 1 and 10 (inclusive)?
+#   x 1 >=    # Is x >= 1?
+#   x 10 <=   # Is x <= 10?
+#   and       # Both must be true
+#
+# But wait - we need to keep x around for both comparisons!
+# That's where dup comes in handy.
+#
+# Your task: Check if 5 is greater than 3 AND less than 10.
+# Hint: Push 5, dup it, do one comparison, swap, do another, then 'and'.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-chaining ( -- )
+    # Your code here
+    # Check: 5 > 3 AND 5 < 10
+    # Strategy: 5 dup 3 > swap 10 < and
+    false
+    # Do not edit below this line
+    test.assert
+;

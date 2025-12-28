@@ -1,0 +1,24 @@
+# Exercise: Mixing Integers and Floats
+#
+# To use an integer in a float operation, you must convert it.
+#
+# Type conversion words:
+#   int->float  ( Int -- Float )    Convert int to float
+#   float->int  ( Float -- Int )    Convert float to int (truncates)
+#
+# Example:
+#   42 int->float 0.5 f.add    # 42.5
+#   3.7 float->int             # 3 (truncated, not rounded)
+#
+# Your task: Multiply the integer 5 by the float 2.5 to get 12.5.
+# You'll need to convert 5 to a float first.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-mixed ( -- )
+    # Your code here - convert 5, then multiply by 2.5
+    0.0
+    # Do not edit below this line
+    12.5 f.= test.assert
+;

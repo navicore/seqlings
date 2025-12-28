@@ -1,0 +1,25 @@
+# Exercise: 2dup
+#
+# The `2dup` word duplicates the top two elements as a pair.
+#
+# Stack effect: ( a b -- a b a b )
+#
+# It's NOT the same as `dup dup` which would give ( a b b b ).
+#
+# Example:
+#   3 7 2dup    # Stack: ( 3 7 3 7 )
+#
+# Your task: Use `2dup` to duplicate both values.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-2dup ( -- )
+    1 2
+    # Your code here - add 2dup
+    # Do not edit below this line
+    2 test.assert-eq
+    1 test.assert-eq
+    2 test.assert-eq
+    1 test.assert-eq
+;
