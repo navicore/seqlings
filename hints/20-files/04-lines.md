@@ -1,17 +1,24 @@
-# Hint: Working with Lines
+# Hint: Processing File Lines
 
-## Splitting on Newlines
+## file.for-each-line+
 
-Use `string.split` with the newline character:
+The quotation receives two values for each line: the line content and a status flag.
 
 ```seq
-"a\nb\nc" "\n" string.split    # Returns list: [ "a" "b" "c" ]
+"file.txt" [
+    # Stack has: ( line status )
+    if   # Check status
+        io.write-line true   # Process line, continue
+    else
+        drop false           # EOF, stop
+    then
+] file.for-each-line+
 ```
 
 ## Solution
 
 ```seq
-: split-on-newlines ( String -- List )
-    "\n" string.split
+: line-processor-takes ( -- String )
+    "line-and-status"
 ;
 ```

@@ -788,3 +788,32 @@ mode = "test"
 name = "04-time-combine"
 path = "exercises/23-time/04-combine.seq"
 mode = "test"
+
+# ============================================================
+# 26-tcp: TCP Networking
+# ============================================================
+
+[[exercises]]
+name = "01-tcp-listen"
+path = "exercises/26-tcp/01-listen.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-tcp-accept"
+path = "exercises/26-tcp/02-accept.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-tcp-read-write"
+path = "exercises/26-tcp/03-read-write.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-tcp-close"
+path = "exercises/26-tcp/04-close.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-tcp-echo"
+path = "exercises/26-tcp/05-echo.seq"
+mode = "test"

@@ -1,25 +1,31 @@
-# Exercise: Character Access
+# Exercise: Character Codes
 #
-# `string.char-at` gets the character at a given index (0-based).
+# `string.char-at` gets the character CODE at a given index (0-based).
+# It returns an Int representing the Unicode code point.
 #
-# Stack effect: ( str index -- char )
+# Stack effect: ( str index -- Int )
 #
 # Example:
-#   "Hello" 0 string.char-at   # "H"
-#   "Hello" 4 string.char-at   # "o"
+#   "Hello" 0 string.char-at   # 72 (code for 'H')
+#   "Hello" 1 string.char-at   # 101 (code for 'e')
+#   "A" 0 string.char-at       # 65
 #
-# Your task: Get the first character of a string.
+# Common character codes:
+#   'A' = 65, 'Z' = 90, 'a' = 97, 'z' = 122, '0' = 48, '9' = 57
+#
+# Your task: Get the character code of the first character.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: first-char ( String -- String )
+: first-char-code ( String -- Int )
     # Your code here
-    drop ""
+    drop 0
 ;
 
 : test-char-at ( -- )
-    "Seqlings" first-char
+    "Seqlings" first-char-code
     # Do not edit below this line
-    "S" string.equal? test.assert
+    # 'S' has character code 83
+    83 test.assert-eq
 ;

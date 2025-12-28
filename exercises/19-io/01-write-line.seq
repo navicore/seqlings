@@ -1,11 +1,9 @@
 # Exercise: Writing Output
 #
 # `io.write-line` prints a string followed by a newline.
-# `io.write` prints without a newline.
 #
-# Stack effects:
+# Stack effect:
 #   io.write-line ( str -- )
-#   io.write      ( str -- )
 #
 # Example:
 #   "Hello, World!" io.write-line

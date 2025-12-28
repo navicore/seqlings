@@ -1,0 +1,31 @@
+# Exercise: Reading and Writing Data
+#
+# `tcp.read` reads data from a socket.
+# `tcp.write` writes data to a socket.
+#
+# Stack effects:
+#   tcp.read  ( socket -- string )
+#   tcp.write ( string socket -- )
+#
+# Example:
+#   client tcp.read      # Read from client
+#   "Hello!" client tcp.write  # Write to client
+#
+# Note: tcp.read may return partial data. For protocols,
+# you may need to accumulate until you have a complete message.
+#
+# Your task: Understand the read/write pattern.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-read-write ( -- )
+    # In real code:
+    #   client tcp.read         # Get request
+    #   process-request         # Do something with it
+    #   response client tcp.write  # Send response
+
+    # Note the order: tcp.write takes (string socket --)
+    # Do not edit below this line
+    true test.assert
+;

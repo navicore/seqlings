@@ -2,14 +2,14 @@
 
 ## file.exists?
 
-Returns a boolean indicating whether the file exists.
+Returns an Int (0 or 1) indicating whether the file exists.
 
 ## Solution
 
 ```seq
 : exists-returns ( -- String )
-    "bool"
+    "int"
 ;
 ```
 
-Use this before file.read to avoid errors on missing files.
+Use this before file.slurp to check if the file exists first.

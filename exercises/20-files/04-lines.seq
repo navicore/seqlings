@@ -1,32 +1,37 @@
-# Exercise: Working with Lines
+# Exercise: Processing File Lines
 #
-# Files often contain multiple lines. After reading, you can split
-# the content into lines using string operations.
+# `file.for-each-line+` processes a file line by line with a quotation.
 #
-# Example workflow:
-#   "data.txt" file.read    # Get full content
-#   "\n" string.split       # Split on newlines -> List of strings
+# Stack effect: ( path quot -- )
 #
-# You can also join lines to write:
-#   my-lines "\n" string.join    # Join with newlines
-#   "output.txt" file.write
+# The quotation receives: ( line status -- continue? )
+#   - line: the current line (String)
+#   - status: 1 if valid line, 0 at EOF
+#   - return: 1 to continue, 0 to stop
 #
-# Your task: Understand the line processing workflow
+# Example:
+#   "data.txt" [
+#       if   # if status is true
+#           io.write-line   # print the line
+#           true            # continue
+#       else
+#           drop false      # stop at EOF
+#       then
+#   ] file.for-each-line+
 #
+# Your task: Understand line-by-line file processing
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: split-on-newlines ( String -- List )
-    # Split a string on newlines
-    # Your code here
-    drop [ ]
+: line-processor-takes ( -- String )
+    # The quotation for file.for-each-line+ receives what two values?
+    # Return "line-and-status"
+    ""
 ;
 
 : test-lines ( -- )
-    "a\nb\nc" split-on-newlines
-    list.length
-
+    line-processor-takes
     # Do not edit below this line
-    3 test.assert-eq
+    "line-and-status" string.equal? test.assert
 ;

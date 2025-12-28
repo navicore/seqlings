@@ -1,0 +1,9 @@
+: echo-handler ( socket -- )
+    dup tcp.read
+    over tcp.write
+    tcp.close
+;
+
+: test-echo ( -- )
+    true test.assert
+;

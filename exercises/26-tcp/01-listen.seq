@@ -1,0 +1,29 @@
+# Exercise: Starting a TCP Listener
+#
+# `tcp.listen` creates a TCP socket listening on a port.
+#
+# Stack effect: ( port -- socket )
+#
+# Example:
+#   8080 tcp.listen   # Listen on port 8080
+#
+# The returned socket is a handle used for accepting connections.
+#
+# Note: This is a conceptual exercise. The test just verifies
+# you understand the pattern - actual networking requires a running server.
+#
+# Your task: Understand tcp.listen and port binding.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-listen ( -- )
+    # In real code:
+    #   8080 tcp.listen
+    #   # ... accept connections ...
+    #   tcp.close   # Close when done
+
+    # Verify you understand: tcp.listen takes a port number
+    # Do not edit below this line
+    true test.assert
+;

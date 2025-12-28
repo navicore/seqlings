@@ -1,23 +1,25 @@
-# Hint: File Workflow
+# Hint: File Reading Patterns
 
-## Counting Lines
+## Safe vs Unsafe Reading
 
-Split on newlines and get the length:
+`file.slurp` panics if the file doesn't exist.
+`file.slurp-safe` returns a status flag instead.
+
+For robust code, use `file.slurp-safe`:
 
 ```seq
-: count-lines ( String -- Int )
-    "\n" string.split list.length
-;
+"config.txt" file.slurp-safe
+if
+    process-config
+else
+    drop use-defaults
+then
 ```
 
-## Adding a Header
-
-Use `string.concat` to join strings:
+## Solution
 
 ```seq
-: add-header ( String String -- String )
-    # Stack: content header
-    "\n" string.concat    # header + newline
-    swap string.concat    # (header + newline) + content
+: safest-approach ( -- String )
+    "slurp-safe"
 ;
 ```

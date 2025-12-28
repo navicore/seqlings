@@ -1,57 +1,57 @@
 # File Operations
 
-Seq provides built-in operations for reading and writing files. These operations use the `file.*` namespace.
+Seq provides built-in operations for reading files using the `file.*` namespace.
 
 ## Reading Files
 
 ```seq
-"path/to/file.txt" file.read    # Returns file contents as String
+"path/to/file.txt" file.slurp    # Returns file contents as String
 ```
 
-## Writing Files
+## Safe Reading with Status
 
 ```seq
-"Hello, World!" "output.txt" file.write    # Writes string to file
+"path/to/file.txt" file.slurp-safe    # Returns (contents status)
+if
+    # Got contents successfully
+else
+    drop  # Drop empty string
+    # Handle file not found
+then
 ```
 
 ## Checking File Existence
 
 ```seq
-"myfile.txt" file.exists?    # Returns true/false
+"myfile.txt" file.exists?    # Returns 1 (true) or 0 (false)
 ```
 
-## File Paths
-
-File paths can be absolute or relative to the current working directory.
+## Processing Files Line by Line
 
 ```seq
-"/absolute/path/file.txt" file.read
-"relative/path/file.txt" file.read
+"data.txt" [
+    if   # if status is true (not EOF)
+        io.write-line   # Process line
+        true            # Continue
+    else
+        drop false      # Stop at EOF
+    then
+] file.for-each-line+
 ```
 
 ## Stack Effects
 
-```
-file.read ( Path -- String )
-file.write ( String Path -- )
-file.exists? ( Path -- Bool )
-```
-
-## Error Handling
-
-File operations can fail (file not found, permission denied, etc.). Consider using safe patterns:
-
-```seq
-"file.txt" file.exists?
-[ "file.txt" file.read process-contents ]
-[ "File not found" io.write-line ]
-if-else
-```
+| Word | Stack Effect | Description |
+|------|--------------|-------------|
+| `file.slurp` | `( path -- contents )` | Read entire file as String |
+| `file.slurp-safe` | `( path -- contents status )` | Read file with success flag |
+| `file.exists?` | `( path -- status )` | Check if file exists (1=yes, 0=no) |
+| `file.for-each-line+` | `( path quot -- )` | Process file line by line |
 
 ## Exercises in This Section
 
-1. **read** - Reading file contents
-2. **write** - Writing to files
-3. **exists** - Checking if files exist
-4. **lines** - Working with line-based content
-5. **combine** - Complete file workflows
+1. **01-read** - Reading file contents with `file.slurp`
+2. **02-write** - Safe reading with `file.slurp-safe`
+3. **03-exists** - Checking if files exist
+4. **04-lines** - Processing files line by line
+5. **05-combine** - Complete file handling patterns

@@ -1,6 +1,6 @@
 # Exercise: Variant Basics
 #
-# Variants are created by defining a union type and using its constructors.
+# Variants (unions) define types with multiple alternatives.
 #
 # Define a variant:
 #   variant Color
@@ -9,15 +9,15 @@
 #       | Blue
 #   end
 #
-# Create values:
-#   Red     # A Color variant
-#   Green   # A Color variant
+# Create values by using the constructor name:
+#   Red     # Creates a Color variant
+#   Green   # Creates a Color variant
 #
-# Check the tag:
-#   Red variant.tag    # Returns "Red"
+# Check the variant tag (returns tag index as Int):
+#   Red variant.tag      # Returns 0 (first variant)
+#   Green variant.tag    # Returns 1 (second variant)
 #
 # Your task: Work with variant basics
-#
 # When done, delete the marker line below.
 
 variant TrafficLight
@@ -29,25 +29,24 @@ end
 # I AM NOT DONE
 
 : test-create-stop ( -- )
+    # Stop is the first variant, so its tag is 0
     Stop variant.tag
-
     # Do not edit below this line
-    "Stop" test.assert-eq
+    0 test.assert-eq
 ;
 
 : test-create-go ( -- )
-    # Create a Go variant and get its tag
-    # Your code here
-    ""
-
+    # Go is the second variant (index 1)
+    # Your code here - create Go and get its tag
+    0
     # Do not edit below this line
-    "Go" test.assert-eq
+    1 test.assert-eq
 ;
 
-: test-check-stop ( -- )
-    # Check if Stop is indeed a Stop variant
-    Stop Stop?
-
+: test-create-caution ( -- )
+    # Caution is the third variant (index 2)
+    # Your code here
+    0
     # Do not edit below this line
-    true test.assert-eq
+    2 test.assert-eq
 ;

@@ -1,8 +1,8 @@
 : exists-returns ( -- String )
-    "bool"
+    "int"
 ;
 
 : test-exists ( -- )
     exists-returns
-    "bool" test.assert-eq
+    "int" string.equal? test.assert
 ;

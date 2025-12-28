@@ -1,29 +1,28 @@
 # Exercise: Reading Files
 #
-# The `file.read` operation reads the entire contents of a file as a string.
+# `file.slurp` reads the entire contents of a file as a string.
+#
+# Stack effect: ( path -- contents )
 #
 # Example:
-#   "data.txt" file.read    # Stack: ( "file contents..." )
+#   "data.txt" file.slurp   # Returns file contents as String
 #
-# Note: This exercise uses conceptual file operations that would
-# work in a real Seq environment. The test verifies your understanding.
+# Note: This is a conceptual exercise. The test verifies
+# you understand the operation.
 #
-# Your task: Understand the file.read operation
-#
+# Your task: Understand file.slurp
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: describe-read ( -- String )
-    # What does file.read return?
-    # Return "string" to indicate it returns file contents as a string
-    # Your code here
+: describe-slurp ( -- String )
+    # What does file.slurp return?
+    # Return "string" to indicate it returns file contents as a String
     ""
 ;
 
 : test-read ( -- )
-    describe-read
-
+    describe-slurp
     # Do not edit below this line
-    "string" test.assert-eq
+    "string" string.equal? test.assert
 ;

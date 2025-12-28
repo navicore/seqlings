@@ -1,8 +1,8 @@
-: write-order ( -- String )
-    "content"
+: returns-status? ( -- Int )
+    1
 ;
 
-: test-write ( -- )
-    write-order
-    "content" test.assert-eq
+: test-safe-read ( -- )
+    returns-status?
+    1 test.assert-eq
 ;

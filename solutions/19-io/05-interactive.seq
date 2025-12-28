@@ -1,5 +1,5 @@
 : prompt-for ( String -- String )
-    io.write
+    io.write-line
     "placeholder"
 ;
 

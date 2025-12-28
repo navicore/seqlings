@@ -5,13 +5,13 @@
 # Pattern: Print prompt, read response, process
 #
 #   : get-name ( -- String )
-#       "What is your name? " io.write
+#       "What is your name?" io.write-line
 #       io.read-line
 #   ;
 #
 #   : greet-user ( -- )
-#       "Hello, " io.write
-#       get-name io.write-line
+#       get-name
+#       "Hello, " swap string.concat io.write-line
 #   ;
 #
 # Your task: Design a simple prompt (conceptually).
@@ -21,7 +21,7 @@
 
 : prompt-for ( String -- String )
     # Print the prompt string, then read input
-    io.write
+    io.write-line
     # In real use: io.read-line
     "placeholder"   # For testing
 ;

@@ -1,13 +1,13 @@
 # Hint: Reading Files
 
-## file.read
+## file.slurp
 
-The `file.read` operation takes a path and returns the file contents as a string.
+The `file.slurp` operation takes a path and returns the file contents as a string.
 
 ## Solution
 
 ```seq
-: describe-read ( -- String )
+: describe-slurp ( -- String )
     "string"
 ;
 ```

@@ -1,19 +1,19 @@
-# Hint: Writing Files
+# Hint: Safe File Reading
 
-## Argument Order
+## file.slurp-safe
 
-In Seq, the pattern is "data before destination":
+`file.slurp-safe` returns two values: the contents and a status flag.
 
 ```seq
-content path file.write
+"file.txt" file.slurp-safe   # ( -- contents status )
 ```
 
-So content comes first (deeper on the stack), then path.
+The status is 1 (true) if reading succeeded, 0 (false) if it failed.
 
 ## Solution
 
 ```seq
-: write-order ( -- String )
-    "content"
+: returns-status? ( -- Int )
+    1
 ;
 ```

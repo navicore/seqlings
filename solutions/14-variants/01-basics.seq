@@ -6,15 +6,15 @@ end
 
 : test-create-stop ( -- )
     Stop variant.tag
-    "Stop" test.assert-eq
+    0 test.assert-eq
 ;
 
 : test-create-go ( -- )
     Go variant.tag
-    "Go" test.assert-eq
+    1 test.assert-eq
 ;
 
-: test-check-stop ( -- )
-    Stop Stop?
-    true test.assert-eq
+: test-create-caution ( -- )
+    Caution variant.tag
+    2 test.assert-eq
 ;

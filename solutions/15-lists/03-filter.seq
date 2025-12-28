@@ -4,5 +4,8 @@
 
 : test-filter ( -- )
     [ 1 2 3 4 5 6 ] evens-only
-    [ 2 4 6 ] list.= test.assert
+    dup list.length 3 test.assert-eq
+    dup 0 variant.field-at 2 test.assert-eq
+    dup 1 variant.field-at 4 test.assert-eq
+    2 variant.field-at 6 test.assert-eq
 ;

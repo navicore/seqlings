@@ -1,9 +1,8 @@
-: split-on-newlines ( String -- List )
-    "\n" string.split
+: line-processor-takes ( -- String )
+    "line-and-status"
 ;
 
 : test-lines ( -- )
-    "a\nb\nc" split-on-newlines
-    list.length
-    3 test.assert-eq
+    line-processor-takes
+    "line-and-status" string.equal? test.assert
 ;

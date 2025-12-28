@@ -1,0 +1,30 @@
+# Exercise: Closing Connections
+#
+# `tcp.close` closes a socket, freeing resources.
+#
+# Stack effect: ( socket -- )
+#
+# Always close sockets when done:
+#   - Close client sockets after handling requests
+#   - Close server socket when shutting down
+#
+# Example:
+#   client tcp.close   # Close client connection
+#   server tcp.close   # Close server socket
+#
+# Your task: Understand resource cleanup.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-close ( -- )
+    # Pattern for handling one client:
+    #   8080 tcp.listen
+    #   dup tcp.accept      # server + client on stack
+    #   dup tcp.read drop   # Handle client (read something)
+    #   tcp.close           # Close client
+    #   tcp.close           # Close server
+
+    # Do not edit below this line
+    true test.assert
+;

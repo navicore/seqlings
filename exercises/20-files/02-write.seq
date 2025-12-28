@@ -1,30 +1,35 @@
-# Exercise: Writing Files
+# Exercise: Safe File Reading
 #
-# The `file.write` operation writes a string to a file.
-# Stack effect: ( String Path -- )
+# `file.slurp-safe` reads a file and returns a status flag.
+#
+# Stack effect: ( path -- contents status )
+#
+# The status is:
+#   - 1 (true) if the read succeeded
+#   - 0 (false) if the file doesn't exist or can't be read
 #
 # Example:
-#   "Hello" "greeting.txt" file.write
+#   "data.txt" file.slurp-safe
+#   if
+#       # Got contents, use them
+#   else
+#       drop  # Drop empty string
+#       # Handle error
+#   then
 #
-# The content goes first, then the path (standard Seq convention:
-# data before destination).
-#
-# Your task: Understand the argument order for file.write
-#
+# Your task: Understand safe file reading
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: write-order ( -- String )
-    # Which comes first on the stack for file.write?
-    # Return "content" or "path"
-    # Your code here
-    ""
+: returns-status? ( -- Int )
+    # file.slurp-safe returns two values. Does it return a status flag?
+    # Return 1 for yes, 0 for no
+    0
 ;
 
-: test-write ( -- )
-    write-order
-
+: test-safe-read ( -- )
+    returns-status?
     # Do not edit below this line
-    "content" test.assert-eq
+    1 test.assert-eq
 ;

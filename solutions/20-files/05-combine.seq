@@ -1,17 +1,8 @@
-: count-lines ( String -- Int )
-    "\n" string.split list.length
+: safest-approach ( -- String )
+    "slurp-safe"
 ;
 
-: test-count-lines ( -- )
-    "line1\nline2\nline3\nline4" count-lines
-    4 test.assert-eq
-;
-
-: add-header ( String String -- String )
-    "\n" string.concat swap string.concat
-;
-
-: test-add-header ( -- )
-    "data here" "# Header" add-header
-    "# Header\ndata here" test.assert-eq
+: test-combine ( -- )
+    safest-approach
+    "slurp-safe" string.equal? test.assert
 ;

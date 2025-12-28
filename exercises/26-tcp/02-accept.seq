@@ -1,0 +1,27 @@
+# Exercise: Accepting Connections
+#
+# `tcp.accept` blocks until a client connects, then returns a socket.
+#
+# Stack effect: ( server-socket -- client-socket )
+#
+# Example:
+#   8080 tcp.listen   # Get server socket
+#   tcp.accept        # Wait for and accept a connection
+#                     # Returns client socket for communication
+#
+# Each call to tcp.accept gets the next waiting connection.
+#
+# Your task: Understand the accept pattern.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-accept ( -- )
+    # In real code:
+    #   8080 tcp.listen
+    #   [ tcp.accept handle-client ] while-true  # Accept loop
+
+    # The pattern: listen creates server socket, accept gets client sockets
+    # Do not edit below this line
+    true test.assert
+;

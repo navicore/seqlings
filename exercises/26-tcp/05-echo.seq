@@ -1,0 +1,42 @@
+# Exercise: Echo Server Pattern
+#
+# An echo server reads data and sends it back.
+# This is a classic first network program.
+#
+# Pattern:
+#   1. Listen on a port
+#   2. Accept a connection
+#   3. Read from client
+#   4. Write same data back
+#   5. Close connections
+#
+# Example echo handler:
+#   : handle-echo ( client -- )
+#       dup tcp.read     # Read from client
+#       over tcp.write   # Write it back
+#       tcp.close        # Close client
+#   ;
+#
+# Your task: Trace through the echo pattern.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: echo-handler ( socket -- )
+    # Your mental trace:
+    # 1. dup tcp.read - reads data, stack: (socket data)
+    # 2. over tcp.write - writes data back, stack: (socket)
+    # 3. tcp.close - closes socket, stack: ()
+    drop
+;
+
+: test-echo ( -- )
+    # The echo pattern combines:
+    # - tcp.listen (server setup)
+    # - tcp.accept (get client)
+    # - tcp.read / tcp.write (communicate)
+    # - tcp.close (cleanup)
+
+    # Do not edit below this line
+    true test.assert
+;

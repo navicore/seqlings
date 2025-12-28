@@ -1,0 +1,3 @@
+: test-listen ( -- )
+    true test.assert
+;

@@ -1,8 +1,8 @@
-: describe-read ( -- String )
+: describe-slurp ( -- String )
     "string"
 ;
 
 : test-read ( -- )
-    describe-read
-    "string" test.assert-eq
+    describe-slurp
+    "string" string.equal? test.assert
 ;

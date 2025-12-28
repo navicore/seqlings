@@ -1,0 +1,3 @@
+: test-accept ( -- )
+    true test.assert
+;
