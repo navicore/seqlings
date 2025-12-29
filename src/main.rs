@@ -145,6 +145,21 @@ fn cmd_watch(exercises: &[Exercise]) {
     // Create status cache to avoid repeated compiler invocations
     let mut cache = StatusCache::new();
 
+    // Warm up cache with progress indicator
+    print!("{}", "Checking exercises...".dimmed());
+    use std::io::Write;
+    std::io::stdout().flush().ok();
+
+    for (i, ex) in exercises.iter().enumerate() {
+        cache.get_status(ex);
+        // Show progress dot every 5 exercises
+        if (i + 1) % 5 == 0 {
+            print!(".");
+            std::io::stdout().flush().ok();
+        }
+    }
+    println!(" {}", "done".green());
+
     // Initial display
     let mut current_exercise_name = String::new();
     display_current_exercise(exercises, &mut current_exercise_name, &mut cache);
