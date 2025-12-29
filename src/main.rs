@@ -86,9 +86,17 @@ struct Cli {
 #[derive(Subcommand)]
 enum Commands {
     /// Watch for file changes and auto-verify exercises
-    Watch,
+    Watch {
+        /// Filter to a specific chapter (e.g., "07" or "07-conditionals")
+        #[arg(short, long)]
+        chapter: Option<String>,
+    },
     /// List all exercises with their status
-    List,
+    List {
+        /// Filter to a specific chapter (e.g., "07" or "07-conditionals")
+        #[arg(short, long)]
+        chapter: Option<String>,
+    },
     /// Show hint for the current or specified exercise
     Hint {
         /// Exercise name (optional, defaults to current)
@@ -123,13 +131,75 @@ fn main() {
     }
 
     match cli.command {
-        Some(Commands::Watch) => cmd_watch(&exercises),
-        Some(Commands::List) => cmd_list(&exercises),
+        Some(Commands::Watch { chapter }) => {
+            let filtered = filter_by_chapter(&exercises, chapter.as_deref());
+            cmd_watch(&filtered);
+        }
+        Some(Commands::List { chapter }) => {
+            let filtered = filter_by_chapter(&exercises, chapter.as_deref());
+            cmd_list(&filtered);
+        }
         Some(Commands::Hint { name }) => cmd_hint(&exercises, name),
         Some(Commands::Reset { name }) => cmd_reset(&exercises, name),
         Some(Commands::Verify) => cmd_verify(&exercises),
         Some(Commands::Next) => cmd_next(&exercises),
         None => cmd_watch(&exercises), // Default to watch mode
+    }
+}
+
+/// Filter exercises to a specific chapter by prefix match
+fn filter_by_chapter(exercises: &[Exercise], chapter: Option<&str>) -> Vec<Exercise> {
+    match chapter {
+        None => exercises.to_vec(),
+        Some(prefix) => {
+            let filtered: Vec<Exercise> = exercises
+                .iter()
+                .filter(|e| {
+                    // Extract chapter directory name from path (e.g., "07-conditionals")
+                    let chapter_name = e.path
+                        .parent()
+                        .and_then(|p| p.file_name())
+                        .and_then(|s| s.to_str())
+                        .unwrap_or("");
+                    // Match if chapter name starts with the prefix
+                    chapter_name.starts_with(prefix)
+                })
+                .cloned()
+                .collect();
+
+            if filtered.is_empty() {
+                eprintln!(
+                    "{} No exercises found for chapter '{}'",
+                    "Warning:".yellow(),
+                    prefix
+                );
+                eprintln!("Available chapters:");
+                // Show unique chapter names
+                let mut chapters: Vec<&str> = exercises
+                    .iter()
+                    .filter_map(|e| {
+                        e.path
+                            .parent()
+                            .and_then(|p| p.file_name())
+                            .and_then(|s| s.to_str())
+                    })
+                    .collect();
+                chapters.sort();
+                chapters.dedup();
+                for ch in chapters {
+                    eprintln!("  {}", ch);
+                }
+                process::exit(1);
+            }
+
+            println!(
+                "{} Filtering to chapter '{}' ({} exercises)\n",
+                "Note:".cyan(),
+                prefix,
+                filtered.len()
+            );
+            filtered
+        }
     }
 }
 
