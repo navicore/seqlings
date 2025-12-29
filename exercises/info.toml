@@ -228,13 +228,8 @@ path = "exercises/07-conditionals/03-nested.seq"
 mode = "test"
 
 [[exercises]]
-name = "04-cond"
-path = "exercises/07-conditionals/04-cond.seq"
-mode = "test"
-
-[[exercises]]
-name = "05-fizzbuzz"
-path = "exercises/07-conditionals/05-fizzbuzz.seq"
+name = "04-fizzbuzz"
+path = "exercises/07-conditionals/04-fizzbuzz.seq"
 mode = "test"
 
 # ============================================================

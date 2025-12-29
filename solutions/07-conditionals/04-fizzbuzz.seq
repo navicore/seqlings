@@ -1,0 +1,20 @@
+: fizzbuzz ( Int -- String )
+    dup 15 i.% 0 i.= if
+        drop "FizzBuzz"
+    else
+        dup 3 i.% 0 i.= if
+            drop "Fizz"
+        else
+            dup 5 i.% 0 i.= if
+                drop "Buzz"
+            else
+                int->string
+            then
+        then
+    then
+;
+
+: test-fizzbuzz ( -- )
+    15 fizzbuzz
+    "FizzBuzz" string.equal? test.assert
+;

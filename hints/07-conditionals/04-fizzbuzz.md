@@ -6,12 +6,19 @@ FizzBuzz is a classic interview question. The key insight: check divisibility by
 
 ```seq
 : fizzbuzz ( Int -- String )
-    cond
-        dup 15 i.mod 0 = -> drop "FizzBuzz"
-        dup 3 i.mod 0 = -> drop "Fizz"
-        dup 5 i.mod 0 = -> drop "Buzz"
-        otherwise -> int->string
-    end
+    dup 15 i.% 0 i.= if
+        drop "FizzBuzz"
+    else
+        dup 3 i.% 0 i.= if
+            drop "Fizz"
+        else
+            dup 5 i.% 0 i.= if
+                drop "Buzz"
+            else
+                int->string
+            then
+        then
+    then
 ;
 ```
 
@@ -25,6 +32,6 @@ By checking 15 (which is 3 × 5) first, we catch the "both" case.
 
 ## The Modulo Trick
 
-`a b i.mod 0 =` checks if a is divisible by b:
-- `15 3 i.mod` → 0 (divisible)
-- `14 3 i.mod` → 2 (not divisible)
+`a b i.% 0 i.=` checks if a is divisible by b:
+- `15 3 i.%` → 0 (divisible)
+- `14 3 i.%` → 2 (not divisible)

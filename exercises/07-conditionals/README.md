@@ -49,20 +49,6 @@ then
 
 The type checker catches this error. This ensures your code is predictable.
 
-## The cond Form
-
-For multiple conditions, use `cond`:
-
-```seq
-cond
-    condition1 -> result1
-    condition2 -> result2
-    otherwise  -> default
-end
-```
-
-`cond` tries each condition in order, executing the first matching branch.
-
 ## Conditionals as Expressions
 
 Unlike many languages, Seq conditionals can return values:

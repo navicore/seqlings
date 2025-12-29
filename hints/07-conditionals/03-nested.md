@@ -6,10 +6,10 @@ You can put if/else inside another if/else.
 
 ```seq
 15
-dup 10 > if
+dup 10 i.> if
     drop 3
 else
-    dup 5 > if
+    dup 5 i.> if
         drop 2
     else
         drop 1
@@ -17,6 +17,6 @@ else
 then
 ```
 
-## Alternative with cond
+## Tips for Deeply Nested Conditionals
 
-Nested ifs get unwieldy. For multiple conditions, `cond` is cleaner (next exercise).
+When nesting gets too deep, consider extracting helper words to simplify the logic.

@@ -8,9 +8,9 @@
 #   - Else if divisible by 5, return "Buzz"
 #   - Else return the number as a string
 #
-# Hint: Use i.mod (modulo) to check divisibility.
-#   15 3 i.mod   # 0 (15 is divisible by 3)
-#   15 4 i.mod   # 3 (15 is not divisible by 4)
+# Hint: Use i.% (modulo) to check divisibility.
+#   15 3 i.%   # 0 (15 is divisible by 3)
+#   15 4 i.%   # 3 (15 is not divisible by 4)
 #
 # Your task: Implement fizzbuzz for the number 15.
 # 15 is divisible by both 3 and 5, so return "FizzBuzz".
