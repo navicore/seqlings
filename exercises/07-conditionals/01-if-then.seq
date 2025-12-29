@@ -2,24 +2,32 @@
 #
 # The `if ... then` construct executes code conditionally.
 #
+# IMPORTANT: The if body must have a balanced stack effect!
+# If the body pushes a value, it must also work when skipped.
+# Common pattern: push a default, then conditionally replace it.
+#
 # Syntax:
 #   condition if
 #       code-if-true
 #   then
 #
 # Example:
+#   0              # default value
 #   5 3 i.> if
-#       42   # Only runs if 5 i.> 3 (which is true)
+#       drop 42    # replace default with 42 when true
 #   then
+#   # Stack now has 42 (condition was true)
 #
-# Your task: If 10 i.> 5, push 100 onto the stack.
+# Your task: Push 0 as default, then if 10 i.> 5, replace it with 100.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : test-if-then ( -- )
-    # Your code here
-    # Check if 10 i.> 5, if so push 100
+    # Your code here:
+    # 1. Push 0 as default
+    # 2. Check if 10 i.> 5
+    # 3. If true, drop the 0 and push 100
     0
     # Do not edit below this line
     100 test.assert-eq
