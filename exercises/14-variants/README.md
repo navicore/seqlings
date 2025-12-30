@@ -1,6 +1,6 @@
 # Unions (Algebraic Data Types)
 
-Unions let you define types that can be one of several alternatives. This is essential for representing values that could be in different states.
+Unions let you define types that can be one of several alternatives - also called [Variants](https://github.com/navicore/patch-seq/blob/main/docs/GLOSSARY.md#variant). This is essential for representing values that could be in different states.
 
 ## Defining Unions
 
