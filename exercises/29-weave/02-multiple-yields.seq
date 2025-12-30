@@ -1,0 +1,50 @@
+# Exercise: Multiple Yields
+#
+# A weave can yield multiple values before completing.
+# Each yield pauses execution and sends a value to the caller.
+# Each strand.resume continues execution from where it paused.
+#
+# The pattern:
+#   value yield drop    -- yield a value, drop the resume response
+#   value yield drop    -- yield another value
+#   ...                 -- weave completes when the body returns
+#
+# Your task: Create a weave that yields 1, then 2, then 3, then completes.
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+# Generator that yields 1, 2, 3 in sequence
+: three-values ( Ctx Int -- Ctx | Yield Int )
+    drop           # ignore initial resume value
+    # Your code here:
+    # Yield 1, drop the resume response
+    # Yield 2, drop the resume response
+    # Yield 3, drop the resume response
+    # Then just return (weave completes)
+;
+
+: test-multiple-yields ( -- )
+    [ three-values ] strand.weave
+
+    # First resume - should yield 1
+    0 strand.resume
+    test.assert             # has_more = true
+    1 test.assert-eq        # yielded value = 1
+
+    # Second resume - should yield 2
+    0 strand.resume
+    test.assert             # has_more = true
+    2 test.assert-eq        # yielded value = 2
+
+    # Third resume - should yield 3
+    0 strand.resume
+    test.assert             # has_more = true
+    3 test.assert-eq        # yielded value = 3
+
+    # Fourth resume - weave should complete
+    0 strand.resume
+    test.assert-not         # has_more = false (done!)
+    drop drop               # cleanup
+;

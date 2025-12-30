@@ -1,0 +1,29 @@
+: acc-loop ( Ctx Int -- | Yield Int )
+    tuck
+    yield
+    rot
+    i.add
+    acc-loop
+;
+
+: test-accumulator ( -- )
+    [ acc-loop ] strand.weave
+
+    10 strand.resume
+    test.assert
+    10 test.assert-eq
+
+    5 strand.resume
+    test.assert
+    15 test.assert-eq
+
+    3 strand.resume
+    test.assert
+    18 test.assert-eq
+
+    2 strand.resume
+    test.assert
+    20 test.assert-eq
+
+    strand.weave-cancel
+;

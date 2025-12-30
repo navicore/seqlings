@@ -1,0 +1,26 @@
+: three-values ( Ctx Int -- Ctx | Yield Int )
+    drop
+    1 yield drop
+    2 yield drop
+    3 yield drop
+;
+
+: test-multiple-yields ( -- )
+    [ three-values ] strand.weave
+
+    0 strand.resume
+    test.assert
+    1 test.assert-eq
+
+    0 strand.resume
+    test.assert
+    2 test.assert-eq
+
+    0 strand.resume
+    test.assert
+    3 test.assert-eq
+
+    0 strand.resume
+    test.assert-not
+    drop drop
+;

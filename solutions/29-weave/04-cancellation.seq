@@ -1,0 +1,37 @@
+# Simple counter that counts 0, 1, 2, 3... forever
+# Ignores the resume value, just increments
+: counter ( Ctx Int -- | Yield Int )
+    tuck           # ( count Ctx count )
+    yield          # yield count, receive new value -> ( count Ctx _ )
+    drop           # drop resume value -> ( count Ctx )
+    swap           # ( Ctx count )
+    1 i.add        # ( Ctx count+1 )
+    counter        # tail recurse
+;
+
+: test-cancellation ( -- )
+    [ counter ] strand.weave
+
+    0 strand.resume
+    test.assert
+    0 test.assert-eq
+
+    0 strand.resume
+    test.assert
+    1 test.assert-eq
+
+    0 strand.resume
+    test.assert
+    2 test.assert-eq
+
+    strand.weave-cancel
+
+    true test.assert
+;
+
+: test-cancel-before-resume ( -- )
+    [ counter ] strand.weave
+    strand.weave-cancel
+
+    true test.assert
+;

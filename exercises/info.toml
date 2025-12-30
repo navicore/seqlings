@@ -812,3 +812,27 @@ mode = "test"
 name = "05-tcp-echo"
 path = "exercises/26-tcp/05-echo.seq"
 mode = "test"
+
+# ============================================================
+# 29-weave: Generators from Strands
+# ============================================================
+
+[[exercises]]
+name = "01-weave-basics"
+path = "exercises/29-weave/01-basics.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-multiple-yields"
+path = "exercises/29-weave/02-multiple-yields.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-accumulator"
+path = "exercises/29-weave/03-accumulator.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-cancellation"
+path = "exercises/29-weave/04-cancellation.seq"
+mode = "test"

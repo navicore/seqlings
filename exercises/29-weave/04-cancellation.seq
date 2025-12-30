@@ -1,0 +1,65 @@
+# Exercise: Weave Cancellation
+#
+# Weaves must be properly cleaned up to avoid hanging:
+#   1. Resume until has_more is false (weave completed), OR
+#   2. Call strand.weave-cancel to stop early
+#
+# For infinite generators (like our counter), cancellation is essential!
+#
+# strand.weave-cancel ( WeaveHandle -- )
+#   - Sends a cancel signal to the weave
+#   - Cleans up resources
+#   - Works at any point: before first resume, mid-iteration, etc.
+#
+# Your task: Create a weave, get a few values, then cancel it properly.
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+# Simple counter that counts 0, 1, 2, 3... forever
+# Ignores the resume value, just increments
+: counter ( Ctx Int -- | Yield Int )
+    tuck           # ( count Ctx count )
+    yield          # yield count, receive new value -> ( count Ctx _ )
+    drop           # drop resume value -> ( count Ctx )
+    swap           # ( Ctx count )
+    1 i.add        # ( Ctx count+1 )
+    counter        # tail recurse
+;
+
+: test-cancellation ( -- )
+    # Create weave
+    [ counter ] strand.weave
+
+    # Get first value (start at 0)
+    0 strand.resume
+    test.assert
+    0 test.assert-eq
+
+    # Get second value
+    0 strand.resume
+    test.assert
+    1 test.assert-eq
+
+    # Get third value
+    0 strand.resume
+    test.assert
+    2 test.assert-eq
+
+    # Your code here: Cancel the weave properly
+    # Hint: use strand.weave-cancel
+    drop  # placeholder - replace with strand.weave-cancel
+
+    # If we reach here without hanging, success!
+    true test.assert
+;
+
+: test-cancel-before-resume ( -- )
+    # You can cancel a weave even before the first resume
+    [ counter ] strand.weave
+    strand.weave-cancel
+
+    # Success - no hang
+    true test.assert
+;

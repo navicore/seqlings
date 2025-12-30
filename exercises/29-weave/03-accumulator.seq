@@ -1,0 +1,61 @@
+# Exercise: Accumulator Generator
+#
+# Weaves can use the resume value! When you call `yield`, it:
+#   1. Sends your value to the caller
+#   2. Waits for strand.resume
+#   3. Returns the value passed to strand.resume
+#
+# This enables stateful generators that respond to input.
+#
+# Example flow:
+#   Caller: 10 strand.resume  ->  Weave receives 10, yields something
+#   Caller: 5 strand.resume   ->  Weave receives 5, yields something
+#
+# Your task: Create an accumulator that:
+#   - Starts with the first resume value as the initial sum
+#   - Yields the current sum
+#   - Adds the next resume value to the sum
+#   - Repeat (using tail recursion)
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+# Accumulator loop - yields sum, receives increment, adds, repeats
+# Stack effect: ( Ctx sum -- | Yield Int ) - divergent (infinite loop)
+: acc-loop ( Ctx Int -- | Yield Int )
+    # Your code here:
+    # 1. tuck - to get ( sum Ctx sum )
+    # 2. yield - yields sum, receives increment -> ( sum Ctx increment )
+    # 3. rot - rearrange to ( Ctx increment sum )
+    # 4. i.add - add them -> ( Ctx new_sum )
+    # 5. acc-loop - tail recurse
+    drop drop  # placeholder
+;
+
+: test-accumulator ( -- )
+    [ acc-loop ] strand.weave
+
+    # Start with 10
+    10 strand.resume
+    test.assert
+    10 test.assert-eq       # yields initial value 10
+
+    # Add 5 (10 + 5 = 15)
+    5 strand.resume
+    test.assert
+    15 test.assert-eq
+
+    # Add 3 (15 + 3 = 18)
+    3 strand.resume
+    test.assert
+    18 test.assert-eq
+
+    # Add 2 (18 + 2 = 20)
+    2 strand.resume
+    test.assert
+    20 test.assert-eq
+
+    # Infinite generator - must cancel to exit
+    strand.weave-cancel
+;

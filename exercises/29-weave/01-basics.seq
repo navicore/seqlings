@@ -1,0 +1,41 @@
+# Exercise: Basic Weave
+#
+# A weave is a generator created from a strand. Unlike regular strands
+# that fire-and-forget, weaves yield values back to the caller.
+#
+# Key operations:
+#   [ quotation ] strand.weave   -- Create a weave, returns WeaveHandle
+#   value strand.resume          -- Resume weave, returns (Handle, value, has_more)
+#
+# The quotation receives (WeaveCtx, first_resume_value) on its stack.
+# The WeaveCtx must be threaded through yield calls.
+#
+# Your task: Create a simple weave that ignores the resume value and
+# yields the number 42, then completes.
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+# Simple generator body that yields 42 and completes
+# Receives (Ctx, resume_value) - ignore the resume value, yield 42
+: yield-42 ( Ctx Int -- Ctx | Yield Int )
+    # Your code here
+    # 1. drop the resume value
+    # 2. push 42 and yield it (42 yield)
+    # 3. drop the value returned from yield
+    # The weave then completes (returns)
+    drop drop  # placeholder - replace with your solution
+;
+
+: test-basic-weave ( -- )
+    [ yield-42 ] strand.weave   # create the weave
+    0 strand.resume             # resume with 0 (ignored)
+    # Stack now: ( Handle yielded-value has_more )
+    test.assert                 # has_more should be true
+    42 test.assert-eq           # yielded value should be 42
+    # Resume again to complete the weave
+    0 strand.resume
+    test.assert-not             # has_more should be false (weave done)
+    drop drop                   # cleanup handle and placeholder
+;
