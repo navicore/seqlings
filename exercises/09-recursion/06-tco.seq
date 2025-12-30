@@ -1,0 +1,50 @@
+# Exercise: Tail Call Optimization (TCO)
+#
+# Why does the accumulator pattern matter? Because of TCO.
+#
+# Without TCO, each recursive call adds a stack frame:
+#   sum(1000000) -> sum(999999) -> sum(999998) -> ... STACK OVERFLOW!
+#
+# With TCO, a tail call reuses the current stack frame:
+#   sum(1000000) -> sum(999999) -> sum(999998) -> ... runs forever in constant space
+#
+# A call is a "tail call" when it's the LAST thing the function does.
+# No more work after the recursive call returns.
+#
+# Your task: Implement count-up-to that counts from 0 to n.
+# The catch: n can be 100,000. Only tail recursion can handle this.
+#
+# Signature: count-up-to ( target -- final-count )
+# Returns the final count (should equal target).
+#
+# Hint: Use a helper with an accumulator: count-helper ( target current -- result )
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+# Helper: tail-recursive counter
+# Stack: ( target current )
+# When current reaches target, return current
+# Otherwise, increment current and recurse
+: count-helper ( Int Int -- Int )
+    # Base case: target <= current? return current (use nip to drop target)
+    # Recursive: increment current with 1 i.+, then count-helper
+    # Key: count-helper must be the LAST thing - no work after it!
+    drop drop 0  # placeholder
+;
+
+: count-up-to ( Int -- Int )
+    0 count-helper   # start current at 0
+;
+
+: test-tco ( -- )
+    # Small test first
+    10 count-up-to
+    10 test.assert-eq
+
+    # The real test: 100,000 recursive calls
+    # This ONLY works because of TCO - would overflow otherwise
+    100000 count-up-to
+    100000 test.assert-eq
+;

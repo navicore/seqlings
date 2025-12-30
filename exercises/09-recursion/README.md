@@ -63,3 +63,18 @@ A tail-recursive function calls itself as its **last action**. These can be opti
 ```
 
 Tail recursion connects recursion to iteration - they're two ways of expressing the same thing.
+
+## Concepts You'll Practice
+
+These exercises build understanding of important programming concepts:
+
+| Concept | What You'll Learn |
+|---------|-------------------|
+| **Recursion** | Breaking problems into smaller versions of themselves |
+| **Base Case / Recursive Case** | The structure that makes recursion work |
+| **Tail Call Optimization (TCO)** | Why tail recursion can handle millions of calls |
+| **Accumulator Pattern** | Converting recursion to tail recursion |
+
+The final exercise demonstrates TCO in action - you'll write code that makes 100,000 recursive calls without stack overflow. This only works because Seq's compiler optimizes tail calls into efficient loops.
+
+*For deeper exploration, see the [Seq Glossary](https://github.com/navicore/patch-seq/blob/main/docs/GLOSSARY.md).*

@@ -295,6 +295,11 @@ name = "05-mutual"
 path = "exercises/09-recursion/05-mutual.seq"
 mode = "test"
 
+[[exercises]]
+name = "06-tco"
+path = "exercises/09-recursion/06-tco.seq"
+mode = "test"
+
 # ============================================================
 # 10-quotations: Higher-Order Programming
 # ============================================================

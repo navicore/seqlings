@@ -1,0 +1,23 @@
+: count-helper ( Int Int -- Int )
+    # Stack: ( target current )
+    2dup i.<= if
+        # target <= current means we're done
+        nip                  # drop target, return current
+    else
+        # increment current and recurse
+        1 i.+                # ( target current+1 )
+        count-helper         # tail call!
+    then
+;
+
+: count-up-to ( Int -- Int )
+    0 count-helper           # start current at 0
+;
+
+: test-tco ( -- )
+    10 count-up-to
+    10 test.assert-eq
+
+    100000 count-up-to
+    100000 test.assert-eq
+;
