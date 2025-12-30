@@ -4,7 +4,8 @@
       "Bash(grep:*)",
       "Bash(# Check for any remaining issues with false positive replacements grep -r \"\"i\\\\.= [0-9]\"\" exercises/*.seq)",
       "Bash(head -5 grep -r \"because.*i\\\\.=\" exercises/*.seq)",
-      "Bash(seqc test:*)"
+      "Bash(seqc test:*)",
+      "Bash(ls:*)"
     ]
   }
 }

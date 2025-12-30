@@ -1,0 +1,16 @@
+: keep ( A Quotation -- B A )
+    over
+    swap
+    call
+    swap
+;
+
+: test-row-polymorphism ( -- )
+    5 [ dup i.* ] keep
+    5 test.assert-eq
+    25 test.assert-eq
+
+    "hello" [ string.length ] keep
+    "hello" string.equal? test.assert
+    5 test.assert-eq
+;

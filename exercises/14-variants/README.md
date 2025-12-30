@@ -62,3 +62,18 @@ my-result variant.tag    # Returns tag number (0 for first variant, 1 for second
 3. **result** - Working with Result types
 4. **match** - Pattern matching on variants
 5. **combine** - Building with variants
+
+## Concepts You'll Practice
+
+| Concept | What You'll Learn |
+|---------|-------------------|
+| **Algebraic Data Type (ADT)** | Defining types as combinations of alternatives |
+| **Sum Type** | A type that can be one of several variants ("or") |
+| **Pattern Matching** | Branching based on data structure, not just values |
+| **Exhaustiveness** | Compiler ensures you handle all cases |
+
+ADTs are one of the most powerful ideas in programming language design. Languages like Haskell, Rust, and OCaml are built around them. The `Option` and `Result` types you'll implement here are the foundation of safe error handling - no null pointer exceptions!
+
+The final exercise shows how `Result` types make error handling explicit and composable.
+
+*For deeper exploration, see the [Seq Glossary](https://github.com/navicore/patch-seq/blob/main/docs/GLOSSARY.md).*

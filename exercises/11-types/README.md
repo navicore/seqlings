@@ -45,3 +45,19 @@ Stack effect comments show the types:
 3. **float-ops** - Float operations
 4. **string-type** - String operations
 5. **list-type** - List operations
+6. **row-polymorphism** - Generic functions with type variables
+
+## Concepts You'll Practice
+
+| Concept | What You'll Learn |
+|---------|-------------------|
+| **Type Variables** | Using `A`, `B` to write generic functions |
+| **Row Polymorphism** | Functions that work with any stack depth |
+| **Parametric Polymorphism** | One definition, many types |
+| **Type Inference** | How the compiler figures out concrete types |
+
+Row polymorphism is what makes stack-based languages powerful. When you write `( A -- A A )`, the function works for ANY type - Int, String, custom types, anything. The compiler ensures type safety while giving you flexibility.
+
+The final exercise has you implement `keep`, a combinator that demonstrates how one definition serves infinite type combinations.
+
+*For deeper exploration, see the [Seq Glossary](https://github.com/navicore/patch-seq/blob/main/docs/GLOSSARY.md).*

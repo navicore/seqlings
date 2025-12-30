@@ -1,0 +1,51 @@
+# Exercise: Row Polymorphism
+#
+# Seq's type system has a powerful feature: TYPE VARIABLES.
+#
+# Look at `dup`:
+#   42 dup        -> 42 42      (works with Int)
+#   "hi" dup      -> "hi" "hi"  (works with String)
+#   true dup      -> true true  (works with Bool)
+#
+# How? The type uses a VARIABLE (uppercase letter):
+#   : dup ( A -- A A )   # A matches any type!
+#
+# This is ROW POLYMORPHISM - functions work with any stack,
+# as long as the top elements match the signature.
+#
+# Your task: Implement `keep` - runs a quotation but keeps the original value.
+#   5 [ dup i.* ] keep   -> 25 5  (squared, but kept original)
+#
+# Signature: ( A Quotation -- B A )
+#   - Takes any value A and a quotation
+#   - Runs the quotation (which produces B from A)
+#   - Returns both the result B AND the original A
+#
+# Hint: You'll need `dup`, `dip` or careful stack management.
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: keep ( A Quotation -- B A )
+    # Your code here
+    # 1. Save the original value somehow
+    # 2. Run the quotation
+    # 3. Put the original back
+    drop drop 0  # placeholder
+;
+
+: test-row-polymorphism ( -- )
+    # Test with Int
+    5 [ dup i.* ] keep   # 5 squared = 25, keep 5
+    5 test.assert-eq     # original value
+    25 test.assert-eq    # computed value
+
+    # Same function works with String!
+    "hello" [ string.length ] keep
+    "hello" string.equal? test.assert  # original
+    5 test.assert-eq                   # length
+
+    # This is the power of row polymorphism:
+    # ONE definition works with ANY type
+;

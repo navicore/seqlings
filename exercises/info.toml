@@ -659,6 +659,11 @@ name = "05-list-type"
 path = "exercises/11-types/05-list-type.seq"
 mode = "test"
 
+[[exercises]]
+name = "06-row-polymorphism"
+path = "exercises/11-types/06-row-polymorphism.seq"
+mode = "test"
+
 # ============================================================
 # 14-variants: Variants (Union Types)
 # ============================================================

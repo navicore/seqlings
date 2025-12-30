@@ -69,3 +69,18 @@ chan.receive
 ```
 
 The quotation runs concurrently, communicating back via the channel.
+
+## Concepts You'll Practice
+
+| Concept | What You'll Learn |
+|---------|-------------------|
+| **CSP (Communicating Sequential Processes)** | Concurrency through message-passing, not shared memory |
+| **Channel** | A typed conduit for safe inter-strand communication |
+| **Synchronization** | How send/receive coordinate concurrent execution |
+| **Producer-Consumer** | A fundamental pattern for concurrent data flow |
+
+CSP is a formal model for concurrent computation developed by Tony Hoare in 1978. The core insight: **"Don't communicate by sharing memory; share memory by communicating."** This eliminates entire classes of concurrency bugs (race conditions, deadlocks from locks).
+
+The final exercise implements the producer-consumer pattern - a building block for pipelines, work queues, and event systems.
+
+*For deeper exploration, see the [Seq Glossary](https://github.com/navicore/patch-seq/blob/main/docs/GLOSSARY.md).*

@@ -63,3 +63,16 @@ cond
 ```
 
 This is **domain-specific language** - using words to express intent at a high level.
+
+## Concepts You'll Practice
+
+| Concept | What You'll Learn |
+|---------|-------------------|
+| **Word** | Seq's term for a named function - building vocabulary |
+| **Stack Effect** | Type signatures that document what goes in and out |
+| **Concatenative Programming** | Composing functions by sequencing, not nesting |
+| **Point-Free Style** | Writing transformations without naming intermediate values |
+
+The term "word" comes from Forth, Seq's ancestor. It emphasizes that programs are built from a vocabulary of operations - you're literally defining new words in a language.
+
+*For deeper exploration, see the [Seq Glossary](https://github.com/navicore/patch-seq/blob/main/docs/GLOSSARY.md).*
