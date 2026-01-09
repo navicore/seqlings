@@ -1,20 +1,15 @@
+: min ( Int Int -- Int )
+    2dup i.> if swap then drop
+;
+
+: max ( Int Int -- Int )
+    2dup i.< if swap then drop
+;
+
 : clamp ( Int Int Int -- Int )
-    # value min max
-    rot              # min max value
-    2dup <           # min max value (value<max)?
-    if
-        # value < max, now check min
-        nip          # min value
-        2dup >       # min value (value>min)?
-        if
-            nip      # value is in range
-        else
-            drop     # value < min, return min
-        then
-    else
-        # value >= max, return max
-        drop nip     # max
-    then
+    # value min max -- clamped
+    # Beautiful! With good helpers, the intent is clear.
+    rot swap min max
 ;
 
 : test-documentation ( -- )

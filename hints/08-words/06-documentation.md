@@ -1,41 +1,35 @@
 # Hint: Clamp
 
-Clamp needs to handle three cases:
-1. value < min → return min
-2. value > max → return max
-3. otherwise → return value
+## The Elegant Way: Factor Into Helper Words
 
-## Solution
+When stack manipulation gets complex, **create helper words**. This is the core wisdom of stack-based programming.
 
+### Step 1: Create `min`
+```seq
+: min ( Int Int -- Int )
+    2dup i.> if swap then drop
+;
+```
+If a > b, swap them, then drop the top (larger) value.
+
+### Step 2: Create `max`
+```seq
+: max ( Int Int -- Int )
+    2dup i.< if swap then drop
+;
+```
+Same pattern, opposite comparison.
+
+### Step 3: Now `clamp` is beautiful!
 ```seq
 : clamp ( Int Int Int -- Int )
     # Stack: ( value min max )
-    rot             # ( min max value )
-    dup rot         # ( min value value max )
-    > if            # if value > max
-        drop swap drop  # return max
-    else
-        dup rot     # ( max value value min )
-        < if        # if value < min
-            drop nip    # return min
-        else
-            nip nip     # return value
-        then
-    then
+    rot swap    # ( max value min )
+    min         # ( max clamped-to-min )
+    max         # ( result )
 ;
 ```
 
-This is getting complex! An alternative using `cond`:
+The logic: take the min of (value, max), then take the max of (that, min).
 
-```seq
-: clamp ( Int Int Int -- Int )
-    rot rot 2dup    # Setup for comparisons
-    cond
-        2dup > -> drop drop drop swap drop  # value > max
-        2dup < -> drop drop nip nip         # value < min
-        otherwise -> drop drop nip drop     # in range
-    end
-;
-```
-
-The complexity here shows why clamping is usually a library function!
+This reads almost like English and is trivially correct. The "complex" stack problem vanishes when you factor it properly.

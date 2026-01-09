@@ -2,15 +2,19 @@
 #
 # Well-named words with clear stack effects document themselves.
 #
-# BAD:
-#   : f ( Int Int -- Int )
-#       swap dup rot i.+ i.*
+# The secret to elegant stack code: when manipulation gets complex,
+# CREATE HELPER WORDS. Small words are the documentation.
+#
+# BAD - complex stack juggling:
+#   : clamp ( value min max -- clamped )
+#       rot 2dup < if nip 2dup > if drop else nip then else drop nip then
 #   ;
 #
-# GOOD:
-#   : weighted-sum ( value weight -- result )
-#       # Computes: value * weight + weight
-#       swap dup rot i.+ i.*
+# GOOD - factored into meaningful pieces:
+#   : min ( a b -- smaller ) ... ;
+#   : max ( a b -- larger )  ... ;
+#   : clamp ( value min max -- clamped )
+#       # Now clamp becomes beautiful!
 #   ;
 #
 # Your task: Implement `clamp` that restricts a value to a range.
@@ -18,12 +22,26 @@
 #   - If value < min, return min
 #   - If value > max, return max
 #   - Otherwise, return value
+#
+# HINT: Create min and max helper words first. Then clamp nearly
+# writes itself with just a few stack operations.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
+: min ( Int Int -- Int )
+    # Your code here
+    drop
+;
+
+: max ( Int Int -- Int )
+    # Your code here
+    drop
+;
+
 : clamp ( Int Int Int -- Int )
     # value min max
+    # With good helpers, this becomes elegant!
     # Your code here
     drop drop drop 0
 ;
