@@ -1,7 +1,7 @@
 : test-safe-ops ( -- )
     chan.make
-    dup 99 chan.send
-    chan.receive-safe
+    dup 99 swap chan.send drop   # send returns Bool, drop it
+    chan.receive                  # returns (value Bool)
     test.assert
     99 test.assert-eq
 ;

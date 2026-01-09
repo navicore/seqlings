@@ -1,7 +1,7 @@
 : test-close ( -- )
     chan.make
-    dup 42 chan.send
+    dup 42 swap chan.send drop   # send returns Bool
     dup chan.close
-    chan.receive
+    chan.receive drop            # receive returns (value Bool), drop the Bool
     42 test.assert-eq
 ;

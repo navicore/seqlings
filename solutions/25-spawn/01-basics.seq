@@ -1,7 +1,8 @@
 : test-basics ( -- )
     chan.make
-    dup [ 42 chan.send ] spawn
+    dup [ 42 swap chan.send drop ] strand.spawn
     drop
-    chan.receive
+    chan.receive drop   # (channel value)
+    nip                 # (value)
     42 test.assert-eq
 ;

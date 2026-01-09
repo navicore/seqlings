@@ -1,6 +1,7 @@
 # Hint: Ping-Pong
 
-Receive from the second channel (B -> A):
+Receive from the pong channel. Remember `chan.receive` returns `(value Bool)` and you have two channels on stack:
 ```seq
-chan.receive
+chan.receive drop   # ( ping value ) - receive from pong, drop Bool
+nip                 # ( value ) - remove ping channel
 ```

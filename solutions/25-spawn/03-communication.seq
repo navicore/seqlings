@@ -1,7 +1,13 @@
 : test-communication ( -- )
     chan.make
-    dup dup [ chan.receive 2 i.* chan.send ] spawn drop
-    dup 21 chan.send
-    chan.receive
+    dup [
+        # closure has (ch) on its stack
+        dup chan.receive drop   # receive 21: (ch 21)
+        2 i.*                   # double: (ch 42)
+        swap chan.send drop     # send 42: ()
+    ] strand.spawn drop
+    drop    # clean up extra channel: (ch)
+    dup 21 swap chan.send drop   # send 21: (ch)
+    chan.receive drop   # receive 42: (value)
     42 test.assert-eq
 ;

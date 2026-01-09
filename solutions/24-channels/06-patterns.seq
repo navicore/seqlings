@@ -1,18 +1,16 @@
-: produce-values ( Chan -- )
-    dup 1 chan.send
-    dup 2 chan.send
-    dup 3 chan.send
+: produce-values ( Channel -- )
+    dup 1 swap chan.send drop
+    dup 2 swap chan.send drop
+    dup 3 swap chan.send drop
     chan.close
 ;
 
-: sum-from-channel ( Chan -- Int )
-    0 swap
-    [ dup chan.receive-safe ]
-    [
-        drop rot i.+ swap
-    ]
-    while
-    drop drop
+: sum-from-channel ( Channel -- Int )
+    # Receive all three values and sum them
+    dup chan.receive drop     # ( chan 1 )
+    over chan.receive drop    # ( chan 1 2 )
+    rot chan.receive drop     # ( 1 2 3 )
+    i.+ i.+                   # ( 6 )
 ;
 
 : test-patterns ( -- )

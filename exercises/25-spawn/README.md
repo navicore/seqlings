@@ -12,7 +12,7 @@ A strand is an independent computation that runs concurrently with others. Unlik
 ## Spawning a Strand
 
 ```seq
-[ quotation ] spawn   # Returns strand ID
+[ quotation ] strand.spawn   # Returns strand ID
 ```
 
 The quotation runs in a new strand. The current strand continues immediately.
@@ -27,7 +27,7 @@ dup [
     # Worker strand
     heavy-computation
     chan.send
-] spawn
+] strand.spawn
 drop   # Don't need strand ID
 chan.receive   # Wait for result
 ```
@@ -36,19 +36,19 @@ chan.receive   # Wait for result
 
 **Worker**: Spawn, do work, send result back
 ```seq
-chan.make dup [ work chan.send ] spawn drop chan.receive
+chan.make dup [ work chan.send ] strand.spawn drop chan.receive
 ```
 
 **Pipeline**: Chain of workers, each processing and passing on
 ```seq
 chan1 chan2
-[ chan1.receive process chan2.send ] spawn
+[ chan1.receive process chan2.send ] strand.spawn
 ```
 
 **Fan-out**: One producer, multiple workers
 ```seq
-[ chan.receive process ] spawn
-[ chan.receive process ] spawn
+[ chan.receive process ] strand.spawn
+[ chan.receive process ] strand.spawn
 # Both workers receive from same channel
 ```
 

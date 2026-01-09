@@ -18,15 +18,15 @@
 
 # I AM NOT DONE
 
-: produce-values ( Chan -- )
-    # Send 1, 2, 3 then close
-    dup 1 chan.send
-    dup 2 chan.send
-    dup 3 chan.send
+: produce-values ( Channel -- )
+    # Send 1, 2, 3 then close (drop the Bool results from send)
+    dup 1 swap chan.send drop
+    dup 2 swap chan.send drop
+    dup 3 swap chan.send drop
     chan.close
 ;
 
-: sum-from-channel ( Chan -- Int )
+: sum-from-channel ( Channel -- Int )
     # Receive all values and sum them
     # Your code here - receive until channel is empty
     drop 0

@@ -1,6 +1,6 @@
 : test-create ( -- )
     chan.make
-    dup 42 chan.send
-    chan.receive
+    dup 42 swap chan.send drop
+    chan.receive drop
     42 test.assert-eq
 ;

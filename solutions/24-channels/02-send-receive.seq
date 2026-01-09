@@ -1,9 +1,9 @@
 : test-send-receive ( -- )
     chan.make
-    dup 10 chan.send
-    dup 20 chan.send
-    dup chan.receive
-    swap chan.receive
+    dup 10 swap chan.send drop    # send 10, drop Bool result
+    dup 20 swap chan.send drop    # send 20, drop Bool result
+    dup chan.receive drop         # receive 10, drop Bool
+    swap chan.receive drop        # receive 20, drop Bool
     20 test.assert-eq
     10 test.assert-eq
 ;

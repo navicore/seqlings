@@ -12,7 +12,7 @@
 
 # I AM NOT DONE
 
-: spawn-doubler ( -- Chan Chan )
+: spawn-doubler ( -- Channel Channel )
     # Create two channels: request and response
     chan.make   # request channel
     chan.make   # response channel
@@ -24,9 +24,15 @@
 : test-communication ( -- )
     # This test is simplified - just verify you understand the pattern
     chan.make
-    dup dup [ chan.receive 2 i.* chan.send ] spawn drop
-    dup 21 chan.send
-    chan.receive
+    dup [
+        dup chan.receive drop   # receive 21
+        2 i.*                   # double it
+        swap chan.send drop     # send 42
+    ] strand.spawn drop
+    drop    # clean up extra channel
+    dup 21 swap chan.send drop
+    # Your code: receive from channel, then clean up channel
+    drop 0
     # Do not edit below this line
     42 test.assert-eq
 ;

@@ -1,14 +1,14 @@
 # Exercise: Spawning a Strand
 #
-# `spawn` takes a quotation and runs it in a new strand.
+# `strand.spawn` takes a quotation and runs it in a new strand.
 #
 # Stack effect: ( quot -- strand-id )
 #
-# The quotation runs concurrently. spawn returns immediately
+# The quotation runs concurrently. strand.spawn returns immediately
 # with the strand's ID.
 #
 # Example:
-#   [ "Hello from strand!" io.write-line ] spawn
+#   [ "Hello from strand!" io.write-line ] strand.spawn
 #   # Main continues while strand runs
 #
 # Your task: Spawn a strand that sends a value through a channel.
@@ -18,9 +18,9 @@
 
 : test-basics ( -- )
     chan.make
-    dup [ 42 chan.send ] spawn
+    dup [ 42 swap chan.send drop ] strand.spawn
     drop   # Drop strand ID
-    # Your code here - receive the value
+    # Your code here - receive the value (remember chan.receive returns (value Bool))
     drop
     0
     # Do not edit below this line

@@ -2,7 +2,7 @@
 #
 # Channels are created with `chan.make`.
 #
-# Stack effect: ( -- Chan )
+# Stack effect: ( -- Channel )
 #
 # A channel is a typed conduit for passing values between
 # concurrent computations (strands).

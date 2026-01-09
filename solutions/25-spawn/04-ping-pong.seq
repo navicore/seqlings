@@ -1,12 +1,13 @@
 : test-ping-pong ( -- )
-    chan.make
-    chan.make
-    over over [
-        swap chan.receive drop
-        1 chan.send
-    ] spawn drop
-    over 0 chan.send
-    chan.receive
-    nip
+    chan.make           # ( ping )
+    chan.make           # ( ping pong )
+    2dup [              # 2dup copies both for closure
+        swap chan.receive drop drop   # receive from ping
+        1 swap chan.send drop         # send 1 to pong
+    ] strand.spawn drop # After: ( ping pong ping pong )
+    drop drop           # Clean up: ( ping pong )
+    over 0 swap chan.send drop   # send 0 to ping: ( ping pong )
+    chan.receive drop   # receive from pong: ( ping value )
+    nip                 # ( value )
     1 test.assert-eq
 ;

@@ -2,12 +2,12 @@
 #
 # `chan.close` signals that no more values will be sent.
 #
-# Stack effect: ( chan -- )
+# Stack effect: ( Channel -- )
 #
 # After closing:
 #   - Remaining values can still be received
-#   - New sends will fail
-#   - After all values received, receives fail
+#   - New sends will return false
+#   - After all values received, receives return false
 #
 # Your task: Send a value, close, then receive.
 # When done, delete the marker line below.
@@ -16,10 +16,11 @@
 
 : test-close ( -- )
     chan.make
-    dup 42 chan.send
+    dup 42 swap chan.send drop    # send returns Bool, drop it
     dup chan.close
     # Your code here:
     # Receive the value (should still work after close)
+    # Remember: chan.receive returns (value Bool)
     drop 0
     # Do not edit below this line
     42 test.assert-eq

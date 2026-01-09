@@ -1,11 +1,22 @@
 : test-worker-pool ( -- )
-    chan.make
-    chan.make
-    over over [ chan.receive 1 i.+ chan.send ] spawn drop
-    over over [ chan.receive 1 i.+ chan.send ] spawn drop
-    over 10 chan.send
-    over 20 chan.send
-    dup chan.receive swap chan.receive i.+
-    nip nip
+    chan.make   # work channel
+    chan.make   # results channel
+    # Stack: ( work results )
+
+    # Spawn two workers
+    2dup [ over chan.receive drop 1 i.+ swap chan.send drop drop ] strand.spawn drop
+    drop drop   # clean up extra channels: ( work results )
+    2dup [ over chan.receive drop 1 i.+ swap chan.send drop drop ] strand.spawn drop
+    drop drop   # clean up: ( work results )
+
+    # Send two work items
+    over 10 swap chan.send drop
+    over 20 swap chan.send drop
+
+    # Receive two results and sum them
+    dup chan.receive drop   # ( work results val1 )
+    over chan.receive drop  # ( work results val1 val2 )
+    i.+                     # ( work results sum )
+    nip nip                 # ( sum )
     32 test.assert-eq
 ;

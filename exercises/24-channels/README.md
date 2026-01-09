@@ -14,7 +14,7 @@ This is based on CSP (Communicating Sequential Processes), the same model used b
 ## Creating Channels
 
 ```seq
-chan.make   # Create a new channel ( -- Chan )
+chan.make   # Create a new channel ( -- Channel )
 ```
 
 Channels are typed - a channel of Int can only carry Int values.
@@ -22,20 +22,15 @@ Channels are typed - a channel of Int can only carry Int values.
 ## Sending and Receiving
 
 ```seq
-chan value chan.send      # Send value into channel
-chan chan.receive         # Receive value from channel
+value chan chan.send      # Send value, returns Bool (success)
+chan chan.receive         # Receive value, returns (value Bool)
 ```
 
-Receiving **blocks** until a value is available. This is how channels synchronize concurrent code.
+Both operations return success status:
+- `chan.send` returns `true` if sent, `false` if channel is closed
+- `chan.receive` returns `(value true)` if received, `(dummy false)` if closed
 
-## Safe Operations
-
-```seq
-chan value chan.send-safe     # Returns Bool (true if sent)
-chan chan.receive-safe        # Returns (value true) or (false)
-```
-
-Safe operations don't block forever - they return a status.
+This lets you handle closed channels gracefully without exceptions.
 
 ## Closing Channels
 

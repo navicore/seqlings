@@ -14,20 +14,22 @@
 # I AM NOT DONE
 
 : test-ping-pong ( -- )
-    chan.make   # A -> B
-    chan.make   # B -> A
+    chan.make   # ping channel (main -> worker)
+    chan.make   # pong channel (worker -> main)
+    # Stack: ( ping pong )
 
-    # Spawn "pong" responder
-    over over [
-        swap chan.receive drop  # Get ping
-        1 chan.send             # Send pong (as 1)
-    ] spawn drop
+    # Spawn "pong" responder - captures both channels
+    2dup [
+        swap chan.receive drop drop  # Get ping, drop Bool and value
+        1 swap chan.send drop        # Send pong (1) to pong channel
+    ] strand.spawn drop
+    drop drop   # clean up extra channels: ( ping pong )
 
     # Send ping (as 0)
-    over 0 chan.send
+    over 0 swap chan.send drop   # ( ping pong )
 
     # Receive pong
-    # Your code here
+    # Your code here - receive from pong channel, clean up channels
     drop drop
     0
     # Do not edit below this line

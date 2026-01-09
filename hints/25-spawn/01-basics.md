@@ -1,6 +1,7 @@
 # Hint: Spawning
 
-Just receive from the channel:
+Receive from the channel. Remember `chan.receive` returns `(value Bool)` and you have an extra channel on stack:
 ```seq
-chan.receive
+chan.receive drop   # ( ch ch ) -> ( ch value )
+nip                 # ( value )
 ```
