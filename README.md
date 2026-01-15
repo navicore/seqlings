@@ -76,6 +76,12 @@ The exercises cover Seq from basics to advanced topics:
 | **26-tcp** | Network programming |
 | **27-std-imath** | Integer math stdlib |
 | **28-std-fmath** | Float math stdlib |
+| **29-weave** | Generator patterns with strands |
+| **30-encoding** | Base64, Hex encoding/decoding |
+| **31-regex** | Regular expressions |
+| **32-compression** | Gzip and Zstd compression |
+| **33-crypto** | SHA-256, HMAC, AES-GCM, Ed25519 |
+| **34-http-client** | HTTP requests and JSON APIs |
 
 ## Seq Language Basics
 
