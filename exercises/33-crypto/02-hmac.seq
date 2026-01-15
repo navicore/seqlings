@@ -1,0 +1,51 @@
+# Exercise: HMAC Authentication
+#
+# HMAC (Hash-based Message Authentication Code) verifies
+# both integrity and authenticity of a message.
+#
+# crypto.hmac-sha256 ( String String -- String )  # ( message key -- signature )
+# crypto.constant-time-eq ( String String -- Bool )
+#
+# Use constant-time comparison for secrets to prevent timing attacks!
+#
+# Your task: Implement HMAC signing and verification
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: sign-message ( String String -- String )
+    # Sign a message with a key
+    # ( message key -- signature )
+    # Your code here
+    drop drop ""
+;
+
+: verify-signature ( String String String -- Bool )
+    # Verify a message signature
+    # ( message key expected-signature -- valid? )
+    # Use constant-time comparison!
+    # Your code here
+    drop drop drop false
+;
+
+: test-hmac ( -- )
+    # Basic signing
+    "Hello, World!" "secret-key" sign-message
+    # Do not edit below this line
+    64 string.length test.assert-eq   # HMAC output is 64 hex chars
+
+    # Same message + same key = same signature
+    "test message" "key123" sign-message
+    "test message" "key123" sign-message
+    crypto.constant-time-eq test.assert
+
+    # Verify valid signature
+    "test message" "key123" sign-message   # Get valid signature
+    "test message" "key123" rot verify-signature
+    test.assert
+
+    # Different key = different signature (verification fails)
+    "test message" "key123" sign-message   # Signature with key123
+    "test message" "wrong-key" rot verify-signature
+    not test.assert
+;

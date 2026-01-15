@@ -1,0 +1,41 @@
+# Exercise: Compression Roundtrips
+#
+# A common pattern: compress data, store/transmit it, then decompress.
+# Always verify the roundtrip preserves data exactly.
+#
+# Your task: Implement safe roundtrip functions
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: safe-gzip-roundtrip ( String -- String Bool )
+    # Compress then decompress, return original and success
+    # Your code here
+    drop "" false
+;
+
+: safe-zstd-roundtrip ( String -- String Bool )
+    # Compress then decompress, return original and success
+    # Your code here
+    drop "" false
+;
+
+: test-roundtrip ( -- )
+    # Gzip roundtrip preserves data
+    "The quick brown fox jumps over the lazy dog."
+    safe-gzip-roundtrip
+    # Do not edit below this line
+    test.assert
+    "The quick brown fox jumps over the lazy dog." test.assert-eq
+
+    # Zstd roundtrip preserves data
+    "Pack my box with five dozen liquor jugs."
+    safe-zstd-roundtrip
+    test.assert
+    "Pack my box with five dozen liquor jugs." test.assert-eq
+
+    # Empty string roundtrip
+    "" safe-gzip-roundtrip
+    test.assert
+    "" test.assert-eq
+;

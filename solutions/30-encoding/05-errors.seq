@@ -1,0 +1,34 @@
+: safe-base64-decode ( String -- String )
+    encoding.base64-decode
+    if
+        # Success - string is on stack
+    else
+        drop "ERROR"
+    then
+;
+
+: safe-hex-decode ( String -- String )
+    encoding.hex-decode
+    if
+        # Success - string is on stack
+    else
+        drop "ERROR"
+    then
+;
+
+: test-errors ( -- )
+    "SGVsbG8=" safe-base64-decode
+    "Hello" test.assert-eq
+
+    "Not!!!Valid" safe-base64-decode
+    "ERROR" test.assert-eq
+
+    "48656c6c6f" safe-hex-decode
+    "Hello" test.assert-eq
+
+    "xyz123" safe-hex-decode
+    "ERROR" test.assert-eq
+
+    "123" safe-hex-decode
+    "ERROR" test.assert-eq
+;

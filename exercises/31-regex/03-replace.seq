@@ -1,0 +1,43 @@
+# Exercise: Search and Replace
+#
+# regex.replace replaces the first match:
+#   regex.replace ( String String String -- String )
+#   ( text pattern replacement -- result )
+#
+# regex.replace-all replaces all matches:
+#   regex.replace-all ( String String String -- String )
+#
+# Example:
+#   "hello world" "world" "Seq" regex.replace  # "hello Seq"
+#   "aaa" "a" "b" regex.replace-all            # "bbb"
+#
+# Your task: Implement text transformations
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: censor-numbers ( String -- String )
+    # Replace all digits with X
+    # Your code here
+;
+
+: normalize-whitespace ( String -- String )
+    # Replace multiple spaces/tabs with a single space
+    # Pattern for whitespace: \s+
+    # Your code here
+;
+
+: test-replace ( -- )
+    # Censor numbers
+    "Call 555-1234 or 555-5678" censor-numbers
+    # Do not edit below this line
+    "Call XXX-XXXX or XXX-XXXX" test.assert-eq
+
+    # Normalize whitespace
+    "hello    world   test" normalize-whitespace
+    "hello world test" test.assert-eq
+
+    # Tabs too
+    "a\tb\t\tc" normalize-whitespace
+    "a b c" test.assert-eq
+;

@@ -1,0 +1,27 @@
+: fast-gzip ( String -- String Bool )
+    1 compress.gzip-level
+;
+
+: best-gzip ( String -- String Bool )
+    9 compress.gzip-level
+;
+
+: fast-zstd ( String -- String Bool )
+    1 compress.zstd-level
+;
+
+: test-levels ( -- )
+    "abcdefgh" dup string.concat dup string.concat dup string.concat
+
+    dup fast-gzip
+    test.assert
+    drop
+
+    dup best-gzip
+    test.assert
+    drop
+
+    fast-zstd
+    test.assert
+    drop
+;

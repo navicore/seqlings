@@ -1,0 +1,69 @@
+# Exercise: Ed25519 Digital Signatures
+#
+# Digital signatures prove a message came from a specific sender.
+#
+# crypto.ed25519-keypair ( -- String String )  # ( -- public private )
+# crypto.ed25519-sign ( String String -- String Bool )  # ( message private -- sig ok )
+# crypto.ed25519-verify ( String String String -- Bool )  # ( message sig public -- valid )
+#
+# Use cases:
+# - Software signing
+# - Authentication tokens
+# - Blockchain transactions
+#
+# Your task: Sign and verify messages
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: generate-keypair ( -- String String )
+    # Generate public and private keys
+    # Returns: ( public private )
+    # Your code here
+    "" ""
+;
+
+: sign ( String String -- String Bool )
+    # Sign a message with private key
+    # Your code here
+    drop drop "" false
+;
+
+: verify ( String String String -- Bool )
+    # Verify signature with public key
+    # ( message signature public -- valid )
+    # Your code here
+    drop drop drop false
+;
+
+: test-signatures ( -- )
+    # Generate a keypair
+    generate-keypair
+    # Do not edit below this line
+    # Stack: ( public private )
+
+    # Sign a message
+    "Important document" swap sign
+    test.assert   # Signing should succeed
+    # Stack: ( public signature )
+
+    # Verify with correct public key
+    "Important document" rot rot verify
+    test.assert
+
+    # Verification fails with wrong message
+    generate-keypair
+    "message" swap sign drop   # Get signature
+    # Stack: ( public signature )
+    "different message" rot rot verify
+    not test.assert
+
+    # Verification fails with wrong key
+    generate-keypair drop   # Get private1
+    generate-keypair swap drop  # Get public2
+    # Stack: ( private1 public2 )
+    "test" rot sign drop   # Sign with private1
+    # Stack: ( public2 signature )
+    "test" rot rot verify   # Verify with public2
+    not test.assert
+;

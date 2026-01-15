@@ -1,0 +1,40 @@
+# Exercise: Splitting Strings
+#
+# regex.split divides a string by a pattern.
+#
+# regex.split ( String String -- List )
+#
+# Example:
+#   "a,b,c" "," regex.split  # ["a", "b", "c"]
+#   "a1b2c3" "[0-9]" regex.split  # ["a", "b", "c"]
+#
+# Your task: Split strings using regex patterns
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: split-csv ( String -- List )
+    # Split on comma with optional surrounding whitespace
+    # "a, b,  c" -> ["a", "b", "c"]
+    # Pattern: ,\s* or \s*,\s*
+    # Your code here
+    drop list-of
+;
+
+: split-sentences ( String -- List )
+    # Split on sentence-ending punctuation (. ! ?)
+    # Pattern: [.!?]+\s*
+    # Your code here
+    drop list-of
+;
+
+: test-split ( -- )
+    # Split CSV
+    "apple, banana,  cherry" split-csv
+    # Do not edit below this line
+    list.length 3 test.assert-eq
+
+    # Split sentences
+    "Hello! How are you? I'm fine." split-sentences
+    list.length 3 test.assert-eq
+;

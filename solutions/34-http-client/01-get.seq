@@ -1,0 +1,47 @@
+: response-ok? ( Map -- Bool )
+    "ok" map.get drop
+;
+
+: response-body ( Map -- String )
+    dup response-ok?
+    if
+        "body" map.get drop
+    else
+        drop ""
+    then
+;
+
+: response-status ( Map -- Int )
+    "status" map.get drop
+;
+
+: test-get ( -- )
+    map-of
+        "ok" true kv
+        "status" 200 kv
+        "body" "Hello, World!" kv
+
+    dup response-ok?
+    test.assert
+
+    dup response-status
+    200 test.assert-eq
+
+    response-body
+    "Hello, World!" test.assert-eq
+
+    map-of
+        "ok" false kv
+        "status" 404 kv
+        "error" "Not Found" kv
+        "body" "" kv
+
+    dup response-ok?
+    not test.assert
+
+    dup response-status
+    404 test.assert-eq
+
+    response-body
+    "" test.assert-eq
+;

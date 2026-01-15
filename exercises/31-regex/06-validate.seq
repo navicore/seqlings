@@ -1,0 +1,60 @@
+# Exercise: Input Validation
+#
+# Common validation patterns using regex.match?
+#
+# regex.valid? ( String -- Bool ) checks if a pattern is valid
+#
+# Your task: Implement validation functions
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: valid-email? ( String -- Bool )
+    # Basic email validation
+    # Pattern: something@something.something
+    # Simplified: ^[^@]+@[^@]+\.[^@]+$
+    # Your code here
+    drop false
+;
+
+: valid-phone? ( String -- Bool )
+    # US phone: 123-456-7890 or (123) 456-7890
+    # Simplified: just check for 10 digits
+    # Your code here
+    drop false
+;
+
+: valid-username? ( String -- Bool )
+    # Username: 3-16 alphanumeric chars, may include underscore
+    # Must start with a letter
+    # Pattern: ^[a-zA-Z][a-zA-Z0-9_]{2,15}$
+    # Your code here
+    drop false
+;
+
+: test-validate ( -- )
+    # Email validation
+    "user@example.com" valid-email?
+    # Do not edit below this line
+    test.assert
+
+    "invalid.email" valid-email?
+    not test.assert
+
+    # Phone validation (simplified - just 10 digits)
+    "5551234567" valid-phone?
+    test.assert
+
+    "555" valid-phone?
+    not test.assert
+
+    # Username validation
+    "john_doe123" valid-username?
+    test.assert
+
+    "ab" valid-username?
+    not test.assert
+
+    "123user" valid-username?
+    not test.assert
+;

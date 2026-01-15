@@ -1,0 +1,15 @@
+: split-csv ( String -- List )
+    "\\s*,\\s*" regex.split
+;
+
+: split-sentences ( String -- List )
+    "[.!?]+\\s*" regex.split
+;
+
+: test-split ( -- )
+    "apple, banana,  cherry" split-csv
+    list.length 3 test.assert-eq
+
+    "Hello! How are you? I'm fine." split-sentences
+    list.length 3 test.assert-eq
+;

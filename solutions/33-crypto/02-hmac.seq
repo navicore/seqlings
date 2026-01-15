@@ -1,0 +1,27 @@
+: sign-message ( String String -- String )
+    crypto.hmac-sha256
+;
+
+: verify-signature ( String String String -- Bool )
+    # ( message key expected-signature -- valid? )
+    rot rot           # ( expected message key )
+    crypto.hmac-sha256  # ( expected computed )
+    crypto.constant-time-eq
+;
+
+: test-hmac ( -- )
+    "Hello, World!" "secret-key" sign-message
+    64 string.length test.assert-eq
+
+    "test message" "key123" sign-message
+    "test message" "key123" sign-message
+    crypto.constant-time-eq test.assert
+
+    "test message" "key123" sign-message
+    "test message" "key123" rot verify-signature
+    test.assert
+
+    "test message" "key123" sign-message
+    "test message" "wrong-key" rot verify-signature
+    not test.assert
+;

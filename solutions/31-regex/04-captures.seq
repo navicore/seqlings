@@ -1,0 +1,39 @@
+: parse-date ( String -- String String String Bool )
+    "(\\d{4})-(\\d{2})-(\\d{2})" regex.captures
+    if
+        dup 0 list.get drop   # year
+        over 1 list.get drop  # month
+        rot 2 list.get drop   # day
+        true
+    else
+        drop "" "" "" false
+    then
+;
+
+: parse-time ( String -- String String Bool )
+    "(\\d{2}):(\\d{2})" regex.captures
+    if
+        dup 0 list.get drop   # hours
+        swap 1 list.get drop  # minutes
+        true
+    else
+        drop "" "" false
+    then
+;
+
+: test-captures ( -- )
+    "2024-01-15" parse-date
+    test.assert
+    "15" test.assert-eq
+    "01" test.assert-eq
+    "2024" test.assert-eq
+
+    "14:30" parse-time
+    test.assert
+    "30" test.assert-eq
+    "14" test.assert-eq
+
+    "not-a-date" parse-date
+    not test.assert
+    drop drop drop
+;

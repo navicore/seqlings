@@ -1,0 +1,46 @@
+# Exercise: Encoding Roundtrips
+#
+# A common pattern is to encode data, transmit it, then decode.
+# This exercise practices the roundtrip pattern with error handling.
+#
+# Your task: Implement roundtrip encoding functions
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: base64-roundtrip ( String -- String Bool )
+    # Encode to base64, then decode back
+    # Returns the original string and true if successful
+    # Your code here
+    false
+;
+
+: hex-roundtrip ( String -- String Bool )
+    # Encode to hex, then decode back
+    # Returns the original string and true if successful
+    # Your code here
+    false
+;
+
+: test-roundtrip ( -- )
+    # Base64 roundtrip
+    "The quick brown fox" base64-roundtrip
+    # Do not edit below this line
+    test.assert
+    "The quick brown fox" test.assert-eq
+
+    # Hex roundtrip
+    "jumps over" hex-roundtrip
+    test.assert
+    "jumps over" test.assert-eq
+
+    # Empty string roundtrip
+    "" base64-roundtrip
+    test.assert
+    "" test.assert-eq
+
+    # Special characters roundtrip
+    "Hello\nWorld\t!" base64-roundtrip
+    test.assert
+    "Hello\nWorld\t!" test.assert-eq
+;

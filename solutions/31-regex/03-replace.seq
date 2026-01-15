@@ -1,0 +1,18 @@
+: censor-numbers ( String -- String )
+    "\\d" "X" regex.replace-all
+;
+
+: normalize-whitespace ( String -- String )
+    "\\s+" " " regex.replace-all
+;
+
+: test-replace ( -- )
+    "Call 555-1234 or 555-5678" censor-numbers
+    "Call XXX-XXXX or XXX-XXXX" test.assert-eq
+
+    "hello    world   test" normalize-whitespace
+    "hello world test" test.assert-eq
+
+    "a\tb\t\tc" normalize-whitespace
+    "a b c" test.assert-eq
+;

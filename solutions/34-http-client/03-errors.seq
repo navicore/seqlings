@@ -1,0 +1,49 @@
+: is-success? ( Int -- Bool )
+    dup 200 i.>= swap 300 i.< and
+;
+
+: is-client-error? ( Int -- Bool )
+    dup 400 i.>= swap 500 i.< and
+;
+
+: is-server-error? ( Int -- Bool )
+    dup 500 i.>= swap 600 i.< and
+;
+
+: describe-status ( Int -- String )
+    dup is-success? if
+        drop "success"
+    else
+        dup is-client-error? if
+            drop "client-error"
+        else
+            is-server-error? if
+                "server-error"
+            else
+                "unknown"
+            then
+        then
+    then
+;
+
+: test-errors ( -- )
+    200 is-success? test.assert
+    201 is-success? test.assert
+    299 is-success? test.assert
+    300 is-success? not test.assert
+
+    400 is-client-error? test.assert
+    404 is-client-error? test.assert
+    499 is-client-error? test.assert
+    500 is-client-error? not test.assert
+
+    500 is-server-error? test.assert
+    503 is-server-error? test.assert
+    599 is-server-error? test.assert
+    600 is-server-error? not test.assert
+
+    200 describe-status "success" test.assert-eq
+    404 describe-status "client-error" test.assert-eq
+    500 describe-status "server-error" test.assert-eq
+    100 describe-status "unknown" test.assert-eq
+;

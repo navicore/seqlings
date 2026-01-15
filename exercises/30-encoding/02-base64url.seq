@@ -1,0 +1,44 @@
+# Exercise: URL-Safe Base64
+#
+# Standard Base64 uses +, /, and = which are problematic in URLs.
+# URL-safe Base64 uses - and _ instead, with no padding.
+#
+# encoding.base64url-encode ( String -- String )
+# encoding.base64url-decode ( String -- String Bool )
+#
+# Use cases:
+# - JWT tokens
+# - URL query parameters
+# - Filenames
+#
+# Your task: Implement URL-safe encoding/decoding
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: make-token ( String -- String )
+    # Create a URL-safe token from the input
+    # Your code here
+;
+
+: parse-token ( String -- String Bool )
+    # Decode a URL-safe Base64 token
+    # Your code here
+    false
+;
+
+: test-base64url ( -- )
+    # Test encoding
+    "user:12345" make-token
+    # Do not edit below this line
+    "dXNlcjoxMjM0NQ" test.assert-eq
+
+    # Test decoding
+    "YWRtaW46c2VjcmV0" parse-token
+    test.assert
+    "admin:secret" test.assert-eq
+
+    # Verify no padding (standard base64 would have =)
+    "ab" make-token
+    "YWI" test.assert-eq
+;

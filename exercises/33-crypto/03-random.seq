@@ -1,0 +1,51 @@
+# Exercise: Secure Random Generation
+#
+# Cryptographically secure random bytes for:
+# - Session tokens
+# - Encryption keys
+# - Unique identifiers
+#
+# crypto.random-bytes ( Int -- String )  # N bytes as hex
+# crypto.uuid4 ( -- String )             # UUID v4 format
+#
+# Your task: Generate random values
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: generate-token ( Int -- String )
+    # Generate a random token of N bytes (as hex)
+    # Your code here
+    drop ""
+;
+
+: generate-uuid ( -- String )
+    # Generate a UUID v4
+    # Your code here
+    ""
+;
+
+: test-random ( -- )
+    # 16 bytes = 32 hex characters
+    16 generate-token
+    # Do not edit below this line
+    32 string.length test.assert-eq
+
+    # 32 bytes = 64 hex characters
+    32 generate-token
+    64 string.length test.assert-eq
+
+    # Random bytes are different each time
+    16 generate-token
+    16 generate-token
+    = not test.assert
+
+    # UUID has correct format (36 chars with hyphens)
+    generate-uuid
+    36 string.length test.assert-eq
+
+    # UUIDs are different each time
+    generate-uuid
+    generate-uuid
+    = not test.assert
+;

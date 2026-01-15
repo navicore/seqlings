@@ -1,0 +1,43 @@
+# Exercise: Base64 Encoding
+#
+# Base64 encodes binary data as ASCII text using 64 characters:
+# A-Z, a-z, 0-9, +, / (and = for padding)
+#
+# encoding.base64-encode ( String -- String )
+# encoding.base64-decode ( String -- String Bool )
+#
+# Example:
+#   "Hello" encoding.base64-encode  # "SGVsbG8="
+#
+# Your task: Encode and decode the message
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: encode-message ( String -- String )
+    # Encode the input string to Base64
+    # Your code here
+;
+
+: decode-message ( String -- String Bool )
+    # Decode the Base64 string
+    # Returns the decoded string and a success flag
+    # Your code here
+    false
+;
+
+: test-base64 ( -- )
+    # Test encoding
+    "Hello, World!" encode-message
+    # Do not edit below this line
+    "SGVsbG8sIFdvcmxkIQ==" test.assert-eq
+
+    # Test decoding
+    "U2VxIGlzIGF3ZXNvbWU=" decode-message
+    test.assert
+    "Seq is awesome" test.assert-eq
+
+    # Test empty string
+    "" encode-message
+    "" test.assert-eq
+;

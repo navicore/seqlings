@@ -1,0 +1,27 @@
+: base64-roundtrip ( String -- String Bool )
+    encoding.base64-encode
+    encoding.base64-decode
+;
+
+: hex-roundtrip ( String -- String Bool )
+    encoding.hex-encode
+    encoding.hex-decode
+;
+
+: test-roundtrip ( -- )
+    "The quick brown fox" base64-roundtrip
+    test.assert
+    "The quick brown fox" test.assert-eq
+
+    "jumps over" hex-roundtrip
+    test.assert
+    "jumps over" test.assert-eq
+
+    "" base64-roundtrip
+    test.assert
+    "" test.assert-eq
+
+    "Hello\nWorld\t!" base64-roundtrip
+    test.assert
+    "Hello\nWorld\t!" test.assert-eq
+;

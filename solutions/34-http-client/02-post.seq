@@ -1,0 +1,31 @@
+: json-content-type ( -- String )
+    "application/json"
+;
+
+: form-content-type ( -- String )
+    "application/x-www-form-urlencoded"
+;
+
+: make-json-body ( String Int -- String )
+    # ( name age -- json )
+    int->string
+    swap
+    "{\"name\":\"" swap string.concat
+    "\",\"age\":" string.concat
+    swap string.concat
+    "}" string.concat
+;
+
+: test-post ( -- )
+    json-content-type
+    "application/json" test.assert-eq
+
+    form-content-type
+    "application/x-www-form-urlencoded" test.assert-eq
+
+    "Alice" 30 make-json-body
+    "{\"name\":\"Alice\",\"age\":30}" test.assert-eq
+
+    "Bob" 25 make-json-body
+    "{\"name\":\"Bob\",\"age\":25}" test.assert-eq
+;

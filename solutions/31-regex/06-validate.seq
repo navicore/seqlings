@@ -1,0 +1,34 @@
+: valid-email? ( String -- Bool )
+    "^[^@]+@[^@]+\\.[^@]+$" regex.match?
+;
+
+: valid-phone? ( String -- Bool )
+    "^\\d{10}$" regex.match?
+;
+
+: valid-username? ( String -- Bool )
+    "^[a-zA-Z][a-zA-Z0-9_]{2,15}$" regex.match?
+;
+
+: test-validate ( -- )
+    "user@example.com" valid-email?
+    test.assert
+
+    "invalid.email" valid-email?
+    not test.assert
+
+    "5551234567" valid-phone?
+    test.assert
+
+    "555" valid-phone?
+    not test.assert
+
+    "john_doe123" valid-username?
+    test.assert
+
+    "ab" valid-username?
+    not test.assert
+
+    "123user" valid-username?
+    not test.assert
+;

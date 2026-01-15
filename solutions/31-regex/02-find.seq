@@ -1,0 +1,20 @@
+: find-first-number ( String -- String Bool )
+    "\\d+" regex.find
+;
+
+: find-all-words ( String -- List )
+    "\\w+" regex.find-all
+;
+
+: test-find ( -- )
+    "Order #42 shipped" find-first-number
+    test.assert
+    "42" test.assert-eq
+
+    "no numbers" find-first-number
+    not test.assert
+    drop
+
+    "hello, world! how are you?" find-all-words
+    list.length 5 test.assert-eq
+;

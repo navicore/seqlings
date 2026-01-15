@@ -1,0 +1,34 @@
+: has-digits? ( String -- Bool )
+    "\\d" regex.match?
+;
+
+: starts-with-letter? ( String -- Bool )
+    "^[a-zA-Z]" regex.match?
+;
+
+: is-all-lowercase? ( String -- Bool )
+    "^[a-z]+$" regex.match?
+;
+
+: test-match ( -- )
+    "Order #123" has-digits?
+    test.assert
+
+    "No numbers here" has-digits?
+    not test.assert
+
+    "Hello" starts-with-letter?
+    test.assert
+
+    "123abc" starts-with-letter?
+    not test.assert
+
+    "hello" is-all-lowercase?
+    test.assert
+
+    "Hello" is-all-lowercase?
+    not test.assert
+
+    "hello world" is-all-lowercase?
+    not test.assert
+;

@@ -1,0 +1,49 @@
+# Exercise: Handling Decode Errors
+#
+# Decode operations can fail on invalid input.
+# Always check the Bool return value!
+#
+# Common errors:
+# - Invalid characters in encoded string
+# - Wrong padding in Base64
+# - Odd-length hex strings
+#
+# Your task: Implement safe decoding with error messages
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: safe-base64-decode ( String -- String )
+    # Decode base64, return "ERROR" on failure
+    # Your code here
+    drop "ERROR"
+;
+
+: safe-hex-decode ( String -- String )
+    # Decode hex, return "ERROR" on failure
+    # Your code here
+    drop "ERROR"
+;
+
+: test-errors ( -- )
+    # Valid base64
+    "SGVsbG8=" safe-base64-decode
+    # Do not edit below this line
+    "Hello" test.assert-eq
+
+    # Invalid base64 (bad characters)
+    "Not!!!Valid" safe-base64-decode
+    "ERROR" test.assert-eq
+
+    # Valid hex
+    "48656c6c6f" safe-hex-decode
+    "Hello" test.assert-eq
+
+    # Invalid hex (non-hex characters)
+    "xyz123" safe-hex-decode
+    "ERROR" test.assert-eq
+
+    # Invalid hex (odd length)
+    "123" safe-hex-decode
+    "ERROR" test.assert-eq
+;

@@ -1,0 +1,44 @@
+# Exercise: SHA-256 Hashing
+#
+# SHA-256 produces a 256-bit (64 hex character) hash.
+# Same input always produces same hash.
+# Different inputs produce different hashes.
+#
+# crypto.sha256 ( String -- String )
+#
+# Your task: Implement functions using SHA-256
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: hash-message ( String -- String )
+    # Hash a message with SHA-256
+    # Your code here
+    drop ""
+;
+
+: same-hash? ( String String -- Bool )
+    # Check if two strings produce the same hash
+    # Your code here
+    drop drop false
+;
+
+: test-sha256 ( -- )
+    # Basic hashing
+    "hello" hash-message
+    # Do not edit below this line
+    # SHA-256 of "hello" is a known value
+    64 string.length test.assert-eq   # Hash is 64 hex chars
+
+    # Same input = same hash
+    "test" "test" same-hash?
+    test.assert
+
+    # Different input = different hash
+    "hello" "Hello" same-hash?
+    not test.assert
+
+    # Empty string has a hash too
+    "" hash-message
+    64 string.length test.assert-eq
+;

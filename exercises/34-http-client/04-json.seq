@@ -1,0 +1,65 @@
+# Exercise: Working with JSON APIs
+#
+# Most modern APIs return JSON. Combine HTTP client with
+# JSON parsing to build useful API clients.
+#
+# Pattern:
+#   1. Make HTTP request
+#   2. Check for success
+#   3. Parse JSON body
+#   4. Extract needed fields
+#
+# Your task: Build helpers for JSON API responses
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: api-success? ( Map -- Bool )
+    # Check if API call succeeded (ok=true and status=200)
+    # Your code here
+    drop false
+;
+
+: get-json-body ( Map -- Map Bool )
+    # Get parsed JSON from response body
+    # Returns: ( json-map success )
+    # Your code here
+    drop map-of false
+;
+
+: test-json ( -- )
+    # Successful API response with JSON body
+    map-of
+        "ok" true kv
+        "status" 200 kv
+        "body" "{\"user\":\"alice\",\"id\":42}" kv
+    # Do not edit below this line
+
+    dup api-success?
+    test.assert
+
+    get-json-body
+    test.assert   # JSON parsing should succeed
+    "user" map.get drop
+    "alice" test.assert-eq
+
+    # Failed API response
+    map-of
+        "ok" false kv
+        "status" 500 kv
+        "error" "Server Error" kv
+        "body" "" kv
+
+    api-success?
+    not test.assert
+
+    # Response with invalid JSON
+    map-of
+        "ok" true kv
+        "status" 200 kv
+        "body" "not valid json" kv
+
+    get-json-body
+    not test.assert   # JSON parsing should fail
+    drop
+;

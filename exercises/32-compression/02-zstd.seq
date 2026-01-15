@@ -1,0 +1,39 @@
+# Exercise: Zstd Compression
+#
+# Zstandard (zstd) is a modern compression algorithm.
+# Faster than gzip with similar or better compression ratios.
+#
+# compress.zstd ( String -- String Bool )
+# compress.unzstd ( String -- String Bool )
+#
+# Your task: Implement zstd compression/decompression
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: zstd-compress ( String -- String Bool )
+    # Compress the input string with zstd
+    # Your code here
+    drop "" false
+;
+
+: zstd-decompress ( String -- String Bool )
+    # Decompress a zstd-compressed (base64) string
+    # Your code here
+    drop "" false
+;
+
+: test-zstd ( -- )
+    # Test compression
+    "Hello, Zstandard!" zstd-compress
+    # Do not edit below this line
+    test.assert
+    string.length 0 i.> test.assert
+
+    # Test roundtrip
+    "Modern compression is fast!" zstd-compress
+    test.assert
+    zstd-decompress
+    test.assert
+    "Modern compression is fast!" test.assert-eq
+;

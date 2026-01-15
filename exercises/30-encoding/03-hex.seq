@@ -1,0 +1,50 @@
+# Exercise: Hexadecimal Encoding
+#
+# Hex encoding represents each byte as two hex digits (0-9, a-f).
+# Useful for debugging, checksums, and cryptographic output.
+#
+# encoding.hex-encode ( String -- String )
+# encoding.hex-decode ( String -- String Bool )
+#
+# Example:
+#   "Hi" encoding.hex-encode  # "4869"
+#   "4869" encoding.hex-decode  # "Hi" true
+#
+# Note: Decode is case-insensitive (accepts "4869" or "4869")
+#
+# Your task: Implement hex encoding/decoding
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: to-hex ( String -- String )
+    # Convert string to hex representation
+    # Your code here
+;
+
+: from-hex ( String -- String Bool )
+    # Convert hex back to string
+    # Your code here
+    false
+;
+
+: test-hex ( -- )
+    # Test encoding
+    "Hello" to-hex
+    # Do not edit below this line
+    "48656c6c6f" test.assert-eq
+
+    # Test decoding
+    "576f726c64" from-hex
+    test.assert
+    "World" test.assert-eq
+
+    # Test case-insensitive decode
+    "48454C4C4F" from-hex
+    test.assert
+    "HELLO" test.assert-eq
+
+    # Test single byte
+    "A" to-hex
+    "41" test.assert-eq
+;

@@ -1,0 +1,28 @@
+: encrypt ( String String -- String Bool )
+    crypto.aes-gcm-encrypt
+;
+
+: decrypt ( String String -- String Bool )
+    crypto.aes-gcm-decrypt
+;
+
+: test-encrypt ( -- )
+    32 crypto.random-bytes
+
+    dup "Hello, Encryption!" swap encrypt
+    test.assert
+
+    dup string.length 18 i.> test.assert
+
+    rot decrypt
+    test.assert
+    "Hello, Encryption!" test.assert-eq
+
+    32 crypto.random-bytes
+    32 crypto.random-bytes
+    "Secret" rot encrypt
+    drop
+    swap decrypt
+    not test.assert
+    drop
+;

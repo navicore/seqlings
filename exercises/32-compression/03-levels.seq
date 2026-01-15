@@ -1,0 +1,51 @@
+# Exercise: Compression Levels
+#
+# Both gzip and zstd support compression levels.
+# Higher levels = better compression but slower.
+#
+# compress.gzip-level ( String Int -- String Bool )  # 1-9
+# compress.zstd-level ( String Int -- String Bool )  # 1-22
+#
+# Your task: Compress with specific levels
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: fast-gzip ( String -- String Bool )
+    # Compress with fastest gzip level (1)
+    # Your code here
+    drop "" false
+;
+
+: best-gzip ( String -- String Bool )
+    # Compress with best gzip level (9)
+    # Your code here
+    drop "" false
+;
+
+: fast-zstd ( String -- String Bool )
+    # Compress with fastest zstd level (1)
+    # Your code here
+    drop "" false
+;
+
+: test-levels ( -- )
+    # Test data - repeated text compresses well
+    "abcdefgh" dup string.concat dup string.concat dup string.concat
+
+    # Fast gzip
+    dup fast-gzip
+    # Do not edit below this line
+    test.assert
+    drop
+
+    # Best gzip (should be smaller or equal)
+    dup best-gzip
+    test.assert
+    drop
+
+    # Fast zstd
+    fast-zstd
+    test.assert
+    drop
+;

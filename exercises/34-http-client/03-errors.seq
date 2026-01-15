@@ -1,0 +1,62 @@
+# Exercise: HTTP Error Handling
+#
+# HTTP responses include status codes that indicate success or failure:
+#   2xx - Success (200 OK, 201 Created, etc.)
+#   4xx - Client errors (400 Bad Request, 404 Not Found, etc.)
+#   5xx - Server errors (500 Internal Server Error, etc.)
+#
+# Your task: Classify and handle HTTP errors
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: is-success? ( Int -- Bool )
+    # Status codes 200-299 are success
+    # Your code here
+    drop false
+;
+
+: is-client-error? ( Int -- Bool )
+    # Status codes 400-499 are client errors
+    # Your code here
+    drop false
+;
+
+: is-server-error? ( Int -- Bool )
+    # Status codes 500-599 are server errors
+    # Your code here
+    drop false
+;
+
+: describe-status ( Int -- String )
+    # Return "success", "client-error", "server-error", or "unknown"
+    # Your code here
+    drop "unknown"
+;
+
+: test-errors ( -- )
+    # Success codes
+    200 is-success? test.assert
+    # Do not edit below this line
+    201 is-success? test.assert
+    299 is-success? test.assert
+    300 is-success? not test.assert
+
+    # Client error codes
+    400 is-client-error? test.assert
+    404 is-client-error? test.assert
+    499 is-client-error? test.assert
+    500 is-client-error? not test.assert
+
+    # Server error codes
+    500 is-server-error? test.assert
+    503 is-server-error? test.assert
+    599 is-server-error? test.assert
+    600 is-server-error? not test.assert
+
+    # Describe status
+    200 describe-status "success" test.assert-eq
+    404 describe-status "client-error" test.assert-eq
+    500 describe-status "server-error" test.assert-eq
+    100 describe-status "unknown" test.assert-eq
+;

@@ -1,0 +1,42 @@
+# Exercise: Gzip Compression
+#
+# Gzip is the most widely-used compression format.
+# Used in HTTP (Accept-Encoding: gzip), tar.gz files, etc.
+#
+# compress.gzip ( String -- String Bool )
+# compress.gunzip ( String -- String Bool )
+#
+# Output is base64-encoded for safe text handling.
+#
+# Your task: Implement gzip compression/decompression
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: gzip-compress ( String -- String Bool )
+    # Compress the input string with gzip
+    # Your code here
+    drop "" false
+;
+
+: gzip-decompress ( String -- String Bool )
+    # Decompress a gzip-compressed (base64) string
+    # Your code here
+    drop "" false
+;
+
+: test-gzip ( -- )
+    # Test compression
+    "Hello, World!" gzip-compress
+    # Do not edit below this line
+    test.assert
+    # Result is base64-encoded, so not empty
+    string.length 0 i.> test.assert
+
+    # Test roundtrip
+    "Seq compression test!" gzip-compress
+    test.assert
+    gzip-decompress
+    test.assert
+    "Seq compression test!" test.assert-eq
+;

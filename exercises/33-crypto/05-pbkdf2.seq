@@ -1,0 +1,46 @@
+# Exercise: PBKDF2 Key Derivation
+#
+# PBKDF2 derives a cryptographic key from a password.
+# The slow iteration process resists brute-force attacks.
+#
+# crypto.pbkdf2-sha256 ( String String Int -- String Bool )
+#   ( password salt iterations -- key ok )
+#
+# Guidelines:
+# - Use unique salt per password (16+ bytes recommended)
+# - Use 100,000+ iterations (more is better but slower)
+# - Output is a 32-byte key suitable for AES-256
+#
+# Your task: Derive keys from passwords
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: derive-key ( String String -- String Bool )
+    # Derive a key with 100000 iterations
+    # Your code here
+    drop drop "" false
+;
+
+: test-pbkdf2 ( -- )
+    # Basic key derivation
+    "my-password" "unique-salt" derive-key
+    # Do not edit below this line
+    test.assert   # Should succeed
+    64 string.length test.assert-eq   # 32 bytes = 64 hex chars
+
+    # Same password + same salt = same key
+    "password123" "salt456" derive-key drop
+    "password123" "salt456" derive-key drop
+    = test.assert
+
+    # Different salt = different key (critical for security!)
+    "password123" "salt-a" derive-key drop
+    "password123" "salt-b" derive-key drop
+    = not test.assert
+
+    # Different password = different key
+    "alice" "same-salt" derive-key drop
+    "bob" "same-salt" derive-key drop
+    = not test.assert
+;

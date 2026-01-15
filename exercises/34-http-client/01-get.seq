@@ -1,0 +1,66 @@
+# Exercise: HTTP GET Requests
+#
+# http.get ( String -- Map )
+#
+# Returns a map with:
+#   "ok"     - Bool: true if successful
+#   "status" - Int: HTTP status code
+#   "body"   - String: response body
+#   "error"  - String: error message (if failed)
+#
+# Your task: Extract data from HTTP responses
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: response-ok? ( Map -- Bool )
+    # Check if response was successful
+    # Your code here
+    drop false
+;
+
+: response-body ( Map -- String )
+    # Get the response body (or empty string if failed)
+    # Your code here
+    drop ""
+;
+
+: response-status ( Map -- Int )
+    # Get the HTTP status code
+    # Your code here
+    drop 0
+;
+
+: test-get ( -- )
+    # Simulate a successful response
+    map-of
+        "ok" true kv
+        "status" 200 kv
+        "body" "Hello, World!" kv
+    # Do not edit below this line
+
+    dup response-ok?
+    test.assert
+
+    dup response-status
+    200 test.assert-eq
+
+    response-body
+    "Hello, World!" test.assert-eq
+
+    # Simulate a failed response
+    map-of
+        "ok" false kv
+        "status" 404 kv
+        "error" "Not Found" kv
+        "body" "" kv
+
+    dup response-ok?
+    not test.assert
+
+    dup response-status
+    404 test.assert-eq
+
+    response-body
+    "" test.assert-eq
+;

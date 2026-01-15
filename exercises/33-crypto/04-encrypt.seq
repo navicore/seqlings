@@ -1,0 +1,56 @@
+# Exercise: AES-GCM Encryption
+#
+# AES-256-GCM provides authenticated encryption:
+# - Confidentiality (data is encrypted)
+# - Integrity (tampered data is detected)
+#
+# crypto.aes-gcm-encrypt ( String String -- String Bool )  # ( message key -- ciphertext ok )
+# crypto.aes-gcm-decrypt ( String String -- String Bool )  # ( ciphertext key -- plaintext ok )
+#
+# Keys must be 32 bytes (64 hex characters).
+#
+# Your task: Encrypt and decrypt messages
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: encrypt ( String String -- String Bool )
+    # Encrypt a message with a key
+    # Your code here
+    drop drop "" false
+;
+
+: decrypt ( String String -- String Bool )
+    # Decrypt a ciphertext with a key
+    # Your code here
+    drop drop "" false
+;
+
+: test-encrypt ( -- )
+    # Generate a valid 32-byte key
+    32 crypto.random-bytes
+    # Do not edit below this line
+
+    # Encrypt a message
+    dup "Hello, Encryption!" swap encrypt
+    test.assert   # Encryption should succeed
+    # Stack: ( key ciphertext )
+
+    # Ciphertext is longer than plaintext (includes IV + tag)
+    dup string.length 18 i.> test.assert
+
+    # Decrypt with same key
+    rot decrypt
+    test.assert   # Decryption should succeed
+    "Hello, Encryption!" test.assert-eq
+
+    # Wrong key fails to decrypt
+    32 crypto.random-bytes   # key1
+    32 crypto.random-bytes   # key2
+    "Secret" rot encrypt
+    drop   # ignore success flag
+    # Stack: ( key2 ciphertext )
+    swap decrypt
+    not test.assert   # Should fail with wrong key
+    drop   # drop failed result
+;

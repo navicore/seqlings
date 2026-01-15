@@ -1,0 +1,19 @@
+: gzip-compress ( String -- String Bool )
+    compress.gzip
+;
+
+: gzip-decompress ( String -- String Bool )
+    compress.gunzip
+;
+
+: test-gzip ( -- )
+    "Hello, World!" gzip-compress
+    test.assert
+    string.length 0 i.> test.assert
+
+    "Seq compression test!" gzip-compress
+    test.assert
+    gzip-decompress
+    test.assert
+    "Seq compression test!" test.assert-eq
+;

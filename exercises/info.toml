@@ -846,3 +846,148 @@ mode = "test"
 name = "04-cancellation"
 path = "exercises/29-weave/04-cancellation.seq"
 mode = "test"
+
+# ============================================================
+# 30-encoding: Base64, Hex Encoding
+# ============================================================
+
+[[exercises]]
+name = "01-base64"
+path = "exercises/30-encoding/01-base64.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-base64url"
+path = "exercises/30-encoding/02-base64url.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-hex"
+path = "exercises/30-encoding/03-hex.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-roundtrip"
+path = "exercises/30-encoding/04-roundtrip.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-errors"
+path = "exercises/30-encoding/05-errors.seq"
+mode = "test"
+
+# ============================================================
+# 31-regex: Regular Expressions
+# ============================================================
+
+[[exercises]]
+name = "01-match"
+path = "exercises/31-regex/01-match.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-find"
+path = "exercises/31-regex/02-find.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-replace"
+path = "exercises/31-regex/03-replace.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-captures"
+path = "exercises/31-regex/04-captures.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-split"
+path = "exercises/31-regex/05-split.seq"
+mode = "test"
+
+[[exercises]]
+name = "06-validate"
+path = "exercises/31-regex/06-validate.seq"
+mode = "test"
+
+# ============================================================
+# 32-compression: Gzip and Zstd
+# ============================================================
+
+[[exercises]]
+name = "01-gzip"
+path = "exercises/32-compression/01-gzip.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-zstd"
+path = "exercises/32-compression/02-zstd.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-levels"
+path = "exercises/32-compression/03-levels.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-roundtrip"
+path = "exercises/32-compression/04-roundtrip.seq"
+mode = "test"
+
+# ============================================================
+# 33-crypto: Cryptography
+# ============================================================
+
+[[exercises]]
+name = "01-sha256"
+path = "exercises/33-crypto/01-sha256.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-hmac"
+path = "exercises/33-crypto/02-hmac.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-random"
+path = "exercises/33-crypto/03-random.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-encrypt"
+path = "exercises/33-crypto/04-encrypt.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-pbkdf2"
+path = "exercises/33-crypto/05-pbkdf2.seq"
+mode = "test"
+
+[[exercises]]
+name = "06-signatures"
+path = "exercises/33-crypto/06-signatures.seq"
+mode = "test"
+
+# ============================================================
+# 34-http-client: HTTP Client
+# ============================================================
+
+[[exercises]]
+name = "01-get"
+path = "exercises/34-http-client/01-get.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-post"
+path = "exercises/34-http-client/02-post.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-errors"
+path = "exercises/34-http-client/03-errors.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-json"
+path = "exercises/34-http-client/04-json.seq"
+mode = "test"

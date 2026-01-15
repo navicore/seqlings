@@ -1,0 +1,50 @@
+# Exercise: HTTP POST Requests
+#
+# http.post ( String String String -- Map )
+#          ( url body content-type -- response )
+#
+# Common content types:
+#   "application/json"
+#   "application/x-www-form-urlencoded"
+#   "text/plain"
+#
+# Your task: Prepare POST request data
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: json-content-type ( -- String )
+    # Return the JSON content type
+    # Your code here
+    ""
+;
+
+: form-content-type ( -- String )
+    # Return the form content type
+    # Your code here
+    ""
+;
+
+: make-json-body ( String Int -- String )
+    # Create JSON like {"name":"Alice","age":30}
+    # ( name age -- json )
+    # Your code here
+    drop drop ""
+;
+
+: test-post ( -- )
+    # Content types
+    json-content-type
+    # Do not edit below this line
+    "application/json" test.assert-eq
+
+    form-content-type
+    "application/x-www-form-urlencoded" test.assert-eq
+
+    # JSON body creation
+    "Alice" 30 make-json-body
+    "{\"name\":\"Alice\",\"age\":30}" test.assert-eq
+
+    "Bob" 25 make-json-body
+    "{\"name\":\"Bob\",\"age\":25}" test.assert-eq
+;

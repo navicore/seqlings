@@ -1,0 +1,19 @@
+: zstd-compress ( String -- String Bool )
+    compress.zstd
+;
+
+: zstd-decompress ( String -- String Bool )
+    compress.unzstd
+;
+
+: test-zstd ( -- )
+    "Hello, Zstandard!" zstd-compress
+    test.assert
+    string.length 0 i.> test.assert
+
+    "Modern compression is fast!" zstd-compress
+    test.assert
+    zstd-decompress
+    test.assert
+    "Modern compression is fast!" test.assert-eq
+;

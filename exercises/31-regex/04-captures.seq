@@ -1,0 +1,51 @@
+# Exercise: Capture Groups
+#
+# regex.captures extracts parenthesized groups from a pattern.
+#
+# regex.captures ( String String -- List Bool )
+#   Returns a list of captured strings (not including the full match)
+#
+# Example:
+#   "2024-01-15" "(\\d{4})-(\\d{2})-(\\d{2})" regex.captures
+#   # Result: ["2024", "01", "15"] true
+#
+# Your task: Extract structured data using capture groups
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: parse-date ( String -- String String String Bool )
+    # Parse "YYYY-MM-DD" format
+    # Return: year month day success
+    # Hint: Use capture groups, then extract list elements
+    # Your code here
+    drop "" "" "" false
+;
+
+: parse-time ( String -- String String Bool )
+    # Parse "HH:MM" format (24-hour)
+    # Return: hours minutes success
+    # Your code here
+    drop "" "" false
+;
+
+: test-captures ( -- )
+    # Parse a date
+    "2024-01-15" parse-date
+    # Do not edit below this line
+    test.assert
+    "15" test.assert-eq
+    "01" test.assert-eq
+    "2024" test.assert-eq
+
+    # Parse a time
+    "14:30" parse-time
+    test.assert
+    "30" test.assert-eq
+    "14" test.assert-eq
+
+    # Invalid date
+    "not-a-date" parse-date
+    not test.assert
+    drop drop drop
+;

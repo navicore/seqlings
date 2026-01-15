@@ -1,0 +1,21 @@
+: derive-key ( String String -- String Bool )
+    100000 crypto.pbkdf2-sha256
+;
+
+: test-pbkdf2 ( -- )
+    "my-password" "unique-salt" derive-key
+    test.assert
+    64 string.length test.assert-eq
+
+    "password123" "salt456" derive-key drop
+    "password123" "salt456" derive-key drop
+    = test.assert
+
+    "password123" "salt-a" derive-key drop
+    "password123" "salt-b" derive-key drop
+    = not test.assert
+
+    "alice" "same-salt" derive-key drop
+    "bob" "same-salt" derive-key drop
+    = not test.assert
+;

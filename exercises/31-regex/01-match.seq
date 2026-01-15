@@ -1,0 +1,62 @@
+# Exercise: Pattern Matching
+#
+# regex.match? checks if a pattern matches anywhere in the string.
+#
+# regex.match? ( String String -- Bool )
+#   - First string: the text to search
+#   - Second string: the regex pattern
+#
+# Example:
+#   "hello world" "wo.ld" regex.match?  # true
+#   "hello" "^h" regex.match?           # true (starts with h)
+#   "hello" "o$" regex.match?           # true (ends with o)
+#
+# Your task: Implement pattern matching functions
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: has-digits? ( String -- Bool )
+    # Check if string contains any digits
+    # Pattern: \d or [0-9]
+    # Your code here
+    drop false
+;
+
+: starts-with-letter? ( String -- Bool )
+    # Check if string starts with a letter (a-z or A-Z)
+    # Pattern: ^[a-zA-Z]
+    # Your code here
+    drop false
+;
+
+: is-all-lowercase? ( String -- Bool )
+    # Check if string is entirely lowercase letters
+    # Pattern: ^[a-z]+$
+    # Your code here
+    drop false
+;
+
+: test-match ( -- )
+    "Order #123" has-digits?
+    # Do not edit below this line
+    test.assert
+
+    "No numbers here" has-digits?
+    not test.assert
+
+    "Hello" starts-with-letter?
+    test.assert
+
+    "123abc" starts-with-letter?
+    not test.assert
+
+    "hello" is-all-lowercase?
+    test.assert
+
+    "Hello" is-all-lowercase?
+    not test.assert
+
+    "hello world" is-all-lowercase?
+    not test.assert
+;

@@ -1,0 +1,33 @@
+: safe-gzip-roundtrip ( String -- String Bool )
+    compress.gzip
+    if
+        compress.gunzip
+    else
+        drop "" false
+    then
+;
+
+: safe-zstd-roundtrip ( String -- String Bool )
+    compress.zstd
+    if
+        compress.unzstd
+    else
+        drop "" false
+    then
+;
+
+: test-roundtrip ( -- )
+    "The quick brown fox jumps over the lazy dog."
+    safe-gzip-roundtrip
+    test.assert
+    "The quick brown fox jumps over the lazy dog." test.assert-eq
+
+    "Pack my box with five dozen liquor jugs."
+    safe-zstd-roundtrip
+    test.assert
+    "Pack my box with five dozen liquor jugs." test.assert-eq
+
+    "" safe-gzip-roundtrip
+    test.assert
+    "" test.assert-eq
+;

@@ -1,0 +1,19 @@
+: make-token ( String -- String )
+    encoding.base64url-encode
+;
+
+: parse-token ( String -- String Bool )
+    encoding.base64url-decode
+;
+
+: test-base64url ( -- )
+    "user:12345" make-token
+    "dXNlcjoxMjM0NQ" test.assert-eq
+
+    "YWRtaW46c2VjcmV0" parse-token
+    test.assert
+    "admin:secret" test.assert-eq
+
+    "ab" make-token
+    "YWI" test.assert-eq
+;

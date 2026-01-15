@@ -1,0 +1,23 @@
+: hash-message ( String -- String )
+    crypto.sha256
+;
+
+: same-hash? ( String String -- Bool )
+    crypto.sha256
+    swap crypto.sha256
+    =
+;
+
+: test-sha256 ( -- )
+    "hello" hash-message
+    64 string.length test.assert-eq
+
+    "test" "test" same-hash?
+    test.assert
+
+    "hello" "Hello" same-hash?
+    not test.assert
+
+    "" hash-message
+    64 string.length test.assert-eq
+;

@@ -1,0 +1,32 @@
+: generate-keypair ( -- String String )
+    crypto.ed25519-keypair
+;
+
+: sign ( String String -- String Bool )
+    crypto.ed25519-sign
+;
+
+: verify ( String String String -- Bool )
+    crypto.ed25519-verify
+;
+
+: test-signatures ( -- )
+    generate-keypair
+
+    "Important document" swap sign
+    test.assert
+
+    "Important document" rot rot verify
+    test.assert
+
+    generate-keypair
+    "message" swap sign drop
+    "different message" rot rot verify
+    not test.assert
+
+    generate-keypair drop
+    generate-keypair swap drop
+    "test" rot sign drop
+    "test" rot rot verify
+    not test.assert
+;

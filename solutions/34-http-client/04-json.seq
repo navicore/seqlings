@@ -1,0 +1,43 @@
+: api-success? ( Map -- Bool )
+    dup "ok" map.get drop
+    swap "status" map.get drop
+    200 i.= and
+;
+
+: get-json-body ( Map -- Map Bool )
+    "body" map.get drop
+    json.parse
+;
+
+: test-json ( -- )
+    map-of
+        "ok" true kv
+        "status" 200 kv
+        "body" "{\"user\":\"alice\",\"id\":42}" kv
+
+    dup api-success?
+    test.assert
+
+    get-json-body
+    test.assert
+    "user" map.get drop
+    "alice" test.assert-eq
+
+    map-of
+        "ok" false kv
+        "status" 500 kv
+        "error" "Server Error" kv
+        "body" "" kv
+
+    api-success?
+    not test.assert
+
+    map-of
+        "ok" true kv
+        "status" 200 kv
+        "body" "not valid json" kv
+
+    get-json-body
+    not test.assert
+    drop
+;
