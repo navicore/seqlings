@@ -24,7 +24,7 @@
 : test-times ( -- )
     1
     # Your code here: run [ dup i.+ ] 3 times
-    0
+    drop 0
     # Do not edit below this line
     8 test.assert-eq
 ;
