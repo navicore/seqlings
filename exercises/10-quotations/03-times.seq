@@ -2,10 +2,10 @@
 #
 # `times` runs a quotation n times.
 #
-# Stack effect: ( n quot -- )
+# Stack effect: ( quot n -- )
 #
 # Example:
-#   0  5 [ 1 i.+ ] times   # Stack: ( 5 )
+#   0  [ 1 i.+ ] 5 times   # Stack: ( 5 )
 #   # Runs [ 1 i.+ ] 5 times, so 0 becomes 5
 #
 # HIGHER-ORDER INSIGHT:
