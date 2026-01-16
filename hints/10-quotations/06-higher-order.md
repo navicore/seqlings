@@ -5,31 +5,12 @@ You're creating a word that takes a quotation as input!
 ## Solution
 
 ```seq
-: apply-twice ( ..a quot -- ..b )
-    dup call call
+: apply-twice ( Int Quotation -- Int )
+    2 times
 ;
 ```
 
-Or using times:
-```seq
-: apply-twice ( ..a quot -- ..b )
-    2 swap times
-;
-```
-
-Wait, `times` expects `n quot`, so:
-```seq
-: apply-twice ( ..a quot -- ..b )
-    2 swap times
-;
-```
-
-Actually simpler:
-```seq
-: apply-twice ( ..a quot -- ..b )
-    dup call call
-;
-```
+The quotation is already on the stack, we just push `2` and call `times`.
 
 ## What You've Built
 
@@ -41,7 +22,3 @@ This is the same pattern as:
 - Rust's `iter.filter(predicate)`
 
 Writing words that accept quotations opens up powerful ways to structure code.
-
-## The Stack Effect
-
-Note `( ..a quot -- ..b )`. The `..a` and `..b` are stack polymorphism - the quotation can have any stack effect, and `apply-twice` works with it.

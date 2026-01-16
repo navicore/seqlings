@@ -1,5 +1,5 @@
-: apply-twice ( ..a quot -- ..b )
-    dup call call
+: apply-twice ( Int Quotation -- Int )
+    2 times
 ;
 
 : test-higher-order ( -- )

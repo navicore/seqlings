@@ -20,7 +20,7 @@
 
 # I AM NOT DONE
 
-: apply-twice ( ..a quot -- ..b )
+: apply-twice ( Int Quotation -- Int )
     # Your code here
     # Takes a quotation and applies it twice
     drop
