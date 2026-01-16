@@ -6,7 +6,7 @@
 
 ```seq
 3
-[ dup 100 > ] [ 2 i.* ] until
+[ 2 i.* ] [ dup 100 i.> ] until
 ```
 
 Trace:

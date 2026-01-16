@@ -3,10 +3,10 @@
 # `until` runs a body quotation UNTIL a condition becomes true.
 # (Opposite of while)
 #
-# Syntax: condition-quot body-quot until
+# Syntax: body-quot condition-quot until
 #
 # Example:
-#   0 [ dup 10 i.= ] [ 1 i.+ ] until   # Counts up to 10
+#   0 [ 1 i.+ ] [ dup 10 i.= ] until   # Counts up to 10
 #
 # HIGHER-ORDER INSIGHT:
 # `until` is just `while` with inverted condition logic.
@@ -23,9 +23,9 @@
 
 : test-until ( -- )
     3
-    # Your code here: double until > 100
-    # [ dup 100 i.> ] [ 2 i.* ] until
-    drop 0
+    # Your code here: body-quot condition-quot until
+    # Hint: body doubles, condition checks > 100
+
     # Do not edit below this line
     192 test.assert-eq
 ;
