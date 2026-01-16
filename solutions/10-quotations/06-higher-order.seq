@@ -1,4 +1,4 @@
-: apply-twice ( Int Quotation -- Int )
+: apply-twice ( Int [ Int -- Int ] -- Int )
     2 times
 ;
 

@@ -5,7 +5,7 @@ You're creating a word that takes a quotation as input!
 ## Solution
 
 ```seq
-: apply-twice ( Int Quotation -- Int )
+: apply-twice ( Int [ Int -- Int ] -- Int )
     2 times
 ;
 ```
