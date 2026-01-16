@@ -18,16 +18,12 @@
 
 # I AM NOT DONE
 
-# Forward declaration needed for mutual recursion
-: is-odd? ( Int -- Bool ) drop false ;
-
 : is-even? ( Int -- Bool )
     # Base case: 0 is even
     # Recursive: n is even if (n-1) is odd
     drop false
 ;
 
-# Now redefine is-odd? properly
 : is-odd? ( Int -- Bool )
     # Base case: 0 is not odd
     # Recursive: n is odd if (n-1) is even

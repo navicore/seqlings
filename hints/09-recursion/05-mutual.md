@@ -6,7 +6,7 @@ Two functions that call each other.
 
 ```seq
 : is-even? ( Int -- Bool )
-    dup 0 = if
+    dup 0 i.= if
         drop true
     else
         1 i.- is-odd?
@@ -14,7 +14,7 @@ Two functions that call each other.
 ;
 
 : is-odd? ( Int -- Bool )
-    dup 0 = if
+    dup 0 i.= if
         drop false
     else
         1 i.- is-even?
@@ -26,10 +26,6 @@ Two functions that call each other.
 
 - is-even?(4) → is-odd?(3) → is-even?(2) → is-odd?(1) → is-even?(0) → true
 - is-odd?(4) → is-even?(3) → is-odd?(2) → is-even?(1) → is-odd?(0) → false
-
-## Forward Declarations
-
-In Seq, you may need to declare a word before it's fully defined if another word references it. The exercise shows this pattern.
 
 ## Real-World Mutual Recursion
 
