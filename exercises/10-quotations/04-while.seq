@@ -26,9 +26,9 @@
 
 : test-while ( -- )
     80
-    # Your code here: divide by 2 while >= 10
-    # [ dup 10 i.>= ] [ 2 i./ ] while
-    drop 0
+    # Your code here: condition-quot body-quot while
+    # Hint: condition checks >= 10, body divides by 2
+
     # Do not edit below this line
     5 test.assert-eq
 ;
