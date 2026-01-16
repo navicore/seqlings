@@ -19,8 +19,8 @@
 
 : test-call ( -- )
     7
-    # Your code here: push [ dup i.* ] and call it
-    0
+    # Your code here: push [ dup i.* ] then use `call` to execute it
+
     # Do not edit below this line
     49 test.assert-eq
 ;

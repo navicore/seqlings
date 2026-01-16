@@ -1,5 +1,6 @@
 : test-basics ( -- )
     5
-    [ dup i.+ ] call
+    [ dup i.+ ]
+    call
     10 test.assert-eq
 ;
