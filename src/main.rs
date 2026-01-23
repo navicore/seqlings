@@ -8,10 +8,16 @@ mod runner;
 use clap::{Parser, Subcommand};
 use colored::Colorize;
 use exercise::{Exercise, ExerciseStatus, load_exercises};
+use include_dir::{include_dir, Dir};
 use std::collections::HashMap;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::process;
 use std::time::{Duration, SystemTime};
+
+// Embed exercise files at compile time
+static EXERCISES_DIR: Dir = include_dir!("$CARGO_MANIFEST_DIR/exercises");
+static SOLUTIONS_DIR: Dir = include_dir!("$CARGO_MANIFEST_DIR/solutions");
+static HINTS_DIR: Dir = include_dir!("$CARGO_MANIFEST_DIR/hints");
 
 /// Cache for exercise status to avoid repeated compiler invocations
 struct StatusCache {
@@ -85,6 +91,12 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
+    /// Initialize a new seqlings project directory
+    Init {
+        /// Directory name (defaults to "my-seqlings")
+        #[arg(default_value = "my-seqlings")]
+        path: PathBuf,
+    },
     /// Watch for file changes and auto-verify exercises
     Watch {
         /// Filter to a specific chapter (e.g., "07" or "07-conditionals")
@@ -116,21 +128,30 @@ enum Commands {
 fn main() {
     let cli = Cli::parse();
 
+    // Handle init command before loading exercises (since exercises may not exist yet)
+    if let Some(Commands::Init { path }) = cli.command {
+        cmd_init(&path);
+        return;
+    }
+
     // Load exercises
     let exercises = match load_exercises() {
         Ok(ex) => ex,
         Err(e) => {
             eprintln!("{} {}", "Error loading exercises:".red(), e);
+            eprintln!("\n{}", "Hint: Run 'seqlings init' to create a new project.".yellow());
             process::exit(1);
         }
     };
 
     if exercises.is_empty() {
         eprintln!("{}", "No exercises found in exercises/info.toml".red());
+        eprintln!("\n{}", "Hint: Run 'seqlings init' to create a new project.".yellow());
         process::exit(1);
     }
 
     match cli.command {
+        Some(Commands::Init { .. }) => unreachable!(), // Handled above
         Some(Commands::Watch { chapter }) => {
             let filtered = filter_by_chapter(&exercises, chapter.as_deref());
             cmd_watch(&filtered);
@@ -201,6 +222,87 @@ fn filter_by_chapter(exercises: &[Exercise], chapter: Option<&str>) -> Vec<Exerc
             filtered
         }
     }
+}
+
+/// Initialize a new seqlings project directory
+fn cmd_init(path: &Path) {
+    // Check if directory already exists
+    if path.exists() {
+        eprintln!(
+            "{} Directory '{}' already exists.",
+            "Error:".red(),
+            path.display()
+        );
+        eprintln!("Choose a different name or remove the existing directory.");
+        process::exit(1);
+    }
+
+    println!(
+        "{} Initializing seqlings project in '{}'...",
+        "→".cyan(),
+        path.display()
+    );
+
+    // Create the main directory
+    if let Err(e) = std::fs::create_dir_all(path) {
+        eprintln!("{} Failed to create directory: {}", "Error:".red(), e);
+        process::exit(1);
+    }
+
+    // Extract exercises
+    let exercises_path = path.join("exercises");
+    if let Err(e) = extract_dir(&EXERCISES_DIR, &exercises_path) {
+        eprintln!("{} Failed to extract exercises: {}", "Error:".red(), e);
+        process::exit(1);
+    }
+    println!("  {} exercises/", "✓".green());
+
+    // Extract solutions
+    let solutions_path = path.join("solutions");
+    if let Err(e) = extract_dir(&SOLUTIONS_DIR, &solutions_path) {
+        eprintln!("{} Failed to extract solutions: {}", "Error:".red(), e);
+        process::exit(1);
+    }
+    println!("  {} solutions/", "✓".green());
+
+    // Extract hints
+    let hints_path = path.join("hints");
+    if let Err(e) = extract_dir(&HINTS_DIR, &hints_path) {
+        eprintln!("{} Failed to extract hints: {}", "Error:".red(), e);
+        process::exit(1);
+    }
+    println!("  {} hints/", "✓".green());
+
+    println!(
+        "\n{} Project initialized successfully!",
+        "✓".green().bold()
+    );
+    println!("\nTo get started:");
+    println!("  {} {}", "cd".cyan(), path.display());
+    println!("  {}", "seqlings".cyan());
+}
+
+/// Extract an embedded directory to the filesystem
+fn extract_dir(dir: &Dir, target: &Path) -> std::io::Result<()> {
+    std::fs::create_dir_all(target)?;
+
+    for entry in dir.entries() {
+        let entry_path = target.join(entry.path().file_name().unwrap_or_default());
+
+        match entry {
+            include_dir::DirEntry::Dir(subdir) => {
+                extract_dir(subdir, &entry_path)?;
+            }
+            include_dir::DirEntry::File(file) => {
+                if let Some(parent) = entry_path.parent() {
+                    std::fs::create_dir_all(parent)?;
+                }
+                std::fs::write(&entry_path, file.contents())?;
+            }
+        }
+    }
+
+    Ok(())
 }
 
 /// Watch mode: continuously monitor exercises and provide feedback
