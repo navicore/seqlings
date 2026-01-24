@@ -10,10 +10,10 @@
 
 : test-string-empty ( -- )
     "" string.empty?
-    1 test.assert-eq
+    test.assert
 ;
 
 : test-string-not-empty ( -- )
     "hi" string.empty?
-    0 test.assert-eq
+    not test.assert
 ;

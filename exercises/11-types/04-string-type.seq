@@ -28,17 +28,17 @@
 ;
 
 : test-string-empty ( -- )
-    # Check if "" is empty (returns 1 for true)
+    # Check if "" is empty (returns true)
     # Your code here - use string.empty?
-    0
+    false
     # Do not edit below this line
-    1 test.assert-eq
+    test.assert
 ;
 
 : test-string-not-empty ( -- )
-    # Check that "hi" is not empty (returns 0 for false)
+    # Check that "hi" is not empty (returns false)
     # Your code here - use string.empty?
-    1
+    true
     # Do not edit below this line
-    0 test.assert-eq
+    not test.assert
 ;
