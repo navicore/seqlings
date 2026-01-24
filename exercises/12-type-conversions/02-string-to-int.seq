@@ -1,13 +1,13 @@
 # Exercise: String to Integer Conversion
 #
 # The `string->int` function parses a string as an integer.
-# This is essential when reading numeric input from users or files.
+# It returns a Result: Ok(Int) on success, Err on failure.
 #
 # Example:
-#   "123" string->int    # Stack: ( 123 )
-#   "-50" string->int    # Stack: ( -50 )
+#   "123" string->int unwrap    # Stack: ( 123 )
+#   "-50" string->int unwrap    # Stack: ( -50 )
 #
-# Your task: Parse the string "42" and double it.
+# Your task: Parse the string "42", unwrap the result, and double it.
 #
 # When done, delete the marker line below.
 

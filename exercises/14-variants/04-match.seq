@@ -16,6 +16,10 @@
 #     None -> default
 #   end
 #
+# Remember `unwrap` from chapter 12? It crashes on Err/None.
+# Here you'll implement `unwrap-or` - the safe alternative that
+# provides a default value instead of crashing.
+#
 # Your task: Match on variant values
 #
 # When done, delete the marker line below.

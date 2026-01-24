@@ -15,6 +15,10 @@
 # Check which variant using variant.tag:
 #   Make-Some has tag 0, Make-None has tag 1
 #
+# NOTE: We define our own Option here to learn how variants work.
+# The stdlib has a built-in Option type - and it's implemented in
+# Seq just like this! Most of the stdlib is written in Seq itself.
+#
 # Your task: Create and use Option values
 #
 # When done, delete the marker line below.

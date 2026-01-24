@@ -12,6 +12,11 @@
 #   42 Make-Ok           # Success with value 42
 #   "failed" Make-Err    # Failure with message
 #
+# NOTE: We define our own IntResult here to learn how variants work.
+# The stdlib has a built-in Result type - remember `string->int` from
+# chapter 12? It returns a Result, and you used `unwrap` to get the value.
+# The stdlib Result is implemented in Seq just like this example!
+#
 # Your task: Create success and failure results
 #
 # When done, delete the marker line below.
