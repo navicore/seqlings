@@ -15,13 +15,17 @@
 # I AM NOT DONE
 
 : test-int-add ( -- )
-    15 7 i.+
+    # Addition: 15 + 7 = 22
+    # Your code here - use i.+
+    0
     # Do not edit below this line
     22 test.assert-eq
 ;
 
 : test-int-multiply ( -- )
-    6 7 i.*
+    # Multiplication: 6 * 7 = 42
+    # Your code here - use i.*
+    0
     # Do not edit below this line
     42 test.assert-eq
 ;
