@@ -16,8 +16,8 @@
 # Your task: Implement `keep` - runs a quotation but keeps the original value.
 #   5 [ dup i.* ] keep   -> 25 5  (squared, but kept original)
 #
-# Signature: ( A Quotation -- B A )
-#   - Takes any value A and a quotation
+# Signature: ( A Variant -- B A )
+#   - Takes any value A and a quotation (Variant)
 #   - Runs the quotation (which produces B from A)
 #   - Returns both the result B AND the original A
 #
@@ -27,7 +27,7 @@
 
 # I AM NOT DONE
 
-: keep ( A Quotation -- B A )
+: keep ( A Variant -- B A )
     # Your code here
     # 1. Save the original value somehow
     # 2. Run the quotation

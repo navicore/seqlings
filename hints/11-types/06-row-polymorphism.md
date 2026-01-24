@@ -5,7 +5,7 @@ The key is to save the original value before running the quotation.
 ## Solution
 
 ```seq
-: keep ( A Quotation -- B A )
+: keep ( A Variant -- B A )
     over      # ( x quot x ) - copy x to top
     swap      # ( x x quot ) - get quot on top
     call      # ( x result ) - run quot, consumes one x
@@ -30,7 +30,7 @@ swap              # ( 25 5 )
 
 Notice the type signature:
 ```seq
-: keep ( A Quotation -- B A )
+: keep ( A Variant -- B A )
 ```
 
 - `A` is a type variable - it can be ANY type

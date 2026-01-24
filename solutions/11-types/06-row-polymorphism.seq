@@ -1,4 +1,4 @@
-: keep ( A Quotation -- B A )
+: keep ( A Variant -- B A )
     over
     swap
     call
