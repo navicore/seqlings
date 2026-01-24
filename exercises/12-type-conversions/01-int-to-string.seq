@@ -19,5 +19,5 @@
     0
 
     # Do not edit below this line
-    "2024" test.assert-eq
+    "2024" test.assert-eq-str
 ;

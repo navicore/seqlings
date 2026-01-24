@@ -1,4 +1,4 @@
 : test-int-to-string ( -- )
     2024 int->string
-    "2024" test.assert-eq
+    "2024" test.assert-eq-str
 ;
