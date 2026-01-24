@@ -19,7 +19,9 @@
 # I AM NOT DONE
 
 : test-float-add ( -- )
-    1.5 2.5 f.+
+    # Add 1.5 and 2.5
+    # Your code here - use f.+
+    0.0
     # Do not edit below this line
     4.0 f.= test.assert
 ;
