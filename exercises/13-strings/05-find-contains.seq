@@ -18,10 +18,14 @@
 # I AM NOT DONE
 
 : test-find-contains ( -- )
-    "stack-based programming" "stack" string.contains
+    # Check if "stack" is in "stack-based programming"
+    # Your code here - use string.contains
+    false
     # Do not edit below this line
     test.assert
 
-    "stack-based programming" "heap" string.contains
+    # Check if "heap" is in "stack-based programming" (it's not)
+    # Your code here - use string.contains
+    true
     not test.assert
 ;
