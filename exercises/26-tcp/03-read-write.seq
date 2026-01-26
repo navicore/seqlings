@@ -4,12 +4,15 @@
 # `tcp.write` writes data to a socket.
 #
 # Stack effects:
-#   tcp.read  ( socket -- string )
-#   tcp.write ( string socket -- )
+#   tcp.read  ( socket -- string success )
+#   tcp.write ( string socket -- success )
 #
 # Example:
-#   client tcp.read      # Read from client
-#   "Hello!" client tcp.write  # Write to client
+#   client tcp.read           # ( string success )
+#   if process-request        # Read succeeded
+#   else drop then            # Read failed, drop empty string
+#
+#   "Hello!" client tcp.write drop  # Write (drop success Bool)
 #
 # Note: tcp.read may return partial data. For protocols,
 # you may need to accumulate until you have a complete message.
@@ -21,11 +24,14 @@
 
 : test-read-write ( -- )
     # In real code:
-    #   client tcp.read         # Get request
-    #   process-request         # Do something with it
-    #   response client tcp.write  # Send response
+    #   client tcp.read
+    #   if
+    #     process-request
+    #     response client tcp.write drop
+    #   else
+    #     drop  # drop empty string on read failure
+    #   then
 
-    # Note the order: tcp.write takes (string socket --)
     # Do not edit below this line
     true test.assert
 ;

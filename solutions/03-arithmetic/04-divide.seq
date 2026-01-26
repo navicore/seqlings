@@ -1,4 +1,5 @@
 : test-divide ( -- )
     100 8 i./
+    test.assert
     12 test.assert-eq
 ;

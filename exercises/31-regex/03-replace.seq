@@ -1,15 +1,18 @@
 # Exercise: Search and Replace
 #
 # regex.replace replaces the first match:
-#   regex.replace ( String String String -- String )
-#   ( text pattern replacement -- result )
+#   regex.replace ( String String String -- String Bool )
+#   ( text pattern replacement -- result success )
 #
 # regex.replace-all replaces all matches:
-#   regex.replace-all ( String String String -- String )
+#   regex.replace-all ( String String String -- String Bool )
+#
+# Returns success Bool (false if regex is invalid).
+# Drop the Bool when you know the pattern is valid.
 #
 # Example:
-#   "hello world" "world" "Seq" regex.replace  # "hello Seq"
-#   "aaa" "a" "b" regex.replace-all            # "bbb"
+#   "hello world" "world" "Seq" regex.replace drop  # "hello Seq"
+#   "aaa" "a" "b" regex.replace-all drop            # "bbb"
 #
 # Your task: Implement text transformations
 # When done, delete the marker line below.
@@ -17,13 +20,13 @@
 # I AM NOT DONE
 
 : censor-numbers ( String -- String )
-    # Replace all digits with X
+    # Replace all digits with X (drop the success Bool)
     # Your code here
 ;
 
 : normalize-whitespace ( String -- String )
     # Replace multiple spaces/tabs with a single space
-    # Pattern for whitespace: \s+
+    # Pattern for whitespace: \s+ (drop the success Bool)
     # Your code here
 ;
 

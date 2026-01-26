@@ -3,7 +3,7 @@
 ;
 
 : find-all-words ( String -- List )
-    "\\w+" regex.find-all
+    "\\w+" regex.find-all drop
 ;
 
 : test-find ( -- )

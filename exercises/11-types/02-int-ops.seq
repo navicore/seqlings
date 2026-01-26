@@ -4,9 +4,10 @@
 #   i.+       Add
 #   i.-  Subtract
 #   i.*  Multiply
-#   i./    Divide (integer division, truncates)
-#   i.mod       Modulo (remainder)
+#   i./    Divide (returns quotient and success Bool)
+#   i.mod       Modulo (returns remainder and success Bool)
 #
+# Division and modulo return (value Bool) to handle division by zero.
 # These operations require both operands to be integers.
 #
 # Your task: Perform integer arithmetic
@@ -31,17 +32,19 @@
 ;
 
 : test-int-divide ( -- )
-    # Integer division: 17 / 5 i.= 3 (truncates)
-    # Your code here - use i./
-    0
+    # Integer division: 17 / 5 = 3 (truncates)
+    # Your code here - use i./ (returns value and success Bool)
+    0 false
     # Do not edit below this line
+    test.assert
     3 test.assert-eq
 ;
 
 : test-int-mod ( -- )
-    # Modulo: 17 mod 5 i.= 2 (remainder)
-    # Your code here - use i.mod
-    0
+    # Modulo: 17 mod 5 = 2 (remainder)
+    # Your code here - use i.mod (returns value and success Bool)
+    0 false
     # Do not edit below this line
+    test.assert
     2 test.assert-eq
 ;

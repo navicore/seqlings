@@ -2,10 +2,13 @@
 #
 # `tcp.listen` creates a TCP socket listening on a port.
 #
-# Stack effect: ( port -- socket )
+# Stack effect: ( port -- socket success )
+#   Returns the socket handle and a Bool indicating success.
+#   Failure can occur if the port is already in use.
 #
 # Example:
-#   8080 tcp.listen   # Listen on port 8080
+#   8080 tcp.listen   # ( socket true ) on success
+#                     # ( 0 false ) if port unavailable
 #
 # The returned socket is a handle used for accepting connections.
 #
@@ -20,8 +23,12 @@
 : test-listen ( -- )
     # In real code:
     #   8080 tcp.listen
-    #   # ... accept connections ...
-    #   tcp.close   # Close when done
+    #   if
+    #     # ... accept connections ...
+    #     tcp.close drop
+    #   else
+    #     drop "Failed to bind" io.write-line
+    #   then
 
     # Verify you understand: tcp.listen takes a port number
     # Do not edit below this line

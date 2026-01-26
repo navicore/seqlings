@@ -5,7 +5,7 @@
 #
 # Example: A temperature converter
 #   : c-to-f ( Int -- Int )
-#       9 i.* 5 i./ 32 i.+
+#       9 i.* 5 i./ drop 32 i.+
 #   ;
 #   # Now you can think in terms of c-to-f, not the formula
 #
@@ -17,7 +17,7 @@
 
 : is-even? ( Int -- Bool )
     # Your code here
-    # Hint: use i.mod with 2, then check if result is 0
+    # Hint: use i.mod with 2 (drop the success Bool), then check if result is 0
     drop false
 ;
 

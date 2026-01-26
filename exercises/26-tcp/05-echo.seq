@@ -12,9 +12,9 @@
 #
 # Example echo handler:
 #   : handle-echo ( client -- )
-#       dup tcp.read     # Read from client
-#       over tcp.write   # Write it back
-#       tcp.close        # Close client
+#       dup tcp.read drop   # Read from client (drop success)
+#       over tcp.write drop # Write it back (drop success)
+#       tcp.close drop      # Close client (drop success)
 #   ;
 #
 # Your task: Trace through the echo pattern.
@@ -24,9 +24,9 @@
 
 : echo-handler ( socket -- )
     # Your mental trace:
-    # 1. dup tcp.read - reads data, stack: (socket data)
-    # 2. over tcp.write - writes data back, stack: (socket)
-    # 3. tcp.close - closes socket, stack: ()
+    # 1. dup tcp.read drop - reads data, stack: (socket data)
+    # 2. over tcp.write drop - writes data back, stack: (socket)
+    # 3. tcp.close drop - closes socket, stack: ()
     drop
 ;
 

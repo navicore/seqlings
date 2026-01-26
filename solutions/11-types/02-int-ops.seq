@@ -10,10 +10,12 @@
 
 : test-int-divide ( -- )
     17 5 i./
+    test.assert
     3 test.assert-eq
 ;
 
 : test-int-mod ( -- )
     17 5 i.mod
+    test.assert
     2 test.assert-eq
 ;

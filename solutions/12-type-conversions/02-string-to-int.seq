@@ -1,4 +1,4 @@
 : test-string-to-int ( -- )
-    "42" string->int unwrap 2 i.*
+    "42" string->int drop 2 i.*
     84 test.assert-eq
 ;

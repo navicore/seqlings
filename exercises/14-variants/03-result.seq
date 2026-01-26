@@ -13,9 +13,10 @@
 #   "failed" Make-Err    # Failure with message
 #
 # NOTE: We define our own IntResult here to learn how variants work.
-# The stdlib has a built-in Result type - remember `string->int` from
-# chapter 12? It returns a Result, and you used `unwrap` to get the value.
-# The stdlib Result is implemented in Seq just like this example!
+# Seq's stdlib uses the simpler (value Bool) pattern for error handling -
+# remember `string->int` from chapter 12? It returns (Int Bool).
+# This exercise shows how you COULD implement a Result type as a union,
+# which is useful for understanding ADTs and when you need error messages.
 #
 # Your task: Create success and failure results
 #
