@@ -16,9 +16,9 @@
 #     None -> default
 #   end
 #
-# Remember `unwrap` from chapter 12? It crashes on Err/None.
-# Here you'll implement `unwrap-or` - the safe alternative that
-# provides a default value instead of crashing.
+# Remember the (value Bool) pattern from chapter 12? You had to check
+# the Bool or drop it. Here you'll implement `unwrap-or` for your
+# custom Option type - providing a default value when None.
 #
 # Your task: Match on variant values
 #

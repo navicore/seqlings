@@ -2,11 +2,12 @@
 #
 # regex.split divides a string by a pattern.
 #
-# regex.split ( String String -- List )
+# regex.split ( String String -- List Bool )
+#   Returns list and success Bool (false if regex is invalid).
 #
 # Example:
-#   "a,b,c" "," regex.split  # ["a", "b", "c"]
-#   "a1b2c3" "[0-9]" regex.split  # ["a", "b", "c"]
+#   "a,b,c" "," regex.split drop  # ["a", "b", "c"]
+#   "a1b2c3" "[0-9]" regex.split drop  # ["a", "b", "c"]
 #
 # Your task: Split strings using regex patterns
 # When done, delete the marker line below.
@@ -16,14 +17,14 @@
 : split-csv ( String -- List )
     # Split on comma with optional surrounding whitespace
     # "a, b,  c" -> ["a", "b", "c"]
-    # Pattern: ,\s* or \s*,\s*
+    # Pattern: \s*,\s* (drop the success Bool)
     # Your code here
     drop list-of
 ;
 
 : split-sentences ( String -- List )
     # Split on sentence-ending punctuation (. ! ?)
-    # Pattern: [.!?]+\s*
+    # Pattern: [.!?]+\s* (drop the success Bool)
     # Your code here
     drop list-of
 ;

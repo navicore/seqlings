@@ -3,12 +3,14 @@
 # The `i./` operator performs INTEGER division (rounds toward zero).
 # (You can also write `i.divide` - both forms work.)
 #
-# Stack effect: ( a b -- quotient )
-#   Result is: a / b
+# Stack effect: ( a b -- quotient success )
+#   Returns the quotient and a Bool indicating success.
+#   Division by zero returns (0, false).
 #
 # Example:
-#   20 4 i./    # Stack: ( 5 )
-#   17 5 i./    # Stack: ( 3 )  - remainder is discarded
+#   20 4 i./    # Stack: ( 5 true )
+#   17 5 i./    # Stack: ( 3 true )  - remainder is discarded
+#   10 0 i./    # Stack: ( 0 false ) - division by zero
 #
 # Your task: Calculate 100 / 8 (integer division gives 12).
 # When done, delete the marker line below.
@@ -17,7 +19,9 @@
 
 : test-divide ( -- )
     # Your code here - what's 100 divided by 8 (integer)?
-    0
+    # Remember: i./ returns (quotient success), assert success then check value
+    0 false
     # Do not edit below this line
+    test.assert
     12 test.assert-eq
 ;

@@ -1,9 +1,9 @@
 : censor-numbers ( String -- String )
-    "\\d" "X" regex.replace-all
+    "\\d" "X" regex.replace-all drop
 ;
 
 : normalize-whitespace ( String -- String )
-    "\\s+" " " regex.replace-all
+    "\\s+" " " regex.replace-all drop
 ;
 
 : test-replace ( -- )

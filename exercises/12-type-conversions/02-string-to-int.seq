@@ -1,20 +1,23 @@
 # Exercise: String to Integer Conversion
 #
 # The `string->int` function parses a string as an integer.
-# It returns a Result: Ok(Int) on success, Err on failure.
+# It returns (Int Bool) - the value and a success flag.
 #
 # Example:
-#   "123" string->int unwrap    # Stack: ( 123 )
-#   "-50" string->int unwrap    # Stack: ( -50 )
+#   "123" string->int    # Stack: ( 123 true )
+#   "abc" string->int    # Stack: ( 0 false )
 #
-# Your task: Parse the string "42", unwrap the result, and double it.
+# Drop the Bool when you know parsing will succeed, or check it
+# to handle errors gracefully.
+#
+# Your task: Parse the string "42" and double it.
 #
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : test-string-to-int ( -- )
-    # Parse "42" to an integer and multiply by 2
+    # Parse "42" to an integer (drop success Bool) and multiply by 2
     # Your code here
     0
 

@@ -4,11 +4,12 @@
 #   regex.find ( String String -- String Bool )
 #
 # regex.find-all returns all matches as a list:
-#   regex.find-all ( String String -- List )
+#   regex.find-all ( String String -- List Bool )
+#   Returns list and success Bool (false if regex is invalid)
 #
 # Example:
-#   "a1 b2 c3" "[0-9]" regex.find      # "1" true
-#   "a1 b2 c3" "[0-9]" regex.find-all  # ["1", "2", "3"]
+#   "a1 b2 c3" "[0-9]" regex.find           # ( "1" true )
+#   "a1 b2 c3" "[0-9]" regex.find-all drop  # ["1", "2", "3"]
 #
 # Your task: Extract data using regex
 # When done, delete the marker line below.
@@ -23,6 +24,7 @@
 
 : find-all-words ( String -- List )
     # Find all sequences of word characters (\w+)
+    # Return only the list (drop the success Bool)
     # Your code here
     drop list-of
 ;
