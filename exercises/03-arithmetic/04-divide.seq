@@ -20,7 +20,8 @@
 : test-divide ( -- )
     # Your code here - what's 100 divided by 8 (integer)?
     # Remember: i./ returns (quotient success), assert success then check value
-    0
+    0 false
     # Do not edit below this line
+    test.assert
     12 test.assert-eq
 ;
