@@ -1,11 +1,20 @@
-union IntResult { Ok { value: Int }, Err { error: String } }
+union IntResult {
+    Ok { value: Int }
+    Err { error: String }
+}
 
-: is-ok? ( IntResult -- Int )
-    variant.tag 0 =
+: is-ok? ( IntResult -- Bool )
+    match
+        Ok { >value } -> drop true
+        Err { >error } -> drop false
+    end
 ;
 
-: is-err? ( IntResult -- Int )
-    variant.tag 1 =
+: is-err? ( IntResult -- Bool )
+    match
+        Ok { >value } -> drop false
+        Err { >error } -> drop true
+    end
 ;
 
 : success ( Int -- IntResult )

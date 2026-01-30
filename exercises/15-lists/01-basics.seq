@@ -16,9 +16,9 @@
 
 # I AM NOT DONE
 
-: has-three-elements? ( Variant -- Int )
+: has-three-elements? ( List -- Bool )
     # Your code here
-    drop 0
+    drop false
 ;
 
 : test-basics ( -- )

@@ -1,16 +1,32 @@
-union TrafficLight { Stop, Go, Caution }
+union TrafficLight { Stop Go Caution }
+
+: is-stop? ( TrafficLight -- Bool )
+    match
+        Stop -> true
+        Go -> false
+        Caution -> false
+    end
+;
+
+: is-go? ( TrafficLight -- Bool )
+    match
+        Stop -> false
+        Go -> true
+        Caution -> false
+    end
+;
 
 : test-create-stop ( -- )
-    Make-Stop variant.tag
-    0 test.assert-eq
+    Make-Stop is-stop?
+    test.assert
 ;
 
 : test-create-go ( -- )
-    Make-Go variant.tag
-    1 test.assert-eq
+    Make-Go is-go?
+    test.assert
 ;
 
-: test-create-caution ( -- )
-    Make-Caution variant.tag
-    2 test.assert-eq
+: test-stop-not-go ( -- )
+    Make-Stop is-go?
+    not test.assert
 ;

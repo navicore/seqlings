@@ -1,10 +1,9 @@
-union Option { Some { value: Int }, None }
+union Option { Some { value: Int } None }
 
 : unwrap-or ( Option Int -- Int )
-    swap
-    match
-        Some { >value } -> drop value
-        None -> # default is already on stack
+    swap match
+        Some { >value } -> nip
+        None ->
     end
 ;
 

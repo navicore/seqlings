@@ -1,11 +1,20 @@
-union Option { Some { value: Int }, None }
+union Option {
+    Some { value: Int }
+    None
+}
 
-: is-some? ( Option -- Int )
-    variant.tag 0 =
+: is-some? ( Option -- Bool )
+    match
+        Some { >value } -> drop true
+        None -> false
+    end
 ;
 
-: is-none? ( Option -- Int )
-    variant.tag 1 =
+: is-none? ( Option -- Bool )
+    match
+        Some { >value } -> drop false
+        None -> true
+    end
 ;
 
 : test-some ( -- )

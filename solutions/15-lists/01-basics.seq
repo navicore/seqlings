@@ -1,5 +1,5 @@
-: has-three-elements? ( Variant -- Int )
-    list.length 3 =
+: has-three-elements? ( List -- Bool )
+    list.length 3 i.=
 ;
 
 : test-basics ( -- )

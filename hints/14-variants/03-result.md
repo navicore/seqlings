@@ -1,15 +1,28 @@
 # Hint: Result Type
 
-## Solution
+## Constructors
+
+The constructors are auto-generated as `Make-Ok` and `Make-Err`:
 
 ```seq
-: success ( Int -- Result )
-    Ok
+: success ( Int -- IntResult )
+    Make-Ok
 ;
 
-: failure ( String -- Result )
-    Err
+: failure ( String -- IntResult )
+    Make-Err
 ;
 ```
 
 Just apply the constructor to wrap the value.
+
+## Checking variants with match
+
+```seq
+: is-ok? ( IntResult -- Bool )
+    match
+        Ok { >value } -> drop true
+        Err { >error } -> drop false
+    end
+;
+```

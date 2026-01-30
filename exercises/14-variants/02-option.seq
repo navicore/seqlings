@@ -2,7 +2,10 @@
 #
 # The Option type represents a value that might or might not exist.
 #
-# union Option { Some { value: Int }, None }
+# union Option {
+#   Some { value: Int }
+#   None
+# }
 #
 # The compiler generates:
 #   Make-Some  ( Int -- Option )
@@ -12,50 +15,53 @@
 #   42 Make-Some     # An Option containing 42
 #   Make-None        # An empty Option
 #
-# Check which variant using variant.tag:
-#   Make-Some has tag 0, Make-None has tag 1
+# Use match to check which variant:
+#   my-option match
+#     Some { >value } -> value   # extracts the value field
+#     None -> 0                  # handle empty case
+#   end
 #
 # NOTE: We define our own Option here to learn how variants work.
 # The stdlib has a built-in Option type - and it's implemented in
 # Seq just like this! Most of the stdlib is written in Seq itself.
 #
-# Your task: Create and use Option values
+# Your task: Implement is-some? and is-none? using match
 #
 # When done, delete the marker line below.
 
-union Option { Some { value: Int }, None }
+union Option {
+    Some { value: Int }
+    None
+}
 
 # I AM NOT DONE
 
-# Helper to check if Option is Some (tag 0)
-: is-some? ( Option -- Int )
-    variant.tag 0 =
+: is-some? ( Option -- Bool )
+    # Return true if Some, false if None
+    # Your code here - use match
+    drop false
 ;
 
-# Helper to check if Option is None (tag 1)
-: is-none? ( Option -- Int )
-    variant.tag 1 =
+: is-none? ( Option -- Bool )
+    # Return true if None, false if Some
+    # Your code here - use match
+    drop false
 ;
 
 : test-some ( -- )
     100 Make-Some is-some?
-
     # Do not edit below this line
     test.assert
 ;
 
 : test-none ( -- )
     Make-None is-none?
-
     # Do not edit below this line
     test.assert
 ;
 
 : test-some-not-none ( -- )
-    # Check that Some is NOT None
-    # Your code here - use Make-Some and is-none?
-    true
-
+    42 Make-Some is-none?
     # Do not edit below this line
     not test.assert
 ;

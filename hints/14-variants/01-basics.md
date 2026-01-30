@@ -1,12 +1,19 @@
 # Hint: Variant Basics
 
-## variant.tag
+## Using match
 
-Each variant has a tag index (0, 1, 2, ...) corresponding to its position in the definition.
+Use `match` to check which variant you have:
 
 ```seq
-union TrafficLight { Stop, Go, Caution }
-# Stop = tag 0, Go = tag 1, Caution = tag 2
+union TrafficLight { Stop Go Caution }
+
+: is-stop? ( TrafficLight -- Bool )
+    match
+        Stop -> true
+        Go -> false
+        Caution -> false
+    end
+;
 ```
 
 The compiler auto-generates `Make-Stop`, `Make-Go`, `Make-Caution` constructors.
@@ -14,8 +21,11 @@ The compiler auto-generates `Make-Stop`, `Make-Go`, `Make-Caution` constructors.
 ## Solution
 
 ```seq
-: test-create-go ( -- )
-    Make-Go variant.tag
-    1 test.assert-eq   # Go is at index 1
+: is-go? ( TrafficLight -- Bool )
+    match
+        Stop -> false
+        Go -> true
+        Caution -> false
+    end
 ;
 ```

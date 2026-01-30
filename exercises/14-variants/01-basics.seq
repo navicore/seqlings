@@ -3,42 +3,52 @@
 # Unions define types with multiple alternatives (also called ADTs).
 #
 # Define a union:
-#   union Color { Red, Green, Blue }
+#   union Color { Red Green Blue }
 #
 # The compiler auto-generates constructor words:
 #   Make-Red     # ( -- Color ) Creates a Red Color
 #   Make-Green   # ( -- Color ) Creates a Green Color
 #
-# Check the variant tag (returns tag index as Int):
-#   Make-Red variant.tag      # Returns 0 (first variant)
-#   Make-Green variant.tag    # Returns 1 (second variant)
+# Use `match` to check which variant you have:
+#   my-color match
+#     Red -> "It's red"
+#     Green -> "It's green"
+#     Blue -> "It's blue"
+#   end
 #
-# Your task: Work with variant basics
+# Your task: Create variants and identify them with match
 # When done, delete the marker line below.
 
-union TrafficLight { Stop, Go, Caution }
+union TrafficLight { Stop Go Caution }
 
 # I AM NOT DONE
 
+: is-stop? ( TrafficLight -- Bool )
+    # Return true if this is Stop, false otherwise
+    # Your code here - use match
+    drop false
+;
+
+: is-go? ( TrafficLight -- Bool )
+    # Return true if this is Go, false otherwise
+    # Your code here - use match
+    drop false
+;
+
 : test-create-stop ( -- )
-    # Stop is the first variant, so its tag is 0
-    Make-Stop variant.tag
+    Make-Stop is-stop?
     # Do not edit below this line
-    0 test.assert-eq
+    test.assert
 ;
 
 : test-create-go ( -- )
-    # Go is the second variant (index 1)
-    # Your code here - use Make-Go and get its tag
-    0
+    Make-Go is-go?
     # Do not edit below this line
-    1 test.assert-eq
+    test.assert
 ;
 
-: test-create-caution ( -- )
-    # Caution is the third variant (index 2)
-    # Your code here - use Make-Caution
-    0
+: test-stop-not-go ( -- )
+    Make-Stop is-go?
     # Do not edit below this line
-    2 test.assert-eq
+    not test.assert
 ;
