@@ -1,4 +1,5 @@
 [![Release to crates.io](https://github.com/navicore/seqlings/actions/workflows/release.yml/badge.svg)](https://github.com/navicore/seqlings/actions/workflows/release.yml)
+[![seqlings](https://img.shields.io/crates/v/seqlings.svg?label=seqlings)](https://crates.io/crates/seqlings)
 
 # Seqlings
 
