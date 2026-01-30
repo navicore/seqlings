@@ -125,13 +125,12 @@ A comprehensive curriculum covering ALL Seq built-ins and standard library.
 - 05-unions - Defining union types
 - 06-match - Pattern matching with match
 
-### 15-lists (6 exercises)
+### 15-lists (5 exercises)
 - 01-basics - list.length, list.empty?
 - 02-map - list.map with quotations
 - 03-filter - list.filter
 - 04-fold - list.fold (reduce)
-- 05-each - list.each
-- 06-combine - Chaining list operations
+- 05-combine - Chaining list operations
 
 ### 16-maps (6 exercises)
 - 01-create - map.make

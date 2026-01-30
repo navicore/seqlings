@@ -359,13 +359,8 @@ path = "exercises/15-lists/04-fold.seq"
 mode = "test"
 
 [[exercises]]
-name = "05-each"
-path = "exercises/15-lists/05-each.seq"
-mode = "test"
-
-[[exercises]]
-name = "06-list-combine"
-path = "exercises/15-lists/06-combine.seq"
+name = "05-list-combine"
+path = "exercises/15-lists/05-combine.seq"
 mode = "test"
 
 # ============================================================
