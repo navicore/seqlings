@@ -1,0 +1,35 @@
+# Exercise: Combining List Operations
+#
+# The real power emerges when you chain operations.
+#
+# Example: Get total length of long words
+#   "a be see deep" " " string.split
+#   [ string.length 2 i.> ] list.filter   # keeps "see" "deep"
+#   0 [ string.length i.+ ] list.fold  # 7 (3 + 4)
+#
+# HIGHER-ORDER INSIGHT:
+# Each operation is a building block. Combine them to express
+# complex transformations clearly. This is the essence of
+# functional programming with higher-order functions.
+#
+# Your task: Count total characters in words that start with 'a'.
+#   1. Filter to keep only words starting with 'a'
+#   2. Fold to sum their lengths
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: count-a-word-chars ( Variant -- Int )
+    # Your code here
+    # Step 1: filter words starting with 'a' using [ 0 string.char-at 97 i.= ]
+    #         (97 is ASCII for 'a')
+    # Step 2: fold with [ string.length i.+ ], starting from 0
+    drop 0
+;
+
+: test-combine ( -- )
+    "apple banana apricot cherry" " " string.split count-a-word-chars
+    # Do not edit below this line
+    12 test.assert-eq   # "apple" (5) + "apricot" (7) = 12
+;

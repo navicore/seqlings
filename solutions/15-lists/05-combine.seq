@@ -1,0 +1,9 @@
+: count-a-word-chars ( Variant -- Int )
+    [ 0 string.char-at 97 i.= ] list.filter
+    0 [ string.length i.+ ] list.fold
+;
+
+: test-combine ( -- )
+    "apple banana apricot cherry" " " string.split count-a-word-chars
+    12 test.assert-eq   # "apple" (5) + "apricot" (7) = 12
+;
