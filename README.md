@@ -1,3 +1,5 @@
+[![Release to crates.io](https://github.com/navicore/seqlings/actions/workflows/release.yml/badge.svg)](https://github.com/navicore/seqlings/actions/workflows/release.yml)
+
 # Seqlings
 
 Interactive exercises for learning [Seq](https://github.com/navicore/patch-seq), a stack-based programming language.
