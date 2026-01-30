@@ -1,8 +1,0 @@
-: print-uppercase ( Variant -- )
-    [ string.to-upper io.write-line ] list.each
-;
-
-: test-each ( -- )
-    "hello world" " " string.split print-uppercase
-    true test.assert
-;
