@@ -1,5 +1,11 @@
 : join-with-dash ( Variant -- String )
-    "" [ swap dup string.empty? if drop else "-" string.concat then swap string.concat ] list.fold
+    "" [
+        swap dup string.empty? if
+            drop                              # first element: just keep it
+        else
+            "-" string.concat swap string.concat  # append "-elem" to acc
+        then
+    ] list.fold
 ;
 
 : test-fold ( -- )
