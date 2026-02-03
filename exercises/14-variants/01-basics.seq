@@ -16,6 +16,10 @@
 #     Blue -> "It's blue"
 #   end
 #
+# NOTE: Seq 4.0 auto-generates predicates like `is-Stop?` for each variant.
+# We'll implement our own `is-stop?` here to learn how `match` works -
+# the auto-generated ones work the same way under the hood!
+#
 # Your task: Create variants and identify them with match
 # When done, delete the marker line below.
 

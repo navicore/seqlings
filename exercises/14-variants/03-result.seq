@@ -27,6 +27,9 @@
 # This exercise shows how you COULD implement a Result type as a union,
 # which is useful for understanding ADTs and when you need error messages.
 #
+# Seq 4.0 auto-generates: is-Ok?, is-Err?, Ok-value, Err-error
+# We implement our own to understand the underlying match pattern.
+#
 # Your task: Implement is-ok? and is-err? using match, then create
 # success and failure wrapper functions.
 #

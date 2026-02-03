@@ -25,6 +25,11 @@
 # The stdlib has a built-in Option type - and it's implemented in
 # Seq just like this! Most of the stdlib is written in Seq itself.
 #
+# Seq 4.0 auto-generates for each variant:
+#   - Predicates: is-Some?, is-None?
+#   - Field accessors: Some-value (extracts the value field)
+# We implement our own to understand how match works internally.
+#
 # Your task: Implement is-some? and is-none? using match
 #
 # When done, delete the marker line below.
