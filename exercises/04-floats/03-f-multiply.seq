@@ -12,13 +12,22 @@
 #   2.5 4.0 f.*    # Stack: ( 10.0 )
 #   7.0 2.0 f./    # Stack: ( 3.5 ) - not truncated!
 #
-# Your task: Calculate 15.0 / 4.0 to get 3.75.
+# Your task: Multiply and divide floats.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : test-f-multiply ( -- )
-    # Your code here
+    # Multiply 2.5 by 4.0 to get 10.0
+    # Your code here - use f.*
+    0.0
+    # Do not edit below this line
+    10.0 f.= test.assert
+;
+
+: test-f-divide ( -- )
+    # Divide 15.0 by 4.0 to get 3.75
+    # Your code here - use f./
     0.0
     # Do not edit below this line
     3.75 f.= test.assert
