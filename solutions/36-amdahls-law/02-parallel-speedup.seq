@@ -1,0 +1,26 @@
+: test-parallel-speedup ( -- )
+    chan.make   # work
+    chan.make   # results
+
+    2dup [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop
+           over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop
+           drop drop ] strand.spawn drop
+    drop drop
+    2dup [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop
+           over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop
+           drop drop ] strand.spawn drop
+    drop drop
+
+    over 10 swap chan.send drop
+    over 20 swap chan.send drop
+    over 30 swap chan.send drop
+    over 40 swap chan.send drop
+
+    dup chan.receive drop
+    over chan.receive drop i.+
+    over chan.receive drop i.+
+    over chan.receive drop i.+
+    nip nip
+
+    104 test.assert-eq
+;

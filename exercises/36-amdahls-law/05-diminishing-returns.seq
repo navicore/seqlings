@@ -1,0 +1,58 @@
+# Exercise: Diminishing Returns
+#
+# Amdahl's Law predicts diminishing returns from adding workers.
+#
+# With p=0.75 (75% parallelizable):
+#   1 worker:  speedup = 1.00x
+#   2 workers: speedup = 1.60x  (+0.60)
+#   4 workers: speedup = 2.29x  (+0.69)
+#   8 workers: speedup = 2.91x  (+0.62)
+#   infinity workers: speedup = 4.00x  (maximum!)
+#
+# Each additional worker helps less. This is why throwing
+# more cores at a problem has limits.
+#
+# We demonstrate: 4 items, each 10ms, with serial overhead of 10ms.
+# Total serial baseline = 10 + 40 = 50ms
+# With 4 workers: 10 + 10 = 20ms (speedup ~ 2.5x, not 4x!)
+#
+# Your task: Run 4 items through 4 workers with serial overhead.
+# Verify all items processed correctly.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+# Helper: spawn a worker that processes one item
+: spawn-one ( work results -- work results )
+    2dup [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
+    drop drop
+;
+
+: test-diminishing-returns ( -- )
+    chan.make   # work
+    chan.make   # results
+
+    # Spawn 4 workers
+    spawn-one
+    spawn-one
+    spawn-one
+    spawn-one
+
+    # Serial overhead: 10ms setup
+    10 time.sleep-ms
+
+    # Send 4 items
+    over 10 swap chan.send drop
+    over 20 swap chan.send drop
+    over 30 swap chan.send drop
+    over 40 swap chan.send drop
+
+    # Your code here:
+    # 1. Receive 4 results and sum them
+    # 2. Serial overhead: 10ms aggregation
+    # 3. Expected sum: 11 + 21 + 31 + 41 = 104
+    drop drop 0
+
+    # Do not edit below this line
+    104 test.assert-eq
+;

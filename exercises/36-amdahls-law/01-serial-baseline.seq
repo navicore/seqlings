@@ -1,0 +1,46 @@
+# Exercise: Serial Baseline
+#
+# Amdahl's Law: Speedup = 1 / ((1-p) + p/n)
+#   p = fraction of work that can be parallelized
+#   n = number of workers
+#
+# Before measuring speedup, we need a baseline.
+# Time a serial task: 3 items processed sequentially (10ms each).
+#
+# Your task: Measure the total time for serial processing.
+# Send 3 items to 1 worker, receive all results.
+# Elapsed time should be >= 30ms (3 x 10ms).
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-serial-baseline ( -- )
+    chan.make   # work
+    chan.make   # results
+
+    # 1 worker processes 3 items serially
+    2dup [ swap chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
+           swap chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
+           swap chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
+           drop drop ] strand.spawn drop
+    drop drop
+
+    time.now   # start
+
+    # Send 3 items
+    rot 1 swap chan.send drop
+    rot 1 swap chan.send drop
+    rot 1 swap chan.send drop
+
+    # Your code here:
+    # 1. Receive 3 results from results channel
+    # 2. Drop the received values (we just need timing)
+    # 3. Measure elapsed time
+    # Stack has ( results start ) after sends
+    # Leave elapsed time on stack
+    drop drop 0
+
+    # Do not edit below this line
+    # Serial: 3 items x 10ms = at least 30ms
+    30 >= test.assert
+;

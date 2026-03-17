@@ -1,0 +1,22 @@
+: test-serial-fraction ( -- )
+    chan.make   # work
+    chan.make   # results
+
+    2dup [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
+    drop drop
+    2dup [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
+    drop drop
+
+    10 time.sleep-ms
+
+    over 100 swap chan.send drop
+    over 200 swap chan.send drop
+
+    dup chan.receive drop
+    over chan.receive drop i.+
+    nip nip
+
+    10 time.sleep-ms
+
+    302 test.assert-eq
+;

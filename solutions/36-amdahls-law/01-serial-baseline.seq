@@ -1,0 +1,26 @@
+: test-serial-baseline ( -- )
+    chan.make   # work
+    chan.make   # results
+
+    2dup [ swap chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
+           swap chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
+           swap chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
+           drop drop ] strand.spawn drop
+    drop drop
+
+    time.now
+
+    rot 1 swap chan.send drop
+    rot 1 swap chan.send drop
+    rot 1 swap chan.send drop
+
+    # Receive 3 results
+    rot dup chan.receive drop drop
+    dup chan.receive drop drop
+    dup chan.receive drop drop
+    drop   # drop results channel
+    # Stack: ( start )
+    time.now swap i.-
+
+    30 >= test.assert
+;

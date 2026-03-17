@@ -986,3 +986,61 @@ mode = "test"
 name = "04-json"
 path = "exercises/34-http-client/04-json.seq"
 mode = "test"
+
+# ============================================================
+# 35-littles-law: Little's Law (L = λW)
+# ============================================================
+
+[[exercises]]
+name = "01-measure-latency"
+path = "exercises/35-littles-law/01-measure-latency.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-throughput"
+path = "exercises/35-littles-law/02-throughput.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-queue-depth"
+path = "exercises/35-littles-law/03-queue-depth.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-verify-law"
+path = "exercises/35-littles-law/04-verify-law.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-capacity-planning"
+path = "exercises/35-littles-law/05-capacity-planning.seq"
+mode = "test"
+
+# ============================================================
+# 36-amdahls-law: Amdahl's Law (Speedup = 1/((1-p) + p/n))
+# ============================================================
+
+[[exercises]]
+name = "01-serial-baseline"
+path = "exercises/36-amdahls-law/01-serial-baseline.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-parallel-speedup"
+path = "exercises/36-amdahls-law/02-parallel-speedup.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-serial-fraction"
+path = "exercises/36-amdahls-law/03-serial-fraction.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-calculate-speedup"
+path = "exercises/36-amdahls-law/04-calculate-speedup.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-diminishing-returns"
+path = "exercises/36-amdahls-law/05-diminishing-returns.seq"
+mode = "test"

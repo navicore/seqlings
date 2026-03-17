@@ -1,0 +1,42 @@
+# Exercise: Capacity Planning
+#
+# Little's Law lets us plan capacity:
+#   L = λW → Workers needed ≈ λ × W
+#
+# If each request takes W = 50ms and we expect
+# λ = 100 requests/second = 0.1 requests/ms:
+#   L = 0.1 × 50 = 5 workers needed
+#
+# In this exercise, we demonstrate the principle:
+# - 4 items, each takes 20ms to process
+# - With 1 worker: ~80ms total (serial)
+# - With 2 workers: ~40ms total (parallel pairs)
+# - With 4 workers: ~20ms total (fully parallel)
+#
+# Your task: Spawn 4 workers to process 4 items in parallel.
+# All 4 should complete in roughly 20ms (one batch).
+# Verify all results are collected.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+# Helper: spawn a worker that processes one item
+: spawn-worker ( work results -- work results )
+    2dup [ over chan.receive drop 20 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
+    drop drop
+;
+
+: test-capacity-planning ( -- )
+    chan.make   # work
+    chan.make   # results
+
+    # Your code here:
+    # 1. Call spawn-worker 4 times to create 4 workers
+    # 2. Send 4 items: 10, 20, 30, 40
+    # 3. Receive 4 results and sum them
+    # Expected sum: 11 + 21 + 31 + 41 = 104
+    drop drop 0
+
+    # Do not edit below this line
+    104 test.assert-eq
+;

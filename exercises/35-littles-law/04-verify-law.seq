@@ -1,0 +1,62 @@
+# Exercise: Verify Little's Law
+#
+# Little's Law: L = λW
+#   L = avg items in system
+#   λ = throughput (items/sec)
+#   W = avg latency per item
+#
+# We verify with a controlled experiment:
+#   - 1 worker, processing time = 20ms per item
+#   - Send 3 items as fast as possible
+#   - W ≈ 20ms (each item's processing time)
+#   - Total time ≈ 60ms (3 × 20ms with 1 worker)
+#   - λ = 3 items / 60ms ≈ 0.05 items/ms
+#   - L = λ × W = 0.05 × 20 = 1.0
+#
+# With 1 worker, L = 1 makes sense: on average, 1 item
+# is being processed at any moment.
+#
+# Now add a second worker:
+#   - Total time ≈ 40ms (ceiling of 3/2 × 20ms)
+#   - λ = 3 / 40ms ≈ 0.075 items/ms
+#   - L = 0.075 × 20 = 1.5
+#
+# With 2 workers, L ≈ 1.5: on average, 1-2 items in flight.
+#
+# Your task: Run 4 items through 2 workers (20ms each).
+# Calculate that more workers = higher throughput.
+# The 2 workers should finish 4 items in ~40ms (2 batches).
+# Verify all items are processed (sum check).
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-verify-law ( -- )
+    chan.make   # work
+    chan.make   # results
+
+    # Spawn 2 workers: each processes items with 20ms delay
+    2dup [ over chan.receive drop 20 time.sleep-ms 1 i.+ swap chan.send drop
+           over chan.receive drop 20 time.sleep-ms 1 i.+ swap chan.send drop
+           drop drop ] strand.spawn drop
+    drop drop
+    2dup [ over chan.receive drop 20 time.sleep-ms 1 i.+ swap chan.send drop
+           over chan.receive drop 20 time.sleep-ms 1 i.+ swap chan.send drop
+           drop drop ] strand.spawn drop
+    drop drop
+
+    # Send 4 items
+    over 10 swap chan.send drop
+    over 20 swap chan.send drop
+    over 30 swap chan.send drop
+    over 40 swap chan.send drop
+
+    # Your code here:
+    # Receive 4 results, sum them
+    # Items 10,20,30,40 each get +1 = 11,21,31,41
+    # Sum should be 104
+    drop drop 0
+
+    # Do not edit below this line
+    104 test.assert-eq
+;

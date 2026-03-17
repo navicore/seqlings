@@ -1,0 +1,44 @@
+# Exercise: Calculate Speedup
+#
+# Amdahl's Law: Speedup = 1 / ((1-p) + p/n)
+#
+# Let's calculate! If our task has:
+#   - Total serial time = 40ms (with 1 worker)
+#   - Parallel portion = 30ms (p = 30/40 = 0.75)
+#   - Serial portion = 10ms (1-p = 0.25)
+#
+# With n=2 workers:
+#   Speedup = 1 / (0.25 + 0.75/2) = 1 / 0.625 = 1.6x
+#   Predicted time = 40 / 1.6 = 25ms
+#
+# With n=3 workers:
+#   Speedup = 1 / (0.25 + 0.75/3) = 1 / 0.50 = 2.0x
+#   Predicted time = 40 / 2.0 = 20ms
+#
+# With n=infinity workers:
+#   Speedup = 1 / 0.25 = 4.0x maximum!
+#   The serial fraction limits us to 4x no matter what.
+#
+# Your task: Calculate the maximum theoretical speedup
+# when the serial fraction is 25% (1-p = 0.25).
+# Maximum speedup = 1 / (1-p) = 1 / 0.25 = 4
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-calculate-speedup ( -- )
+    # Given: serial fraction = 25%, parallel fraction = 75%
+    # Calculate maximum speedup (infinite workers)
+    # max_speedup = 1 / serial_fraction = 1 / 0.25 = 4
+    #
+    # Using integer math: if serial_portion = 10ms out of 40ms total,
+    # max_speedup = total / serial = 40 / 10 = 4
+    #
+    # Your code here:
+    # Push total_time (40) and serial_time (10)
+    # Calculate total / serial = max speedup
+    0
+
+    # Do not edit below this line
+    4 test.assert-eq
+;

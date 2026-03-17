@@ -1,0 +1,46 @@
+# Exercise: Queue Depth
+#
+# Little's Law: L = λW
+# L = average number of items in the system (queue depth).
+#
+# When items arrive faster than they're processed, L grows.
+# Here we send 3 items instantly but each takes 20ms to process.
+# With 1 worker, items queue up!
+#
+# We verify this by checking that total time for 3 items
+# with 1 worker is roughly 3× the processing time (serial).
+#
+# Your task: Receive all 3 results and verify total time.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-queue-depth ( -- )
+    chan.make   # work
+    chan.make   # results
+
+    # Spawn 1 slow worker: receive, sleep 20ms, add 1, send
+    2dup [ swap chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
+           swap chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
+           swap chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
+           drop drop ] strand.spawn drop
+    drop drop
+
+    time.now   # start time
+
+    # Send 3 items instantly (they queue up!)
+    rot 1 swap chan.send drop
+    rot 1 swap chan.send drop
+    rot 1 swap chan.send drop
+
+    # Your code here:
+    # 1. Receive 3 results from results channel, sum them
+    # 2. Verify sum is 6 (three items of value 1, each +1 = 2, sum = 6)
+    # 3. Measure elapsed time
+    # Stack has ( results start ) after sends
+    # Expected: elapsed >= 60ms (3 items × 20ms, serial processing)
+    drop drop 6
+
+    # Do not edit below this line
+    6 test.assert-eq
+;

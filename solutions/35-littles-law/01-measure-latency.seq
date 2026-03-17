@@ -1,0 +1,18 @@
+: test-measure-latency ( -- )
+    chan.make   # work channel
+    chan.make   # results channel
+
+    2dup [ over chan.receive drop 10 time.sleep-ms swap chan.send drop drop ] strand.spawn drop
+    drop drop
+
+    time.now
+
+    rot 1 swap chan.send drop
+
+    # Receive result
+    swap dup chan.receive drop drop   # ( start results )
+    drop                              # ( start )
+    time.now swap i.-                 # ( elapsed )
+
+    10 >= test.assert
+;

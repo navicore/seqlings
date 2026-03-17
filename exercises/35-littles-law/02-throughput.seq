@@ -1,0 +1,44 @@
+# Exercise: Measure Throughput
+#
+# Little's Law: L = λW
+# Now we measure λ (throughput) - the rate items complete.
+#
+# λ = items_completed / total_time
+#
+# With 2 workers each sleeping 10ms and 4 items to process,
+# workers process in parallel so total time < 4 × 10ms.
+#
+# Your task: Send 4 items and receive all 4 results.
+# Each worker adds 1 to the item value.
+# Items: 10, 20, 30, 40 → Results: 11, 21, 31, 41 (sum = 104)
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-throughput ( -- )
+    chan.make   # work
+    chan.make   # results
+
+    # Spawn 2 workers: receive, sleep 10ms, add 1, send result
+    2dup [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
+    drop drop
+    2dup [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
+    drop drop
+
+    # Send 4 items
+    over 10 swap chan.send drop
+    over 20 swap chan.send drop
+    over 30 swap chan.send drop
+    over 40 swap chan.send drop
+
+    # Your code here:
+    # Receive 4 results and sum them
+    # Remember: chan.receive returns ( value Bool ) - drop the Bool
+    # After receiving all 4, sum them up
+    # Clean up channels from stack, leave just the sum
+    drop drop 0
+
+    # Do not edit below this line
+    # 11 + 21 + 31 + 41 = 104
+    104 test.assert-eq
+;

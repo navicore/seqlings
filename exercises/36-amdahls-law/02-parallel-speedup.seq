@@ -1,0 +1,46 @@
+# Exercise: Parallel Speedup
+#
+# Amdahl's Law: Speedup = 1 / ((1-p) + p/n)
+#
+# Now let's parallelize! With 2 workers processing 4 items
+# (10ms each), the parallel portion finishes faster.
+#
+# Serial time: 4 x 10ms = 40ms
+# Parallel (2 workers): 2 batches x 10ms = ~20ms for parallel work
+#
+# But there's always some serial overhead (sending items,
+# collecting results). So actual speedup < 2x.
+#
+# Your task: Process 4 items with 2 workers, verify all complete.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-parallel-speedup ( -- )
+    chan.make   # work
+    chan.make   # results
+
+    # Spawn 2 workers: each processes 2 items
+    2dup [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop
+           over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop
+           drop drop ] strand.spawn drop
+    drop drop
+    2dup [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop
+           over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop
+           drop drop ] strand.spawn drop
+    drop drop
+
+    # Send 4 items
+    over 10 swap chan.send drop
+    over 20 swap chan.send drop
+    over 30 swap chan.send drop
+    over 40 swap chan.send drop
+
+    # Your code here:
+    # Receive 4 results and sum them
+    # Expected: 11 + 21 + 31 + 41 = 104
+    drop drop 0
+
+    # Do not edit below this line
+    104 test.assert-eq
+;

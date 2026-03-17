@@ -1,0 +1,45 @@
+# Exercise: Measure Latency
+#
+# Little's Law: L = λW
+# Before we can apply the law, we need to measure W (latency).
+#
+# W = the average time an item spends in the system.
+# Here, we'll time a single item through a worker:
+#   send item → worker processes (sleeps 10ms) → receive result
+#
+# time.now returns milliseconds. Measure elapsed time as:
+#   time.now ... time.now swap i.-
+#
+# Your task: Receive the result and calculate elapsed time.
+# The elapsed time should be >= 10ms.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-measure-latency ( -- )
+    chan.make   # work channel
+    chan.make   # results channel
+
+    # Spawn worker: receive item, sleep 10ms, send to results
+    2dup [ over chan.receive drop 10 time.sleep-ms swap chan.send drop drop ] strand.spawn drop
+    drop drop
+
+    # Record start time
+    time.now
+
+    # Send work item
+    rot 1 swap chan.send drop
+
+    # Your code here:
+    # 1. Receive result from results channel (second channel on stack)
+    # 2. Drop the received value
+    # 3. Record end time with time.now
+    # 4. Calculate elapsed = end - start
+    # 5. Clean up stack to leave just elapsed time
+    # Hint: the stack has ( results start ) at this point
+    drop drop 0
+
+    # Do not edit below this line
+    # Elapsed time should be at least 10ms
+    10 >= test.assert
+;

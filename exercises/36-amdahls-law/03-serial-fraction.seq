@@ -1,0 +1,51 @@
+# Exercise: The Serial Fraction
+#
+# Amdahl's Law: Speedup = 1 / ((1-p) + p/n)
+#
+# The key insight: (1-p) is the serial fraction - work that
+# CANNOT be parallelized. This limits maximum speedup.
+#
+# In a real pipeline:
+#   Serial: setup + dispatch + aggregation
+#   Parallel: the actual processing
+#
+# Here we simulate:
+#   - 10ms serial setup (sleep before sending)
+#   - 2 x 10ms parallel processing (2 workers)
+#   - 10ms serial aggregation (sleep after receiving)
+# Total: 10 + 10 + 10 = 30ms (not 10 + 5 + 10 = 25ms!)
+#
+# The parallel portion (20ms with 1 worker) becomes 10ms with 2,
+# but the 20ms serial portion is fixed.
+#
+# Your task: Implement the serial-parallel-serial pipeline.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-serial-fraction ( -- )
+    chan.make   # work
+    chan.make   # results
+
+    # Spawn 2 workers
+    2dup [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
+    drop drop
+    2dup [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
+    drop drop
+
+    # Serial phase 1: setup (10ms)
+    10 time.sleep-ms
+
+    # Send 2 items (processed in parallel by 2 workers)
+    over 100 swap chan.send drop
+    over 200 swap chan.send drop
+
+    # Your code here:
+    # 1. Receive 2 results and sum them
+    # 2. Serial phase 2: aggregation - sleep 10ms
+    # 3. Expected sum: 101 + 201 = 302
+    drop drop 0
+
+    # Do not edit below this line
+    302 test.assert-eq
+;

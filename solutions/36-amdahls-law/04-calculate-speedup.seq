@@ -1,0 +1,4 @@
+: test-calculate-speedup ( -- )
+    40 10 i./
+    4 test.assert-eq
+;
