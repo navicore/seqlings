@@ -1,0 +1,6 @@
+: test-dip ( -- )
+    20 5
+    [ 10 i.+ ] dip
+    5 test.assert-eq
+    30 test.assert-eq
+;

@@ -1,0 +1,43 @@
+# Exercise: Combining Combinators
+#
+# The real power comes from combining dip, keep, and bi together.
+#
+# Pattern: compute multiple things from inputs without stack juggling.
+#
+# Example - format a labeled value:
+#   "score" 42
+#   [ int->string ] dip         — convert 42 to "42", preserve "score"
+#   ": " string.concat swap string.concat  — build "score: 42"
+#
+# Your task: Given two numbers (a b), compute both their sum AND product
+# using combinators instead of stack juggling.
+# Stack starts: ( 3 7 )
+# Result: ( 10 21 ) — sum on bottom, product on top
+#
+# Approach: use bi on the pair:
+#   1. Use keep on the first value to preserve it
+#   2. Then compute sum and product
+#
+# Hint: compute the product first with 2dup, then use dip to
+# compute the sum underneath it.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+# Compute sum and product of two numbers using combinators
+: sum-and-product ( Int Int -- Int Int )
+    # Your code here
+    # Given ( a b ) produce ( a+b a*b )
+    # Try: 2dup i.* [ i.+ ] dip
+    drop 0 0
+;
+
+: test-combine ( -- )
+    3 7 sum-and-product
+
+    # Do not edit below this line
+    # Top should be 21 (product)
+    21 test.assert-eq
+    # Second should be 10 (sum)
+    10 test.assert-eq
+;

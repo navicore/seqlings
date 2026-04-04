@@ -1044,3 +1044,37 @@ mode = "test"
 name = "05-diminishing-returns"
 path = "exercises/36-amdahls-law/05-diminishing-returns.seq"
 mode = "test"
+
+# ============================================================
+# 37-combinators: Dataflow Combinators (dip, keep, bi)
+# ============================================================
+
+[[exercises]]
+name = "01-dip"
+path = "exercises/37-combinators/01-dip.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-keep"
+path = "exercises/37-combinators/02-keep.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-bi"
+path = "exercises/37-combinators/03-bi.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-dip-deeper"
+path = "exercises/37-combinators/04-dip-deeper.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-keep-chain"
+path = "exercises/37-combinators/05-keep-chain.seq"
+mode = "test"
+
+[[exercises]]
+name = "06-combinator-combine"
+path = "exercises/37-combinators/06-combine.seq"
+mode = "test"

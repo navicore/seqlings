@@ -1,0 +1,7 @@
+: test-dip-deeper ( -- )
+    100 5 3
+    [ [ 50 i.+ ] dip ] dip
+    3 test.assert-eq
+    5 test.assert-eq
+    150 test.assert-eq
+;

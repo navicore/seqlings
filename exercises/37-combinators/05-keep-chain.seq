@@ -1,0 +1,36 @@
+# Exercise: Chaining keep
+#
+# keep can be chained to compute multiple results from the same value.
+# Each keep preserves the original for the next computation.
+#
+# Example:
+#   5 [ 2 i.* ] keep [ 3 i.* ] keep
+#   → ( 10 15 5 )
+#   First keep: squared → ( 10 5 ), then second keep: tripled → ( 10 15 5 )
+#
+# This is great for building multiple derived values.
+#
+# Your task: From the value 4, compute:
+#   - the square (16)
+#   - the cube (64)
+#   - and preserve the original (4)
+# Result stack: ( 16 64 4 )
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-keep-chain ( -- )
+    4
+    # Your code here — use keep twice
+    # First keep: compute square (dup i.*)
+    # Second keep: compute cube (dup dup i.* i.*)
+    drop drop 0
+
+    # Do not edit below this line
+    # Top should be 4 (original preserved)
+    4 test.assert-eq
+    # Second should be 64 (cube)
+    64 test.assert-eq
+    # Third should be 16 (square)
+    16 test.assert-eq
+;

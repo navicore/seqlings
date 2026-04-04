@@ -1,0 +1,32 @@
+# Exercise: Nested dip
+#
+# dip can reach deeper into the stack by nesting.
+#
+# Single dip reaches past 1 value:
+#   a b [ quot ] dip     → runs quot on a, preserves b
+#
+# Double dip reaches past 2 values:
+#   a b c [ quot ] dip [ ] dip  → runs quot on a, preserves b and c
+#
+# Or use dip inside dip:
+#   a b c [ [ quot ] dip ] dip  → runs quot on a, preserves b and c
+#
+# Your task: Given stack ( 100 5 3 ), add 50 to 100 (the bottom value)
+# while preserving both 5 and 3 on top. Result: ( 150 5 3 )
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-dip-deeper ( -- )
+    100 5 3
+    # Your code here — use nested dip to add 50 to the bottom value
+    drop drop 0
+
+    # Do not edit below this line
+    # Top should be 3
+    3 test.assert-eq
+    # Second should be 5
+    5 test.assert-eq
+    # Third should be 150
+    150 test.assert-eq
+;

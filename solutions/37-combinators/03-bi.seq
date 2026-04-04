@@ -1,0 +1,6 @@
+: test-bi ( -- )
+    6
+    [ 2 i.* ] [ 3 i.* ] bi
+    18 test.assert-eq
+    12 test.assert-eq
+;

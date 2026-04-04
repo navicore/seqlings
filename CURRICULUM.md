@@ -157,6 +157,14 @@ A comprehensive curriculum covering ALL Seq built-ins and standard library.
 - 04-intrinsics - popcount, clz, ctz
 - 05-flags - Bit flags pattern
 
+### 37-combinators (6 exercises)
+- 01-dip - Hide top value, run quotation, restore
+- 02-keep - Run quotation on value, preserve original
+- 03-bi - Apply two quotations to same value
+- 04-dip-deeper - Nested dip to reach deeper in stack
+- 05-keep-chain - Chaining keep for multiple derived values
+- 06-combine - Combining dip, keep, and bi together
+
 ---
 
 ## Part 5: I/O & System
@@ -305,13 +313,13 @@ Combining concepts from previous sections:
 | 1. Foundations | 00-06 | 35 | Basics, stack, math, booleans |
 | 2. Control & Functions | 07-10 | 22 | Conditionals, words, recursion, quotations |
 | 3. Types & Data | 11-16 | 36 | Types, strings, variants, lists, maps |
-| 4. Advanced | 17-18 | 9 | Row polymorphism, bitwise |
+| 4. Advanced | 17-18, 37 | 15 | Row polymorphism, bitwise, combinators |
 | 5. I/O & System | 19-23 | 22 | I/O, files, args, os, time |
 | 6. Concurrency | 24-25, 35-36 | 21 | Channels, spawn, Little's Law, Amdahl's Law |
 | 7. Networking | 26 | 5 | TCP |
 | 8. Standard Library | 27-32 | 26 | imath, fmath, json, yaml, result, http |
 | 9. Intermediate | 33 | 10 | Combined challenges |
-| **Total** | **36** | **186** | |
+| **Total** | **37** | **192** | |
 
 ---
 

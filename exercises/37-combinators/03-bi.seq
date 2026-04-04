@@ -1,0 +1,33 @@
+# Exercise: The bi Combinator
+#
+# bi applies two different quotations to the same value.
+#
+# Stack effect: ( ..a x [..a x -- ..b] [..b x -- ..c] -- ..c )
+#
+# Think of it as: "get two views of the same data."
+#
+# Examples:
+#   5 [ 2 i.* ] [ 3 i.+ ] bi   → ( 10 8 )  — doubled AND plus-3
+#   4 [ 1 i.+ ] [ 1 i.- ] bi   → ( 5 3 )   — incremented AND decremented
+#
+# Without bi, you'd need: dup [ first-quot ] dip [ second-quot ] call
+#
+# Your task: Use bi to compute both the double and the triple of 6.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-bi ( -- )
+    # Stack starts: ( 6 )
+    # Goal: get both double (12) and triple (18)
+    # Result: ( 12 18 )
+    6
+    # Your code here
+    drop 0
+
+    # Do not edit below this line
+    # Top should be 18 (tripled)
+    18 test.assert-eq
+    # Second should be 12 (doubled)
+    12 test.assert-eq
+;

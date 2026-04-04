@@ -1,0 +1,9 @@
+: sum-and-product ( Int Int -- Int Int )
+    2dup i.* [ i.+ ] dip
+;
+
+: test-combine ( -- )
+    3 7 sum-and-product
+    21 test.assert-eq
+    10 test.assert-eq
+;

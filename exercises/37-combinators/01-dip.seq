@@ -1,0 +1,36 @@
+# Exercise: The dip Combinator
+#
+# dip hides the top stack value, runs a quotation, then restores it.
+#
+# Stack effect: ( ..a x [..a -- ..b] -- ..b x )
+#
+# Think of it as: "run this quotation, but protect the top value."
+#
+# Examples:
+#   10 5 [ 1 i.+ ] dip          → ( 11 5 )
+#   "world" "hello" [ ] dip     → ( "hello" "world" )
+#
+# Without dip, you'd need swap/rot gymnastics to work on
+# values buried under other values.
+#
+# Your task: Use dip to add 10 to the SECOND value on the stack
+# while preserving the top value.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-dip ( -- )
+    # Stack starts: ( 20 5 )
+    # Goal: add 10 to 20 (the second value), keep 5 on top
+    # Result should be: ( 30 5 )
+    # Use: [ 10 i.+ ] dip
+    20 5
+    # Your code here
+    drop 0
+
+    # Do not edit below this line
+    # Top should be 5
+    5 test.assert-eq
+    # Second should be 30
+    30 test.assert-eq
+;
