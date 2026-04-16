@@ -2,15 +2,19 @@
 #
 # The `i./` operator performs INTEGER division (rounds toward zero).
 # (You can also write `i.divide` - both forms work.)
+# Seq also supports type-inferred `/` which works for both integers and floats.
+# Note: `/` with integers still returns (quotient, success) like i./
 #
 # Stack effect: ( a b -- quotient success )
 #   Returns the quotient and a Bool indicating success.
 #   Division by zero returns (0, false).
 #
-# Example:
-#   20 4 i./    # Stack: ( 5 true )
+# Examples:
+#   20 4 i./    # Stack: ( 5 true )  (explicit integer)
+#   20 4 /      # Stack: ( 5 true )  (inferred integer)
 #   17 5 i./    # Stack: ( 3 true )  - remainder is discarded
 #   10 0 i./    # Stack: ( 0 false ) - division by zero
+#   7.5 2.5 /   # Stack: ( 3.0 )     (inferred float, returns just the result)
 #
 # Your task: Calculate 100 / 8 (integer division gives 12).
 # When done, delete the marker line below.

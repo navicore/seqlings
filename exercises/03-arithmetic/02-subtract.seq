@@ -2,14 +2,17 @@
 #
 # The `i.-` operator subtracts the top value FROM the second value.
 # (You can also write `i.subtract` - both forms work.)
+# Seq also supports type-inferred `-` which works for both integers and floats.
 # This order is important!
 #
 # Stack effect: ( a b -- difference )
 #   Result is: a - b (NOT b - a)
 #
-# Example:
-#   10 3 i.-    # Stack: ( 7 )  because 10 - 3 = 7
+# Examples:
+#   10 3 i.-    # Stack: ( 7 )  because 10 - 3 = 7 (explicit integer)
+#   10 3 -      # Stack: ( 7 )  (inferred integer)
 #   3 10 i.-    # Stack: ( -7 ) because 3 - 10 = -7
+#   5.0 2.5 -   # Stack: ( 2.5 ) (inferred float)
 #
 # Your task: Calculate 100 - 42 to get 58.
 # When done, delete the marker line below.

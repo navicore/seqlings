@@ -3,14 +3,17 @@
 # Float multiplication and division.
 # Unlike integer division, f./ produces a true quotient.
 # (Word forms `f.multiply` and `f.divide` also work.)
+# Seq also supports type-inferred `*` and `/` which work for both integers and floats.
 #
 # Stack effects:
 #   f.* ( a b -- product )
 #   f./ ( a b -- quotient )
 #
-# Example:
-#   2.5 4.0 f.*    # Stack: ( 10.0 )
-#   7.0 2.0 f./    # Stack: ( 3.5 ) - not truncated!
+# Examples:
+#   2.5 4.0 f.*    # Stack: ( 10.0 )  (explicit float)
+#   2.5 4.0 *      # Stack: ( 10.0 )  (inferred float)
+#   7.0 2.0 f./    # Stack: ( 3.5 ) - not truncated! (explicit float)
+#   7.0 2.0 /      # Stack: ( 3.5 ) - not truncated! (inferred float)
 #
 # Your task: Multiply and divide floats.
 # When done, delete the marker line below.

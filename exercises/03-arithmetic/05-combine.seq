@@ -4,9 +4,10 @@
 # Each operation consumes its inputs and produces output
 # for the next operation.
 #
-# Example:
-#   2 3 i.+ 4 i.*    # (2+3)*4 i.= 20
-#   Stack: ( 5 ) after i.+, then ( 20 ) after i.*
+# Examples:
+#   2 3 i.+ 4 i.*    # (2+3)*4 i.= 20  (explicit operators)
+#   2 3 + 4 *        # (2+3)*4 i.= 20  (inferred operators)
+#   Stack: ( 5 ) after +, then ( 20 ) after *
 #
 # Your task: Calculate (10 + 5) * 2 to get 30.
 # When done, delete the marker line below.

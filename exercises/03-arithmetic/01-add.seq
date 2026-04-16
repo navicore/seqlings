@@ -2,11 +2,14 @@
 #
 # The `i.+` operator adds two integers from the stack.
 # (You can also write `i.add` - both forms work.)
+# Seq also supports type-inferred `+` which works for both integers and floats.
 #
 # Stack effect: ( a b -- sum )
 #
-# Example:
-#   3 4 i.+    # Stack: ( 7 )
+# Examples:
+#   3 4 i.+    # Stack: ( 7 )  (explicit integer)
+#   3 4 +      # Stack: ( 7 )  (inferred integer)
+#   1.5 2.5 +  # Stack: ( 4.0 ) (inferred float)
 #
 # Your task: Add 10 and 25 to get 35.
 # When done, delete the marker line below.

@@ -23,6 +23,26 @@ Like arithmetic, comparison operators are prefixed with `i.` for integers:
 
 Both forms are equivalent - use whichever reads better in context. Symbol forms are more common in practice.
 
+### Sugar Forms
+Seq also supports type-inferred comparison operators that work for both integers and floats:
+
+| Sugar | Equivalent To | Works For |
+|-------|---------------|-----------|
+| `=`   | `i.=` or `f.=` | Int or Float |
+| `<>`  | `i.<>` or `f.<>` | Int or Float |
+| `<`   | `i.<` or `f.<` | Int or Float |
+| `>`   | `i.>` or `f.>` | Int or Float |
+| `<=`  | `i.<=` or `f.<=` | Int or Float |
+| `>=`  | `i.>=` or `f.>=` | Int or Float |
+
+Examples:
+```seq
+5 5 =      # Same as 5 5 i.= (inferred integer)
+1.5 1.5 =  # Same as 1.5 1.5 f.= (inferred float)
+3 5 <      # Same as 3 5 i.< (inferred integer)
+1.5 2.5 <  # Same as 1.5 2.5 f.< (inferred float)
+```
+
 ## Operand Order
 
 For non-symmetric comparisons, order matters:

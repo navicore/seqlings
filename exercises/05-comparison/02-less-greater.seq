@@ -2,14 +2,18 @@
 #
 # The `i.<` and `i.>` operators compare two integers.
 # (Word forms `i.lt` and `i.gt` also work.)
+# Seq also supports type-inferred `<` and `>` which work for both integers and floats.
 #
 # Stack effects:
 #   i.< ( a b -- bool )   true if a < b
 #   i.> ( a b -- bool )   true if a > b
 #
-# Example:
-#   3 5 i.<    # true (3 is less than 5)
-#   3 5 i.>    # false (3 is not greater than 5)
+# Examples:
+#   3 5 i.<    # true (3 is less than 5)  (explicit integer)
+#   3 5 <      # true (3 is less than 5)  (inferred integer)
+#   3 5 i.>    # false (3 is not greater than 5) (explicit integer)
+#   3 5 >      # false (3 is not greater than 5) (inferred integer)
+#   1.5 2.5 <  # true  (inferred float)
 #
 # Your task: Check if 10 is greater than 7.
 # When done, delete the marker line below.
