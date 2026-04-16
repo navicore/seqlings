@@ -8,9 +8,14 @@
 #   f.<=  ( a b -- bool )   Less or equal
 #   f.>=  ( a b -- bool )   Greater or equal
 #
-# Example:
-#   3.14 2.0 f.>    # true (3.14 i.> 2.0)
-#   1.0 1.0 f.=     # true
+# Seq also supports type-inferred comparison operators:
+#   =, <>, <, >, <=, >=  (work for both integers and floats)
+#
+# Examples:
+#   3.14 2.0 f.>    # true (3.14 i.> 2.0)  (explicit float)
+#   3.14 2.0 >      # true (3.14 i.> 2.0)  (inferred float)
+#   1.0 1.0 f.=     # true (explicit float)
+#   1.0 1.0 =       # true (inferred float)
 #
 # Your task: Compare 5.5 and 3.0. Is 5.5 i.> 3.0?
 # The result should be true.

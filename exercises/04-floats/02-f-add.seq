@@ -3,14 +3,17 @@
 # Float addition and subtraction work like their integer counterparts,
 # but operate on Float types.
 # (Word forms `f.add` and `f.subtract` also work.)
+# Seq also supports type-inferred `+` and `-` which work for both integers and floats.
 #
 # Stack effects:
 #   f.+ ( a b -- sum )
 #   f.- ( a b -- diff )
 #
-# Example:
-#   1.5 2.5 f.+     # Stack: ( 4.0 )
-#   10.0 3.5 f.-    # Stack: ( 6.5 )
+# Examples:
+#   1.5 2.5 f.+     # Stack: ( 4.0 )  (explicit float)
+#   1.5 2.5 +       # Stack: ( 4.0 )  (inferred float)
+#   10.0 3.5 f.-    # Stack: ( 6.5 )  (explicit float)
+#   10.0 3.5 -      # Stack: ( 6.5 )  (inferred float)
 #
 # Your task: Calculate 3.5 + 1.5 to get 5.0.
 # When done, delete the marker line below.

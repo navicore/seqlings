@@ -33,6 +33,16 @@ Float operations have an `f.` prefix. Like integer ops, both symbol and word for
 | `f.*`   | `f.multiply` | `( a b -- product )`      | a × b              |
 | `f./`   | `f.divide`   | `( a b -- quotient )`     | a / b (real div)   |
 
+### Sugar Forms
+Seq also supports type-inferred operators that work for both integers and floats:
+
+```seq
+1.5 2.5 +    # Same as 1.5 2.5 f.+ (inferred float)
+5.0 2.0 -    # Same as 5.0 2.0 f.- (inferred float)
+2.5 4.0 *    # Same as 2.5 4.0 f.* (inferred float)
+7.0 2.0 /    # Same as 7.0 2.0 f./ (inferred float)
+```
+
 ## Float Comparisons
 
 | Symbol  | Word Form | Effect              | Meaning                |
@@ -42,6 +52,15 @@ Float operations have an `f.` prefix. Like integer ops, both symbol and word for
 | `f.>`   | `f.gt`    | `( a b -- bool )`   | Greater than           |
 | `f.<=`  | `f.lte`   | `( a b -- bool )`   | Less than or equal     |
 | `f.>=`  | `f.gte`   | `( a b -- bool )`   | Greater than or equal  |
+
+### Sugar Forms
+Seq also supports type-inferred comparison operators:
+
+```seq
+1.5 1.5 =    # Same as 1.5 1.5 f.= (inferred float)
+1.5 2.5 <    # Same as 1.5 2.5 f.< (inferred float)
+3.5 2.5 >    # Same as 3.5 2.5 f.> (inferred float)
+```
 
 ## Type Conversions
 

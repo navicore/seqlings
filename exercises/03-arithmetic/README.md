@@ -25,7 +25,10 @@ The first value pushed is the left operand. Think: "10, then 3, now subtract."
 
 ## The Integer Operations
 
-Seq provides both symbol and word forms - use whichever reads better:
+Seq provides multiple forms for arithmetic operations:
+
+### Explicit Forms (Type-Prefixed)
+These make types explicit and are good for learning:
 
 | Symbol  | Word Form    | Effect                    | Description              |
 |---------|--------------|---------------------------|--------------------------|
@@ -34,6 +37,23 @@ Seq provides both symbol and word forms - use whichever reads better:
 | `i.*`   | `i.multiply` | `( a b -- product )`      | a × b                    |
 | `i./`   | `i.divide`   | `( a b -- quotient )`     | a ÷ b (integer division) |
 | `i.%`   | `i.modulo`   | `( a b -- remainder )`    | a mod b                  |
+
+### Sugar Forms (Type-Inferred)
+Seq also supports type-inferred operators that work for both integers and floats:
+
+| Sugar | Equivalent To | Works For |
+|-------|---------------|-----------|
+| `+`   | `i.+` or `f.+` | Int or Float |
+| `-`   | `i.-` or `f.-` | Int or Float |
+| `*`   | `i.*` or `f.*` | Int or Float |
+| `/`   | `i./` or `f./` | Int or Float |
+
+Examples:
+```seq
+3 4 +      # Same as 3 4 i.+ (inferred integer)
+1.5 2.5 +  # Same as 1.5 2.5 f.+ (inferred float)
+10 3 -     # Same as 10 3 i.- (inferred integer)
+```
 
 Symbol forms are more common in practice, but word forms can be clearer in some contexts.
 

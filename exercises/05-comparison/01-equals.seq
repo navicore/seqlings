@@ -2,12 +2,16 @@
 #
 # The `i.=` operator tests if two integers are equal.
 # (You can also write `i.eq` - both forms work.)
+# Seq also supports type-inferred `=` which works for both integers and floats.
 #
 # Stack effect: ( a b -- bool )
 #
-# Example:
-#   5 5 i.=    # true
-#   5 3 i.=    # false
+# Examples:
+#   5 5 i.=    # true  (explicit integer)
+#   5 5 =      # true  (inferred integer)
+#   5 3 i.=    # false (explicit integer)
+#   5 3 =      # false (inferred integer)
+#   1.5 1.5 =  # true  (inferred float)
 #
 # Your task: Check if 42 equals 42.
 # When done, delete the marker line below.

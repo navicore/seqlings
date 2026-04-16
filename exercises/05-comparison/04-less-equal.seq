@@ -2,15 +2,20 @@
 #
 # The `i.<=` and `i.>=` operators include equality.
 # (Word forms `i.lte` and `i.gte` also work.)
+# Seq also supports type-inferred `<=` and `>=` which work for both integers and floats.
 #
 # Stack effects:
 #   i.<= ( a b -- bool )   true if a <= b
 #   i.>= ( a b -- bool )   true if a >= b
 #
-# Example:
-#   5 5 i.<=    # true (5 is less than or equal to 5)
-#   5 5 i.>=    # true (5 is greater than or equal to 5)
-#   3 5 i.<=    # true (3 is less than or equal to 5)
+# Examples:
+#   5 5 i.<=    # true (5 is less than or equal to 5)  (explicit integer)
+#   5 5 <=      # true (5 is less than or equal to 5)  (inferred integer)
+#   5 5 i.>=    # true (5 is greater than or equal to 5) (explicit integer)
+#   5 5 >=      # true (5 is greater than or equal to 5) (inferred integer)
+#   3 5 i.<=    # true (3 is less than or equal to 5) (explicit integer)
+#   3 5 <=      # true (3 is less than or equal to 5) (inferred integer)
+#   1.5 2.5 <=  # true (inferred float)
 #
 # Your task: Check if 7 is less than or equal to 7.
 # When done, delete the marker line below.

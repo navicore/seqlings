@@ -2,11 +2,14 @@
 #
 # The `i.*` operator multiplies two integers.
 # (You can also write `i.multiply` - both forms work.)
+# Seq also supports type-inferred `*` which works for both integers and floats.
 #
 # Stack effect: ( a b -- product )
 #
-# Example:
-#   6 7 i.*    # Stack: ( 42 )
+# Examples:
+#   6 7 i.*    # Stack: ( 42 )  (explicit integer)
+#   6 7 *      # Stack: ( 42 )  (inferred integer)
+#   2.5 4.0 *  # Stack: ( 10.0 ) (inferred float)
 #
 # Your task: Calculate 12 * 5 to get 60.
 # When done, delete the marker line below.

@@ -2,12 +2,16 @@
 #
 # The `i.<>` operator tests if two integers are NOT equal.
 # (Word form `i.neq` also works.)
+# Seq also supports type-inferred `<>` which works for both integers and floats.
 #
 # Stack effect: ( a b -- bool )
 #
-# Example:
-#   5 3 i.<>    # true (5 is not equal to 3)
-#   5 5 i.<>    # false (5 equals 5)
+# Examples:
+#   5 3 i.<>    # true (5 is not equal to 3)  (explicit integer)
+#   5 3 <>      # true (5 is not equal to 3)  (inferred integer)
+#   5 5 i.<>    # false (5 equals 5) (explicit integer)
+#   5 5 <>      # false (5 equals 5) (inferred integer)
+#   1.5 2.5 <>  # true (inferred float)
 #
 # Your task: Check if 100 is not equal to 99.
 # When done, delete the marker line below.
