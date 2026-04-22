@@ -2,22 +2,32 @@
 #
 # Conditionals can be nested inside each other.
 #
-# Example: Classify a number as positive, negative, or zero
-#   x 0 i.> if
-#       "positive"
+# Remember: Seq has no variables. When a comparison consumes
+# a value, use `dup` beforehand so the value is still around
+# for the next check.
+#
+# Example: Classify the top-of-stack number as positive,
+# negative, or zero. The value starts on the stack.
+#   dup 0 i.> if
+#       drop "positive"
 #   else
-#       x 0 i.< if
-#           "negative"
+#       dup 0 i.< if
+#           drop "negative"
 #       else
-#           "zero"
+#           drop "zero"
 #       then
 #   then
+#
+# Each branch drops the number (since we dup'd it) and pushes
+# the resulting string.
 #
 # Your task: Classify the number 15.
 #   - If > 10, push 3
 #   - Else if > 5, push 2
 #   - Else push 1
 # Since 15 i.> 10, the answer should be 3.
+# (Tip: `dup 10 i.>` consumes one copy for the test and
+#  leaves the original for the next dup/check/drop.)
 # When done, delete the marker line below.
 
 # I AM NOT DONE

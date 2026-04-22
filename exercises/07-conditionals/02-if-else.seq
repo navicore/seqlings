@@ -11,12 +11,18 @@
 #
 # Important: Both branches must have the SAME stack effect!
 #
-# Example:
-#   x 0 i.>= if
-#       x        # Return x if non-negative
+# Remember: Seq has no variables. The condition and branches
+# work directly with values on the stack.
+#
+# Example - take the absolute value of whatever is on top:
+#   dup 0 i.>= if
+#       # already non-negative, leave it
 #   else
-#       x -1 i.*   # Return -x if negative
+#       -1 i.*   # negate it
 #   then
+#
+# (We used `dup` because the comparison consumed the value,
+#  but we still want to use it in the branches.)
 #
 # Your task: If 3 i.> 7, push 1, otherwise push 2.
 # (Hint: 3 is NOT greater than 7, so push 2)

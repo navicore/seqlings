@@ -3,13 +3,20 @@
 # To combine multiple comparisons, you need boolean operators.
 # But first, let's see how to structure a compound check.
 #
-# Example: Is x between 1 and 10 (inclusive)?
-#   x 1 i.>=    # Is x >= 1?
-#   x 10 i.<=   # Is x <= 10?
-#   and         # Both must be true
+# Idea (in English): "is the top of stack between 1 and 10?"
+# You need TWO comparisons:
+#   - top >= 1
+#   - top <= 10
+# Then combine them with `and`.
 #
-# But wait - we need to keep x around for both comparisons!
-# That's where dup comes in handy.
+# But each comparison consumes the value! Since Seq has no
+# variables, you can't just refer to the original twice -
+# you have to `dup` it first so a copy survives each test.
+#
+# Example (real Seq, for the value 5):
+#   5 dup 1 i.>=    # ( 5 true ) — dup'd, then tested copy vs 1
+#   swap 10 i.<=    # ( true true ) — test original copy vs 10
+#   and             # ( true )
 #
 # Your task: Check if 5 is greater than 3 AND less than 10.
 # Hint: Push 5, dup it, do one comparison, swap, do another, then 'and'.
