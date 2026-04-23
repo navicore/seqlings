@@ -156,6 +156,20 @@ Found a bug or want to improve an exercise? PRs welcome!
 
 If you find gaps in the Seq language itself, please open issues at [patch-seq](https://github.com/navicore/patch-seq).
 
+## Documentation
+
+Rendered docs are published to `https://navicore.github.io/seqlings/`. Build locally with `just docs` (serve) or `just build-docs` (one-shot). The site pulls content from `docs/` plus a generated copy of `README.md`.
+
+## CI
+
+Run the full CI check locally before pushing:
+
+```bash
+just ci
+```
+
+This runs `fmt-check`, `lint` (clippy with `-D warnings`), `test`, and a release `build` — the same commands GitHub Actions runs. The Rust toolchain is pinned in `rust-toolchain.toml` so local and CI agree exactly.
+
 ## License
 
 MIT

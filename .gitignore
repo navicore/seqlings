@@ -1,5 +1,9 @@
 # Rust build artifacts
 target/
+.claude/
+
+# mdBook build output
+/book/
 
 # OS files
 .DS_Store
@@ -14,3 +18,6 @@ Thumbs.db
 
 # User progress tracking (if we add this later)
 .seqlings-state.json
+
+docs/README.md
+

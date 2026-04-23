@@ -5,19 +5,14 @@ use serde::Deserialize;
 use std::path::PathBuf;
 
 /// Exercise mode - how to verify completion
-#[derive(Debug, Clone, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, Deserialize, PartialEq)]
 #[serde(rename_all = "lowercase")]
 pub enum ExerciseMode {
     /// Just needs to compile
     Compile,
     /// Needs to compile and pass test.assert checks
+    #[default]
     Test,
-}
-
-impl Default for ExerciseMode {
-    fn default() -> Self {
-        Self::Test
-    }
 }
 
 /// An exercise definition from info.toml
@@ -96,29 +91,15 @@ impl Exercise {
     pub fn hint_path(&self) -> PathBuf {
         // Convert exercises/00-intro/01-hello.seq to hints/00-intro/01-hello.md
         let mut hint_path = PathBuf::from("hints");
-        if let Some(parent) = self.path.parent() {
-            if let Some(topic) = parent.file_name() {
-                hint_path.push(topic);
-            }
+        if let Some(parent) = self.path.parent()
+            && let Some(topic) = parent.file_name()
+        {
+            hint_path.push(topic);
         }
         if let Some(stem) = self.path.file_stem() {
             hint_path.push(format!("{}.md", stem.to_string_lossy()));
         }
         hint_path
-    }
-
-    /// Get the path to the solution file for this exercise
-    pub fn solution_path(&self) -> PathBuf {
-        let mut solution_path = PathBuf::from("solutions");
-        if let Some(parent) = self.path.parent() {
-            if let Some(topic) = parent.file_name() {
-                solution_path.push(topic);
-            }
-        }
-        if let Some(name) = self.path.file_name() {
-            solution_path.push(name);
-        }
-        solution_path
     }
 }
 
@@ -127,16 +108,16 @@ pub fn load_exercises() -> Result<Vec<Exercise>, String> {
     let info_path = PathBuf::from("exercises/info.toml");
 
     if !info_path.exists() {
-        return Err(format!(
-            "exercises/info.toml not found. Are you in the seqlings directory?"
-        ));
+        return Err(
+            "exercises/info.toml not found. Are you in the seqlings directory?".to_string(),
+        );
     }
 
     let content = std::fs::read_to_string(&info_path)
-        .map_err(|e| format!("Failed to read info.toml: {}", e))?;
+        .map_err(|e| format!("Failed to read info.toml: {e}"))?;
 
     let exercises_file: ExercisesFile =
-        toml::from_str(&content).map_err(|e| format!("Failed to parse info.toml: {}", e))?;
+        toml::from_str(&content).map_err(|e| format!("Failed to parse info.toml: {e}"))?;
 
     let exercises = exercises_file
         .exercises
@@ -165,19 +146,6 @@ mod tests {
         assert_eq!(
             exercise.hint_path(),
             PathBuf::from("hints/00-intro/01-hello.md")
-        );
-    }
-
-    #[test]
-    fn test_solution_path() {
-        let exercise = Exercise {
-            name: "01-hello".to_string(),
-            path: PathBuf::from("exercises/00-intro/01-hello.seq"),
-            mode: ExerciseMode::Test,
-        };
-        assert_eq!(
-            exercise.solution_path(),
-            PathBuf::from("solutions/00-intro/01-hello.seq")
         );
     }
 }

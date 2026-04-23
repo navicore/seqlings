@@ -8,7 +8,7 @@ mod runner;
 use clap::{Parser, Subcommand};
 use colored::Colorize;
 use exercise::{Exercise, ExerciseStatus, load_exercises};
-use include_dir::{include_dir, Dir};
+use include_dir::{Dir, include_dir};
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::process;
@@ -45,27 +45,31 @@ impl StatusCache {
         // Quick pre-filter: if file contains "# I AM NOT DONE", skip expensive checks
         // This is a cheap read that can short-circuit compiler invocation
         if let Ok(content) = std::fs::read_to_string(&exercise.path)
-            && content.contains("# I AM NOT DONE") {
-                // Update cache with NotDone status
-                if let Some(mtime) = current_mtime {
-                    self.cache.insert(exercise.path.clone(), (mtime, ExerciseStatus::NotDone));
-                }
-                return ExerciseStatus::NotDone;
+            && content.contains("# I AM NOT DONE")
+        {
+            // Update cache with NotDone status
+            if let Some(mtime) = current_mtime {
+                self.cache
+                    .insert(exercise.path.clone(), (mtime, ExerciseStatus::NotDone));
             }
+            return ExerciseStatus::NotDone;
+        }
 
         // Check cache: if mtime unchanged, return cached status
         if let Some(mtime) = current_mtime
             && let Some((cached_mtime, cached_status)) = self.cache.get(&exercise.path)
-                && *cached_mtime == mtime {
-                    return cached_status.clone();
-                }
+            && *cached_mtime == mtime
+        {
+            return cached_status.clone();
+        }
 
         // Cache miss or file changed - run the full status check
         let status = exercise.status();
 
         // Update cache
         if let Some(mtime) = current_mtime {
-            self.cache.insert(exercise.path.clone(), (mtime, status.clone()));
+            self.cache
+                .insert(exercise.path.clone(), (mtime, status.clone()));
         }
 
         status
@@ -136,14 +140,20 @@ fn main() {
         Ok(ex) => ex,
         Err(e) => {
             eprintln!("{} {}", "Error loading exercises:".red(), e);
-            eprintln!("\n{}", "Hint: Run 'seqlings init' to create a new project.".yellow());
+            eprintln!(
+                "\n{}",
+                "Hint: Run 'seqlings init' to create a new project.".yellow()
+            );
             process::exit(1);
         }
     };
 
     if exercises.is_empty() {
         eprintln!("{}", "No exercises found in exercises/info.toml".red());
-        eprintln!("\n{}", "Hint: Run 'seqlings init' to create a new project.".yellow());
+        eprintln!(
+            "\n{}",
+            "Hint: Run 'seqlings init' to create a new project.".yellow()
+        );
         process::exit(1);
     }
 
@@ -174,7 +184,8 @@ fn filter_by_chapter(exercises: &[Exercise], chapter: Option<&str>) -> Vec<Exerc
                 .iter()
                 .filter(|e| {
                     // Extract chapter directory name from path (e.g., "07-conditionals")
-                    let chapter_name = e.path
+                    let chapter_name = e
+                        .path
                         .parent()
                         .and_then(|p| p.file_name())
                         .and_then(|s| s.to_str())
@@ -270,10 +281,7 @@ fn cmd_init(path: &Path) {
     }
     println!("  {} hints/", "✓".green());
 
-    println!(
-        "\n{} Project initialized successfully!",
-        "✓".green().bold()
-    );
+    println!("\n{} Project initialized successfully!", "✓".green().bold());
     println!("\nTo get started:");
     println!("  {} {}", "cd".cyan(), path.display());
     println!("  {}", "seqlings".cyan());
@@ -304,11 +312,11 @@ fn extract_dir(dir: &Dir, target: &Path) -> std::io::Result<()> {
 
 /// Watch mode: continuously monitor exercises and provide feedback
 fn cmd_watch(exercises: &[Exercise]) {
+    println!("\n{}", "Welcome to seqlings watch mode!".green().bold());
     println!(
-        "\n{}",
-        "Welcome to seqlings watch mode!".green().bold()
+        "{}",
+        "Edit exercises in your editor. Progress updates automatically.".dimmed()
     );
-    println!("{}", "Edit exercises in your editor. Progress updates automatically.".dimmed());
     println!("{}", "Press Ctrl+C to exit.\n".dimmed());
 
     // Create status cache to avoid repeated compiler invocations
@@ -341,10 +349,11 @@ fn cmd_watch(exercises: &[Exercise]) {
         for ex in exercises {
             if let Ok(meta) = std::fs::metadata(&ex.path)
                 && let Ok(mtime) = meta.modified()
-                    && mtime.elapsed().unwrap_or(Duration::from_secs(1000)) < Duration::from_millis(500) {
-                        changed = true;
-                        break;
-                    }
+                && mtime.elapsed().unwrap_or(Duration::from_secs(1000)) < Duration::from_millis(500)
+            {
+                changed = true;
+                break;
+            }
         }
 
         if changed {
@@ -361,7 +370,11 @@ fn clear_screen() {
     std::io::stdout().flush().ok();
 }
 
-fn display_current_exercise(exercises: &[Exercise], previous_name: &mut String, cache: &mut StatusCache) {
+fn display_current_exercise(
+    exercises: &[Exercise],
+    previous_name: &mut String,
+    cache: &mut StatusCache,
+) {
     // Find first incomplete exercise using cached status
     let current = exercises.iter().find(|e| {
         matches!(
@@ -454,10 +467,7 @@ fn display_current_exercise(exercises: &[Exercise], previous_name: &mut String, 
             }
 
             println!();
-            println!(
-                "  {} seqlings hint",
-                "Hint:".cyan()
-            );
+            println!("  {} seqlings hint", "Hint:".cyan());
             show_progress(exercises, cache);
         }
         None => {
@@ -466,7 +476,9 @@ fn display_current_exercise(exercises: &[Exercise], previous_name: &mut String, 
             println!("\n{}", "=".repeat(50).green());
             println!(
                 "{}",
-                "  Congratulations! You've completed all exercises!".green().bold()
+                "  Congratulations! You've completed all exercises!"
+                    .green()
+                    .bold()
             );
             println!("{}\n", "=".repeat(50).green());
             show_progress(exercises, cache);
@@ -504,10 +516,8 @@ fn cmd_run(exercises: &[Exercise]) {
             // Show the exercise description
             if let Ok(content) = std::fs::read_to_string(&exercise.path) {
                 // Extract comment header
-                let header: Vec<&str> = content
-                    .lines()
-                    .take_while(|l| l.starts_with('#'))
-                    .collect();
+                let header: Vec<&str> =
+                    content.lines().take_while(|l| l.starts_with('#')).collect();
                 for line in header {
                     println!("  {}", line.dimmed());
                 }
@@ -518,18 +528,13 @@ fn cmd_run(exercises: &[Exercise]) {
                 "{}",
                 "Open this file in your editor to complete the exercise.".yellow()
             );
-            println!(
-                "Run {} to see a hint.",
-                "seqlings hint".cyan()
-            );
+            println!("Run {} to see a hint.", "seqlings hint".cyan());
             println!();
 
             // Open in $EDITOR if set
             if let Ok(editor) = std::env::var("EDITOR") {
                 println!("Opening in {}...", editor.cyan());
-                let cmd_status = process::Command::new(&editor)
-                    .arg(&exercise.path)
-                    .status();
+                let cmd_status = process::Command::new(&editor).arg(&exercise.path).status();
 
                 match cmd_status {
                     Ok(s) if s.success() => {
@@ -554,7 +559,9 @@ fn cmd_run(exercises: &[Exercise]) {
         None => {
             println!(
                 "\n{}",
-                "Congratulations! You've completed all exercises!".green().bold()
+                "Congratulations! You've completed all exercises!"
+                    .green()
+                    .bold()
             );
             show_progress(exercises, &mut cache);
         }
@@ -626,11 +633,7 @@ fn cmd_hint(exercises: &[Exercise], name: Option<String>) {
                     }
                 }
             } else {
-                println!(
-                    "\n{} {}",
-                    "No hint available for".yellow(),
-                    ex.name.cyan()
-                );
+                println!("\n{} {}", "No hint available for".yellow(), ex.name.cyan());
                 println!("Hint file not found: {}", hint_path.display());
             }
         }
@@ -644,7 +647,8 @@ fn cmd_hint(exercises: &[Exercise], name: Option<String>) {
     }
 }
 
-/// Reset an exercise
+/// Reset an exercise to its original stub by restoring the content embedded
+/// in the binary at compile time.
 fn cmd_reset(exercises: &[Exercise], name: Option<String>) {
     let mut cache = StatusCache::new();
     let exercise = match name {
@@ -659,35 +663,31 @@ fn cmd_reset(exercises: &[Exercise], name: Option<String>) {
 
     match exercise {
         Some(ex) => {
-            let solution_path = ex.solution_path();
-            if solution_path.exists() {
-                // Read the original (which we store inverted - solution has the answer)
-                // For reset, we need the original broken version
-                // TODO: Store originals separately, for now just add back # NOT DONE
-                match std::fs::read_to_string(&ex.path) {
-                    Ok(mut content) => {
-                        if !content.contains("# NOT DONE") {
-                            // Add marker back after the header comments
-                            let insert_pos = content
-                                .lines()
-                                .take_while(|l| l.starts_with('#'))
-                                .map(|l| l.len() + 1)
-                                .sum::<usize>();
-                            content.insert_str(insert_pos, "\n# NOT DONE\n");
-                            if std::fs::write(&ex.path, content).is_ok() {
-                                println!("{} {}", "Reset".green(), ex.name.cyan());
-                            }
-                        } else {
-                            println!("{} is already in incomplete state", ex.name.cyan());
-                        }
-                    }
-                    Err(e) => eprintln!("{} {}", "Error reading exercise:".red(), e),
+            // EXERCISES_DIR is rooted at the exercises/ directory, so strip
+            // the leading "exercises" segment from ex.path to get the key.
+            let relative = match ex.path.strip_prefix("exercises") {
+                Ok(r) => r,
+                Err(_) => {
+                    eprintln!(
+                        "{} {}",
+                        "Cannot resolve exercise path:".red(),
+                        ex.path.display()
+                    );
+                    return;
                 }
-            } else {
-                println!(
-                    "{}",
-                    "No original version found. Cannot reset.".yellow()
-                );
+            };
+            match EXERCISES_DIR.get_file(relative) {
+                Some(embedded) => match std::fs::write(&ex.path, embedded.contents()) {
+                    Ok(()) => println!("{} {}", "Reset".green(), ex.name.cyan()),
+                    Err(e) => eprintln!("{} {}", "Error writing exercise:".red(), e),
+                },
+                None => {
+                    eprintln!(
+                        "{} Original for '{}' not found in embedded corpus.",
+                        "Error:".red(),
+                        ex.name
+                    );
+                }
             }
         }
         None => {
@@ -746,11 +746,7 @@ fn cmd_next(exercises: &[Exercise]) {
 fn verify_exercise(exercise: &Exercise) {
     let mut cache = StatusCache::new();
     let status = cache.get_status(exercise);
-    println!(
-        "{} {}",
-        "Exercise status:".bold(),
-        format_status(&status)
-    );
+    println!("{} {}", "Exercise status:".bold(), format_status(&status));
 
     match status {
         ExerciseStatus::Done => {
