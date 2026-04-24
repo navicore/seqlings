@@ -469,14 +469,41 @@ fn display_current_exercise(
 
                     match runner::run_tests(&exercise.path) {
                         Ok(output) | Err(output) => {
-                            for line in output.lines().take(20) {
-                                if line.contains("FAIL") || line.contains("panicked") {
+                            // seqc prints `test-X ... FAILED` twice — once
+                            // in the per-file summary and again in the
+                            // TEST FAILURES: section where `at line N:
+                            // expected X, got Y` detail is attached. We
+                            // prefer the detail section; fall back to the
+                            // full output if the marker is absent.
+                            let section = match output.find("TEST FAILURES:") {
+                                Some(i) => &output[i + "TEST FAILURES:".len()..],
+                                None => output.as_str(),
+                            };
+                            let mut shown = 0;
+                            for line in section.lines() {
+                                if shown >= 20 {
+                                    break;
+                                }
+                                let trimmed = line.trim_end();
+                                if trimmed.is_empty() {
+                                    continue;
+                                }
+                                // Drop the tempfile path header that
+                                // introduces each failed test — we show
+                                // the real exercise path under `File:`.
+                                if trimmed.starts_with('/') && trimmed.contains("::") {
+                                    continue;
+                                }
+                                if line.contains("at line") {
+                                    println!("  {}", line.yellow());
+                                } else if line.contains("FAIL") || line.contains("panicked") {
                                     println!("  {}", line.red());
-                                } else if line.contains("ok") {
+                                } else if line.contains(" ok") {
                                     println!("  {}", line.green());
                                 } else {
                                     println!("  {}", line);
                                 }
+                                shown += 1;
                             }
                         }
                     }
