@@ -158,6 +158,33 @@ Found a bug or want to improve an exercise? PRs welcome!
 
 If you find gaps in the Seq language itself, please open issues at [patch-seq](https://github.com/navicore/patch-seq).
 
+## Shell Completions
+
+Seqlings can print a completion script for your shell. Redirect it to a file your shell picks up on startup.
+
+**zsh**
+```bash
+mkdir -p ~/.zfunc
+seqlings completions zsh > ~/.zfunc/_seqlings
+# Make sure ~/.zfunc is on your fpath. Add to ~/.zshrc if it isn't:
+#   fpath=(~/.zfunc $fpath)
+#   autoload -U compinit && compinit
+```
+
+**bash**
+```bash
+seqlings completions bash > ~/.local/share/bash-completion/completions/seqlings
+```
+
+**fish**
+```bash
+seqlings completions fish > ~/.config/fish/completions/seqlings.fish
+```
+
+**PowerShell** and **Elvish** are also supported — pass `powershell` or `elvish` to `seqlings completions`.
+
+Restart your shell after installing and `seqlings <TAB>` will complete subcommands and flags.
+
 ## Documentation
 
 Rendered docs are published to `https://navicore.github.io/seqlings/`. Build locally with `just docs` (serve) or `just build-docs` (one-shot). The site pulls content from `docs/` plus a generated copy of `README.md`.

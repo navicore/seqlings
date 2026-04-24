@@ -5,7 +5,8 @@
 mod exercise;
 mod runner;
 
-use clap::{Parser, Subcommand};
+use clap::{CommandFactory, Parser, Subcommand};
+use clap_complete::{Shell, generate};
 use colored::Colorize;
 use exercise::{Exercise, ExerciseStatus, load_exercises};
 use include_dir::{Dir, include_dir};
@@ -124,15 +125,29 @@ enum Commands {
     Verify,
     /// Skip to the next exercise
     Next,
+    /// Print a shell completion script to stdout
+    ///
+    /// Example: seqlings completions zsh > ~/.zfunc/_seqlings
+    Completions {
+        /// Target shell (bash, zsh, fish, powershell, elvish)
+        shell: Shell,
+    },
 }
 
 fn main() {
     let cli = Cli::parse();
 
-    // Handle init command before loading exercises (since exercises may not exist yet)
-    if let Some(Commands::Init { path }) = cli.command {
-        cmd_init(&path);
-        return;
+    // Handle commands that don't need an exercise tree on disk.
+    match cli.command {
+        Some(Commands::Init { ref path }) => {
+            cmd_init(path);
+            return;
+        }
+        Some(Commands::Completions { shell }) => {
+            cmd_completions(shell);
+            return;
+        }
+        _ => {}
     }
 
     // Load exercises
@@ -158,7 +173,7 @@ fn main() {
     }
 
     match cli.command {
-        Some(Commands::Init { .. }) => unreachable!(), // Handled above
+        Some(Commands::Init { .. }) | Some(Commands::Completions { .. }) => unreachable!(), // Handled above
         Some(Commands::Watch { chapter }) => {
             let filtered = filter_by_chapter(&exercises, chapter.as_deref());
             cmd_watch(&filtered);
@@ -230,6 +245,12 @@ fn filter_by_chapter(exercises: &[Exercise], chapter: Option<&str>) -> Vec<Exerc
             filtered
         }
     }
+}
+
+/// Print a shell completion script to stdout.
+fn cmd_completions(shell: Shell) {
+    let mut cmd = Cli::command();
+    generate(shell, &mut cmd, "seqlings", &mut std::io::stdout());
 }
 
 /// Initialize a new seqlings project directory
