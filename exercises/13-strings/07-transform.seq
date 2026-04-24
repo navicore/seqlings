@@ -17,14 +17,14 @@
 # I AM NOT DONE
 
 : test-transform ( -- )
-    # Convert "seq" to uppercase
-    # Your code here - use string.to-upper
+    # Convert "seq" to uppercase.
+    # Your code here.
     ""
     # Do not edit below this line
     "SEQ" string.equal? test.assert
 
-    # Remove whitespace from "  hello  "
-    # Your code here - use string.trim
+    # Remove leading and trailing whitespace from "  hello  ".
+    # Your code here.
     ""
     "hello" string.equal? test.assert
 ;

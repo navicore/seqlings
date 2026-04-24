@@ -21,9 +21,8 @@
 
 : test-dip ( -- )
     # Stack starts: ( 20 5 )
-    # Goal: add 10 to 20 (the second value), keep 5 on top
+    # Goal: add 10 to 20 (the second value), keep 5 on top.
     # Result should be: ( 30 5 )
-    # Use: [ 10 i.+ ] dip
     20 5
     # Your code here
     drop 0

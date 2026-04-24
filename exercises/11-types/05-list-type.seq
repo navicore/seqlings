@@ -25,7 +25,8 @@
 
 : test-list-first ( -- )
     # Get the first element (index 0) of "alpha beta gamma"
-    # Your code here - use string.split and variant.field-at
+    # Your code here - split the string into a list and pick the
+    # element at index 0.
     ""
     # Do not edit below this line
     "alpha" string.equal? test.assert

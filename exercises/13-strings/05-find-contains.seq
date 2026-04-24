@@ -19,13 +19,13 @@
 
 : test-find-contains ( -- )
     # Check if "stack" is in "stack-based programming"
-    # Your code here - use string.contains
+    # Your code here — test whether the substring is present.
     false
     # Do not edit below this line
     test.assert
 
     # Check if "heap" is in "stack-based programming" (it's not)
-    # Your code here - use string.contains
+    # Your code here — test whether the substring is present.
     true
     not test.assert
 ;

@@ -20,7 +20,9 @@
     chan.make
     dup [ 42 swap chan.send drop ] strand.spawn
     drop   # Drop strand ID
-    # Your code here - receive the value (remember chan.receive returns (value Bool))
+    # Your code here — receive the value from the channel.
+    # Remember that the receive operation returns the value
+    # together with a status Bool, which you'll need to drop.
     drop
     0
     # Do not edit below this line

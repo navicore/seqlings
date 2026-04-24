@@ -18,7 +18,7 @@
 #   then
 #   # Stack now has 42 (condition was true)
 #
-# Your task: Push 0 as default, then if 10 i.> 5, replace it with 100.
+# Your task: Push 0 as default, then if 10 is greater than 5, replace it with 100.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
@@ -26,7 +26,7 @@
 : test-if-then ( -- )
     # Your code here:
     # 1. Push 0 as default
-    # 2. Check if 10 i.> 5
+    # 2. Check if 10 > 5
     # 3. If true, drop the 0 and push 100
     0
     # Do not edit below this line

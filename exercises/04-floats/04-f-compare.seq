@@ -17,14 +17,14 @@
 #   1.0 1.0 f.=     # true (explicit float)
 #   1.0 1.0 =       # true (inferred float)
 #
-# Your task: Compare 5.5 and 3.0. Is 5.5 i.> 3.0?
+# Your task: Compare 5.5 and 3.0. Is 5.5 greater than 3.0?
 # The result should be true.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : test-f-compare ( -- )
-    # Your code here - use f.> to compare 5.5 and 3.0
+    # Your code here - test whether 5.5 is greater than 3.0.
     false
     # Do not edit below this line
     test.assert

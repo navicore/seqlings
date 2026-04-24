@@ -19,7 +19,8 @@
 
 : test-call ( -- )
     7
-    # Your code here: push [ dup i.* ] then use `call` to execute it
+    # Your code here: build a quotation that squares its input,
+    # then use `call` to execute it against the 7 on the stack.
 
     # Do not edit below this line
     49 test.assert-eq

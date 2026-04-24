@@ -7,11 +7,15 @@
 # Here, we'll time a single item through a worker:
 #   send item → worker processes (sleeps 10ms) → receive result
 #
-# time.now returns milliseconds. Measure elapsed time as:
-#   time.now ... time.now swap i.-
+# `time.now` returns a millisecond timestamp. The idiomatic pattern
+# for measuring elapsed time is to take a timestamp before the work,
+# take another after, and subtract the start from the end.
+#
+# Example:
+#   time.now ...work... time.now swap i.-
 #
 # Your task: Receive the result and calculate elapsed time.
-# The elapsed time should be >= 10ms.
+# The elapsed time should be at least 10 milliseconds.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
@@ -31,12 +35,11 @@
     rot 1 swap chan.send drop
 
     # Your code here:
-    # 1. Receive result from results channel (second channel on stack)
-    # 2. Drop the received value
-    # 3. Record end time with time.now
-    # 4. Calculate elapsed = end - start
-    # 5. Clean up stack to leave just elapsed time
-    # Hint: the stack has ( results start ) at this point
+    # - receive the result from the results channel (the second
+    #   channel on the stack) and discard the value itself
+    # - take another timestamp, subtract the start, and leave only
+    #   the elapsed time on the stack
+    # Stack at this point: ( results start )
     drop drop 0
 
     # Do not edit below this line

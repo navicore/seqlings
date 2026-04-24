@@ -28,9 +28,11 @@
 # When current reaches target, return current
 # Otherwise, increment current and recurse
 : count-helper ( Int Int -- Int )
-    # Base case: target <= current? return current (use nip to drop target)
-    # Recursive: increment current with 1 i.+, then count-helper
-    # Key: count-helper must be the LAST thing - no work after it!
+    # Base case: when current has reached target, return current
+    # (and discard target).
+    # Recursive case: bump current by one and call count-helper
+    # again — and this recursive call MUST be the very last thing,
+    # with no further work after it. That's what lets TCO kick in.
     drop drop 0  # placeholder
 ;
 

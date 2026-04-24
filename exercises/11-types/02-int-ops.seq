@@ -17,7 +17,7 @@
 
 : test-int-add ( -- )
     # Addition: 15 + 7 = 22
-    # Your code here - use i.+
+    # Your code here - add the values together.
     0
     # Do not edit below this line
     22 test.assert-eq
@@ -25,7 +25,7 @@
 
 : test-int-multiply ( -- )
     # Multiplication: 6 * 7 = 42
-    # Your code here - use i.*
+    # Your code here - multiply the values.
     0
     # Do not edit below this line
     42 test.assert-eq
@@ -33,7 +33,8 @@
 
 : test-int-divide ( -- )
     # Integer division: 17 / 5 = 3 (truncates)
-    # Your code here - use i./ (returns value and success Bool)
+    # Your code here - divide them. The operator returns a quotient
+    # together with a success Bool.
     0 false
     # Do not edit below this line
     test.assert
@@ -42,7 +43,8 @@
 
 : test-int-mod ( -- )
     # Modulo: 17 mod 5 = 2 (remainder)
-    # Your code here - use i.mod (returns value and success Bool)
+    # Your code here - take the modulo. As with division, it returns
+    # a value and a success Bool.
     0 false
     # Do not edit below this line
     test.assert

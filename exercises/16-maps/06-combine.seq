@@ -10,9 +10,10 @@
 # I AM NOT DONE
 
 : make-profile ( String Int String -- Map )
-    # Arguments on stack: name, age, email (email on top)
-    # Create a map with keys "name", "age", "email"
-    # Hint: You'll need to use rot and swap to access values
+    # Arguments on stack: name, age, email (email on top).
+    # Create a map with keys "name", "age", "email".
+    # Hint: you'll need to rearrange the stack to pair each value
+    # with its key as you build the map.
     # Your code here
     drop drop drop map.make
 ;

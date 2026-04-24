@@ -22,12 +22,12 @@
 # the resulting string.
 #
 # Your task: Classify the number 15.
-#   - If > 10, push 3
-#   - Else if > 5, push 2
+#   - If greater than 10, push 3
+#   - Else if greater than 5, push 2
 #   - Else push 1
-# Since 15 i.> 10, the answer should be 3.
-# (Tip: `dup 10 i.>` consumes one copy for the test and
-#  leaves the original for the next dup/check/drop.)
+# Since 15 is greater than 10, the answer should be 3.
+# (Tip: each comparison consumes the value, so remember to
+#  duplicate it beforehand if you'll need it again.)
 # When done, delete the marker line below.
 
 # I AM NOT DONE

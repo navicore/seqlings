@@ -13,7 +13,7 @@
 
 : test-string-length ( -- )
     # Get the length of "hello"
-    # Your code here - use string.length
+    # Your code here - get its length.
     0
     # Do not edit below this line
     5 test.assert-eq
@@ -29,7 +29,7 @@
 
 : test-string-empty ( -- )
     # Check if "" is empty (returns true)
-    # Your code here - use string.empty?
+    # Your code here - test whether the string is empty.
     false
     # Do not edit below this line
     test.assert
@@ -37,7 +37,7 @@
 
 : test-string-not-empty ( -- )
     # Check that "hi" is not empty (returns false)
-    # Your code here - use string.empty?
+    # Your code here - test whether the string is empty.
     true
     # Do not edit below this line
     not test.assert

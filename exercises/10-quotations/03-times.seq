@@ -23,7 +23,8 @@
 
 : test-times ( -- )
     1
-    # Your code here: run [ dup i.+ ] 3 times
+    # Your code here. Use times with a quotation that doubles
+    # the value, run it three times so 1 becomes 8.
     drop 0
     # Do not edit below this line
     8 test.assert-eq

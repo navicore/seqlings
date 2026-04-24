@@ -21,8 +21,10 @@
 # I AM NOT DONE
 
 : sum-and-product ( Int Int -- Int Int )
-    # Your code here
-    # Hint: You'll need 2dup to preserve both values
+    # Your code here.
+    # Hint: each arithmetic operation consumes its inputs, so
+    # you'll need to make a copy of both values before computing
+    # the first result.
     drop drop 0 0
 ;
 

@@ -27,8 +27,8 @@
 ;
 
 : add-floats ( Float Float -- Float )
-    # Add two floats using f.+
-    # Your code here - replace drop drop with correct code
+    # Add the two floats together.
+    # Your code here - replace drop drop with correct code.
     drop drop 0.0
 ;
 

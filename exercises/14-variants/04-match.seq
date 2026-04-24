@@ -31,9 +31,10 @@ union Option { Some { value: Int } None }
 
 : unwrap-or ( Option Int -- Int )
     # If Some, return the value. If None, return the default.
-    # Hint: swap to get Option on top, then match
-    # In Some branch: you have ( default value ), use nip to keep value
-    # In None branch: default is already on stack, just return it
+    # Hint: bring the Option to the top of the stack so you can
+    # match on it. In the Some branch you'll have both the default
+    # and the extracted value present — keep only the value. In
+    # the None branch, the default is already what you want.
     drop drop 0
 ;
 

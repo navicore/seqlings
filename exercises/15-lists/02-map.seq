@@ -19,7 +19,7 @@
 # I AM NOT DONE
 
 : upcase-all ( Variant -- Variant )
-    # Your code here - use list.map with string.to-upper
+    # Your code here - transform each element to uppercase.
     drop "x" " " string.split
 ;
 

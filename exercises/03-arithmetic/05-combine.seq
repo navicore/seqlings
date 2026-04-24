@@ -15,7 +15,7 @@
 # I AM NOT DONE
 
 : test-combine ( -- )
-    # Your code here - chain i.+ and i.*
+    # Your code here - chain an addition into a multiplication.
     0
     # Do not edit below this line
     30 test.assert-eq

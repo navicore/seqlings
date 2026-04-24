@@ -21,16 +21,16 @@
 # I AM NOT DONE
 
 : test-f-multiply ( -- )
-    # Multiply 2.5 by 4.0 to get 10.0
-    # Your code here - use f.*
+    # Multiply 2.5 by 4.0 to get 10.0.
+    # Your code here.
     0.0
     # Do not edit below this line
     10.0 f.= test.assert
 ;
 
 : test-f-divide ( -- )
-    # Divide 15.0 by 4.0 to get 3.75
-    # Your code here - use f./
+    # Divide 15.0 by 4.0 to get 3.75.
+    # Your code here.
     0.0
     # Do not edit below this line
     3.75 f.= test.assert

@@ -47,9 +47,9 @@
     test.assert
     2 test.assert-eq
 
-    # Your code here: Cancel the weave properly
-    # Hint: use strand.weave-cancel
-    drop  # placeholder - replace with strand.weave-cancel
+    # Your code here: cancel the weave properly so the infinite
+    # counter does not hang the test.
+    drop  # placeholder
 
     # If we reach here without hanging, success!
     true test.assert

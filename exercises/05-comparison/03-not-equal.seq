@@ -19,7 +19,7 @@
 # I AM NOT DONE
 
 : test-not-equal ( -- )
-    # Your code here - is 100 i.<> 99?
+    # Your code here — is 100 not equal to 99?
     false
     # Do not edit below this line
     test.assert

@@ -24,7 +24,7 @@
 # (We used `dup` because the comparison consumed the value,
 #  but we still want to use it in the branches.)
 #
-# Your task: If 3 i.> 7, push 1, otherwise push 2.
+# Your task: If 3 is greater than 7, push 1, otherwise push 2.
 # (Hint: 3 is NOT greater than 7, so push 2)
 # When done, delete the marker line below.
 
@@ -32,7 +32,7 @@
 
 : test-if-else ( -- )
     # Your code here
-    # 3 i.> 7? If yes, push 1. If no, push 2.
+    # Is 3 > 7? If yes, push 1. If no, push 2.
     0
     # Do not edit below this line
     2 test.assert-eq

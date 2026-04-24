@@ -13,15 +13,19 @@
 # This is ROW POLYMORPHISM - functions work with any stack,
 # as long as the top elements match the signature.
 #
-# Your task: Implement `keep` - runs a quotation but keeps the original value.
-#   5 [ dup i.* ] keep   -> 25 5  (squared, but kept original)
+# Your task: Implement `keep` — a combinator that runs a quotation
+# on the top value but leaves the original underneath the result.
+#
+# Example:
+#   5 [ dup i.* ] keep   -> ( 25 5 )    # squared, original kept
 #
 # Signature: ( A Variant -- B A )
 #   - Takes any value A and a quotation (Variant)
 #   - Runs the quotation (which produces B from A)
 #   - Returns both the result B AND the original A
 #
-# Hint: You'll need `dup`, `dip` or careful stack management.
+# Hint: you will need to make a copy of the value before calling
+# the quotation, so a copy survives for the result stack.
 #
 # When done, delete the marker line below.
 

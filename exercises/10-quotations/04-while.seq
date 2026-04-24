@@ -15,19 +15,18 @@
 # separating the "should we continue?" logic from the
 # "what do we do each iteration?" logic.
 #
-# Your task: Use while to divide a number by 2 until it's < 10.
-# Starting from 80: 80→40→20→10→stop (10 is not < 10)
-# Wait, we need < 10, so: 80→40→20→10 stops at 10? No...
-# Let me clarify: keep dividing while >= 10
-# 80→40→20→10→5 (stops when < 10)
+# Your task: Use while to halve a number as long as it is ten or
+# greater. Starting from 80, the value should progress through
+# 80 → 40 → 20 → 10 → 5 and stop once it has fallen below ten.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : test-while ( -- )
     80
-    # Your code here: condition-quot body-quot while
-    # Hint: condition checks >= 10, body divides by 2
+    # Your code here. Remember that while needs two quotations on
+    # the stack: one that tests whether to keep looping, and one
+    # that runs each iteration.
 
     # Do not edit below this line
     5 test.assert-eq

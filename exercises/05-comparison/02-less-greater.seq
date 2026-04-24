@@ -21,7 +21,7 @@
 # I AM NOT DONE
 
 : test-less-greater ( -- )
-    # Your code here - is 10 i.> 7?
+    # Your code here — is 10 greater than 7?
     false
     # Do not edit below this line
     test.assert

@@ -23,8 +23,8 @@
 
 : test-until ( -- )
     3
-    # Your code here: body-quot condition-quot until
-    # Hint: body doubles, condition checks > 100
+    # Your code here. Until takes two quotations: a body that runs
+    # each iteration, and a condition that signals when to stop.
 
     # Do not edit below this line
     192 test.assert-eq

@@ -21,9 +21,10 @@
 # I AM NOT DONE
 
 : join-with-dash ( Variant -- String )
-    # Your code here - use list.fold
-    # Hint: Start with "" and use a quotation that adds "-" between words
-    # One approach: fold with [ swap dup string.empty? if drop else "-" string.concat then swap string.concat ]
+    # Your code here.
+    # Hint: fold starting with an empty accumulator. On each
+    # step, insert a dash before appending the next word — except
+    # when the accumulator is still empty (the very first word).
     drop ""
 ;
 

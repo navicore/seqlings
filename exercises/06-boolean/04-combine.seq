@@ -17,8 +17,7 @@
 # I AM NOT DONE
 
 : test-combine ( -- )
-    # Your code here: (true AND false) OR true
-    # Hint: true false and true or
+    # Your code here: evaluate (true AND false) OR true.
     false
     # Do not edit below this line
     test.assert

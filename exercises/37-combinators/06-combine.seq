@@ -9,26 +9,21 @@
 #   [ int->string ] dip         — convert 42 to "42", preserve "score"
 #   ": " string.concat swap string.concat  — build "score: 42"
 #
-# Your task: Given two numbers (a b), compute both their sum AND product
-# using combinators instead of stack juggling.
+# Your task: Given two numbers on the stack, compute both their
+# sum AND their product using combinators instead of stack juggling.
 # Stack starts: ( 3 7 )
-# Result: ( 10 21 ) — sum on bottom, product on top
+# Result: ( 10 21 ) — sum on bottom, product on top.
 #
-# Approach: use bi on the pair:
-#   1. Use keep on the first value to preserve it
-#   2. Then compute sum and product
-#
-# Hint: compute the product first with 2dup, then use dip to
-# compute the sum underneath it.
+# Hint: compute one of the two derived values while you still have
+# both inputs, then use dip to work on the other underneath the
+# first result.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 # Compute sum and product of two numbers using combinators
 : sum-and-product ( Int Int -- Int Int )
-    # Your code here
-    # Given ( a b ) produce ( a+b a*b )
-    # Try: 2dup i.* [ i.+ ] dip
+    # Your code here. Given ( a b ), produce ( a+b a*b ).
     drop 0 0
 ;
 

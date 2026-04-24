@@ -18,9 +18,8 @@
 : test-safe-ops ( -- )
     chan.make
     dup 99 swap chan.send drop   # send returns Bool, drop it
-    # Your code here:
-    # Use chan.receive
-    # Should get (99 true) - the value and success status
+    # Your code here: receive from the channel. You should get
+    # back the value along with a success status (true).
     drop 0 false
     # Do not edit below this line
     test.assert         # Status should be true

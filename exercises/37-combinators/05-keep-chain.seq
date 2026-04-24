@@ -21,9 +21,9 @@
 
 : test-keep-chain ( -- )
     4
-    # Your code here — use keep twice
-    # First keep: compute square (dup i.*)
-    # Second keep: compute cube (dup dup i.* i.*)
+    # Your code here. Apply keep twice — once to compute the
+    # square, once to compute the cube — so both derived values
+    # land on the stack above the preserved original.
     drop drop 0
 
     # Do not edit below this line

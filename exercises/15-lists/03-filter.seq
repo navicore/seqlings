@@ -18,8 +18,8 @@
 # I AM NOT DONE
 
 : long-words-only ( Variant -- Variant )
-    # Your code here - use list.filter
-    # Hint: [ string.length 4 i.> ] is the predicate
+    # Your code here. Keep only the elements whose length is
+    # greater than four.
     drop "x" " " string.split
 ;
 

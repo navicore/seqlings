@@ -32,9 +32,10 @@ union IntResult {
 ;
 
 : safe-divide ( Int Int -- IntResult )
-    # If divisor is 0, return Err "division by zero"
-    # Otherwise divide and return Ok with the result
-    # Hint: check if divisor is 0 with `dup 0 i.= if`
+    # If the divisor is zero, return Err "division by zero".
+    # Otherwise divide and wrap the quotient in Ok.
+    # Hint: inspect the divisor before dividing, and branch on
+    # whether it is zero.
     # Your code here
     drop drop 0 Make-Ok
 ;

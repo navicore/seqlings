@@ -11,8 +11,8 @@
 # I AM NOT DONE
 
 : has-args ( Int -- Bool )
-    # Return true if there are more than n arguments
-    # Hint: compare args.count with n using >
+    # Return true if there are more than n arguments.
+    # Hint: check whether args.count exceeds n.
     # Your code here
     drop false
 ;

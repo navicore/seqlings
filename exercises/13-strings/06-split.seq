@@ -15,8 +15,8 @@
 # I AM NOT DONE
 
 : test-split ( -- )
-    # Split "red:green:blue" by ":"
-    # Your code here - use string.split
+    # Split "red:green:blue" using ":" as the delimiter.
+    # Your code here.
     list-of  # placeholder empty list
     # Do not edit below this line
     list.length 3 test.assert-eq

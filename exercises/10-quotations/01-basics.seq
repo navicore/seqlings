@@ -8,8 +8,8 @@
 #
 # Quotations can be placed on the stack like any other value.
 #
-# Your task: Create a quotation that doubles a number (dup i.+)
-# and put it on the stack. We'll call it for you below.
+# Your task: Create a quotation that doubles its input and put
+# it on the stack. We'll call it for you below.
 #
 # IMPORTANT: You are learning HIGHER-ORDER PROGRAMMING.
 # The ability to treat code as data is one of the most
@@ -21,7 +21,8 @@
 
 : test-basics ( -- )
     5
-    # Your code here - push a quotation [ dup i.+ ] onto the stack
+    # Your code here - push a quotation that doubles its input
+    # onto the stack.
 
     # Do not edit below this line
     call
