@@ -320,66 +320,66 @@ path = "exercises/10-quotations/03-higher-order.seq"
 mode = "test"
 
 # ============================================================
-# 15-lists: Lists and Higher-Order Operations
+# 11-types: Types in Seq
 # ============================================================
 
 [[exercises]]
-name = "01-list-basics"
-path = "exercises/15-lists/01-basics.seq"
+name = "01-type-predicates"
+path = "exercises/11-types/01-predicates.seq"
 mode = "test"
 
 [[exercises]]
-name = "02-map"
-path = "exercises/15-lists/02-map.seq"
+name = "02-int-ops"
+path = "exercises/11-types/02-int-ops.seq"
 mode = "test"
 
 [[exercises]]
-name = "03-filter"
-path = "exercises/15-lists/03-filter.seq"
+name = "03-float-ops"
+path = "exercises/11-types/03-float-ops.seq"
 mode = "test"
 
 [[exercises]]
-name = "04-fold"
-path = "exercises/15-lists/04-fold.seq"
+name = "04-string-type"
+path = "exercises/11-types/04-string-type.seq"
 mode = "test"
 
 [[exercises]]
-name = "05-list-combine"
-path = "exercises/15-lists/05-combine.seq"
+name = "05-list-type"
+path = "exercises/11-types/05-list-type.seq"
+mode = "test"
+
+[[exercises]]
+name = "06-row-polymorphism"
+path = "exercises/11-types/06-row-polymorphism.seq"
 mode = "test"
 
 # ============================================================
-# 24-channels: Concurrency with Channels
+# 12-type-conversions: Type Conversions
 # ============================================================
 
 [[exercises]]
-name = "01-chan-create"
-path = "exercises/24-channels/01-create.seq"
+name = "01-int-to-string"
+path = "exercises/12-type-conversions/01-int-to-string.seq"
 mode = "test"
 
 [[exercises]]
-name = "02-send-receive"
-path = "exercises/24-channels/02-send-receive.seq"
+name = "02-string-to-int"
+path = "exercises/12-type-conversions/02-string-to-int.seq"
 mode = "test"
 
 [[exercises]]
-name = "03-safe-ops"
-path = "exercises/24-channels/03-safe-ops.seq"
+name = "03-int-float"
+path = "exercises/12-type-conversions/03-int-float.seq"
 mode = "test"
 
 [[exercises]]
-name = "04-close"
-path = "exercises/24-channels/04-close.seq"
+name = "04-float-string"
+path = "exercises/12-type-conversions/04-float-string.seq"
 mode = "test"
 
 [[exercises]]
-name = "05-yield"
-path = "exercises/24-channels/05-yield.seq"
-mode = "test"
-
-[[exercises]]
-name = "06-patterns"
-path = "exercises/24-channels/06-patterns.seq"
+name = "05-conversions-combine"
+path = "exercises/12-type-conversions/05-combine.seq"
 mode = "test"
 
 # ============================================================
@@ -427,90 +427,61 @@ path = "exercises/13-strings/08-compare.seq"
 mode = "test"
 
 # ============================================================
-# 25-spawn: Spawning Strands
+# 14-variants: Variants (Union Types)
 # ============================================================
 
 [[exercises]]
-name = "01-spawn-basics"
-path = "exercises/25-spawn/01-basics.seq"
+name = "01-variant-basics"
+path = "exercises/14-variants/01-basics.seq"
 mode = "test"
 
 [[exercises]]
-name = "02-return-value"
-path = "exercises/25-spawn/02-return-value.seq"
+name = "02-variant-option"
+path = "exercises/14-variants/02-option.seq"
 mode = "test"
 
 [[exercises]]
-name = "03-strand-communication"
-path = "exercises/25-spawn/03-communication.seq"
+name = "03-variant-result"
+path = "exercises/14-variants/03-result.seq"
 mode = "test"
 
 [[exercises]]
-name = "04-ping-pong"
-path = "exercises/25-spawn/04-ping-pong.seq"
+name = "04-variant-match"
+path = "exercises/14-variants/04-match.seq"
 mode = "test"
 
 [[exercises]]
-name = "05-worker-pool"
-path = "exercises/25-spawn/05-worker-pool.seq"
-mode = "test"
-
-# ============================================================
-# 19-io: Input/Output
-# ============================================================
-
-[[exercises]]
-name = "01-write-line"
-path = "exercises/19-io/01-write-line.seq"
-mode = "test"
-
-[[exercises]]
-name = "02-read-line"
-path = "exercises/19-io/02-read-line.seq"
-mode = "test"
-
-[[exercises]]
-name = "03-read-status"
-path = "exercises/19-io/03-read-status.seq"
-mode = "test"
-
-[[exercises]]
-name = "04-read-n"
-path = "exercises/19-io/04-read-n.seq"
-mode = "test"
-
-[[exercises]]
-name = "05-io-interactive"
-path = "exercises/19-io/05-interactive.seq"
+name = "05-variant-combine"
+path = "exercises/14-variants/05-combine.seq"
 mode = "test"
 
 # ============================================================
-# 12-type-conversions: Type Conversions
+# 15-lists: Lists and Higher-Order Operations
 # ============================================================
 
 [[exercises]]
-name = "01-int-to-string"
-path = "exercises/12-type-conversions/01-int-to-string.seq"
+name = "01-list-basics"
+path = "exercises/15-lists/01-basics.seq"
 mode = "test"
 
 [[exercises]]
-name = "02-string-to-int"
-path = "exercises/12-type-conversions/02-string-to-int.seq"
+name = "02-map"
+path = "exercises/15-lists/02-map.seq"
 mode = "test"
 
 [[exercises]]
-name = "03-int-float"
-path = "exercises/12-type-conversions/03-int-float.seq"
+name = "03-filter"
+path = "exercises/15-lists/03-filter.seq"
 mode = "test"
 
 [[exercises]]
-name = "04-float-string"
-path = "exercises/12-type-conversions/04-float-string.seq"
+name = "04-fold"
+path = "exercises/15-lists/04-fold.seq"
 mode = "test"
 
 [[exercises]]
-name = "05-conversions-combine"
-path = "exercises/12-type-conversions/05-combine.seq"
+name = "05-list-combine"
+path = "exercises/15-lists/05-combine.seq"
 mode = "test"
 
 # ============================================================
@@ -548,6 +519,35 @@ path = "exercises/16-maps/06-combine.seq"
 mode = "test"
 
 # ============================================================
+# 19-io: Input/Output
+# ============================================================
+
+[[exercises]]
+name = "01-write-line"
+path = "exercises/19-io/01-write-line.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-read-line"
+path = "exercises/19-io/02-read-line.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-read-status"
+path = "exercises/19-io/03-read-status.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-read-n"
+path = "exercises/19-io/04-read-n.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-io-interactive"
+path = "exercises/19-io/05-interactive.seq"
+mode = "test"
+
+# ============================================================
 # 20-files: File Operations
 # ============================================================
 
@@ -574,132 +574,6 @@ mode = "test"
 [[exercises]]
 name = "05-file-combine"
 path = "exercises/20-files/05-combine.seq"
-mode = "test"
-
-# ============================================================
-# 27-std-imath: Standard Library - Integer Math
-# ============================================================
-
-[[exercises]]
-name = "01-imath-abs"
-path = "exercises/27-std-imath/01-abs.seq"
-mode = "test"
-
-[[exercises]]
-name = "02-imath-min-max"
-path = "exercises/27-std-imath/02-min-max.seq"
-mode = "test"
-
-[[exercises]]
-name = "03-imath-clamp"
-path = "exercises/27-std-imath/03-clamp.seq"
-mode = "test"
-
-[[exercises]]
-name = "04-imath-gcd"
-path = "exercises/27-std-imath/04-gcd.seq"
-mode = "test"
-
-[[exercises]]
-name = "05-imath-power"
-path = "exercises/27-std-imath/05-power.seq"
-mode = "test"
-
-[[exercises]]
-name = "06-imath-combine"
-path = "exercises/27-std-imath/06-combine.seq"
-mode = "test"
-
-# ============================================================
-# 11-types: Types in Seq
-# ============================================================
-
-[[exercises]]
-name = "01-type-predicates"
-path = "exercises/11-types/01-predicates.seq"
-mode = "test"
-
-[[exercises]]
-name = "02-int-ops"
-path = "exercises/11-types/02-int-ops.seq"
-mode = "test"
-
-[[exercises]]
-name = "03-float-ops"
-path = "exercises/11-types/03-float-ops.seq"
-mode = "test"
-
-[[exercises]]
-name = "04-string-type"
-path = "exercises/11-types/04-string-type.seq"
-mode = "test"
-
-[[exercises]]
-name = "05-list-type"
-path = "exercises/11-types/05-list-type.seq"
-mode = "test"
-
-[[exercises]]
-name = "06-row-polymorphism"
-path = "exercises/11-types/06-row-polymorphism.seq"
-mode = "test"
-
-# ============================================================
-# 14-variants: Variants (Union Types)
-# ============================================================
-
-[[exercises]]
-name = "01-variant-basics"
-path = "exercises/14-variants/01-basics.seq"
-mode = "test"
-
-[[exercises]]
-name = "02-variant-option"
-path = "exercises/14-variants/02-option.seq"
-mode = "test"
-
-[[exercises]]
-name = "03-variant-result"
-path = "exercises/14-variants/03-result.seq"
-mode = "test"
-
-[[exercises]]
-name = "04-variant-match"
-path = "exercises/14-variants/04-match.seq"
-mode = "test"
-
-[[exercises]]
-name = "05-variant-combine"
-path = "exercises/14-variants/05-combine.seq"
-mode = "test"
-
-# ============================================================
-# 28-std-fmath: Standard Library - Floating-Point Math
-# ============================================================
-
-[[exercises]]
-name = "01-fmath-sqrt"
-path = "exercises/28-std-fmath/01-sqrt.seq"
-mode = "test"
-
-[[exercises]]
-name = "02-fmath-trig"
-path = "exercises/28-std-fmath/02-trig.seq"
-mode = "test"
-
-[[exercises]]
-name = "03-fmath-exp-log"
-path = "exercises/28-std-fmath/03-exp-log.seq"
-mode = "test"
-
-[[exercises]]
-name = "04-fmath-round"
-path = "exercises/28-std-fmath/04-round.seq"
-mode = "test"
-
-[[exercises]]
-name = "05-fmath-combine"
-path = "exercises/28-std-fmath/05-combine.seq"
 mode = "test"
 
 # ============================================================
@@ -775,6 +649,69 @@ path = "exercises/23-time/04-combine.seq"
 mode = "test"
 
 # ============================================================
+# 24-channels: Concurrency with Channels
+# ============================================================
+
+[[exercises]]
+name = "01-chan-create"
+path = "exercises/24-channels/01-create.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-send-receive"
+path = "exercises/24-channels/02-send-receive.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-safe-ops"
+path = "exercises/24-channels/03-safe-ops.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-close"
+path = "exercises/24-channels/04-close.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-yield"
+path = "exercises/24-channels/05-yield.seq"
+mode = "test"
+
+[[exercises]]
+name = "06-patterns"
+path = "exercises/24-channels/06-patterns.seq"
+mode = "test"
+
+# ============================================================
+# 25-spawn: Spawning Strands
+# ============================================================
+
+[[exercises]]
+name = "01-spawn-basics"
+path = "exercises/25-spawn/01-basics.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-return-value"
+path = "exercises/25-spawn/02-return-value.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-strand-communication"
+path = "exercises/25-spawn/03-communication.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-ping-pong"
+path = "exercises/25-spawn/04-ping-pong.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-worker-pool"
+path = "exercises/25-spawn/05-worker-pool.seq"
+mode = "test"
+
+# ============================================================
 # 26-tcp: TCP Networking
 # ============================================================
 
@@ -801,6 +738,69 @@ mode = "test"
 [[exercises]]
 name = "05-tcp-echo"
 path = "exercises/26-tcp/05-echo.seq"
+mode = "test"
+
+# ============================================================
+# 27-std-imath: Standard Library - Integer Math
+# ============================================================
+
+[[exercises]]
+name = "01-imath-abs"
+path = "exercises/27-std-imath/01-abs.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-imath-min-max"
+path = "exercises/27-std-imath/02-min-max.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-imath-clamp"
+path = "exercises/27-std-imath/03-clamp.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-imath-gcd"
+path = "exercises/27-std-imath/04-gcd.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-imath-power"
+path = "exercises/27-std-imath/05-power.seq"
+mode = "test"
+
+[[exercises]]
+name = "06-imath-combine"
+path = "exercises/27-std-imath/06-combine.seq"
+mode = "test"
+
+# ============================================================
+# 28-std-fmath: Standard Library - Floating-Point Math
+# ============================================================
+
+[[exercises]]
+name = "01-fmath-sqrt"
+path = "exercises/28-std-fmath/01-sqrt.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-fmath-trig"
+path = "exercises/28-std-fmath/02-trig.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-fmath-exp-log"
+path = "exercises/28-std-fmath/03-exp-log.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-fmath-round"
+path = "exercises/28-std-fmath/04-round.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-fmath-combine"
+path = "exercises/28-std-fmath/05-combine.seq"
 mode = "test"
 
 # ============================================================
