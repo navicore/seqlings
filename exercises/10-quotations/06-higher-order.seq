@@ -15,7 +15,9 @@
 #   5 [ 1 i.+ ] apply-twice   # 5→6→7, result: 7
 #   3 [ dup i.* ] apply-twice  # 3→9→81, result: 81
 #
-# Hint: You could use `times`, or just call twice!
+# Hint: there are at least two approaches — repeat the operation
+# using a counted-loop combinator from earlier in this chapter, or
+# invoke the quotation directly twice in a row.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
@@ -29,7 +31,7 @@
 : test-higher-order ( -- )
     5 [ 3 i.+ ] apply-twice
     # Do not edit below this line
-    11 test.assert-eq   # 5+3+3 i.= 11
+    11 test.assert-eq   # 5 + 3 + 3 = 11
 
     2 [ dup i.* ] apply-twice
     16 test.assert-eq   # 2→4→16

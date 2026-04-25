@@ -125,6 +125,22 @@ enum Commands {
     Verify,
     /// Skip to the next exercise
     Next,
+    /// Refresh exercises from the embedded corpus, preserving in-progress work
+    ///
+    /// Replaces only exercises whose source file still has the
+    /// "# I AM NOT DONE" marker (the "not started" signal). Files
+    /// you've touched are left alone. Hints and solutions are
+    /// always refreshed. Use --force to override per file.
+    Update {
+        /// Show what would happen without writing anything
+        #[arg(long)]
+        dry_run: bool,
+        /// Force-replace a specific exercise even if you've touched it.
+        /// Use the path under exercises/, e.g. "09-recursion/05-mutual"
+        /// (with or without the .seq extension). Repeatable.
+        #[arg(long, value_name = "EXERCISE")]
+        force: Vec<String>,
+    },
     /// Print a shell completion script to stdout
     ///
     /// Example: seqlings completions zsh > ~/.zfunc/_seqlings
@@ -186,6 +202,7 @@ fn main() {
         Some(Commands::Reset { name }) => cmd_reset(&exercises, name),
         Some(Commands::Verify) => cmd_verify(&exercises),
         Some(Commands::Next) => cmd_next(&exercises),
+        Some(Commands::Update { dry_run, force }) => cmd_update(dry_run, &force),
         None => cmd_watch(&exercises), // Default to watch mode
     }
 }
@@ -251,6 +268,246 @@ fn filter_by_chapter(exercises: &[Exercise], chapter: Option<&str>) -> Vec<Exerc
 fn cmd_completions(shell: Shell) {
     let mut cmd = Cli::command();
     generate(shell, &mut cmd, "seqlings", &mut std::io::stdout());
+}
+
+/// Per-file decision the update command makes for an exercise.
+enum UpdateAction {
+    /// On-disk file does not exist — extract it.
+    Create,
+    /// On-disk content matches embedded — nothing to do.
+    AlreadyCurrent,
+    /// User hasn't started (marker still present); replace freely.
+    Replace,
+    /// User passed --force for this file; replace despite touched state.
+    ForceReplace,
+    /// User has touched this file (no marker); leave alone.
+    Preserve,
+}
+
+/// Recursively collect every file in an embedded directory.
+fn collect_embedded_files<'a>(dir: &'a Dir<'a>, out: &mut Vec<&'a include_dir::File<'a>>) {
+    for entry in dir.entries() {
+        match entry {
+            include_dir::DirEntry::File(f) => out.push(f),
+            include_dir::DirEntry::Dir(d) => collect_embedded_files(d, out),
+        }
+    }
+}
+
+/// Decide what to do with one exercise file.
+fn classify_exercise(on_disk: &Path, embedded: &[u8], forced: bool) -> UpdateAction {
+    let on_disk_bytes = match std::fs::read(on_disk) {
+        Ok(b) => b,
+        Err(_) => return UpdateAction::Create,
+    };
+    if on_disk_bytes == embedded {
+        return UpdateAction::AlreadyCurrent;
+    }
+    if forced {
+        return UpdateAction::ForceReplace;
+    }
+    let text = String::from_utf8_lossy(&on_disk_bytes);
+    if text.contains("# I AM NOT DONE") {
+        UpdateAction::Replace
+    } else {
+        UpdateAction::Preserve
+    }
+}
+
+/// Refresh an entire embedded tree to disk, overwriting any existing files.
+/// Used for hints/ and solutions/ which are reference material, not user files.
+fn refresh_tree(dir: &Dir<'_>, target_root: &str) -> std::io::Result<()> {
+    let mut files = Vec::new();
+    collect_embedded_files(dir, &mut files);
+    for f in files {
+        let target = PathBuf::from(target_root).join(f.path());
+        if let Some(parent) = target.parent() {
+            std::fs::create_dir_all(parent)?;
+        }
+        std::fs::write(&target, f.contents())?;
+    }
+    Ok(())
+}
+
+/// Refresh untouched exercises from the embedded corpus, leaving in-progress
+/// or completed work alone. Hints and solutions always refresh.
+fn cmd_update(dry_run: bool, force: &[String]) {
+    // Normalize --force values: strip leading `exercises/`, append `.seq`
+    // if missing. Lets the user write either form.
+    let force_set: std::collections::HashSet<String> = force
+        .iter()
+        .map(|s| {
+            let stripped = s
+                .trim_start_matches("./")
+                .trim_start_matches("exercises/")
+                .to_string();
+            if stripped.ends_with(".seq") {
+                stripped
+            } else {
+                format!("{stripped}.seq")
+            }
+        })
+        .collect();
+
+    let mut files = Vec::new();
+    collect_embedded_files(&EXERCISES_DIR, &mut files);
+    // Skip info.toml — that's the manifest, not an exercise. Replacing
+    // it is desirable (new exercises get registered) and we treat it
+    // separately below to avoid noise in the per-exercise summary.
+    let exercise_files: Vec<&include_dir::File<'_>> = files
+        .into_iter()
+        .filter(|f| f.path() != Path::new("info.toml"))
+        .collect();
+
+    let mut created: Vec<String> = Vec::new();
+    let mut replaced: Vec<String> = Vec::new();
+    let mut force_replaced: Vec<String> = Vec::new();
+    let mut preserved: Vec<String> = Vec::new();
+    let mut current_count = 0usize;
+    let mut errors: Vec<String> = Vec::new();
+
+    for f in &exercise_files {
+        let rel = f.path();
+        let rel_str = rel.to_string_lossy().to_string();
+        let on_disk = PathBuf::from("exercises").join(rel);
+        let forced = force_set.contains(&rel_str);
+
+        match classify_exercise(&on_disk, f.contents(), forced) {
+            UpdateAction::AlreadyCurrent => current_count += 1,
+            UpdateAction::Create => {
+                created.push(rel_str);
+                if !dry_run && let Err(e) = write_file(&on_disk, f.contents()) {
+                    errors.push(format!("create {}: {e}", on_disk.display()));
+                }
+            }
+            UpdateAction::Replace => {
+                replaced.push(rel_str);
+                if !dry_run && let Err(e) = write_file(&on_disk, f.contents()) {
+                    errors.push(format!("replace {}: {e}", on_disk.display()));
+                }
+            }
+            UpdateAction::ForceReplace => {
+                force_replaced.push(rel_str);
+                if !dry_run && let Err(e) = write_file(&on_disk, f.contents()) {
+                    errors.push(format!("force-replace {}: {e}", on_disk.display()));
+                }
+            }
+            UpdateAction::Preserve => preserved.push(rel_str),
+        }
+    }
+
+    // info.toml and reference trees (solutions/, hints/) refresh wholesale.
+    if !dry_run {
+        if let Some(info) = EXERCISES_DIR.get_file("info.toml")
+            && let Err(e) = write_file(Path::new("exercises/info.toml"), info.contents())
+        {
+            errors.push(format!("refresh exercises/info.toml: {e}"));
+        }
+        if let Err(e) = refresh_tree(&SOLUTIONS_DIR, "solutions") {
+            errors.push(format!("refresh solutions/: {e}"));
+        }
+        if let Err(e) = refresh_tree(&HINTS_DIR, "hints") {
+            errors.push(format!("refresh hints/: {e}"));
+        }
+    }
+
+    print_update_summary(
+        &created,
+        &replaced,
+        &force_replaced,
+        &preserved,
+        current_count,
+        &errors,
+        dry_run,
+    );
+
+    if !errors.is_empty() {
+        process::exit(1);
+    }
+}
+
+fn write_file(path: &Path, bytes: &[u8]) -> std::io::Result<()> {
+    if let Some(parent) = path.parent() {
+        std::fs::create_dir_all(parent)?;
+    }
+    std::fs::write(path, bytes)
+}
+
+#[allow(clippy::too_many_arguments)]
+fn print_update_summary(
+    created: &[String],
+    replaced: &[String],
+    force_replaced: &[String],
+    preserved: &[String],
+    current_count: usize,
+    errors: &[String],
+    dry_run: bool,
+) {
+    if dry_run {
+        println!("\n{}", "[dry run] no files were modified".yellow().bold());
+    }
+
+    if !created.is_empty() {
+        println!(
+            "\n{}",
+            format!("Created ({}):", created.len()).green().bold()
+        );
+        for n in created {
+            println!("  {} {}", "+".green(), n);
+        }
+    }
+
+    if !replaced.is_empty() {
+        println!(
+            "\n{}",
+            format!("Replaced ({}):", replaced.len()).cyan().bold()
+        );
+        for n in replaced {
+            println!("  {} {}", "~".cyan(), n);
+        }
+    }
+
+    if !force_replaced.is_empty() {
+        println!(
+            "\n{}",
+            format!("Force-replaced ({}):", force_replaced.len())
+                .yellow()
+                .bold()
+        );
+        for n in force_replaced {
+            println!("  {} {}", "!".yellow(), n);
+        }
+    }
+
+    if !preserved.is_empty() {
+        println!(
+            "\n{}",
+            format!(
+                "Preserved ({}, your work was kept; pass --force <path> to override):",
+                preserved.len()
+            )
+            .bold()
+        );
+        for n in preserved {
+            println!("  {} {}", "-".dimmed(), n.dimmed());
+        }
+    }
+
+    println!(
+        "\n{} already up to date · {} created · {} replaced · {} force-replaced · {} preserved",
+        current_count,
+        created.len(),
+        replaced.len(),
+        force_replaced.len(),
+        preserved.len()
+    );
+
+    if !errors.is_empty() {
+        println!("\n{} {}", "Errors:".red().bold(), errors.len());
+        for e in errors {
+            println!("  {} {}", "x".red(), e);
+        }
+    }
 }
 
 /// Initialize a new seqlings project directory
