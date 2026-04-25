@@ -45,7 +45,7 @@ Stack effect comments show the types:
 3. **float-ops** - Float operations
 4. **string-type** - String operations
 5. **list-type** - List operations
-6. **row-polymorphism** - Generic functions with type variables
+6. **row-polymorphism** - Type variables and row variables
 
 ## Concepts You'll Practice
 
@@ -56,7 +56,7 @@ Stack effect comments show the types:
 | **Parametric Polymorphism** | One definition, many types |
 | **Type Inference** | How the compiler figures out concrete types |
 
-Row polymorphism is what makes stack-based languages powerful. When you write `( A -- A A )`, the function works for ANY type - Int, String, custom types, anything. The compiler ensures type safety while giving you flexibility.
+Concatenative languages get their composability from row polymorphism: every word operates on the top of the stack and passes the rest through untouched. The full type for `dup` is `( ..a A -- ..a A A )` — `..a` is the **row variable** (it stands for everything below the top, whatever it is), and `A` is the **type variable** (it stands for the type of the top element, whatever it is). Without `..a`, you'd have parametric polymorphism — one definition for any single top type. With `..a`, you also get arbitrary stack context for free. That combination is what lets one definition compose into any program.
 
 The final exercise has you implement `keep`, a combinator that demonstrates how one definition serves infinite type combinations.
 

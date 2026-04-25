@@ -7,11 +7,18 @@
 #   "hi" dup      -> "hi" "hi"  (works with String)
 #   true dup      -> true true  (works with Bool)
 #
-# How? The type uses a VARIABLE (uppercase letter):
-#   : dup ( A -- A A )   # A matches any type!
+# How? The full type has two kinds of variable:
+#   : dup ( ..a A -- ..a A A )
 #
-# This is ROW POLYMORPHISM - functions work with any stack,
-# as long as the top elements match the signature.
+# `..a` is a ROW VARIABLE that stands for "the rest of the
+# stack, whatever it is, passing through untouched." `A` is a
+# TYPE VARIABLE that stands for "the type of the top element,
+# whatever it is."
+#
+# The type variable alone (matching any single type) is
+# parametric polymorphism. The row variable (matching any
+# stack tail) is what makes this ROW POLYMORPHISM — words
+# work on ANY stack, as long as the top elements match.
 #
 # Your task: Implement `keep` — a combinator that runs a quotation
 # on the top value but leaves the original underneath the result.
@@ -19,10 +26,12 @@
 # Example:
 #   5 [ dup i.* ] keep   -> ( 25 5 )    # squared, original kept
 #
-# Signature: ( A Variant -- B A )
-#   - Takes any value A and a quotation (Variant)
-#   - Runs the quotation (which produces B from A)
-#   - Returns both the result B AND the original A
+# Signature: ( ..a A [ ..a A -- ..b ] -- ..b A )
+#   - `..a` is the row beneath us — whatever else is on the stack.
+#   - On top of that: the value A and a quotation.
+#   - The quotation consumes A (and may touch ..a) leaving ..b on top.
+#   - keep returns whatever the quotation left (..b), with the
+#     original A restored on top.
 #
 # Hint: you will need to make a copy of the value before calling
 # the quotation, so a copy survives for the result stack.
@@ -31,7 +40,7 @@
 
 # I AM NOT DONE
 
-: keep ( A Variant -- B A )
+: keep ( ..a A [ ..a A -- ..b ] -- ..b A )
     # Your code here
     # 1. Save the original value somehow
     # 2. Run the quotation
