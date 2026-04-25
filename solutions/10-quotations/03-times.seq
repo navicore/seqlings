@@ -1,5 +1,0 @@
-: test-times ( -- )
-    1
-    [ dup i.+ ] 3 times
-    8 test.assert-eq
-;

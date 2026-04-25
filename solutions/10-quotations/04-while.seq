@@ -1,5 +1,0 @@
-: test-while ( -- )
-    80
-    [ dup 10 i.>= ] [ 2 i./ ] while
-    5 test.assert-eq
-;

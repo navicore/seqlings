@@ -40,24 +40,24 @@ The quotation `[ 1 i.add ]` is passed to `call`, which executes it with 5 on the
 
 ## Why This Matters
 
-Consider `times`, which runs a quotation n times:
+Consider `list.map`, which applies a quotation to every element of a list:
 
 ```seq
-5 [ "Hello!" io.write-line ] times
+"a b c" " " string.split [ string.to-upper ] list.map
+# Result: list of "A" "B" "C"
 ```
 
-The word `times` takes a quotation as an argument. It doesn't know or care what that quotation does - it just runs it 5 times. This is **abstraction** at a higher level.
+The word `list.map` takes a quotation as an argument. It doesn't know or care what that quotation does — it just applies it to each element. This is **abstraction** at a higher level.
 
 ## Combinators
 
-Words that operate on quotations are called **combinators**. Key combinators:
+Words that operate on quotations are called **combinators**. The most fundamental one is built into the language:
 
-| Word    | Effect                                   |
-|---------|------------------------------------------|
-| `call`  | Execute a quotation                      |
-| `times` | Run a quotation n times                  |
-| `while` | Run while condition is true              |
-| `until` | Run until condition becomes true         |
+| Word   | Effect              |
+|--------|---------------------|
+| `call` | Execute a quotation |
+
+Higher-order combinators like `list.map`, `list.filter`, `list.fold`, and the loop combinators in `std:loops` (`times`, `each-integer`, `integer-fold`) all build on the same idea: take a quotation as data, decide when and how to run it. You'll meet them in later chapters.
 
 ## The Deep Insight
 

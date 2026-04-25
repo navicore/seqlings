@@ -1,5 +1,5 @@
 : apply-twice ( Int [ Int -- Int ] -- Int )
-    2 times
+    tuck call swap call
 ;
 
 : test-higher-order ( -- )

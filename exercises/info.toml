@@ -315,23 +315,8 @@ path = "exercises/10-quotations/02-call.seq"
 mode = "test"
 
 [[exercises]]
-name = "03-times"
-path = "exercises/10-quotations/03-times.seq"
-mode = "test"
-
-[[exercises]]
-name = "04-while"
-path = "exercises/10-quotations/04-while.seq"
-mode = "test"
-
-[[exercises]]
-name = "05-until"
-path = "exercises/10-quotations/05-until.seq"
-mode = "test"
-
-[[exercises]]
-name = "06-higher-order"
-path = "exercises/10-quotations/06-higher-order.seq"
+name = "03-higher-order"
+path = "exercises/10-quotations/03-higher-order.seq"
 mode = "test"
 
 # ============================================================

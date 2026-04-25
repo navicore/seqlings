@@ -81,13 +81,10 @@ A comprehensive curriculum covering ALL Seq built-ins and standard library.
 - 04-accumulator - Tail-recursive patterns
 - 05-mutual - Mutual recursion
 
-### 10-quotations (6 exercises)
+### 10-quotations (3 exercises)
 - 01-basics - [ ... ] syntax
 - 02-call - The call word
-- 03-times - Looping with times
-- 04-while - while loops
-- 05-until - until loops
-- 06-higher-order - Quotations as arguments
+- 03-higher-order - Writing your own word that takes a quotation
 
 ---
 
@@ -311,7 +308,7 @@ Combining concepts from previous sections:
 | Part | Sections | Exercises | Focus |
 |------|----------|-----------|-------|
 | 1. Foundations | 00-06 | 35 | Basics, stack, math, booleans |
-| 2. Control & Functions | 07-10 | 22 | Conditionals, words, recursion, quotations |
+| 2. Control & Functions | 07-10 | 19 | Conditionals, words, recursion, quotations |
 | 3. Types & Data | 11-16 | 36 | Types, strings, variants, lists, maps |
 | 4. Advanced | 17-18, 37 | 15 | Row polymorphism, bitwise, combinators |
 | 5. I/O & System | 19-23 | 22 | I/O, files, args, os, time |
@@ -319,7 +316,7 @@ Combining concepts from previous sections:
 | 7. Networking | 26 | 5 | TCP |
 | 8. Standard Library | 27-32 | 26 | imath, fmath, json, yaml, result, http |
 | 9. Intermediate | 33 | 10 | Combined challenges |
-| **Total** | **37** | **192** | |
+| **Total** | **37** | **189** | |
 
 ---
 
@@ -336,7 +333,7 @@ Combining concepts from previous sections:
 - [x] Bitwise (band, bor, bxor, shl, shr, bnot, popcount, clz, ctz)
 - [x] Stack (dup, drop, swap, over, rot, nip, tuck, 2dup, 3drop, pick, roll)
 - [x] chan.* (make, send, send-safe, receive, receive-safe, close, yield)
-- [x] Control (call, cond, times, while, until, spawn)
+- [x] Control (call, cond, spawn) — `times` / `while` / `until` removed from builtins (see std:loops)
 - [x] tcp.* (listen, accept, read, write, close)
 - [x] os.* (getenv, home-dir, current-dir, path-*, exit, name, arch)
 - [x] string.* (all operations)
