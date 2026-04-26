@@ -1,9 +1,9 @@
 : factorial ( Int -- Int )
-    dup 1 i.<= if
+    dup 1 i.<= [
         drop 1
-    else
+    ] [
         dup 1 i.- factorial i.*
-    then
+    ] if
 ;
 
 : test-factorial ( -- )

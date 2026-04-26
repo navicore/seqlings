@@ -11,19 +11,19 @@
 ;
 
 : describe-status ( Int -- String )
-    dup is-success? if
+    dup is-success? [
         drop "success"
-    else
-        dup is-client-error? if
+    ] [
+        dup is-client-error? [
             drop "client-error"
-        else
-            is-server-error? if
+        ] [
+            is-server-error? [
                 "server-error"
-            else
+            ] [
                 "unknown"
-            then
-        then
-    then
+            ] if
+        ] if
+    ] if
 ;
 
 : test-errors ( -- )

@@ -1,19 +1,17 @@
 : safe-gzip-roundtrip ( String -- String Bool )
-    compress.gzip
-    if
+    compress.gzip [
         compress.gunzip
-    else
+    ] [
         drop "" false
-    then
+    ] if
 ;
 
 : safe-zstd-roundtrip ( String -- String Bool )
-    compress.zstd
-    if
+    compress.zstd [
         compress.unzstd
-    else
+    ] [
         drop "" false
-    then
+    ] if
 ;
 
 : test-roundtrip ( -- )

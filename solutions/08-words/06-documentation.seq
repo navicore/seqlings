@@ -1,9 +1,11 @@
+include std:control
+
 : min ( Int Int -- Int )
-    2dup i.> if swap then drop
+    2dup i.> [ swap ] when drop
 ;
 
 : max ( Int Int -- Int )
-    2dup i.< if swap then drop
+    2dup i.< [ swap ] when drop
 ;
 
 : clamp ( Int Int Int -- Int )
