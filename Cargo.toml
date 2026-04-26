@@ -1,6 +1,6 @@
 [package]
 name = "seqlings"
-version = "3.12.1"
+version = "6.0.0"
 edition = "2024"
 description = "Interactive exercises for learning Seq, a stack-based programming language"
 license = "MIT"
