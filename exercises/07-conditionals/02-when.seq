@@ -1,0 +1,43 @@
+# Exercise: when (and unless)
+#
+# Often you only want to do something when a condition is true,
+# leaving the stack alone otherwise. The two-armed `if` works
+# but feels heavy:
+#
+#   cond [ A ] [ ] if    # runs A only when cond is true
+#
+# `when` is the one-armed shortcut:
+#
+#   cond [ A ] when      # same thing, less syntax
+#
+# `unless` is the mirror — runs only when cond is FALSE:
+#
+#   cond [ A ] unless    # runs A only when cond is false
+#
+# Both live in the std:control library, included below.
+#
+# Important: the body of when/unless must leave the stack the
+# SAME shape it found it (same number of items, same types).
+# For branches that change shape, fall back to two-armed `if`.
+#
+# Example:
+#   include std:control
+#
+#   1 2 i.+ 5 i.> [ "big" io.write-line ] when
+#   # prints "big" because 1 + 2 > 5 is false → no, this is false,
+#   # so when does NOT run the body. Stack: untouched.
+#
+# Your task: Start with 0 on the stack. If 10 is greater than 5,
+# replace the 0 with 42. (10 IS greater than 5, so 42 wins.)
+# When done, delete the marker line below.
+
+include std:control
+
+# I AM NOT DONE
+
+: test-when ( -- )
+    0
+    # Your code here. Use `when` to conditionally replace the 0.
+    # Do not edit below this line
+    42 test.assert-eq
+;

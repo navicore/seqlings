@@ -2,52 +2,55 @@
 
 Conditionals let programs make decisions. With comparisons and booleans under your belt, you can now control program flow.
 
-## The if/then Form
+## Conditionals are Combinators
+
+In Seq, the conditional `if` is a **word**, not a syntactic construct. It takes a Bool and two pieces of code (called *quotations*, written between `[` and `]`) and runs whichever piece matches the Bool.
 
 ```seq
-condition if
-    # code to run if true
-then
+condition [ then-branch ] [ else-branch ] if
 ```
 
-The `if` consumes a boolean from the stack. If true, the code before `then` runs. If false, it's skipped.
+The Bool comes first; both branches come next as quotations; `if` is the word that ties them together.
 
-**Important for if/then (without else)**: The body must have a *balanced* stack effect - it should leave the stack the same whether it runs or not. Common pattern: push a default value, then conditionally replace it.
+## A Concrete Example
 
 ```seq
-0              # default value
-5 3 i.> if
-    drop 42    # replace default with 42
-then
-# Stack: ( 42 ) because condition was true
+5 3 i.> [ "yes" ] [ "no" ] if
+# Stack: ( "yes" ) because 5 > 3 is true
 ```
 
-## The if/else/then Form
-
-```seq
-condition if
-    # code if true
-else
-    # code if false
-then
-```
-
-Exactly one branch executes, never both. This form is easier because both branches run, so they just need to match each other.
+The Bool (from `5 3 i.>`) selects the first quotation. `if` runs it and discards the other.
 
 ## Stack Effects in Branches
 
-**Important**: Both branches must have the same stack effect!
+Both branches must leave the stack the SAME shape — the type checker enforces it:
 
 ```seq
 # WRONG - branches have different effects
-x 0 i.> if
-    42      # Pushes one value
-else
-    1 2     # Pushes two values!
-then
+x 0 i.> [ 42 ] [ 1 2 ] if
+# left branch leaves one value; right leaves two — type error
 ```
 
-The type checker catches this error. This ensures your code is predictable.
+This sounds restrictive, but in practice it means you write the branches' shape into the type, which catches mistakes early.
+
+## One-Armed Shortcuts: when and unless
+
+When you only need to act in one case, the two-armed `if` with an empty branch feels noisy:
+
+```seq
+cond [ do-something ] [ ] if    # works, but heavy
+```
+
+The `when` and `unless` words are one-armed shortcuts. They live in `std:control`:
+
+```seq
+include std:control
+
+cond [ do-something ] when      # only when cond is true
+cond [ do-something ] unless    # only when cond is false
+```
+
+**Important:** the body of `when` / `unless` must leave the stack shape it found (same number of items, same types). For branches that change shape, use the explicit two-armed `if`.
 
 ## Conditionals as Expressions
 
@@ -55,10 +58,14 @@ Unlike many languages, Seq conditionals can return values:
 
 ```seq
 : abs ( Int -- Int )
-    dup 0 i.< if
-        -1 i.*   # Negate if negative
-    then
+    dup 0 i.< [ -1 i.* ] [ ] if
 ;
 ```
 
-This works because the body (`-1 i.*`) has a balanced effect: it replaces one value with another. Whether the body runs or not, you end up with one Int on the stack.
+Both branches end with one Int on the stack — the negation, or the original untouched. Whether the body runs or not, you end up with one Int.
+
+## Why Combinators?
+
+Treating `if` as a word that takes code-as-data is what makes Seq's flow control compose with the rest of the language: branches are just quotations, the same things you'll pass to `times`, `list.map`, and other higher-order combinators in later chapters. There is no special syntax to remember — `if` is just a word.
+
+You'll meet quotations formally in chapter 10. For now, think of `[ ... ]` as "code wrapped up so something else can decide when to run it."

@@ -1,8 +1,0 @@
-: test-if-else ( -- )
-    3 7 i.> if
-        1
-    else
-        2
-    then
-    2 test.assert-eq
-;

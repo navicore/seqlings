@@ -1,17 +1,17 @@
 : fizzbuzz ( Int -- String )
-    dup 15 i.% drop 0 i.= if
+    dup 15 i.% drop 0 i.= [
         drop "FizzBuzz"
-    else
-        dup 3 i.% drop 0 i.= if
+    ] [
+        dup 3 i.% drop 0 i.= [
             drop "Fizz"
-        else
-            dup 5 i.% drop 0 i.= if
+        ] [
+            dup 5 i.% drop 0 i.= [
                 drop "Buzz"
-            else
+            ] [
                 int->string
-            then
-        then
-    then
+            ] if
+        ] if
+    ] if
 ;
 
 : test-fizzbuzz ( -- )

@@ -1,0 +1,4 @@
+: test-if ( -- )
+    10 5 i.> [ 100 ] [ 0 ] if
+    100 test.assert-eq
+;
