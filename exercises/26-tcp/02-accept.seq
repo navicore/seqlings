@@ -7,12 +7,11 @@
 #
 # Example:
 #   8080 tcp.listen drop  # Get server socket (drop success)
-#   tcp.accept            # Wait for connection
-#   if                    # Check success
+#   tcp.accept [          # Wait for connection, then check success
 #     # client socket is valid, handle it
-#   else
+#   ] [
 #     drop                # drop invalid socket
-#   then
+#   ] if
 #
 # Each call to tcp.accept gets the next waiting connection.
 #
@@ -24,7 +23,7 @@
 : test-accept ( -- )
     # In real code:
     #   8080 tcp.listen drop
-    #   tcp.accept if handle-client else drop then
+    #   tcp.accept [ handle-client ] [ drop ] if
 
     # The pattern: listen creates server socket, accept gets client sockets
     # Do not edit below this line

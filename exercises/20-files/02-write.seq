@@ -9,13 +9,12 @@
 #   - 0 (false) if the file doesn't exist or can't be read
 #
 # Example:
-#   "data.txt" file.slurp-safe
-#   if
+#   "data.txt" file.slurp-safe [
 #       # Got contents, use them
-#   else
+#   ] [
 #       drop  # Drop empty string
 #       # Handle error
-#   then
+#   ] if
 #
 # Your task: Understand safe file reading
 # When done, delete the marker line below.

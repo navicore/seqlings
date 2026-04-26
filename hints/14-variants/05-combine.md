@@ -6,13 +6,13 @@ Check if divisor is zero BEFORE calling `i./` to avoid the error case:
 
 ```seq
 : safe-divide ( Int Int -- IntResult )
-    dup 0 i.= if
+    dup 0 i.= [
         drop drop
         "division by zero" Make-Err
-    else
+    ] [
         i./ drop    # drop the success Bool, we checked already
         Make-Ok
-    then
+    ] if
 ;
 ```
 

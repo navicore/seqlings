@@ -22,13 +22,12 @@
 
 : test-listen ( -- )
     # In real code:
-    #   8080 tcp.listen
-    #   if
+    #   8080 tcp.listen [
     #     # ... accept connections ...
     #     tcp.close drop
-    #   else
+    #   ] [
     #     drop "Failed to bind" io.write-line
-    #   then
+    #   ] if
 
     # Verify you understand: tcp.listen takes a port number
     # Do not edit below this line

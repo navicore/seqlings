@@ -9,12 +9,11 @@
 #   - 0 (false) if it doesn't exist
 #
 # Example:
-#   "config.txt" file.exists?
-#   if
+#   "config.txt" file.exists? [
 #       "config.txt" file.slurp process-config
-#   else
+#   ] [
 #       use-defaults
-#   then
+#   ] if
 #
 # Your task: Understand file existence checking
 # When done, delete the marker line below.

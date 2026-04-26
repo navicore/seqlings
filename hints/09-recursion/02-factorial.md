@@ -6,11 +6,11 @@ n! = n × (n-1)!
 
 ```seq
 : factorial ( Int -- Int )
-    dup 1 <= if
+    dup 1 <= [
         drop 1
-    else
+    ] [
         dup 1 i.- factorial i.*
-    then
+    ] if
 ;
 ```
 

@@ -7,13 +7,13 @@ The key is making the recursive call the **last** action.
 ```seq
 : count-helper ( Int Int -- Int )
     # Stack: ( target current )
-    2dup i.<= if
+    2dup i.<= [
         # target <= current means we're done
         nip                  # drop target, return current
-    else
+    ] [
         1 i.+                # ( target current+1 )
         count-helper         # tail call - MUST be last action!
-    then
+    ] if
 ;
 
 : count-up-to ( Int -- Int )

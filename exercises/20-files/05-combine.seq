@@ -3,18 +3,17 @@
 # Combine file operations for robust file handling:
 #
 # Pattern 1: Check then read
-#   "config.txt" file.exists?
-#   if
+#   include std:control
+#   "config.txt" file.exists? [
 #       "config.txt" file.slurp process
-#   then
+#   ] when
 #
 # Pattern 2: Try-read with fallback
-#   "config.txt" file.slurp-safe
-#   if
+#   "config.txt" file.slurp-safe [
 #       process
-#   else
+#   ] [
 #       drop use-defaults
-#   then
+#   ] if
 #
 # Pattern 3: Process lines
 #   "log.txt" [ handle-line ] file.for-each-line+

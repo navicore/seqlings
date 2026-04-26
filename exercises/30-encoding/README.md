@@ -49,12 +49,11 @@ The URL-safe variant is preferred for:
 Decode operations return a Bool indicating success:
 
 ```seq
-"SGVsbG8h" encoding.base64-decode
-if
+"SGVsbG8h" encoding.base64-decode [
   io.write-line    # Use the decoded string
-else
+] [
   drop "Invalid base64" io.write-line
-then
+] if
 ```
 
 ## Exercises

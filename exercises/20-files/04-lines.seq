@@ -11,12 +11,12 @@
 #
 # Example:
 #   "data.txt" [
-#       if   # if status is true
+#       [   # status was true
 #           io.write-line   # print the line
 #           true            # continue
-#       else
+#       ] [
 #           drop false      # stop at EOF
-#       then
+#       ] if
 #   ] file.for-each-line+
 #
 # Your task: Understand line-by-line file processing

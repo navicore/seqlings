@@ -39,18 +39,16 @@ Compressed data is returned as **base64-encoded** strings. This makes it safe to
 ## Example
 
 ```seq
-"Hello, World!" compress.gzip
-if
+"Hello, World!" compress.gzip [
   # compressed is base64-encoded
-  compress.gunzip
-  if
+  compress.gunzip [
     io.write-line  # "Hello, World!"
-  else
+  ] [
     drop "Decompress failed" io.write-line
-  then
-else
+  ] if
+] [
   drop "Compress failed" io.write-line
-then
+] if
 ```
 
 ## Exercises

@@ -7,11 +7,11 @@ The quotation receives two values for each line: the line content and a status f
 ```seq
 "file.txt" [
     # Stack has: ( line status )
-    if   # Check status
+    [   # status was true
         io.write-line true   # Process line, continue
-    else
+    ] [
         drop false           # EOF, stop
-    then
+    ] if
 ] file.for-each-line+
 ```
 

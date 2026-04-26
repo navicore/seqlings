@@ -6,16 +6,18 @@ When stack manipulation gets complex, **create helper words**. This is the core 
 
 ### Step 1: Create `min`
 ```seq
+include std:control
+
 : min ( Int Int -- Int )
-    2dup i.> if swap then drop
+    2dup i.> [ swap ] when drop
 ;
 ```
-If a > b, swap them, then drop the top (larger) value.
+If a > b, swap them, then drop the top (larger) value. `when` is the one-armed conditional from `std:control`.
 
 ### Step 2: Create `max`
 ```seq
 : max ( Int Int -- Int )
-    2dup i.< if swap then drop
+    2dup i.< [ swap ] when drop
 ;
 ```
 Same pattern, opposite comparison.

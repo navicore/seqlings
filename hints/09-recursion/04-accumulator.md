@@ -6,13 +6,13 @@ Carry the result-so-far as a parameter.
 
 ```seq
 : sum-to-acc ( Int Int -- Int )
-    over 0 <= if
+    over 0 <= [
         nip   # Return accumulator
-    else
+    ] [
         over i.+      # acc + n
         swap 1 i.- swap   # n-1, new-acc
         sum-to-acc
-    then
+    ] if
 ;
 
 : sum-to ( Int -- Int )
