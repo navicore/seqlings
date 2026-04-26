@@ -1,13 +1,13 @@
 : count-helper ( Int Int -- Int )
     # Stack: ( target current )
-    2dup i.<= if
+    2dup i.<= [
         # target <= current means we're done
         nip                  # drop target, return current
-    else
+    ] [
         # increment current and recurse
         1 i.+                # ( target current+1 )
         count-helper         # tail call!
-    then
+    ] if
 ;
 
 : count-up-to ( Int -- Int )

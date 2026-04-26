@@ -1,19 +1,17 @@
 : safe-base64-decode ( String -- String )
-    encoding.base64-decode
-    if
+    encoding.base64-decode [
         # Success - string is on stack
-    else
+    ] [
         drop "ERROR"
-    then
+    ] if
 ;
 
 : safe-hex-decode ( String -- String )
-    encoding.hex-decode
-    if
+    encoding.hex-decode [
         # Success - string is on stack
-    else
+    ] [
         drop "ERROR"
-    then
+    ] if
 ;
 
 : test-errors ( -- )

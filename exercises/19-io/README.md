@@ -29,12 +29,11 @@ io.read-n                 # Read exactly n bytes
 When reading input, you need to handle end-of-file (EOF):
 
 ```seq
-io.read-line+    # Returns ( line true ) or ( "" false )
-if
+io.read-line+ [
     # Process line
-else
+] [
     # Handle EOF
-then
+] if
 ```
 
 ## Interactive Programs

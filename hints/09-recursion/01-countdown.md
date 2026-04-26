@@ -6,11 +6,11 @@ Sum the numbers from n down to 1.
 
 ```seq
 : countdown ( Int -- Int )
-    dup 0 <= if
+    dup 0 <= [
         drop 0
-    else
+    ] [
         dup 1 i.- countdown i.+
-    then
+    ] if
 ;
 ```
 

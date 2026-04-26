@@ -24,8 +24,8 @@
 # I AM NOT DONE
 
 : fizzbuzz ( Int -- String )
-    # Your code here
-    # Hint: Check divisibility by 15 first (both 3 and 5)
+    # Your code here.
+    # Hint: check divisibility by 15 first (both 3 and 5).
     drop "wrong"
 ;
 

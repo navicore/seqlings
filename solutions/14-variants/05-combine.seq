@@ -18,13 +18,13 @@ union IntResult {
 ;
 
 : safe-divide ( Int Int -- IntResult )
-    dup 0 i.= if
+    dup 0 i.= [
         drop drop
         "division by zero" Make-Err
-    else
+    ] [
         i./ drop    # drop the success Bool, we already checked for zero
         Make-Ok
-    then
+    ] if
 ;
 
 : test-safe-divide-ok ( -- )

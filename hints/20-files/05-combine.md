@@ -8,12 +8,11 @@
 For robust code, use `file.slurp-safe`:
 
 ```seq
-"config.txt" file.slurp-safe
-if
+"config.txt" file.slurp-safe [
     process-config
-else
+] [
     drop use-defaults
-then
+] if
 ```
 
 ## Solution

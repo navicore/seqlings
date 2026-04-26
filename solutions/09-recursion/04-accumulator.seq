@@ -1,11 +1,11 @@
 : sum-to-acc ( Int Int -- Int )
-    over 0 i.<= if
+    over 0 i.<= [
         nip
-    else
+    ] [
         over i.+
         swap 1 i.- swap
         sum-to-acc
-    then
+    ] if
 ;
 
 : sum-to ( Int -- Int )

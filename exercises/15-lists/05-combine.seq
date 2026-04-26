@@ -12,9 +12,13 @@
 # complex transformations clearly. This is the essence of
 # functional programming with higher-order functions.
 #
-# Your task: Count total characters in words that start with 'a'.
-#   1. Filter to keep only words starting with 'a'
-#   2. Fold to sum their lengths
+# Your task: From the list "apple banana apricot cherry":
+#   1. Filter to keep only words that start with 'a'
+#         → "apple" and "apricot"
+#   2. Fold their lengths into a single total
+#         → 5 (apple) + 7 (apricot) = 12
+# So the final answer is 12 — the total CHARACTER COUNT of the
+# matching words, not the number of words.
 #
 # When done, delete the marker line below.
 

@@ -3,12 +3,11 @@
 ;
 
 : response-body ( Map -- String )
-    dup response-ok?
-    if
+    dup response-ok? [
         "body" map.get drop
-    else
+    ] [
         drop ""
-    then
+    ] if
 ;
 
 : response-status ( Map -- Int )

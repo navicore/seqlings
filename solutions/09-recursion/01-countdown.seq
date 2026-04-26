@@ -1,9 +1,9 @@
 : countdown ( Int -- Int )
-    dup 0 i.<= if
+    dup 0 i.<= [
         drop 0
-    else
+    ] [
         dup 1 i.- countdown i.+
-    then
+    ] if
 ;
 
 : test-countdown ( -- )

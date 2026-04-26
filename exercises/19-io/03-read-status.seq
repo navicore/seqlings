@@ -8,12 +8,12 @@
 #
 # This allows you to detect end-of-file:
 #
-#   io.read-line+ if
+#   io.read-line+ [
 #       # Got a line, process it
-#   else
+#   ] [
 #       drop  # Drop the empty string
 #       # Handle EOF
-#   then
+#   ] if
 #
 # Your task: Understand EOF handling.
 # When done, delete the marker line below.

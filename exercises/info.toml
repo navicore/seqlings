@@ -213,13 +213,13 @@ mode = "test"
 # ============================================================
 
 [[exercises]]
-name = "01-if-then"
-path = "exercises/07-conditionals/01-if-then.seq"
+name = "01-if"
+path = "exercises/07-conditionals/01-if.seq"
 mode = "test"
 
 [[exercises]]
-name = "02-if-else"
-path = "exercises/07-conditionals/02-if-else.seq"
+name = "02-when"
+path = "exercises/07-conditionals/02-when.seq"
 mode = "test"
 
 [[exercises]]

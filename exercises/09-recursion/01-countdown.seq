@@ -5,12 +5,12 @@
 #
 # Structure:
 #   : recursive-word ( inputs -- outputs )
-#       base-case-check if
+#       base-case-check [
 #           base-case-action
-#       else
+#       ] [
 #           do-something
 #           smaller-problem recursive-word
-#       then
+#       ] if
 #   ;
 #
 # Your task: Define `countdown` that counts from n down to 1.

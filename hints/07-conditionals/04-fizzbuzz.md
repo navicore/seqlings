@@ -1,37 +1,11 @@
 # Hint: FizzBuzz
 
-FizzBuzz is a classic interview question. The key insight: check divisibility by 15 first!
+The classic gotcha: check divisibility by 15 BEFORE checking 3 or 5.
 
-## Solution
+If you check 3 first, you'll never reach the "both" case — 15 is divisible by 3, so "Fizz" would always win for multiples of 15. Checking 15 (= 3 × 5) first catches the "both" case before either smaller divisor.
 
-```seq
-: fizzbuzz ( Int -- String )
-    dup 15 i.% 0 i.= if
-        drop "FizzBuzz"
-    else
-        dup 3 i.% 0 i.= if
-            drop "Fizz"
-        else
-            dup 5 i.% 0 i.= if
-                drop "Buzz"
-            else
-                int->string
-            then
-        then
-    then
-;
-```
+To check divisibility:
+- Use `i.%` to compute the remainder, drop the success Bool
+- Compare the remainder to 0
 
-## Why Check 15 First?
-
-If you check 3 first, you'll never reach the "both" case:
-- 15 is divisible by 3, so "Fizz" would be returned
-- The check for "both 3 and 5" would never happen
-
-By checking 15 (which is 3 × 5) first, we catch the "both" case.
-
-## The Modulo Trick
-
-`a b i.% 0 i.=` checks if a is divisible by b:
-- `15 3 i.%` → 0 (divisible)
-- `14 3 i.%` → 2 (not divisible)
+Since you'll need the same number for multiple checks, `dup` it first so each comparison can consume its own copy.

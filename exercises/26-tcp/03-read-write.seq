@@ -9,8 +9,8 @@
 #
 # Example:
 #   client tcp.read           # ( string success )
-#   if process-request        # Read succeeded
-#   else drop then            # Read failed, drop empty string
+#   [ process-request ]       # Read succeeded
+#   [ drop ] if               # Read failed, drop empty string
 #
 #   "Hello!" client tcp.write drop  # Write (drop success Bool)
 #
@@ -24,13 +24,12 @@
 
 : test-read-write ( -- )
     # In real code:
-    #   client tcp.read
-    #   if
+    #   client tcp.read [
     #     process-request
     #     response client tcp.write drop
-    #   else
+    #   ] [
     #     drop  # drop empty string on read failure
-    #   then
+    #   ] if
 
     # Do not edit below this line
     true test.assert

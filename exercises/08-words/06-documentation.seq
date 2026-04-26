@@ -7,7 +7,7 @@
 #
 # BAD - complex stack juggling:
 #   : clamp ( value min max -- clamped )
-#       rot 2dup < if nip 2dup > if drop else nip then else drop nip then
+#       rot 2dup < [ nip 2dup > [ drop ] [ nip ] if ] [ drop nip ] if
 #   ;
 #
 # GOOD - factored into meaningful pieces:

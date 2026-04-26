@@ -1,22 +1,7 @@
 # Hint: Nested Conditionals
 
-You can put if/else inside another if/else.
+You can put one `if` inside another's branches. The brackets help: each `[ ... ]` is one branch, and you can see exactly where each conditional ends.
 
-## Solution
+Pattern for a three-way choice: outer `if` for the first condition, inner `if` for the remaining two cases inside the outer's else-branch.
 
-```seq
-15
-dup 10 i.> if
-    drop 3
-else
-    dup 5 i.> if
-        drop 2
-    else
-        drop 1
-    then
-then
-```
-
-## Tips for Deeply Nested Conditionals
-
-When nesting gets too deep, consider extracting helper words to simplify the logic.
+Each `dup`-then-compare-then-`if` pattern lets you check a value without losing it for the next check — `dup` makes the copy, the comparison consumes it, the original stays.

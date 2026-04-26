@@ -3,17 +3,24 @@
 # `list.fold` combines all elements into one value.
 # Also known as "reduce" in other languages.
 #
-# Stack effect: ( Variant initial Quotation -- result )
+# Stack effect: ( List Acc [ Acc T -- Acc ] -- Acc )
+#
+# What your quotation sees on each step:
+#   ( ... Acc T )    # T = current element, on TOP
+#                    # Acc = accumulator-so-far, BELOW
+# It must produce a new Acc and leave nothing else behind.
 #
 # Example:
 #   "apple banana cherry" " " string.split "" [ string.concat ] list.fold
 #   # Result: "applebananacherry"
+#   # On each step `Acc T string.concat` produces Acc ++ T.
 #
 # HIGHER-ORDER PATTERN:
 # fold is the most general list operation. You can implement
 # map and filter in terms of fold! It takes:
 #   - An initial accumulator value
-#   - A quotation that combines accumulator with each element
+#   - A quotation that combines the accumulator (below) with the
+#     current element (on top), returning the new accumulator
 #
 # Your task: Concatenate all words with dashes between them.
 # When done, delete the marker line below.

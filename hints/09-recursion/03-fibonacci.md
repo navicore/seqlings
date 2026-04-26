@@ -6,14 +6,14 @@ fib(n) = fib(n-1) + fib(n-2)
 
 ```seq
 : fib ( Int -- Int )
-    dup 1 <= if
+    dup 1 <= [
         # Base cases: fib(0)=0, fib(1)=1
         # Conveniently, just return n itself!
-    else
+    ] [
         dup 1 i.- fib
         swap 2 i.- fib
         i.+
-    then
+    ] if
 ;
 ```
 

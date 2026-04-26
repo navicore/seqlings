@@ -6,19 +6,19 @@ Two functions that call each other.
 
 ```seq
 : is-even? ( Int -- Bool )
-    dup 0 i.= if
+    dup 0 i.= [
         drop true
-    else
+    ] [
         1 i.- is-odd?
-    then
+    ] if
 ;
 
 : is-odd? ( Int -- Bool )
-    dup 0 i.= if
+    dup 0 i.= [
         drop false
-    else
+    ] [
         1 i.- is-even?
-    then
+    ] if
 ;
 ```
 

@@ -62,12 +62,12 @@ Weaves must be properly cleaned up:
 # Option 1: Run to completion
 [ ... ] strand.weave
 0 strand.resume
-if ... 0 strand.resume else drop drop then
+[ ... 0 strand.resume ] [ drop drop ] if
 
 # Option 2: Cancel early
 [ ... ] strand.weave
 0 strand.resume
-if drop strand.weave-cancel else drop drop then
+[ drop strand.weave-cancel ] [ drop drop ] if
 ```
 
 ## Why Weave?

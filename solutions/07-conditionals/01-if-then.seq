@@ -1,7 +1,0 @@
-: test-if-then ( -- )
-    0                # default value
-    10 5 i.> if
-        drop 100     # replace with 100 when true
-    then
-    100 test.assert-eq
-;

@@ -1,0 +1,33 @@
+# Exercise: The if Combinator
+#
+# Conditionals in Seq are combinators — words that take CODE
+# as an argument. The `if` word takes a Bool and two pieces of
+# code (called quotations, written between [ and ]) and runs
+# whichever piece matches the Bool.
+#
+# Stack effect:
+#   ( ..a Bool [ ..a -- ..b ] [ ..a -- ..b ] -- ..b )
+#
+# The Bool comes first, then the "true" quotation, then the
+# "false" quotation. Both branches must produce the same stack
+# shape (..b). The type checker enforces this.
+#
+# (Quotations get a proper introduction in chapter 10. For now,
+# think of [ ... ] as "code wrapped up so something else can
+# decide when to run it.")
+#
+# Example:
+#   5 3 i.> [ 1 ] [ 2 ] if    # 5 > 3 is true → first quot → ( 1 )
+#   3 5 i.> [ 1 ] [ 2 ] if    # 3 > 5 is false → second quot → ( 2 )
+#
+# Your task: If 10 is greater than 5, push 100. Otherwise push 0.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-if ( -- )
+    # Your code here. Use `if` with two quotations.
+    0
+    # Do not edit below this line
+    100 test.assert-eq
+;

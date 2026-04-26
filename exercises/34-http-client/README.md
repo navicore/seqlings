@@ -27,12 +27,11 @@ All HTTP functions return a Map with these keys:
 ```seq
 # Simple GET
 "https://api.example.com/data" http.get
-dup "ok" map.get drop
-if
+dup "ok" map.get drop [
     "body" map.get drop io.write-line
-else
+] [
     "error" map.get drop io.write-line
-then
+] if
 
 # POST JSON
 "https://api.example.com/users"
@@ -48,12 +47,11 @@ Always check the `ok` field before using the response:
 ```seq
 : fetch-data ( String -- String Bool )
     http.get
-    dup "ok" map.get drop
-    if
+    dup "ok" map.get drop [
         "body" map.get drop true
-    else
+    ] [
         "error" map.get drop false
-    then
+    ] if
 ;
 ```
 

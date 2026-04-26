@@ -11,12 +11,12 @@ Every recursive solution has two parts:
 
 ```seq
 : countdown ( Int -- )
-    dup 0 <= if
+    dup 0 <= [
         drop                    # Base case: stop at 0
-    else
+    ] [
         dup io.write-line       # Do something
         1 i.subtract countdown  # Recursive case: call self with smaller input
-    then
+    ] if
 ;
 ```
 
@@ -53,12 +53,12 @@ A tail-recursive function calls itself as its **last action**. These can be opti
 ```seq
 # Not tail-recursive (multiply happens AFTER recursive call returns)
 : factorial ( n -- result )
-    dup 1 <= if drop 1 else dup 1 - factorial i.multiply then
+    dup 1 <= [ drop 1 ] [ dup 1 - factorial i.multiply ] if
 ;
 
 # Tail-recursive (recursive call is the last thing)
 : factorial-tail ( n acc -- result )
-    over 1 <= if nip else swap dup 1 - swap rot i.multiply factorial-tail then
+    over 1 <= [ nip ] [ swap dup 1 - swap rot i.multiply factorial-tail ] if
 ;
 ```
 

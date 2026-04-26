@@ -23,9 +23,9 @@ If the string doesn't represent a valid integer:
 
 For robust code, check the Bool before using the value:
 ```seq
-string->int if
+string->int [
   # success - use the value
-else
+] [
   drop 0  # failure - drop invalid value, use default
-then
+] if
 ```

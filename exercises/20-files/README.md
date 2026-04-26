@@ -11,13 +11,12 @@ Seq provides built-in operations for reading files using the `file.*` namespace.
 ## Safe Reading with Status
 
 ```seq
-"path/to/file.txt" file.slurp-safe    # Returns (contents status)
-if
+"path/to/file.txt" file.slurp-safe [
     # Got contents successfully
-else
+] [
     drop  # Drop empty string
     # Handle file not found
-then
+] if
 ```
 
 ## Checking File Existence
@@ -30,12 +29,12 @@ then
 
 ```seq
 "data.txt" [
-    if   # if status is true (not EOF)
+    [   # status was true (not EOF)
         io.write-line   # Process line
         true            # Continue
-    else
+    ] [
         drop false      # Stop at EOF
-    then
+    ] if
 ] file.for-each-line+
 ```
 
