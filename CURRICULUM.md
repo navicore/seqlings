@@ -141,18 +141,16 @@ A comprehensive curriculum covering ALL Seq built-ins and standard library.
 
 ## Part 4: Advanced Features
 
-### 17-row-polymorphism (4 exercises)
-- 01-passthrough - Understanding ..a
-- 02-generic-words - Stack-polymorphic words
-- 03-compose - Composing generic words
-- 04-real-world - Practical examples
+### 17-row-polymorphism (absorbed into 11-types/06)
+Originally planned as a standalone chapter; the topic is now taught in `11-types/06-row-polymorphism.seq`. This number is intentionally unused.
 
-### 18-bitwise (5 exercises)
-- 01-band-bor - band, bor
-- 02-bxor-bnot - bxor, bnot
-- 03-shifts - shl, shr
-- 04-intrinsics - popcount, clz, ctz
-- 05-flags - Bit flags pattern
+### 18-bitwise (5 exercises) ✓ DONE
+- 01-and-or - band and bor (masking, combining)
+- 02-xor - bxor and the self-inverse property
+- 03-not - bnot (two's complement, self-inverse)
+- 04-shifts - shl and shr as multiply/divide by 2^N
+- 05-bit-flags - set / test / clear / toggle a single bit
+For more advanced bit-twiddling, see patch-seq's `examples/projects/hackers-delight`.
 
 ### 37-combinators (6 exercises)
 - 01-dip - Hide top value, run quotation, restore
@@ -309,14 +307,14 @@ Combining concepts from previous sections:
 |------|----------|-----------|-------|
 | 1. Foundations | 00-06 | 35 | Basics, stack, math, booleans |
 | 2. Control & Functions | 07-10 | 19 | Conditionals, words, recursion, quotations |
-| 3. Types & Data | 11-16 | 36 | Types, strings, variants, lists, maps |
-| 4. Advanced | 17-18, 37 | 15 | Row polymorphism, bitwise, combinators |
+| 3. Types & Data | 11-16 | 35 | Types, strings, variants, lists, maps |
+| 4. Advanced | 18, 37 | 11 | Bitwise, combinators (row-poly absorbed into 11) |
 | 5. I/O & System | 19-23 | 22 | I/O, files, args, os, time |
 | 6. Concurrency | 24-25, 35-36 | 21 | Channels, spawn, Little's Law, Amdahl's Law |
 | 7. Networking | 26 | 5 | TCP |
-| 8. Standard Library | 27-32 | 26 | imath, fmath, json, yaml, result, http |
-| 9. Intermediate | 33 | 10 | Combined challenges |
-| **Total** | **37** | **189** | |
+| 8. Standard Library | 27-32 | 30 | imath, fmath, weave, encoding, regex, compression |
+| 9. Intermediate | 33-34 | 10 | Crypto, HTTP client |
+| **Total** | **36** | **188** | |
 
 ---
 

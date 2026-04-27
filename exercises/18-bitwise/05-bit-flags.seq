@@ -1,0 +1,69 @@
+# Exercise: Bit Flags — A Practical Pattern
+#
+# A common real-world use of bitwise operations: pack many on/off
+# settings into a single integer, where each bit represents one
+# setting. Unix file modes, OpenGL feature flags, and most kernel
+# APIs do this.
+#
+# Each "flag" is identified by a bit mask — a power of 2 with one
+# bit set. To work with flags you need four operations:
+#
+#   SET    a flag:  flags  mask  bor              # turn the bit ON
+#   CLEAR  a flag:  flags  mask  bnot  band       # turn the bit OFF
+#   TEST   a flag:  flags  mask  band  0  i.<>    # is the bit ON?
+#   TOGGLE a flag:  flags  mask  bxor             # flip the bit
+#
+# Why CLEAR is the trickiest: you build a mask with EVERY bit set
+# EXCEPT the one you want to clear (that's `mask bnot`), then AND
+# with the flags. The bit you wanted off becomes 0; everything else
+# keeps its value.
+#
+# Why TEST is `band` then compare to 0: AND with the mask isolates
+# just that bit. If the bit was on, the result is non-zero (equal
+# to the mask). If off, the result is zero.
+#
+# Your task: implement the four helper words below, then run the
+# test, which sets, tests, toggles, and clears bits in a flags Int.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: set-flag ( Int Int -- Int )
+    # Your code here.
+    drop
+;
+
+: clear-flag ( Int Int -- Int )
+    # Your code here.
+    drop
+;
+
+: flag-set? ( Int Int -- Bool )
+    # Your code here.
+    drop drop false
+;
+
+: toggle-flag ( Int Int -- Int )
+    # Your code here.
+    drop
+;
+
+: test-bit-flags ( -- )
+    0                       # start with no flags
+    1 set-flag              # set bit 0
+    4 set-flag              # set bit 2
+    dup 5 test.assert-eq    # bits 0 and 2 → 0b101 = 5
+
+    dup 4 flag-set?         # is bit 2 set?
+    test.assert
+
+    dup 2 flag-set?         # is bit 1 set?
+    not test.assert
+
+    1 toggle-flag           # toggle bit 0 off
+    dup 4 test.assert-eq    # → 0b100 = 4
+
+    4 clear-flag            # clear bit 2
+    # Do not edit below this line
+    0 test.assert-eq
+;

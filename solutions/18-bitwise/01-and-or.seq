@@ -1,0 +1,9 @@
+: test-band ( -- )
+    171 15 band
+    11 test.assert-eq
+;
+
+: test-bor ( -- )
+    11 16 bor
+    27 test.assert-eq
+;

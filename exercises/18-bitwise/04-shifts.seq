@@ -1,0 +1,52 @@
+# Exercise: shl and shr — Shift Left and Shift Right
+#
+# Shifting moves all bits of a number left or right by N positions.
+#
+#   shl : shift left  — fills new low bits with 0
+#   shr : shift right — fills new high bits with 0
+#
+# Stack effects (both): ( Int Int -- Int )
+#                        value count -- result
+#
+# A shift by N is the same as multiplying or dividing by 2^N:
+#
+#   value shl N  ≡  value * 2^N
+#   value shr N  ≡  value / 2^N    (integer division)
+#
+# Visualizing 5 << 3:
+#
+#   5  = 0000 0101
+#   <<3
+#   40 = 0010 1000     (5 * 8 = 40)
+#
+# And 40 >> 3:
+#
+#   40 = 0010 1000
+#   >>3
+#   5  = 0000 0101     (40 / 8 = 5)
+#
+# Shifts are how compilers turn multiplication and division by
+# powers of two into single fast instructions.
+#
+# Your task:
+#   1. Shift 5 left by 3 (expected: 40)
+#   2. Shift 40 right by 3 (expected: 5)
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-shl ( -- )
+    # Shift 5 left by 3 places.
+    # Your code here.
+    0
+    # Do not edit below this line
+    40 test.assert-eq
+;
+
+: test-shr ( -- )
+    # Shift 40 right by 3 places.
+    # Your code here.
+    0
+    # Do not edit below this line
+    5 test.assert-eq
+;

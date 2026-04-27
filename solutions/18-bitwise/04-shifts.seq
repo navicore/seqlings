@@ -1,0 +1,9 @@
+: test-shl ( -- )
+    5 3 shl
+    40 test.assert-eq
+;
+
+: test-shr ( -- )
+    40 3 shr
+    5 test.assert-eq
+;

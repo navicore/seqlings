@@ -519,6 +519,35 @@ path = "exercises/16-maps/06-combine.seq"
 mode = "test"
 
 # ============================================================
+# 18-bitwise: Bitwise Operations
+# ============================================================
+
+[[exercises]]
+name = "01-and-or"
+path = "exercises/18-bitwise/01-and-or.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-xor"
+path = "exercises/18-bitwise/02-xor.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-not"
+path = "exercises/18-bitwise/03-not.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-shifts"
+path = "exercises/18-bitwise/04-shifts.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-bit-flags"
+path = "exercises/18-bitwise/05-bit-flags.seq"
+mode = "test"
+
+# ============================================================
 # 19-io: Input/Output
 # ============================================================
 

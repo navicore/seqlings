@@ -1,0 +1,41 @@
+# Exercise: bnot — Bitwise NOT
+#
+# `bnot` flips every bit of its input — 0 becomes 1 and 1 becomes 0.
+#
+# Stack effect: ( Int -- Int )
+#
+# Because Seq integers use two's complement representation, flipping
+# every bit of 0 gives -1 (all bits set). More generally, `bnot x`
+# equals `-x - 1`. So:
+#
+#   bnot 0  = -1
+#   bnot 1  = -2
+#   bnot -1 =  0
+#
+# Like XOR, NOT is its own inverse: applying it twice gets you back
+# to the original value.
+#
+#   bnot bnot x  →  x
+#
+# Your task:
+#   1. Apply bnot to 0 (expected: -1)
+#   2. Apply bnot twice to 42 (expected: 42)
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-not ( -- )
+    # bnot 0 — flip every bit of zero.
+    # Your code here.
+    0
+    # Do not edit below this line
+    -1 test.assert-eq
+;
+
+: test-not-self-inverse ( -- )
+    # Apply bnot twice to 42.
+    # Your code here.
+    0
+    # Do not edit below this line
+    42 test.assert-eq
+;

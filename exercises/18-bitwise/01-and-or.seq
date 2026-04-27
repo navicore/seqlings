@@ -1,0 +1,46 @@
+# Exercise: band and bor — Bitwise AND and OR
+#
+# Bitwise operations work on the binary representation of an
+# integer, one bit at a time:
+#
+#   band — AND  : bit set in BOTH inputs → 1, else 0
+#   bor  — OR   : bit set in EITHER input → 1, else 0
+#
+# Stack effects: ( Int Int -- Int )
+#
+# Visualizing 12 (1100) and 10 (1010):
+#
+#   12 = 1100
+#   10 = 1010
+#   ----
+#   AND  1000 = 8     (only the bit set in both)
+#   OR   1110 = 14    (any bit set in either)
+#
+# Common uses:
+#   - `band` with a mask isolates specific bits.
+#       0xAB band 0x0F  → keeps the low nibble (the right 4 bits)
+#   - `bor` combines flags or sets specific bits.
+#       value bor 0x10  → forces bit 4 on
+#
+# Your task:
+#   - Mask 171 with 15 to keep only its low 4 bits (expected: 11)
+#   - Set bit 4 of 11 (expected: 27)
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-band ( -- )
+    # Mask 171 with 15.
+    # Your code here.
+    0
+    # Do not edit below this line
+    11 test.assert-eq
+;
+
+: test-bor ( -- )
+    # Set bit 4 (the value 16) on top of 11.
+    # Your code here.
+    0
+    # Do not edit below this line
+    27 test.assert-eq
+;

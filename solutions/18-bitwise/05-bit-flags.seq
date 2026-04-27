@@ -1,0 +1,34 @@
+: set-flag ( Int Int -- Int )
+    bor
+;
+
+: clear-flag ( Int Int -- Int )
+    bnot band
+;
+
+: flag-set? ( Int Int -- Bool )
+    band 0 i.<>
+;
+
+: toggle-flag ( Int Int -- Int )
+    bxor
+;
+
+: test-bit-flags ( -- )
+    0
+    1 set-flag
+    4 set-flag
+    dup 5 test.assert-eq
+
+    dup 4 flag-set?
+    test.assert
+
+    dup 2 flag-set?
+    not test.assert
+
+    1 toggle-flag
+    dup 4 test.assert-eq
+
+    4 clear-flag
+    0 test.assert-eq
+;

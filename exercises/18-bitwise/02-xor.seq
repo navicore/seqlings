@@ -1,0 +1,44 @@
+# Exercise: bxor — Bitwise XOR
+#
+# XOR (exclusive or) sets a bit when the two inputs DIFFER:
+#
+#   bxor : bit set in exactly one input → 1, both same → 0
+#
+# Stack effect: ( Int Int -- Int )
+#
+# Visualizing 12 (1100) bxor 10 (1010):
+#
+#   12 = 1100
+#   10 = 1010
+#   ----
+#   XOR  0110 = 6
+#
+# A useful property: XOR is its own inverse.
+#   x bxor y bxor y  →  x
+# This is the basis of the simplest possible "encryption":
+# XOR a value with a key, and XOR with the same key again
+# to get the original back.
+#
+# Your task:
+#   1. XOR 12 with 10 (expected: 6)
+#   2. Apply the inverse property: encrypt 42 with key 99,
+#      then decrypt by XORing with 99 again (expected: 42)
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-xor ( -- )
+    # XOR 12 with 10.
+    # Your code here.
+    0
+    # Do not edit below this line
+    6 test.assert-eq
+;
+
+: test-xor-inverse ( -- )
+    # Encrypt 42 with key 99, then decrypt with the same key.
+    # Your code here.
+    0
+    # Do not edit below this line
+    42 test.assert-eq
+;

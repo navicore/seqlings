@@ -1,0 +1,9 @@
+: test-not ( -- )
+    0 bnot
+    -1 test.assert-eq
+;
+
+: test-not-self-inverse ( -- )
+    42 bnot bnot
+    42 test.assert-eq
+;

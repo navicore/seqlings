@@ -1,0 +1,9 @@
+: test-xor ( -- )
+    12 10 bxor
+    6 test.assert-eq
+;
+
+: test-xor-inverse ( -- )
+    42 99 bxor 99 bxor
+    42 test.assert-eq
+;
