@@ -682,11 +682,8 @@ fn display_current_exercise(
                 exercise.name.cyan()
             );
 
-            // Show file path (absolute)
-            let abs_path = std::env::current_dir()
-                .map(|cwd| cwd.join(&exercise.path))
-                .unwrap_or_else(|_| exercise.path.clone());
-            println!("  File: {}", abs_path.display().to_string().dimmed());
+            // Show file path (relative to the project root)
+            println!("  File: {}", exercise.path.display().to_string().dimmed());
 
             // Show status with details
             match status {
@@ -1096,14 +1093,27 @@ fn show_progress(exercises: &[Exercise], cache: &mut StatusCache) {
     let total = exercises.len();
     let pct = (done as f64 / total as f64 * 100.0) as usize;
 
+    // Eighth-block characters give sub-cell precision so the bar
+    // moves smoothly even on small absolute changes.
     let bar_width = 30;
-    let filled = (done * bar_width) / total;
-    let empty = bar_width - filled;
+    let total_eighths = bar_width * 8;
+    let filled_eighths = (done * total_eighths) / total;
+    let full_cells = filled_eighths / 8;
+    let partial_eighths = filled_eighths % 8;
+
+    // Index = number of eighths filled in the partial cell.
+    const PARTIAL: [&str; 8] = ["", "▏", "▎", "▍", "▌", "▋", "▊", "▉"];
+
+    let full = "█".repeat(full_cells);
+    let partial = PARTIAL[partial_eighths];
+    let used_cells = full_cells + usize::from(partial_eighths > 0);
+    let empty = "░".repeat(bar_width - used_cells);
 
     println!(
-        "Progress: [{}{}] {}/{} ({}%)",
-        "=".repeat(filled).green(),
-        "-".repeat(empty),
+        "\nProgress: [{}{}{}] {}/{} ({}%)",
+        full.green(),
+        partial.green(),
+        empty.dimmed(),
         done,
         total,
         pct
