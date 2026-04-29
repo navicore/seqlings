@@ -11,20 +11,24 @@
 #   "Hello" string.to-lower   # "hello"
 #   "  hi  " string.trim      # "hi"
 #
-# Your task: Convert "seq" to uppercase.
+# Your task: Two transforms on different inputs:
+#   1. Convert "seq" to uppercase ("SEQ")
+#   2. Trim "  hello  " down to "hello"
+# Each transform has its own "Your code here" block below.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : test-transform ( -- )
-    # Convert "seq" to uppercase.
+    # --- Transform 1: convert "seq" to uppercase ---
     # Your code here.
+    # Replace `""` with the transform:
     ""
-    # Do not edit below this line
-    "SEQ" string.equal? test.assert
+    "SEQ" string.equal? test.assert    # do not edit — asserts the value above
 
-    # Remove leading and trailing whitespace from "  hello  ".
+    # --- Transform 2: trim whitespace from "  hello  " ---
     # Your code here.
+    # Replace `""` with the transform:
     ""
-    "hello" string.equal? test.assert
+    "hello" string.equal? test.assert  # do not edit — asserts the value above
 ;

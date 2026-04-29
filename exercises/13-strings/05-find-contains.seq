@@ -12,20 +12,24 @@
 #   "Hello, World!" "World" string.find       # 7
 #   "Hello, World!" "Foo" string.find         # -1
 #
-# Your task: Check if "stack" is in "stack-based programming".
+# Your task: Two checks against "stack-based programming":
+#   1. Confirm "stack" IS a substring (assert the result is true)
+#   2. Confirm "heap" is NOT a substring (assert the result is false)
+# Each check has its own "Your code here" block below.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : test-find-contains ( -- )
-    # Check if "stack" is in "stack-based programming"
+    # --- Check 1: "stack" should be in "stack-based programming" ---
     # Your code here — test whether the substring is present.
+    # Replace `false` with the test:
     false
-    # Do not edit below this line
-    test.assert
+    test.assert      # do not edit — asserts the value above is true
 
-    # Check if "heap" is in "stack-based programming" (it's not)
+    # --- Check 2: "heap" should NOT be in "stack-based programming" ---
     # Your code here — test whether the substring is present.
+    # Replace `true` with the test:
     true
-    not test.assert
+    not test.assert  # do not edit — asserts the value above is false
 ;
