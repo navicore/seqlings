@@ -1,8 +1,9 @@
 name: Release to crates.io
 
 on:
-  release:
-    types: [created]
+  push:
+    tags:
+      - 'v*'
 
 env:
   CARGO_TERM_COLOR: always
