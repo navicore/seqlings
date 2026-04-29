@@ -5,8 +5,8 @@
 - 37 sections, ~192 exercises covering Seq from stack basics through combinators, concurrency, and Little's Law / Amdahl's Law.
 - Single-binary Rust CLI: `watch` (default), `list`, `hint`, `reset`, `verify`, `next`, `init`.
 - Corpus embedded in the binary; `init` extracts it to a fresh directory.
-- CI pipeline set up (`just ci` — fmt, clippy `-D warnings`, tests, release build) on Linux PRs and macOS pushes to main.
-- mdBook docs site wired up at `https://navicore.github.io/seqlings/`, deployed on push to main.
+- CI pipeline set up (`just ci` — fmt, clippy `-D warnings`, tests, release build) on Linux PRs.
+- mdBook docs source (`book.toml`, `docs/`, `scripts/generate-docs.sh`) is in the repo, but the auto-deploy workflow was removed during the GitHub→Forgejo migration. A self-hosted replacement is sketched in `docs/design/SELF-HOSTED-MDBOOK-PAGES.md`.
 - Dual purpose: the exercises serve as an informal acceptance suite for `seqc` (the Seq compiler in `navicore/patch-seq`), and have surfaced real compiler bugs.
 
 ## Known Gaps / TODOs
