@@ -4,7 +4,7 @@ version = "6.0.4"
 edition = "2024"
 description = "Interactive exercises for learning Seq, a stack-based programming language"
 license = "MIT"
-repository = "https://github.com/navicore/seqlings"
+repository = "https://git.navicore.tech/navicore/seqlings"
 
 [[bin]]
 name = "seqlings"
