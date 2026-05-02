@@ -19,7 +19,10 @@ jobs:
           token: ${{ secrets.PAT }}
           ref: main
 
-      - uses: dtolnay/rust-toolchain@stable
+      - name: Verify toolchain
+        run: |
+          rustc --version
+          cargo --version
 
       - name: Extract version from tag
         id: version
