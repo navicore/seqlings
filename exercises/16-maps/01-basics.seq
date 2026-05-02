@@ -19,5 +19,5 @@
     map.make
 
     # Do not edit below this line
-    "fruit" map.get "apple" test.assert-eq
+    map.size 1 test.assert-eq
 ;

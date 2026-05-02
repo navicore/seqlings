@@ -3,14 +3,21 @@
     "name" "Bob" map.set
 ;
 
+: get-or ( Map String String -- String )
+    rot rot map.get
+    [ nip ]
+    [ drop ]
+    if
+;
+
 : test-get-existing ( -- )
     make-test-map
-    "name" "Unknown" map.get-or
-    "Bob" test.assert-eq
+    "name" "Unknown" get-or
+    "Bob" string.equal? test.assert
 ;
 
 : test-get-missing ( -- )
     make-test-map
-    "age" "Unknown" map.get-or
-    "Unknown" test.assert-eq
+    "age" "Unknown" get-or
+    "Unknown" string.equal? test.assert
 ;

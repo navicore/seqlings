@@ -2,40 +2,44 @@
 #
 # Combine map operations to build a useful data structure.
 #
+# Note: Maps in Seq are homogeneous in their value type. This
+# profile uses Strings for every field. (For mixed types, you'd
+# wrap values in a Variant — covered in chapter 14.)
+#
 # Your task: Create a word that builds a user profile map
-# with name, age, and email fields.
+# with name, email, and city fields.
 #
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: make-profile ( String Int String -- Map )
-    # Arguments on stack: name, age, email (email on top).
-    # Create a map with keys "name", "age", "email".
-    # Hint: you'll need to rearrange the stack to pair each value
-    # with its key as you build the map.
+: make-profile ( String String String -- Map )
+    # Arguments on stack: name, email, city (city on top).
+    # Build a map with keys "name", "email", "city".
+    # Hint: rearrange the stack to pair each value with its key
+    # as you build the map (try `rot`).
     # Your code here
     drop drop drop map.make
 ;
 
 : test-profile ( -- )
-    "Alice" 30 "alice@example.com" make-profile
-    dup "name" map.get "Alice" test.assert-eq
-    dup "age" map.get 30 test.assert-eq
-    "email" map.get "alice@example.com" test.assert-eq
+    "Alice" "alice@example.com" "Portland" make-profile
+    dup "name" map.get drop "Alice" string.equal? test.assert
+    dup "email" map.get drop "alice@example.com" string.equal? test.assert
+    "city" map.get drop "Portland" string.equal? test.assert
 ;
 
-: update-age ( Map Int -- Map )
-    # Update the "age" field with a new value
+: update-city ( Map String -- Map )
+    # Update the "city" field with a new value
     # Your code here
     drop
 ;
 
 : test-update ( -- )
-    "Bob" 25 "bob@example.com" make-profile
-    31 update-age
-    "age" map.get
+    "Bob" "bob@example.com" "Seattle" make-profile
+    "Boston" update-city
+    "city" map.get drop
 
     # Do not edit below this line
-    31 test.assert-eq
+    "Boston" string.equal? test.assert
 ;

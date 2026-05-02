@@ -6,12 +6,12 @@
 
 : test-get ( -- )
     make-test-map
-    "color" map.get
-    "blue" test.assert-eq
+    "color" map.get drop
+    "blue" string.equal? test.assert
 ;
 
 : test-get-other ( -- )
     make-test-map
-    "size" map.get
-    "large" test.assert-eq
+    "size" map.get drop
+    "large" string.equal? test.assert
 ;

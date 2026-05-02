@@ -130,12 +130,12 @@ A comprehensive curriculum covering ALL Seq built-ins and standard library.
 - 05-combine - Chaining list operations
 
 ### 16-maps (6 exercises)
-- 01-create - map.make
-- 02-set-get - map.set, map.get
-- 03-safe-get - map.get-safe, map.has?
-- 04-remove - map.remove
-- 05-iterate - map.keys, map.values
-- 06-size - map.size, map.empty?
+- 01-basics - map.make, map.set
+- 02-get - map.get (returns Value Bool)
+- 03-get-safe - branching on the found-Bool with if
+- 04-remove - map.remove, map.has?
+- 05-inspection - map.size, map.empty?, map.keys
+- 06-combine - building a profile map and updating fields
 
 ---
 

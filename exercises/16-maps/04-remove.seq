@@ -1,13 +1,13 @@
 # Exercise: Removing Map Entries
 #
 # Use `map.remove` to delete a key-value pair from a map.
-# Use `map.contains?` to check if a key exists.
+# Use `map.has?` to check if a key exists.
 #
 # Example:
-#   my-map "key" map.remove       # Returns map without that key
-#   my-map "key" map.contains?    # Returns true/false
+#   my-map "key" map.remove    # Returns map without that key
+#   my-map "key" map.has?      # Returns Bool: true if present
 #
-# Your task: Remove entries and verify they're gone
+# Your task: Remove entries and verify they're gone.
 #
 # When done, delete the marker line below.
 
@@ -22,12 +22,11 @@
 
 : test-remove ( -- )
     make-test-map
-    # Remove key "b" and check it no longer exists
-    # Your code here (should leave false on stack)
-    "b" map.contains?
+    # Remove key "b" so the next line sees the post-removal map
+    # Your code here
 
     # Do not edit below this line
-    false test.assert-eq
+    "b" map.has? test.assert-not
 ;
 
 : test-contains ( -- )
@@ -37,5 +36,5 @@
     drop false
 
     # Do not edit below this line
-    true test.assert-eq
+    test.assert
 ;
