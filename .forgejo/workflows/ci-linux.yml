@@ -1,30 +1,48 @@
-# This workflow ONLY calls `just` commands. The justfile is the source of truth.
-name: CI (Linux)
+name: CI - Linux
 
 on:
   pull_request:
     branches: [main]
   workflow_dispatch:
 
-jobs:
-  ci:
-    runs-on: navicore-rust
-    steps:
-      - uses: actions/checkout@v4
+# This workflow ONLY calls `just` commands. The justfile is the source
+# of truth for all build/test/lint logic, preventing drift between
+# local development and CI.
+#
+# `runs-on: navicore-rust` targets the custom job image at
+# git.navicore.tech/navicore/navicore-forgejo-runner:latest, which has
+# Rust 1.95.0, clang-19, and just pre-installed. Do NOT add a
+# dtolnay/rust-toolchain step — act mirrors third-party actions from
+# data.forgejo.org, which does not host that action, and the build
+# will fail to clone it.
 
-      - uses: dtolnay/rust-toolchain@master
-        with:
-          toolchain: 1.95.0
-          components: rustfmt, clippy
+jobs:
+  ci-linux:
+    name: CI - Linux x86_64
+    runs-on: navicore-rust
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Verify toolchain
+        run: |
+          rustc --version
+          cargo --version
+          cargo clippy --version
+          just --version
 
       - name: Cache cargo registry
         uses: actions/cache@v4
         with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-
+          path: ~/.cargo/registry
+          key: linux-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
 
-      - run: just ci
+      - name: Cache cargo index
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/git
+          key: linux-cargo-git-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Run CI checks (just ci)
+        run: just ci
