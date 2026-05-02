@@ -6,7 +6,7 @@
 #   map.values    # List of all values
 #   map.empty?    # true if no entries
 #
-# Your task: Use inspection operations
+# Your task: Use inspection operations.
 #
 # When done, delete the marker line below.
 
@@ -31,12 +31,13 @@
 
 : test-empty ( -- )
     map.make
+    "tmp" 0 map.set "tmp" map.remove
     # Check if an empty map is empty
     # Your code here
     drop false
 
     # Do not edit below this line
-    true test.assert-eq
+    test.assert
 ;
 
 : test-keys-count ( -- )

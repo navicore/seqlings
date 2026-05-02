@@ -1,36 +1,30 @@
 # Hint: Building a Map Workflow
 
+Maps in Seq are homogeneous in their value type. This profile uses Strings for every field (name, email, city), so `make-profile` takes three Strings.
+
 ## Solution
 
 ```seq
-: make-profile ( String Int String -- Map )
-    # Stack: name age email
-    # We need to build a map with all three
+: make-profile ( String String String -- Map )
+    # Stack: name email city (city on top)
     map.make
-    rot rot rot         # Bring email to accessible position
-    "email" swap map.set
-    swap                # Get age accessible
-    "age" swap map.set
-    swap                # Get name accessible
-    "name" swap map.set
+    "city" rot map.set
+    "email" rot map.set
+    "name" rot map.set
 ;
 
-: update-age ( Map Int -- Map )
-    "age" swap map.set
+: update-city ( Map String -- Map )
+    "city" swap map.set
 ;
 ```
 
-The tricky part is juggling the stack. An alternative approach:
+The `rot` trick: each `"key" rot` pulls the next value (from below the empty/partial map) up so `map.set` can consume `( Map Key Value )`.
 
-```seq
-: make-profile ( String Int String -- Map )
-    # email on top, then age, then name at bottom
-    >r >r               # Stash name and age on return stack
-    map.make
-    "email" swap map.set
-    r> "age" swap map.set
-    r> "name" swap map.set
-;
-```
+Trace for `( "Alice" "alice@example.com" "Portland" )`:
 
-If return stack isn't available, the rot approach works.
+- `map.make` → `( "Alice" "alice@example.com" "Portland" map )`
+- `"city" rot` → `( "Alice" "alice@example.com" map "city" "Portland" )`
+- `map.set` → `( "Alice" "alice@example.com" map' )` where `map'` has `city: "Portland"`
+- repeat for `email` and `name`
+
+The tests use `map.get drop` to discard the found-Bool, then `string.equal? test.assert` to compare strings (since `test.assert-eq` is integers-only).

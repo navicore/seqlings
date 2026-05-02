@@ -8,12 +8,11 @@
 : test-remove ( -- )
     make-test-map
     "b" map.remove
-    "b" map.contains?
-    false test.assert-eq
+    "b" map.has? test.assert-not
 ;
 
 : test-contains ( -- )
     make-test-map
-    "a" map.contains?
-    true test.assert-eq
+    "a" map.has?
+    test.assert
 ;

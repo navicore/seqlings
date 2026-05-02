@@ -13,8 +13,9 @@
 
 : test-empty ( -- )
     map.make
+    "tmp" 0 map.set "tmp" map.remove
     map.empty?
-    true test.assert-eq
+    test.assert
 ;
 
 : test-keys-count ( -- )

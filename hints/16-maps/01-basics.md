@@ -13,4 +13,4 @@ map.make                    # Create empty map
 map.make "fruit" "apple" map.set
 ```
 
-The `map.set` operation takes a map, key, and value, then returns the updated map.
+The `map.set` operation takes a map, key, and value, then returns the updated map. The test then checks `map.size` is `1`.

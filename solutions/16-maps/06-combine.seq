@@ -1,25 +1,25 @@
-: make-profile ( String Int String -- Map )
-    # Stack: name age email (email on top)
+: make-profile ( String String String -- Map )
+    # Stack: name email city (city on top)
     map.make
+    "city" rot map.set
     "email" rot map.set
-    "age" rot map.set
     "name" rot map.set
 ;
 
 : test-profile ( -- )
-    "Alice" 30 "alice@example.com" make-profile
-    dup "name" map.get "Alice" test.assert-eq
-    dup "age" map.get 30 test.assert-eq
-    "email" map.get "alice@example.com" test.assert-eq
+    "Alice" "alice@example.com" "Portland" make-profile
+    dup "name" map.get drop "Alice" string.equal? test.assert
+    dup "email" map.get drop "alice@example.com" string.equal? test.assert
+    "city" map.get drop "Portland" string.equal? test.assert
 ;
 
-: update-age ( Map Int -- Map )
-    "age" swap map.set
+: update-city ( Map String -- Map )
+    "city" swap map.set
 ;
 
 : test-update ( -- )
-    "Bob" 25 "bob@example.com" make-profile
-    31 update-age
-    "age" map.get
-    31 test.assert-eq
+    "Bob" "bob@example.com" "Seattle" make-profile
+    "Boston" update-city
+    "city" map.get drop
+    "Boston" string.equal? test.assert
 ;

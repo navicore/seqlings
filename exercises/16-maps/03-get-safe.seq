@@ -1,15 +1,21 @@
-# Exercise: Safe Access with get-or
+# Exercise: Safe Access by Branching on the Bool
 #
-# The `map.get-or` operation provides a default value when a key is missing.
-# This is safer than `map.get` which fails on missing keys.
+# `map.get` returns ( Value Bool ). The Bool tells you whether the
+# key was found. Use `if` to choose between using the looked-up
+# value and falling back to a default.
 #
-# Syntax:
-#   map key default map.get-or    # Returns value or default
+# Pattern:
+#   my-map "key" map.get      # ( Value Bool )
+#   [ ... ]                   # found: Value is on the stack
+#   [ drop "default" ]        # missing: drop placeholder, push default
+#   if
 #
-# Example:
-#   my-map "missing" "N/A" map.get-or    # Returns "N/A" if key missing
+# Your task: Implement `get-or`, which looks up Key in Map and
+# returns Value if found, or Default otherwise.
 #
-# Your task: Use get-or to safely access keys
+# Hint: the arguments are ( Map Key Default ) but `map.get` wants
+# ( Map Key ). Rearrange with `rot rot` so Default is buried below
+# Map and Key, then branch on the Bool.
 #
 # When done, delete the marker line below.
 
@@ -20,22 +26,24 @@
     "name" "Bob" map.set
 ;
 
+: get-or ( Map String String -- String )
+    # Stack: Map Key Default
+    # Your code here (placeholder always returns Default)
+    nip nip
+;
+
 : test-get-existing ( -- )
     make-test-map
-    # Get "name" with default "Unknown"
-    # Your code here
-    drop ""
+    "name" "Unknown" get-or
 
     # Do not edit below this line
-    "Bob" test.assert-eq
+    "Bob" string.equal? test.assert
 ;
 
 : test-get-missing ( -- )
     make-test-map
-    # Get "age" (doesn't exist) with default "Unknown"
-    # Your code here
-    drop ""
+    "age" "Unknown" get-or
 
     # Do not edit below this line
-    "Unknown" test.assert-eq
+    "Unknown" string.equal? test.assert
 ;

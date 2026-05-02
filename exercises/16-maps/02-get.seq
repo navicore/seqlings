@@ -2,13 +2,19 @@
 #
 # Use `map.get` to retrieve values by key.
 #
+# Stack effect:
+#   map.get ( Map Key -- Value Bool )
+#
+# `map.get` returns BOTH the looked-up value AND a Bool that says
+# whether the key was found. When you know the key exists, discard
+# the Bool with `drop`. (You'll see the safer pattern in the next
+# exercise.)
+#
 # Example:
-#   my-map "name" map.get    # Gets value for "name"
+#   my-map "name" map.get drop    # Stack: ( "Alice" )
 #
-# Note: map.get will fail if the key doesn't exist!
-# Use map.get-or for safe access (next exercise).
-#
-# Your task: Get the value for key "color" and verify it equals "blue"
+# Your task: Get the value for each key, drop the success flag,
+# and verify it matches the expected string.
 #
 # When done, delete the marker line below.
 
@@ -22,20 +28,20 @@
 
 : test-get ( -- )
     make-test-map
-    # Get the value for "color"
+    # Get the value for "color" (and drop the Bool)
     # Your code here
     drop ""
 
     # Do not edit below this line
-    "blue" test.assert-eq
+    "blue" string.equal? test.assert
 ;
 
 : test-get-other ( -- )
     make-test-map
-    # Get the value for "size"
+    # Get the value for "size" (and drop the Bool)
     # Your code here
     drop ""
 
     # Do not edit below this line
-    "large" test.assert-eq
+    "large" string.equal? test.assert
 ;
