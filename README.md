@@ -1,24 +1,28 @@
-[![Release to crates.io](https://github.com/navicore/seqlings/actions/workflows/release.yml/badge.svg)](https://github.com/navicore/seqlings/actions/workflows/release.yml)
 [![seqlings](https://img.shields.io/crates/v/seqlings.svg?label=seqlings)](https://crates.io/crates/seqlings)
 
-# Seqlings
+                  _ _
+     ___  ___  __| | (_)_ __   __ _ ___
+    / __|/ _ \/ _` | | | '_ \ / _` / __|
+    \__ \  __/ (_| | | | | | | (_| \__ \
+    |___/\___|\__, |_|_|_| |_|\__, |___/
+                 |_|          |___/
 
-Interactive exercises for learning [Seq](https://github.com/navicore/patch-seq), a stack-based programming language.
+    "Look out! Broken programs below!"
+
+Interactive exercises for learning [Seq](https://git.navicore.tech/navicore/patch-seq), a stack-based programming language.
 
 Inspired by [Rustlings](https://github.com/rust-lang/rustlings), Seqlings guides you through Seq's concepts with hands-on exercises that you complete in your editor.
-
-**Resources:** [Documentation](https://navicore.github.io/seqlings/) | [GitHub Repository](https://github.com/navicore/seqlings)
 
 ## Prerequisites
 
 You need the Seq compiler (`seqc`) installed and available in your PATH.
 
-See the [patch-seq installation instructions](https://github.com/navicore/patch-seq#installation) for setup details.
+See the [patch-seq installation instructions](https://git.navicore.tech/navicore/patch-seq#installation) for setup details.
 
 ## Quick Start
 
 ```bash
-git clone https://github.com/navicore/seqlings
+git clone https://git.navicore.tech/navicore/seqlings
 cd seqlings
 cargo run
 ```
@@ -156,7 +160,7 @@ end
 
 Found a bug or want to improve an exercise? PRs welcome!
 
-If you find gaps in the Seq language itself, please open issues at [patch-seq](https://github.com/navicore/patch-seq).
+If you find gaps in the Seq language itself, please open issues at [patch-seq](https://git.navicore.tech/navicore/patch-seq).
 
 ## Shell Completions
 
@@ -187,7 +191,7 @@ Restart your shell after installing and `seqlings <TAB>` will complete subcomman
 
 ## Documentation
 
-Rendered docs are published to `https://navicore.github.io/seqlings/`. Build locally with `just docs` (serve) or `just build-docs` (one-shot). The site pulls content from `docs/` plus a generated copy of `README.md`.
+Build locally with `just docs` (serve) or `just build-docs` (one-shot). The site pulls content from `docs/` plus a generated copy of `README.md`.
 
 ## CI
 
