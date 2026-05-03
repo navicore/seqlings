@@ -588,34 +588,36 @@ fn extract_dir(dir: &Dir, target: &Path) -> std::io::Result<()> {
     Ok(())
 }
 
+const BANNER: &str = r#"
+                  _ _
+     ___  ___  __| | (_)_ __   __ _ ___
+    / __|/ _ \/ _` | | | '_ \ / _` / __|
+    \__ \  __/ (_| | | | | | | (_| \__ \
+    |___/\___|\__, |_|_|_| |_|\__, |___/
+                 |_|          |___/
+"#;
+
+fn print_banner() {
+    println!("{}", BANNER.green().bold());
+    println!("    {}\n", "\"Look out! Broken programs below!\"".dimmed());
+}
+
 /// Watch mode: continuously monitor exercises and provide feedback
 fn cmd_watch(exercises: &[Exercise]) {
-    println!("\n{}", "Welcome to seqlings watch mode!".green().bold());
-    println!(
-        "{}",
-        "Edit exercises in your editor. Progress updates automatically.".dimmed()
-    );
-    println!("{}", "Press Ctrl+C to exit.\n".dimmed());
-
     // Create status cache to avoid repeated compiler invocations
     let mut cache = StatusCache::new();
 
-    // Warm up cache with progress indicator
-    print!("{}", "Checking exercises...".dimmed());
+    // Warm up cache silently (transient progress indicator gets cleared before first frame)
     use std::io::Write;
+    print!("{}", "Checking exercises...".dimmed());
     std::io::stdout().flush().ok();
-
-    for (i, ex) in exercises.iter().enumerate() {
+    for ex in exercises.iter() {
         cache.get_status(ex);
-        // Show progress dot every 5 exercises
-        if (i + 1) % 5 == 0 {
-            print!(".");
-            std::io::stdout().flush().ok();
-        }
     }
-    println!(" {}", "done".green());
 
-    // Initial display
+    // First frame: clear away the warmup line, render banner, then assessment
+    clear_screen();
+    print_banner();
     let mut current_exercise_name = String::new();
     display_current_exercise(exercises, &mut current_exercise_name, &mut cache);
 
@@ -636,6 +638,7 @@ fn cmd_watch(exercises: &[Exercise]) {
 
         if changed {
             clear_screen();
+            print_banner();
             display_current_exercise(exercises, &mut current_exercise_name, &mut cache);
         }
     }
