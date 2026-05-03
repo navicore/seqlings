@@ -15,14 +15,16 @@
 #
 # A useful property: XOR is its own inverse.
 #   x bxor y bxor y  →  x
-# This is the basis of the simplest possible "encryption":
 # XOR a value with a key, and XOR with the same key again
-# to get the original back.
+# to get the original back. This is handy for things like
+# toggling, masking, or reversibly scrambling a value — but
+# it is NOT encryption. Real encryption needs much more than
+# this; never use bare XOR to protect secrets.
 #
 # Your task:
 #   1. XOR 12 with 10 (expected: 6)
-#   2. Apply the inverse property: encrypt 42 with key 99,
-#      then decrypt by XORing with 99 again (expected: 42)
+#   2. Apply the inverse property: scramble 42 with key 99,
+#      then unscramble by XORing with 99 again (expected: 42)
 # When done, delete the marker line below.
 
 # I AM NOT DONE
