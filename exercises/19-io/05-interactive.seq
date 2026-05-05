@@ -17,15 +17,22 @@
 # Your task: Design a simple prompt (conceptually).
 #
 # The test stubs out the read with a placeholder string, so it
-# can't actually prompt you. To try a live prompt, paste this
-# into the REPL:
+# can't actually prompt you. The REPL also can't host an
+# interactive prompt — it owns stdin itself. The friendly way is
+# a shebang script you run directly from a terminal:
 #
-#   $ seqc repl
-#   > : prompt-for ( String -- String ) io.write-line io.read-line ;
-#   > "What is your name? " prompt-for
-#   What is your name?
-#   Ed
-#   "Ed"
+#   #!/usr/bin/env seqc
+#
+#   : main ( -- )
+#       "What is your name? " io.write
+#       io.read-line [ string.chomp "Hello, " swap string.concat io.write-line ]
+#                    [ drop ] if
+#   ;
+#
+#   $ chmod +x prompt.seq
+#   $ ./prompt.seq
+#   What is your name? Ed
+#   Hello, Ed
 #
 # When done, delete the marker line below.
 

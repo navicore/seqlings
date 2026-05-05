@@ -11,12 +11,18 @@
 # Your task: Print "Seq is fun!" to the console.
 #
 # The test below only checks that `greet` runs — it doesn't inspect
-# what got written. To actually see the output, paste your definition
-# into the REPL:
+# what got written. To actually see the output, drop your code into
+# a tiny shebang script:
 #
-#   $ seqc repl
-#   > : greet ( -- ) "Seq is fun!" io.write-line ;
-#   > greet
+#   #!/usr/bin/env seqc
+#   : main ( -- ) "Seq is fun!" io.write-line ;
+#
+#   $ chmod +x hello.seq
+#   $ ./hello.seq
+#   Seq is fun!
+#
+# (Or for a one-liner, paste `"Seq is fun!" io.write-line` into
+#  `seqc repl`.)
 #
 # When done, delete the marker line below.
 

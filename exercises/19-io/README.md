@@ -19,19 +19,21 @@ Every program has three standard streams:
 ## Reading Input
 
 ```seq
-io.read-line              # Read one line from stdin
-io.read-line+             # Read line, returning (line true) or (false) on EOF
-io.read-n                 # Read exactly n bytes
+io.read-line              # ( -- String Bool ) — line + success flag
+io.read-n                 # ( Int -- String Int ) — N bytes + status
 ```
+
+Both include any trailing newline in the returned String. Use `string.chomp` to strip it when you don't want it.
 
 ## The EOF Challenge
 
-When reading input, you need to handle end-of-file (EOF):
+When reading input you need to handle end-of-file (EOF). `io.read-line` returns a Bool, which feeds directly into `if`:
 
 ```seq
-io.read-line+ [
-    # Process line
+io.read-line [
+    # Got a line — it's on the stack, process it
 ] [
+    drop  # Drop the empty line
     # Handle EOF
 ] if
 ```
@@ -60,12 +62,38 @@ Understanding this distinction helps you structure programs well: pure computati
 
 The unit tests in this chapter mostly just check that your word *runs* — they don't actually inspect what gets written to stdout or feed bytes into stdin. That means a placeholder solution can pass the test even though it's not really doing I/O.
 
-To see your code work for real, fire up the REPL and paste your definition in:
+The friendliest way to see your code do real I/O is to write a tiny **executable Seq script**. `seqc` honors the shebang, so you can `chmod +x` a `.seq` file with a `main` word and run it like any other script.
+
+A "hello world" looks like this:
+
+```seq
+#!/usr/bin/env seqc
+: main ( -- ) "hello" io.write-line ;
+```
 
 ```
-$ seqc repl
-> "Seq is fun!" io.write-line
-Seq is fun!
+$ chmod +x hello.seq
+$ ./hello.seq
+hello
 ```
 
-Type your word, then call it — the output (or prompt) will show up immediately. The tests confirm the shape; the REPL confirms the behavior.
+The same approach works for input — just pipe stdin in. For example, a greeter that reads a name:
+
+```seq
+#!/usr/bin/env seqc
+
+: main ( -- )
+    "hello "
+    io.read-line [ string.concat io.write-line ] [ drop drop ] if
+;
+```
+
+```
+$ chmod +x greet.seq
+$ echo "world" | ./greet.seq
+hello world
+```
+
+Note that `io.read-line` returns `( String Bool )` — the line on success (with its trailing newline; use `string.chomp` if you want to strip it) and a Bool indicating whether anything was read. On EOF you get `( "" false )`, which is why the `[ ... ] [ drop drop ] if` pattern handles both branches.
+
+The REPL is great for trying out the **output** side (`"hi" io.write-line` works directly), but it owns stdin itself, so it's a poor place to experiment with `io.read-line` — your word will usually just hang. Use scripts for anything that reads.
