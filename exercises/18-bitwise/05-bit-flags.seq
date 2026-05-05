@@ -48,6 +48,7 @@
     drop
 ;
 
+# Do not edit below this line
 : test-bit-flags ( -- )
     0                       # start with no flags
     1 set-flag              # set bit 0
@@ -64,6 +65,5 @@
     dup 4 test.assert-eq    # → 0b100 = 4
 
     4 clear-flag            # clear bit 2
-    # Do not edit below this line
     0 test.assert-eq
 ;
