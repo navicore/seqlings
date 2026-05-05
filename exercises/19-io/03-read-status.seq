@@ -16,6 +16,19 @@
 #   ] if
 #
 # Your task: Understand EOF handling.
+#
+# Like the previous exercise, the auto-test can't drive stdin.
+# To watch EOF detection actually work, paste a loop into the
+# REPL and end input with Ctrl-D:
+#
+#   $ seqc repl
+#   > [ io.read-line+ ] [ io.write-line ] while drop
+#   one
+#   one
+#   two
+#   two
+#   ^D
+#
 # When done, delete the marker line below.
 
 # I AM NOT DONE

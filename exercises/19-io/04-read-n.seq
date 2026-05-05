@@ -10,6 +10,17 @@
 #   4 io.read-n   # Read exactly 4 bytes
 #
 # Your task: Understand fixed-size reads.
+#
+# To see it in action, fire up the REPL and try a small read:
+#
+#   $ seqc repl
+#   > 4 io.read-n io.write-line
+#   helloworld
+#   hell
+#
+# (The first 4 bytes are consumed by `io.read-n`; "oworld\n"
+#  is left in the input buffer.)
+#
 # When done, delete the marker line below.
 
 # I AM NOT DONE

@@ -55,3 +55,17 @@ I/O operations are **side effects** - they affect the world outside the program.
 - They're not referentially transparent
 
 Understanding this distinction helps you structure programs well: pure computation at the core, I/O at the edges.
+
+## A Note on the Tests in This Chapter
+
+The unit tests in this chapter mostly just check that your word *runs* — they don't actually inspect what gets written to stdout or feed bytes into stdin. That means a placeholder solution can pass the test even though it's not really doing I/O.
+
+To see your code work for real, fire up the REPL and paste your definition in:
+
+```
+$ seqc repl
+> "Seq is fun!" io.write-line
+Seq is fun!
+```
+
+Type your word, then call it — the output (or prompt) will show up immediately. The tests confirm the shape; the REPL confirms the behavior.

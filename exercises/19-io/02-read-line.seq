@@ -10,7 +10,14 @@
 #   io.read-line   # User types "hello", returns "hello"
 #
 # Note: This exercise can't easily be auto-tested since it
-# requires interactive input. Just understand the concept!
+# requires interactive input. To see it work for real, try it
+# in the REPL:
+#
+#   $ seqc repl
+#   > : echo-input ( -- ) io.read-line io.write-line ;
+#   > echo-input
+#   hello
+#   hello
 #
 # Your task: Understand that io.read-line waits for user input.
 # When done, delete the marker line below.

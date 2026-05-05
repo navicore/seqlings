@@ -20,6 +20,7 @@ Grep for `TODO` in `src/`:
 
 - **Switch watch from polling to event-driven.** `notify` and `notify-debouncer-mini` are already in `Cargo.toml`; the 250 ms polling loop in `cmd_watch` can be replaced with debounced notifications.
 - **Follow new Seq features.** When `patch-seq` ships a new built-in or combinator (see recent: `dip`/`keep`/`bi`, `list.reverse`, `string.join`, `map.each`/`map.fold`, `i.neg`), add an exercise section that covers it. The combinators section (37) is the template.
+- **Real I/O testing for chapter 19.** Today the `19-io` tests just check that words run; they don't inspect stdout or feed stdin. Each exercise now points the learner to `seqc repl` to see real behavior, but a proper solution would be a way for the test harness to capture/feed I/O streams (e.g. a `seqc test --stdin` flag, or a redirectable `io` module the tests can swap in) so the assertions can be on actual bytes written and read.
 
 ## Long-Term: Self-Hosting
 

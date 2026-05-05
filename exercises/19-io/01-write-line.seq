@@ -9,6 +9,15 @@
 #   "Hello, World!" io.write-line
 #
 # Your task: Print "Seq is fun!" to the console.
+#
+# The test below only checks that `greet` runs — it doesn't inspect
+# what got written. To actually see the output, paste your definition
+# into the REPL:
+#
+#   $ seqc repl
+#   > : greet ( -- ) "Seq is fun!" io.write-line ;
+#   > greet
+#
 # When done, delete the marker line below.
 
 # I AM NOT DONE
