@@ -167,7 +167,7 @@ For more advanced bit-twiddling, see patch-seq's `examples/projects/hackers-deli
 ### 19-io (5 exercises)
 - 01-write-line - io.write-line
 - 02-read-line - io.read-line
-- 03-read-status - io.read-line+ (with EOF handling)
+- 03-read-status - io.read-line (EOF handling via the Bool flag)
 - 04-read-n - io.read-n
 - 05-interactive - Building a prompt
 
@@ -321,7 +321,7 @@ Combining concepts from previous sections:
 ## Coverage Checklist
 
 ### Built-ins Covered:
-- [x] io.* (write-line, read-line, read-line+, read-n)
+- [x] io.* (write-line, write, read-line, read-n)
 - [x] args.* (count, at)
 - [x] file.* (slurp, slurp-safe, exists?, for-each-line+)
 - [x] Type conversions (int->string, string->int, etc.)

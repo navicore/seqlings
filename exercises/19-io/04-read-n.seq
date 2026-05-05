@@ -1,25 +1,34 @@
 # Exercise: Reading Fixed Bytes
 #
-# `io.read-n` reads exactly n bytes from input.
+# `io.read-n` reads up to N bytes from stdin.
 #
-# Stack effect: ( n -- String )
+# Stack effect: ( Int -- String Int )
+#   ( bytes 1 ) when all N bytes were read
+#   ( bytes 0 ) on EOF / partial read / error
+#               (the String may be shorter than N)
 #
-# This is useful for binary protocols or fixed-format data.
+# This is useful for binary protocols or fixed-format data,
+# where messages are byte-counted rather than line-terminated.
 #
 # Example:
-#   4 io.read-n   # Read exactly 4 bytes
+#   4 io.read-n   # Read up to 4 bytes, returns ( "..." 1|0 )
 #
 # Your task: Understand fixed-size reads.
 #
-# To see it in action, fire up the REPL and try a small read:
+# As with the other read exercises, the REPL competes for stdin
+# and is a poor place to try this. Use a shebang script and pipe
+# input in. `io.read-n` returns ( String Int ): the bytes plus a
+# status (1 if the full N were read, 0 otherwise) — drop the
+# status to print just the bytes:
 #
-#   $ seqc repl
-#   > 4 io.read-n io.write-line
-#   helloworld
-#   hell
+#   #!/usr/bin/env seqc
 #
-# (The first 4 bytes are consumed by `io.read-n`; "oworld\n"
-#  is left in the input buffer.)
+#   : main ( -- )
+#       4 io.read-n drop io.write-line
+#   ;
+#
+#   $ chmod +x read4.seq
+#   $ printf "helloworld" | ./read4.seq    # prints: hell
 #
 # When done, delete the marker line below.
 

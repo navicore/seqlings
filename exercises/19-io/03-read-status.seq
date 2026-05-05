@@ -1,45 +1,47 @@
 # Exercise: Handling EOF
 #
-# `io.read-line+` returns both the line AND a success status.
+# `io.read-line` returns both the line AND a Bool flag, so you
+# can detect end-of-file directly with `if`:
 #
 # Stack effect: ( -- String Bool )
-#   Returns ( line true ) on success
-#   Returns ( "" false ) on EOF
+#   ( line true )  on success (line includes its trailing \n)
+#   ( "" false )   on EOF or I/O error
 #
-# This allows you to detect end-of-file:
+# The standard EOF-handling shape:
 #
-#   io.read-line+ [
-#       # Got a line, process it
+#   io.read-line [
+#       # Got a line — it's on the stack, process it
 #   ] [
-#       drop  # Drop the empty string
+#       drop  # Drop the empty line
 #       # Handle EOF
 #   ] if
 #
 # Your task: Understand EOF handling.
 #
-# Like the previous exercise, the auto-test can't drive stdin.
-# To watch EOF detection actually work, paste a loop into the
-# REPL and end input with Ctrl-D:
+# Like the previous exercise, the auto-test can't drive stdin
+# and the REPL is unreliable for interactive reads. To watch EOF
+# detection actually fire, try a shebang script — on EOF the
+# false branch runs:
 #
-#   $ seqc repl
-#   > [ io.read-line+ ] [ io.write-line ] while drop
-#   one
-#   one
-#   two
-#   two
-#   ^D
+#   #!/usr/bin/env seqc
+#
+#   : main ( -- )
+#       io.read-line [ io.write-line ] [ drop "EOF" io.write-line ] if
+#   ;
+#
+#   $ chmod +x readone.seq
+#   $ echo "hello" | ./readone.seq    # prints: hello
+#   $ : | ./readone.seq               # prints: EOF
 #
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: process-until-eof ( -- )
-    # Would process lines until EOF
-    # [ io.read-line+ ]
-    # [ io.write-line true ]
-    # while
-    # drop  # Drop final false/empty
+: read-or-empty ( -- String )
+    # Read one line; on EOF return the empty string instead.
+    # io.read-line [ string.chomp ] [ drop "" ] if
     "EOF handling concept" io.write-line
+    ""
 ;
 
 : test-read-status ( -- )

@@ -2,22 +2,36 @@
 #
 # `io.read-line` reads one line of text from standard input.
 #
-# Stack effect: ( -- String )
+# Stack effect: ( -- String Bool )
+#   ( line true )  on success
+#   ( "" false )   on EOF or I/O error
 #
-# The returned string does NOT include the newline character.
+# The returned line INCLUDES its trailing newline. Use
+# `string.chomp` to strip it if you don't want it.
 #
 # Example:
-#   io.read-line   # User types "hello", returns "hello"
+#   io.read-line   # User types "hello", returns ( "hello\n" true )
 #
 # Note: This exercise can't easily be auto-tested since it
-# requires interactive input. To see it work for real, try it
-# in the REPL:
+# requires interactive input — and the REPL owns stdin itself,
+# so it's a poor place to try `io.read-line` (your word usually
+# just hangs). The friendly way is a shebang script you can
+# pipe input into:
 #
-#   $ seqc repl
-#   > : echo-input ( -- ) io.read-line io.write-line ;
-#   > echo-input
-#   hello
-#   hello
+#   #!/usr/bin/env seqc
+#
+#   : main ( -- )
+#       "hello "
+#       io.read-line [ string.concat io.write-line ] [ drop drop ] if
+#   ;
+#
+#   $ chmod +x greet.seq
+#   $ echo "world" | ./greet.seq
+#   hello world
+#
+# `io.read-line` returns ( String Bool ): the line on success
+# (with its trailing newline) and a Bool. The `if` arms handle
+# the success and EOF branches.
 #
 # Your task: Understand that io.read-line waits for user input.
 # When done, delete the marker line below.
