@@ -31,8 +31,49 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Extracted version: $VERSION"
 
+      - name: Preflight - validate runner state
+        run: |
+          set -euo pipefail
+
+          echo "::group::Remote configuration"
+          git remote -v
+          echo "--- effective git config (url/insteadof/credential) ---"
+          git config --list --show-origin | grep -iE 'url|insteadof|credential' || echo "(no rewrites configured)"
+          echo "::endgroup::"
+
+          ORIGIN_URL=$(git remote get-url origin)
+          case "$ORIGIN_URL" in
+            *git.navicore.tech/navicore/seqlings*) ;;
+            *)
+              echo "::error::origin URL is not the canonical Forgejo repo: $ORIGIN_URL"
+              exit 1
+              ;;
+          esac
+
+          echo "::group::Workspace cleanliness"
+          if [ -n "$(git status --porcelain)" ]; then
+            git status
+            echo "::error::workspace has uncommitted changes from a previous run; refusing to proceed"
+            exit 1
+          fi
+          echo "(clean)"
+          echo "::endgroup::"
+
+          echo "::group::Local HEAD vs origin/main"
+          git fetch origin main --quiet
+          LOCAL=$(git rev-parse HEAD)
+          REMOTE=$(git rev-parse FETCH_HEAD)
+          echo "local HEAD:  $LOCAL"
+          echo "origin/main: $REMOTE"
+          if [ "$LOCAL" != "$REMOTE" ]; then
+            echo "::error::checkout HEAD does not match origin/main; runner state is inconsistent"
+            exit 1
+          fi
+          echo "::endgroup::"
+
       - name: Update version in Cargo.toml
         run: |
+          set -euo pipefail
           CURRENT_VERSION=$(grep '^version = ' Cargo.toml | head -1 | cut -d'"' -f2)
 
           if [ "$CURRENT_VERSION" != "${{ steps.version.outputs.version }}" ]; then
@@ -55,6 +96,32 @@ jobs:
 
       - name: Run tests
         run: cargo test
+
+      - name: Postflight - verify release state on origin
+        run: |
+          set -euo pipefail
+          TARGET_VERSION="${{ steps.version.outputs.version }}"
+
+          echo "::group::Cargo.toml matches tag"
+          CARGO_VERSION=$(grep '^version = ' Cargo.toml | head -1 | cut -d'"' -f2)
+          echo "Cargo.toml: $CARGO_VERSION"
+          echo "tag:        $TARGET_VERSION"
+          if [ "$CARGO_VERSION" != "$TARGET_VERSION" ]; then
+            echo "::error::Cargo.toml ($CARGO_VERSION) does not match release tag ($TARGET_VERSION); aborting before publish"
+            exit 1
+          fi
+          echo "::endgroup::"
+
+          echo "::group::origin/main contains the commit being published"
+          LOCAL=$(git rev-parse HEAD)
+          REMOTE=$(git ls-remote origin refs/heads/main | awk '{print $1}')
+          echo "local HEAD:                 $LOCAL"
+          echo "origin/main (fresh lookup): $REMOTE"
+          if [ "$LOCAL" != "$REMOTE" ]; then
+            echo "::error::origin/main does not match the commit about to be published. local=$LOCAL remote=$REMOTE. The push silently failed; refusing to publish to crates.io."
+            exit 1
+          fi
+          echo "::endgroup::"
 
       - name: Publish to crates.io
         run: cargo publish --token ${{ secrets.CRATES_IO_TOKEN }}
