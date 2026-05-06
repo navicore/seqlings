@@ -1,8 +1,18 @@
-: line-processor-takes ( -- String )
-    "line-and-status"
+: quote-lines ( -- String )
+    "" "/tmp/seqlings-04-out.txt" file.spit drop
+    "exercises/20-files/data/lines.txt"
+    [
+        "> " swap string.concat
+        "/tmp/seqlings-04-out.txt" file.append drop
+    ] file.for-each-line+
+    drop drop
+    "/tmp/seqlings-04-out.txt" file.slurp
+    [ string.chomp ]
+    [ drop "" ]
+    if
 ;
 
 : test-lines ( -- )
-    line-processor-takes
-    "line-and-status" string.equal? test.assert
+    quote-lines
+    "> alpha\n> beta\n> gamma" string.equal? test.assert
 ;

@@ -1,8 +1,11 @@
-: describe-slurp ( -- String )
-    "string"
+: read-greeting ( -- String )
+    "exercises/20-files/data/greeting.txt" file.slurp
+    [ string.chomp ]
+    [ drop "" ]
+    if
 ;
 
 : test-read ( -- )
-    describe-slurp
-    "string" string.equal? test.assert
+    read-greeting
+    "Hello, Seq!" string.equal? test.assert
 ;

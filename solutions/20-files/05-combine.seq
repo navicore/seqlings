@@ -1,8 +1,15 @@
-: safest-approach ( -- String )
-    "slurp-safe"
+: build-log ( -- String )
+    "start\n"  "/tmp/seqlings-05-log.txt" file.spit   drop
+    "step 1\n" "/tmp/seqlings-05-log.txt" file.append drop
+    "step 2\n" "/tmp/seqlings-05-log.txt" file.append drop
+    "done\n"   "/tmp/seqlings-05-log.txt" file.append drop
+    "/tmp/seqlings-05-log.txt" file.slurp
+    [ string.chomp ]
+    [ drop "" ]
+    if
 ;
 
 : test-combine ( -- )
-    safest-approach
-    "slurp-safe" string.equal? test.assert
+    build-log
+    "start\nstep 1\nstep 2\ndone" string.equal? test.assert
 ;

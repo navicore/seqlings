@@ -1,37 +1,50 @@
 # Exercise: Processing File Lines
 #
-# `file.for-each-line+` processes a file line by line with a quotation.
+# `file.for-each-line+` walks a file one line at a time, calling a
+# quotation on each line.
 #
-# Stack effect: ( path quot -- )
+# Stack effect: ( path quot -- "" true )
+#   path : String — the file to read
+#   quot : ( ..a String -- ..a ) — runs once per line
 #
-# The quotation receives: ( line status -- continue? )
-#   - line: the current line (String)
-#   - status: 1 if valid line, 0 at EOF
-#   - return: 1 to continue, 0 to stop
+# Three things to know about this word:
 #
-# Example:
-#   "data.txt" [
-#       [   # status was true
-#           io.write-line   # print the line
-#           true            # continue
-#       ] [
-#           drop false      # stop at EOF
-#       ] if
-#   ] file.for-each-line+
+#   1. The quotation must be polymorphic over the rest of the stack.
+#      That means you *cannot* keep an accumulator on the stack
+#      across iterations — the type system rejects a quot whose
+#      effect depends on a specific ..a shape. Aggregate via side
+#      effects (file.append, io.write-line) instead.
 #
-# Your task: Understand line-by-line file processing
+#   2. Each line is delivered with its trailing "\n" still attached.
+#      Strip with `string.chomp` if you want to compare/parse, or
+#      pass it through as-is when round-tripping.
+#
+#   3. After iteration, the word leaves ( "" true ) on the stack —
+#      a sentinel pair you have to `drop drop` before continuing.
+#
+# Your task: Take the fixture at exercises/20-files/data/lines.txt
+# (three lines: "alpha", "beta", "gamma"), and write a copy to
+# /tmp/seqlings-04-out.txt where each line is prefixed with "> ".
+# Then slurp the output, chomp, and return it.
+#
+# Run seqlings from the project root so the relative path resolves.
+#
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: line-processor-takes ( -- String )
-    # The quotation for file.for-each-line+ receives what two values?
-    # Return "line-and-status"
+: quote-lines ( -- String )
+    # 1) Reset /tmp/seqlings-04-out.txt to empty (file.spit "" ...).
+    # 2) for-each-line+ on the fixture, appending "> " + line to the
+    #    output file in the quotation. Don't forget the line already
+    #    carries its own trailing newline.
+    # 3) drop drop the sentinel pair.
+    # 4) slurp the output file, chomp, and return.
     ""
 ;
 
 : test-lines ( -- )
-    line-processor-takes
+    quote-lines
     # Do not edit below this line
-    "line-and-status" string.equal? test.assert
+    "> alpha\n> beta\n> gamma" string.equal? test.assert
 ;

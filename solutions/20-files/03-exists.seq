@@ -1,8 +1,16 @@
-: exists-returns ( -- String )
-    "int"
+: present? ( String -- String )
+    file.exists?
+    [ "yes" ]
+    [ "no" ]
+    if
 ;
 
-: test-exists ( -- )
-    exists-returns
-    "int" string.equal? test.assert
+: test-exists-yes ( -- )
+    "exercises/20-files/data/greeting.txt" present?
+    "yes" string.equal? test.assert
+;
+
+: test-exists-no ( -- )
+    "/no/such/path/seqlings-bogus-9c7f.txt" present?
+    "no" string.equal? test.assert
 ;
