@@ -1,34 +1,39 @@
-# Exercise: Safe File Reading
+# Exercise: Writing Files
 #
-# `file.slurp-safe` reads a file and returns a status flag.
+# `file.spit` writes a String to disk, *replacing* whatever was there.
 #
-# Stack effect: ( path -- contents status )
+# Stack effect: ( content path -- status )
+#   content : String — the bytes to write
+#   path    : String — destination
+#   status  : Bool   — true on success, false if the write failed
 #
-# The status is:
-#   - 1 (true) if the read succeeded
-#   - 0 (false) if the file doesn't exist or can't be read
+# Notice the argument order: content goes UNDER path on the stack.
+# A common bug is to swap them and end up writing the path string
+# itself into a file named after your message.
 #
-# Example:
-#   "data.txt" file.slurp-safe [
-#       # Got contents, use them
-#   ] [
-#       drop  # Drop empty string
-#       # Handle error
-#   ] if
+# Sister word: `file.append` has the same shape but appends rather
+# than overwriting. You'll use it in 05-combine.
 #
-# Your task: Understand safe file reading
+# Your task: Write the string "Hello, file!" to
+# /tmp/seqlings-write.txt, then slurp it back and return the result
+# (chomped) so the assertion can compare it to the original.
+#
+# Use /tmp/* for output so the repo stays clean. The status Bools
+# from spit and slurp can be drained with `drop` here — we trust
+# /tmp to be writable and the round-trip to succeed.
+#
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: returns-status? ( -- Int )
-    # file.slurp-safe returns two values. Does it return a status flag?
-    # Return 1 for yes, 0 for no
-    0
+: write-and-read ( -- String )
+    # 1) spit "Hello, file!" to /tmp/seqlings-write.txt
+    # 2) slurp it back and chomp the trailing newline (if any)
+    ""
 ;
 
-: test-safe-read ( -- )
-    returns-status?
+: test-write ( -- )
+    write-and-read
     # Do not edit below this line
-    1 test.assert-eq
+    "Hello, file!" string.equal? test.assert
 ;

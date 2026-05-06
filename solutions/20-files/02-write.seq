@@ -1,8 +1,12 @@
-: returns-status? ( -- Int )
-    1
+: write-and-read ( -- String )
+    "Hello, file!" "/tmp/seqlings-write.txt" file.spit drop
+    "/tmp/seqlings-write.txt" file.slurp
+    [ string.chomp ]
+    [ drop "" ]
+    if
 ;
 
-: test-safe-read ( -- )
-    returns-status?
-    1 test.assert-eq
+: test-write ( -- )
+    write-and-read
+    "Hello, file!" string.equal? test.assert
 ;

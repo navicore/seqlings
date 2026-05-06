@@ -172,11 +172,11 @@ For more advanced bit-twiddling, see patch-seq's `examples/projects/hackers-deli
 - 05-interactive - Building a prompt
 
 ### 20-files (5 exercises)
-- 01-exists - file.exists?
-- 02-slurp - file.slurp
-- 03-slurp-safe - file.slurp-safe (error handling)
-- 04-for-each-line - file.for-each-line+
-- 05-processing - File processing patterns
+- 01-read - file.slurp + string.chomp on a fixture
+- 02-write - file.spit, round-tripped through file.slurp
+- 03-exists - file.exists? branching
+- 04-lines - file.for-each-line+ with side-effect aggregation
+- 05-combine - file.spit + file.append + file.slurp end-to-end
 
 ### 21-args (3 exercises)
 - 01-count - args.count
@@ -323,7 +323,7 @@ Combining concepts from previous sections:
 ### Built-ins Covered:
 - [x] io.* (write-line, write, read-line, read-n)
 - [x] args.* (count, at)
-- [x] file.* (slurp, slurp-safe, exists?, for-each-line+)
+- [x] file.* (slurp, spit, append, exists?, for-each-line+)
 - [x] Type conversions (int->string, string->int, etc.)
 - [x] i.multiply arithmetic (add, subtract, multiply, divide)
 - [x] Comparison (=, <, >, <=, >=, <>)

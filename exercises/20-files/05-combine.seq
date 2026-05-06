@@ -1,36 +1,45 @@
-# Exercise: File Reading Patterns
+# Exercise: Combining File Operations
 #
-# Combine file operations for robust file handling:
+# Now we put the previous four words together to build a small file
+# from scratch and read it back.
 #
-# Pattern 1: Check then read
-#   include std:control
-#   "config.txt" file.exists? [
-#       "config.txt" file.slurp process
-#   ] when
+# Words you'll use:
 #
-# Pattern 2: Try-read with fallback
-#   "config.txt" file.slurp-safe [
-#       process
-#   ] [
-#       drop use-defaults
-#   ] if
+#   file.spit    ( content path -- status )   overwrite a file
+#   file.append  ( content path -- status )   add to the end of a file
+#   file.slurp   ( path -- content status )   read it all back
 #
-# Pattern 3: Process lines
-#   "log.txt" [ handle-line ] file.for-each-line+
+# `file.append` has the same argument order as `file.spit`. The
+# difference is that `spit` truncates first; `append` does not. A
+# common pattern is to start a file with one `spit ""` (or
+# `spit <header>`) and then loop, calling `append` per record.
 #
-# Your task: Understand when to use each pattern
+# Your task: Build /tmp/seqlings-05-log.txt as if it were an event
+# log, then read the result and return it. The expected content is:
+#
+#   start
+#   step 1
+#   step 2
+#   done
+#
+# Build it like this:
+#
+#   1. spit "start\n" to truncate-and-create the file.
+#   2. append "step 1\n", then "step 2\n", in two separate calls.
+#   3. append "done\n".
+#   4. slurp the file, chomp the trailing newline, return.
+#
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: safest-approach ( -- String )
-    # Which is safer: "slurp" or "slurp-safe"?
-    # (slurp-safe won't panic on missing files)
+: build-log ( -- String )
+    # Implement the four-step recipe above.
     ""
 ;
 
 : test-combine ( -- )
-    safest-approach
+    build-log
     # Do not edit below this line
-    "slurp-safe" string.equal? test.assert
+    "start\nstep 1\nstep 2\ndone" string.equal? test.assert
 ;

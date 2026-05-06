@@ -1,28 +1,44 @@
 # Exercise: Reading Files
 #
-# `file.slurp` reads the entire contents of a file as a string.
+# `file.slurp` reads the entire contents of a file as a string,
+# *plus* a Bool flag indicating whether the read succeeded.
 #
-# Stack effect: ( path -- contents )
+# Stack effect: ( path -- contents status )
+#   contents : String — the file's bytes (empty string on failure)
+#   status   : Bool   — true on success, false if the file was missing
+#                       or could not be read
 #
-# Example:
-#   "data.txt" file.slurp   # Returns file contents as String
+# Heads up #1 — branch on the Bool. The compiler warns if you ignore
+# it, and using the contents without checking will silently process an
+# empty string when the file is missing. The idiom is:
 #
-# Note: This is a conceptual exercise. The test verifies
-# you understand the operation.
+#   "data.txt" file.slurp [ ...success: contents on top... ]
+#                         [ drop ...failure path... ]
+#                         if
 #
-# Your task: Understand file.slurp
+# Heads up #2 — `file.slurp` returns the file *exactly* as it sits on
+# disk, trailing newline included. To compare against a literal,
+# strip the newline with `string.chomp` (or `string.trim` if you also
+# want to drop other surrounding whitespace).
+#
+# Your task: Slurp the fixture at `exercises/20-files/data/greeting.txt`,
+# branch on the success flag, and on success chomp the trailing newline
+# so the result equals "Hello, Seq!". On failure, return "" so the
+# test fails loudly rather than crashing.
+#
+# Run seqlings from the project root so the relative path resolves.
+#
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: describe-slurp ( -- String )
-    # What does file.slurp return?
-    # Return "string" to indicate it returns file contents as a String
+: read-greeting ( -- String )
+    # Slurp the fixture, branch on the status flag, and chomp on success.
     ""
 ;
 
 : test-read ( -- )
-    describe-slurp
+    read-greeting
     # Do not edit below this line
-    "string" string.equal? test.assert
+    "Hello, Seq!" string.equal? test.assert
 ;
