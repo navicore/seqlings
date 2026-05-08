@@ -1,0 +1,17 @@
+: empty ( -- List )
+    :Empty variant.make-0
+;
+
+: prepend ( T List -- List )
+    :Cons variant.make-2
+;
+
+: test-empty-runs ( -- )
+    empty drop
+    true test.assert
+;
+
+: test-prepend-tag ( -- )
+    empty 1 swap prepend
+    variant.tag :Cons symbol.= test.assert
+;

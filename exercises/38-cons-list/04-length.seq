@@ -1,0 +1,63 @@
+# Exercise: Length
+#
+# Now we get to actually *use* the ADT. Length is the canonical
+# first recursive operation on a cons list:
+#
+#   length(empty)      = 0
+#   length(prepend x xs) = 1 + length(xs)
+#
+# Recursion on a cons list always has the same shape: dispatch on
+# `empty?`, do the trivial thing in the empty branch, recurse on
+# the tail in the cons branch.
+#
+# This is exactly the accumulator pattern from chapter 09 — the
+# only new wrinkle is that the recursion walks an ADT instead of an
+# integer.
+#
+# Your task: Define
+#
+#   length-acc ( List Int -- Int )    — recursive helper
+#   length     ( List -- Int )        — public word
+#
+# `length-acc` carries an accumulator on the stack so the recursion
+# stays tail-shaped. `length` is the kickoff: push 0, call the
+# helper.
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+# ─── Already defined for you ───────────────────────────────────
+: empty ( -- List )         :Empty variant.make-0 ;
+: prepend ( T List -- List ) :Cons variant.make-2 ;
+: empty? ( List -- Bool )    variant.tag :Empty symbol.= ;
+: head ( List -- T )         0 variant.field-at ;
+: tail ( List -- List )      1 variant.field-at ;
+# ───────────────────────────────────────────────────────────────
+
+: length-acc ( List Int -- Int )
+    # Hint:
+    #   swap dup empty?
+    #   [ drop ]                                   # empty: return acc
+    #   [ tail swap 1 i.+ length-acc ]             # cons: walk and bump
+    #   if
+    drop drop 0
+;
+
+: length ( List -- Int )
+    # Push initial accumulator 0 and call length-acc.
+    drop 0
+;
+
+: test-length-empty ( -- )
+    empty length
+    # Do not edit below this line
+    0 test.assert-eq
+;
+
+: test-length-three ( -- )
+    empty 3 swap prepend 2 swap prepend 1 swap prepend
+    length
+    # Do not edit below this line
+    3 test.assert-eq
+;

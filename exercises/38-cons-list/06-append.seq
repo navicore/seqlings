@@ -1,0 +1,86 @@
+# Exercise: Append
+#
+# `append` concatenates two lists end-to-end. Definition:
+#
+#   append(empty, ys)             = ys
+#   append(prepend x xs, ys)      = prepend x (append xs ys)
+#
+# Two things to notice:
+#
+# 1. Unlike `length` and `reverse`, `append` doesn't use an
+#    accumulator. The recursive call returns the partially-appended
+#    result, and we prepend the saved head onto it on the way back.
+#
+# 2. That "save the head, recurse, prepend on the way back"
+#    pattern needs us to keep the head alive *across* a recursive
+#    call. That's exactly what `dip` is for (chapter 37):
+#
+#      [ append ] dip
+#
+#    runs `append` on the values below the saved head, then
+#    restores the head on top — ready to be `swap prepend`'d.
+#
+# Your task: Define
+#
+#   append ( ListA ListB -- List )
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+# ─── Already defined for you ───────────────────────────────────
+: empty ( -- List )         :Empty variant.make-0 ;
+: prepend ( T List -- List ) :Cons variant.make-2 ;
+: empty? ( List -- Bool )    variant.tag :Empty symbol.= ;
+: head ( List -- T )         0 variant.field-at ;
+: tail ( List -- List )      1 variant.field-at ;
+: length-acc ( List Int -- Int )
+    swap dup empty? [ drop ] [ tail swap 1 i.+ length-acc ] if
+;
+: length ( List -- Int ) 0 length-acc ;
+# ───────────────────────────────────────────────────────────────
+
+: append ( List List -- List )
+    # Recipe for the cons branch starting from ( a b ):
+    #   1. over head           ( a b head-of-a )
+    #   2. rot tail rot        ( head tail-of-a b )    (two rots)
+    #   3. rot                 ( tail-of-a b head )    -- one more rot
+    #   4. [ append ] dip      ( appended head )       -- recurse, head saved
+    #   5. swap prepend        ( head : appended )
+    #
+    # Empty branch: if a is empty, drop a and return b.
+    nip
+;
+
+: test-append-empty-left ( -- )
+    empty
+    empty 2 swap prepend 1 swap prepend
+    append length
+    # Do not edit below this line
+    2 test.assert-eq
+;
+
+: test-append-empty-right ( -- )
+    empty 2 swap prepend 1 swap prepend
+    empty
+    append length
+    # Do not edit below this line
+    2 test.assert-eq
+;
+
+: test-append-head ( -- )
+    # (1 2) ++ (3 4) → (1 2 3 4); head should be 1
+    empty 2 swap prepend 1 swap prepend
+    empty 4 swap prepend 3 swap prepend
+    append head
+    # Do not edit below this line
+    1 test.assert-eq
+;
+
+: test-append-length ( -- )
+    empty 2 swap prepend 1 swap prepend
+    empty 4 swap prepend 3 swap prepend
+    append length
+    # Do not edit below this line
+    4 test.assert-eq
+;

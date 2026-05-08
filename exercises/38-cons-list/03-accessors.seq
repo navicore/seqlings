@@ -1,0 +1,57 @@
+# Exercise: Accessors
+#
+# Once you can build a `Cons` cell with two fields, you need a way
+# to pull those fields back out. The primitive is:
+#
+#   variant.field-at  ( Variant Int -- Field )
+#       returns the field at the given 0-based index.
+#
+# `prepend` stored head at index 0 and tail at index 1 (the order
+# they sat on the stack when `variant.make-2` ran), so reading them
+# back is a single `field-at` call each.
+#
+# Lisp lineage: `head` is `car`, `tail` is `cdr`. Same operations.
+#
+# Your task: Define
+#
+#   head  ( List -- T )      — first element of a non-empty list
+#   tail  ( List -- List )   — the rest of the list
+#
+# Calling `head` or `tail` on an empty list is undefined — a real
+# library would either pre-check with `empty?` or return a Result.
+# Here we just trust the caller.
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+# ─── Already defined for you ───────────────────────────────────
+: empty ( -- List )         :Empty variant.make-0 ;
+: prepend ( T List -- List ) :Cons variant.make-2 ;
+: empty? ( List -- Bool )    variant.tag :Empty symbol.= ;
+# ───────────────────────────────────────────────────────────────
+
+: head ( List -- T )
+    # field-at index 0
+    drop 0
+;
+
+: tail ( List -- List )
+    # field-at index 1
+    drop empty
+;
+
+: test-head ( -- )
+    empty 3 swap prepend 2 swap prepend 1 swap prepend
+    head
+    # Do not edit below this line
+    1 test.assert-eq
+;
+
+: test-tail-head ( -- )
+    # tail of (1 2 3) is (2 3); head of that is 2
+    empty 3 swap prepend 2 swap prepend 1 swap prepend
+    tail head
+    # Do not edit below this line
+    2 test.assert-eq
+;

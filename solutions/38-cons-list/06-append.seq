@@ -1,0 +1,45 @@
+: empty ( -- List )         :Empty variant.make-0 ;
+: prepend ( T List -- List ) :Cons variant.make-2 ;
+: empty? ( List -- Bool )    variant.tag :Empty symbol.= ;
+: head ( List -- T )         0 variant.field-at ;
+: tail ( List -- List )      1 variant.field-at ;
+: length-acc ( List Int -- Int )
+    swap dup empty? [ drop ] [ tail swap 1 i.+ length-acc ] if
+;
+: length ( List -- Int ) 0 length-acc ;
+
+: append ( List List -- List )
+    over empty? [
+        nip
+    ] [
+        over head
+        rot tail rot
+        rot
+        [ append ] dip
+        swap prepend
+    ] if
+;
+
+: test-append-empty-left ( -- )
+    empty
+    empty 2 swap prepend 1 swap prepend
+    append length 2 test.assert-eq
+;
+
+: test-append-empty-right ( -- )
+    empty 2 swap prepend 1 swap prepend
+    empty
+    append length 2 test.assert-eq
+;
+
+: test-append-head ( -- )
+    empty 2 swap prepend 1 swap prepend
+    empty 4 swap prepend 3 swap prepend
+    append head 1 test.assert-eq
+;
+
+: test-append-length ( -- )
+    empty 2 swap prepend 1 swap prepend
+    empty 4 swap prepend 3 swap prepend
+    append length 4 test.assert-eq
+;
