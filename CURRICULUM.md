@@ -160,6 +160,17 @@ For more advanced bit-twiddling, see patch-seq's `examples/projects/hackers-deli
 - 05-keep-chain - Chaining keep for multiple derived values
 - 06-combine - Combining dip, keep, and bi together
 
+### 38-cons-list (6 exercises)
+Building an ADT from variant primitives. Cons-list is the case
+study; the pattern (constructors + tag predicates + field-at
+accessors + accumulator recursion) generalizes to any ADT.
+- 01-constructors - empty / prepend via variant.make-0/2
+- 02-predicates - empty? via variant.tag + symbol.=
+- 03-accessors - head / tail via variant.field-at
+- 04-length - first recursive op with accumulator
+- 05-reverse - recursion + stack juggling
+- 06-append - recursive list construction with dip
+
 ---
 
 ## Part 5: I/O & System

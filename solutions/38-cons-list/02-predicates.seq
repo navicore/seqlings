@@ -1,0 +1,14 @@
+: empty ( -- List )         :Empty variant.make-0 ;
+: prepend ( T List -- List ) :Cons variant.make-2 ;
+
+: empty? ( List -- Bool )
+    variant.tag :Empty symbol.=
+;
+
+: test-empty-is-empty ( -- )
+    empty empty? test.assert
+;
+
+: test-cons-is-not-empty ( -- )
+    empty 1 swap prepend empty? not test.assert
+;

@@ -1092,3 +1092,37 @@ mode = "test"
 name = "06-combinator-combine"
 path = "exercises/37-combinators/06-combine.seq"
 mode = "test"
+
+# ============================================================
+# 38-cons-list: Building an ADT
+# ============================================================
+
+[[exercises]]
+name = "01-cons-constructors"
+path = "exercises/38-cons-list/01-constructors.seq"
+mode = "test"
+
+[[exercises]]
+name = "02-cons-predicates"
+path = "exercises/38-cons-list/02-predicates.seq"
+mode = "test"
+
+[[exercises]]
+name = "03-cons-accessors"
+path = "exercises/38-cons-list/03-accessors.seq"
+mode = "test"
+
+[[exercises]]
+name = "04-cons-length"
+path = "exercises/38-cons-list/04-length.seq"
+mode = "test"
+
+[[exercises]]
+name = "05-cons-reverse"
+path = "exercises/38-cons-list/05-reverse.seq"
+mode = "test"
+
+[[exercises]]
+name = "06-cons-append"
+path = "exercises/38-cons-list/06-append.seq"
+mode = "test"

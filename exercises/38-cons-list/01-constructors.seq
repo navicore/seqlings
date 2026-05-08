@@ -1,0 +1,54 @@
+# Exercise: Cons-List Constructors
+#
+# An algebraic data type (ADT) is a value that's exactly one of
+# several named "shapes". For our cons list there are two:
+#
+#   Empty                  — no payload
+#   Cons (head, tail)      — a pair: element + rest of the list
+#
+# In Seq an ADT is built from variants. The two primitives you need:
+#
+#   :Tag variant.make-0    ( -- Variant )
+#       creates a variant with the given Tag and zero fields.
+#
+#   :Tag variant.make-2    ( a b -- Variant )
+#       creates a variant with the given Tag and two fields.
+#
+# The ":Tag" syntax is a *symbol literal*. Symbols are unique names
+# the runtime uses to label variants; they're how `variant.tag`
+# (next exercise) tells variants apart.
+#
+# Lisp lineage: `empty` is what Lisp calls `nil`; `prepend` is what
+# Lisp calls `cons`. Same operations, different names.
+#
+# Your task: Define the two constructors.
+#
+#   empty   ( -- List )         — an empty list
+#   prepend ( T List -- List )  — push an element onto the front
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: empty ( -- List )
+    # Use :Empty variant.make-0
+    :Empty variant.make-0
+;
+
+: prepend ( T List -- List )
+    # Use :Cons variant.make-2 — wraps the two stack values into a Cons cell
+    drop drop empty
+;
+
+: test-empty-runs ( -- )
+    empty drop
+    # Do not edit below this line
+    true test.assert
+;
+
+: test-prepend-tag ( -- )
+    # After prepend, the variant should have the :Cons tag, not :Empty.
+    empty 1 swap prepend
+    # Do not edit below this line
+    variant.tag :Cons symbol.= test.assert
+;

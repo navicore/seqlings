@@ -1,0 +1,80 @@
+# Exercise: Reverse
+#
+# Same recursion shape as `length`, but now we accumulate a *list*
+# instead of an integer:
+#
+#   reverse(empty)         = empty
+#   reverse(prepend x xs)  = append (reverse xs) [x]
+#                          = prepend x onto (reverse xs)  -- but wrong order!
+#                          = walk xs, prepending each head to an
+#                            accumulator that starts at empty
+#
+# The accumulator trick gives you reverse for free *and* in one
+# pass: each step pulls the head of the input and prepends it onto
+# the accumulator, which builds the reversed list as you go.
+#
+# This is the stack-juggliest exercise in the chapter. Take your
+# time.
+#
+# Your task: Define
+#
+#   reverse-acc ( List List -- List )    — recursive helper (input, acc)
+#   reverse     ( List -- List )         — public word
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+# ─── Already defined for you ───────────────────────────────────
+: empty ( -- List )         :Empty variant.make-0 ;
+: prepend ( T List -- List ) :Cons variant.make-2 ;
+: empty? ( List -- Bool )    variant.tag :Empty symbol.= ;
+: head ( List -- T )         0 variant.field-at ;
+: tail ( List -- List )      1 variant.field-at ;
+: length-acc ( List Int -- Int )
+    swap dup empty? [ drop ] [ tail swap 1 i.+ length-acc ] if
+;
+: length ( List -- Int ) 0 length-acc ;
+# ───────────────────────────────────────────────────────────────
+
+: reverse-acc ( List List -- List )
+    # The recursion shape mirrors length-acc:
+    #   - swap so the input list is on top, dup it for empty?
+    #   - if empty: drop the input, return the accumulator
+    #   - if cons: take the head, prepend onto accumulator, recurse
+    #     with (tail of input, new accumulator)
+    #
+    # Plan for the cons branch starting from ( acc list ):
+    #     dup head           ( acc list head )
+    #     rot                ( list head acc )       -- rot moves third-to-top
+    #     prepend            ( list new-acc )
+    #     swap tail swap     ( tail new-acc )        -- replace input with its tail
+    #     reverse-acc
+    drop
+;
+
+: reverse ( List -- List )
+    # Kick off with an empty accumulator.
+    drop empty
+;
+
+: test-reverse-empty ( -- )
+    empty reverse length
+    # Do not edit below this line
+    0 test.assert-eq
+;
+
+: test-reverse-head ( -- )
+    # reverse of (1 2 3) is (3 2 1); head of that is 3
+    empty 3 swap prepend 2 swap prepend 1 swap prepend
+    reverse head
+    # Do not edit below this line
+    3 test.assert-eq
+;
+
+: test-reverse-length-preserved ( -- )
+    empty 4 swap prepend 3 swap prepend 2 swap prepend 1 swap prepend
+    reverse length
+    # Do not edit below this line
+    4 test.assert-eq
+;

@@ -1,0 +1,51 @@
+# Exercise: Predicates
+#
+# A predicate is a word that returns a Bool. For an ADT, the most
+# important kind of predicate asks "which constructor produced this
+# value?" — so we can branch on it with `if`.
+#
+# Two primitives drive this:
+#
+#   variant.tag    ( Variant -- Symbol )
+#       returns the symbol that labelled the variant when it was
+#       constructed (e.g. :Empty or :Cons).
+#
+#   symbol.=       ( Symbol Symbol -- Bool )
+#       compares two symbols for equality.
+#
+# Lisp lineage: `empty?` is what Lisp calls `null?`. We only build
+# one predicate here; the other (`cons?`) is just `empty? not`, so
+# defining both is busywork.
+#
+# Your task: Define
+#
+#   empty? ( List -- Bool )
+#
+# Returns true if the list was built by `empty`, false if it was
+# built by `prepend`.
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+# ─── Already defined for you (from 01) ─────────────────────────
+: empty ( -- List )         :Empty variant.make-0 ;
+: prepend ( T List -- List ) :Cons variant.make-2 ;
+# ───────────────────────────────────────────────────────────────
+
+: empty? ( List -- Bool )
+    # Get the variant.tag, then compare to :Empty with symbol.=
+    drop false
+;
+
+: test-empty-is-empty ( -- )
+    empty empty?
+    # Do not edit below this line
+    test.assert
+;
+
+: test-cons-is-not-empty ( -- )
+    empty 1 swap prepend empty?
+    # Do not edit below this line
+    not test.assert
+;
