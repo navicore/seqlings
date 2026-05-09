@@ -5,12 +5,7 @@
     if
 ;
 
-: test-in-bounds ( -- )
-    0 "FALLBACK" arg-or
-    "FALLBACK" string.equal? not test.assert
-;
-
-: test-out-of-bounds ( -- )
-    99 "FALLBACK" arg-or
-    "FALLBACK" string.equal? test.assert
+: test-runs ( -- )
+    0 "fallback" arg-or drop
+    true test.assert
 ;

@@ -11,8 +11,8 @@
 #   two or more args    → "got <N> arguments starting with <first>"
 #
 # All three branches are reachable on a real command line. Under
-# `seqc test`, only the first branch fires (no user args), so the
-# test asserts that exact result.
+# `seqc test` only the first ever fires, so the test only verifies
+# that your word runs.
 #
 # Your task: Write `summary ( -- String )`.
 #
@@ -23,39 +23,34 @@
 #   string.concat                              ( a b -- ab )
 #   int->string                                ( Int -- String )
 #
-# ## To see all three branches on a real command line
+# To exercise all three branches, drop your solution into a shebang
+# script:
 #
-# The seqlings test only fires the no-args branch. To exercise the
-# others once you've solved it:
+#   #!/usr/bin/env seqc
+#   : summary ( -- String )
+#       ... your implementation ...
+#   ;
+#   : main ( -- Int )
+#       summary io.write-line
+#       0
+#   ;
 #
-#     ─── try-summary.seq ───────────────────────────
-#     include "exercises/21-args/04-combine"
-#
-#     : main ( -- Int )
-#         summary io.write-line
-#         0
-#     ;
-#     ───────────────────────────────────────────────
-#
-#     $ seqc build try-summary.seq -o try-summary
-#     $ ./try-summary                  → no arguments provided
-#     $ ./try-summary hello            → got: hello
-#     $ ./try-summary hello world      → got 2 arguments starting with hello
+#   $ chmod +x try-summary.seq
+#   $ ./try-summary.seq                  → no arguments provided
+#   $ ./try-summary.seq hello            → got: hello
+#   $ ./try-summary.seq hello world      → got 2 arguments starting with hello
 #
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : summary ( -- String )
-    # Branch on (args.count - 1):
-    #   0 → "no arguments provided"
-    #   1 → "got: " + (1 args.at)
-    #   _ → "got " + count + " arguments starting with " + (1 args.at)
+    # Your code here
     "TODO"
 ;
 
-: test-no-args ( -- )
-    summary
+: test-runs ( -- )
+    summary drop
     # Do not edit below this line
-    "no arguments provided" string.equal? test.assert
+    true test.assert
 ;

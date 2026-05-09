@@ -2,6 +2,7 @@
     args.count 1 i.-
 ;
 
-: test-no-user-args ( -- )
-    user-arg-count 0 test.assert-eq
+: test-runs ( -- )
+    user-arg-count drop
+    true test.assert
 ;

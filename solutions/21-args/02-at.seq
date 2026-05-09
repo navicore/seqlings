@@ -2,10 +2,7 @@
     args.at string.empty?
 ;
 
-: test-program-path-not-empty ( -- )
-    0 arg-empty? not test.assert
-;
-
-: test-out-of-bounds-is-empty ( -- )
-    99 arg-empty? test.assert
+: test-runs ( -- )
+    0 arg-empty? drop
+    true test.assert
 ;

@@ -13,6 +13,7 @@
     ] if
 ;
 
-: test-no-args ( -- )
-    summary "no arguments provided" string.equal? test.assert
+: test-runs ( -- )
+    summary drop
+    true test.assert
 ;

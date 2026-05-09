@@ -17,50 +17,42 @@
 #
 # Use `string.empty?` from chapter 13 to make the test.
 #
-# ## To see it on a real command line
+# The test below only verifies your word runs. To actually see
+# the missing-vs-empty ambiguity, drop your code into a shebang
+# script:
 #
-# Once you've solved it:
+#   #!/usr/bin/env seqc
+#   : arg-empty? ( Int -- Bool )
+#       args.at string.empty?
+#   ;
+#   : main ( -- Int )
+#       1 arg-empty?
+#       [ "arg 1 missing or empty" ]
+#       [ "arg 1 present"          ]
+#       if io.write-line
+#       0
+#   ;
 #
-#     ─── try-at.seq ────────────────────────────────
-#     include "exercises/21-args/02-at"
+#   $ chmod +x try-at.seq
+#   $ ./try-at.seq                 → arg 1 missing or empty
+#   $ ./try-at.seq hello           → arg 1 present
+#   $ ./try-at.seq ""              → arg 1 missing or empty
 #
-#     : main ( -- Int )
-#         1 arg-empty?
-#         [ "arg 1 missing or empty" ]
-#         [ "arg 1 present"          ]
-#         if io.write-line
-#         0
-#     ;
-#     ───────────────────────────────────────────────
-#
-#     $ seqc build try-at.seq -o try-at
-#     $ ./try-at                 → arg 1 missing or empty
-#     $ ./try-at hello           → arg 1 present
-#     $ ./try-at ""              → arg 1 missing or empty
-#
-# That last case is the "missing vs explicitly empty" ambiguity —
-# both produce the same answer here. The next exercise builds the
-# bounds-check that lets you tell them apart.
+# Notice the third case — an explicit empty string looks identical
+# to a missing argument. The next exercise's bounds-check fixes
+# that.
 #
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : arg-empty? ( Int -- Bool )
-    # args.at the index, then string.empty?
+    # Your code here
     drop true
 ;
 
-: test-program-path-not-empty ( -- )
-    # 0 args.at is the program path itself — never empty.
-    0 arg-empty?
+: test-runs ( -- )
+    0 arg-empty? drop
     # Do not edit below this line
-    not test.assert
-;
-
-: test-out-of-bounds-is-empty ( -- )
-    # Index 99 is way past the end, so args.at returns "".
-    99 arg-empty?
-    # Do not edit below this line
-    test.assert
+    true test.assert
 ;

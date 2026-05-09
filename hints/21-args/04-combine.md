@@ -31,16 +31,8 @@ so we can compare without losing it. Then a two-level `if`:
 - otherwise → multi-arg case, the saved count is still on the
   stack; turn it into a string and weave it into the message.
 
-## What you'd see on a real run
+## The test only checks your word runs
 
-Under `seqc test` the count is always 1, so only the first branch
-fires and that's what the test asserts. If you built the program
-into a real binary and ran it:
-
-```
-$ ./prog                     → "no arguments provided"
-$ ./prog hello               → "got: hello"
-$ ./prog hello world         → "got 2 arguments starting with hello"
-```
-
-Three reachable behaviours from one `summary` word.
+To see all three branches in action, drop your solution into the
+shebang script in the exercise header and run it with zero, one,
+and two args.
