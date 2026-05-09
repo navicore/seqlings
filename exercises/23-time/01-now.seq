@@ -1,18 +1,27 @@
-# Exercise: Getting Current Time
+# Exercise: Reading the Wall Clock
 #
-# Use `time.now` to get the current timestamp in milliseconds.
+# `time.now` returns the current Unix timestamp — seconds since
+# 1970-01-01 UTC.
 #
-# Example:
-#   time.now    # Returns something like 1703123456789
+# Stack effect: ( -- Int )
 #
-# Your task: Understand time operations
+#   time.now    # → e.g. 1762636800
+#
+# Heads up: `time.now` is **seconds**, not milliseconds. There is
+# no millisecond version of the wall clock — if you need
+# sub-second precision for measuring durations, use `time.nanos`
+# (next exercise but two).
+#
+# Your task: write `time-is-positive` — return true when
+# `time.now` returns a positive integer. (It always will, on any
+# machine whose clock is set after the Unix epoch, but the point
+# is to wire `time.now` into a real expression.)
 #
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : time-is-positive ( -- Bool )
-    # Check that time.now returns a positive number
     # Your code here
     false
 ;
@@ -21,5 +30,5 @@
     time-is-positive
 
     # Do not edit below this line
-    true test.assert-eq
+    test.assert
 ;

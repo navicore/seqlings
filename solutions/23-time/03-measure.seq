@@ -1,10 +1,10 @@
-: elapsed-is-non-negative ( -- Bool )
-    time.now
-    time.now swap i.-
-    0 >=
+: monotonic-non-decreasing? ( -- Bool )
+    time.nanos
+    time.nanos
+    i.<=
 ;
 
-: test-elapsed ( -- )
-    elapsed-is-non-negative
-    true test.assert-eq
+: test-monotonic ( -- )
+    monotonic-non-decreasing?
+    test.assert
 ;

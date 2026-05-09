@@ -1,0 +1,15 @@
+: path-status ( String -- String )
+    dup os.path-is-dir
+    [ drop "dir" ]
+    [ dup os.path-is-file
+        [ drop "file" ]
+        [ drop "missing" ]
+        if
+    ]
+    if
+;
+
+: test-root-is-dir ( -- )
+    "/" path-status
+    "dir" test.assert-eq-str
+;

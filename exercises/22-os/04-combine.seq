@@ -1,22 +1,51 @@
-# Exercise: OS Operation Patterns
+# Exercise: Building a Path Under Home
 #
-# Combine OS operations for common tasks.
+# A common pattern: stick a config file under the user's home
+# directory, falling back to `/tmp` if for some reason home isn't
+# available.
 #
-# Your task: Build useful OS utility functions
+# Two pieces:
+#
+#   os.home-dir                       ( -- String Bool )
+#   "/etc" "hosts" os.path-join       ( String String -- String )
+#
+# `os.home-dir` has the same shape as `os.getenv` from exercise
+# 01: it returns the home directory path and a Bool that says
+# whether home was actually available — true means the path on
+# the stack is real, false means the lookup failed and the path
+# is "". Branch on it the same way.
+#
+# `os.path-join` returns just the joined string, so no branching
+# needed there.
+#
+# Your task: write `home-file` — given a filename, build a full
+# path by joining the user's home directory (or `/tmp` if home is
+# unavailable) with the filename.
+#
+# Examples:
+#
+#   "config.toml" home-file   → "/home/alice/config.toml"
+#   "notes.txt"   home-file   → "/home/alice/notes.txt"
+#
+# Stack hint: after `os.home-dir` your stack is
+# ( filename home Bool ). The `if` consumes the Bool, leaving
+# ( filename home ). On the true branch: leave it alone — `home`
+# is what you want. On the false branch: replace `home` with
+# "/tmp". Then `swap os.path-join` produces the final path.
 #
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: get-home-or-default ( -- String )
-    # Get HOME env var, or "/tmp" if not set
+: home-file ( String -- String )
     # Your code here
-    "/tmp"
+    drop ""
 ;
 
-: test-home ( -- )
-    get-home-or-default string.length 0 >
+: test-contains-name ( -- )
+    "app.toml" home-file
+    "app.toml" string.contains
 
     # Do not edit below this line
-    true test.assert-eq
+    test.assert
 ;

@@ -1,27 +1,45 @@
-# Exercise: Measuring Duration
+# Exercise: Measuring a Duration
 #
-# Measure elapsed time between two points:
+# `time.nanos` returns a high-resolution monotonic clock value.
+# The number itself is meaningless — there's no defined zero
+# point — but the *difference* between two readings is the
+# elapsed time in nanoseconds.
 #
-#   time.now          # Start
-#   do-work
-#   time.now swap i.- # End - Start = elapsed ms
+# Stack effect: ( -- Int )
 #
-# Your task: Understand duration measurement
+# The idiom:
+#
+#   time.nanos       # ( before )
+#   do-some-work
+#   time.nanos       # ( before after )
+#   swap i.-         # ( after - before ) → elapsed nanoseconds
+#
+# Why monotonic and not `time.now`? Wall clocks can jump
+# backwards (NTP corrections, daylight savings, the user editing
+# the system clock). `time.nanos` only ever moves forward, so a
+# duration computed from it is always non-negative.
+#
+# Your task: write `monotonic-non-decreasing?` — read
+# `time.nanos` twice in a row and return true when the second
+# reading is greater than or equal to the first. By construction
+# this should always be true; the test is verifying you got the
+# call order and comparison direction right.
+#
+# Stack hint: `i.<=` is the integer "less than or equal".
+# Reading is left-to-right: `a b i.<=` returns `a <= b`.
 #
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: elapsed-is-non-negative ( -- Bool )
-    # Taking two timestamps should give non-negative difference
-    # time.now ... time.now swap i.- should be >= 0
-    # Your code here (conceptual)
-    true
+: monotonic-non-decreasing? ( -- Bool )
+    # Your code here
+    false
 ;
 
-: test-elapsed ( -- )
-    elapsed-is-non-negative
+: test-monotonic ( -- )
+    monotonic-non-decreasing?
 
     # Do not edit below this line
-    true test.assert-eq
+    test.assert
 ;

@@ -1,8 +1,0 @@
-: env-returns ( -- String )
-    "string"
-;
-
-: test-env-type ( -- )
-    env-returns
-    "string" test.assert-eq
-;

@@ -1,8 +1,12 @@
-: is-recent ( Int Int -- Bool )
-    swap time.now swap i.- swap <
+: sleep-elapsed-nanos ( Int -- Int )
+    time.nanos
+    swap
+    time.sleep-ms
+    time.nanos
+    swap i.-
 ;
 
-: test-recent ( -- )
-    time.now 1000 is-recent
-    true test.assert-eq
+: test-elapsed ( -- )
+    5 sleep-elapsed-nanos 0 i.>
+    test.assert
 ;

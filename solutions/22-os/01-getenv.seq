@@ -1,0 +1,11 @@
+: getenv-or ( String String -- String )
+    swap os.getenv
+    [ nip ]
+    [ drop ]
+    if
+;
+
+: test-fallback ( -- )
+    "SEQLINGS_DEFINITELY_UNSET_4242" "fallback" getenv-or
+    "fallback" test.assert-eq-str
+;

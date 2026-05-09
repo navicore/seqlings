@@ -1,0 +1,45 @@
+# Exercise: Reading Environment Variables
+#
+# `os.getenv` looks up an environment variable. It returns *two*
+# values — the variable's value and a Bool flag that tells you
+# whether the variable was actually set:
+#
+# Stack effect: ( name -- value present? )
+#   value     : String — the variable's value, or "" when missing
+#   present?  : Bool   — true when the variable was set,
+#                        false otherwise
+#
+# Branch on the flag with `if`. The idiom is the same shape as
+# the one for `file.slurp`:
+#
+#   "HOME" os.getenv [ ...use HOME... ]
+#                    [ drop ...fallback... ]
+#                    if
+#
+# Heads up: there is no `os.setenv`. Environment variables in
+# Seq are read-only — set them in the calling shell, not from
+# inside your program.
+#
+# Your task: write `getenv-or` — given a variable name and a
+# fallback string, return the variable's value when set, or the
+# fallback when it is not.
+#
+# Stack hint: after `swap os.getenv` your stack is
+# ( fallback value present? ). On true: keep value, drop fallback.
+# On false: drop the empty value, keep fallback.
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: getenv-or ( String String -- String )
+    # Your code here
+    nip
+;
+
+: test-fallback ( -- )
+    "SEQLINGS_DEFINITELY_UNSET_4242" "fallback" getenv-or
+
+    # Do not edit below this line
+    "fallback" test.assert-eq-str
+;

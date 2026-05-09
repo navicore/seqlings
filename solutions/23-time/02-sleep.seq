@@ -1,8 +1,9 @@
-: sleep-takes-int ( -- String )
-    "int"
+: tiny-pause ( -- Bool )
+    5 time.sleep-ms
+    true
 ;
 
-: test-sleep-type ( -- )
-    sleep-takes-int
-    "int" test.assert-eq
+: test-sleep ( -- )
+    tiny-pause
+    test.assert
 ;

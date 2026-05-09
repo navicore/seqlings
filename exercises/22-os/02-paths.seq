@@ -1,0 +1,42 @@
+# Exercise: Path Operations
+#
+# `os.path-join` glues two path segments together using the host's
+# path separator. Don't hand-roll your own concatenation:
+#
+#   "/etc" "hosts" os.path-join    # → "/etc/hosts"
+#
+# `os.path-exists`, `os.path-is-file`, and `os.path-is-dir` answer
+# yes/no questions about a path. They each return a single Bool —
+# no separate status flag, because the question *is* the status:
+#
+#   "/etc/hosts" os.path-exists     # → Bool
+#   "/etc/hosts" os.path-is-file    # → Bool
+#   "/etc"       os.path-is-dir     # → Bool
+#
+# Note `os.path-is-file` and `os.path-is-dir` both return false for
+# a path that doesn't exist, so you can call them directly without
+# a pre-check.
+#
+# Your task: write `path-status` — given a path, return one of the
+# strings "dir", "file", or "missing".
+#
+# Stack hint: each predicate consumes the path. Use `dup` to test
+# the same path twice (once for `os.path-is-dir`, once for
+# `os.path-is-file`). On the missing branch, drop the path before
+# returning "missing".
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: path-status ( String -- String )
+    # Your code here
+    drop "missing"
+;
+
+: test-root-is-dir ( -- )
+    "/" path-status
+
+    # Do not edit below this line
+    "dir" test.assert-eq-str
+;

@@ -1,26 +1,35 @@
 # Exercise: Sleeping
 #
-# Use `time.sleep` to pause execution.
+# `time.sleep-ms` pauses the current sequence for *at least* N
+# milliseconds. The OS may schedule you back later than that, but
+# never sooner.
 #
-# Example:
-#   100 time.sleep    # Sleep for 100 milliseconds
+# Stack effect: ( Int -- )
 #
-# Your task: Understand sleep operations
+#   1000 time.sleep-ms    # block for one second
+#   5    time.sleep-ms    # block for five milliseconds
+#
+# Heads up: the unit is fixed at milliseconds — there is no
+# `time.sleep` or `time.sleep-secs`. Multiply by 1000 if you want
+# whole seconds.
+#
+# Your task: write `tiny-pause` — sleep for 5 milliseconds and
+# then push `true`. The Bool gives the test something to assert,
+# and the test only passes if the word reached the end (i.e. the
+# sleep actually returned).
 #
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: sleep-takes-int ( -- String )
-    # What type does time.sleep take as input?
-    # Return "int" for integer (milliseconds)
+: tiny-pause ( -- Bool )
     # Your code here
-    ""
+    false
 ;
 
-: test-sleep-type ( -- )
-    sleep-takes-int
+: test-sleep ( -- )
+    tiny-pause
 
     # Do not edit below this line
-    "int" test.assert-eq
+    test.assert
 ;

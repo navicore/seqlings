@@ -1,8 +1,8 @@
 : time-is-positive ( -- Bool )
-    time.now 0 >
+    time.now 0 i.>
 ;
 
 : test-time ( -- )
     time-is-positive
-    true test.assert-eq
+    test.assert
 ;

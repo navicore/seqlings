@@ -1,25 +1,38 @@
-# Exercise: Working Directory
+# Exercise: Current Working Directory
 #
-# Use `os.cwd` to get the current working directory.
+# `os.current-dir` returns the directory the process was launched
+# from. Like `os.getenv` and `os.home-dir`, it returns *two*
+# values — the path and a Bool that says whether the lookup
+# succeeded:
 #
-# Example:
-#   os.cwd    # Returns something like "/home/user/project"
+# Stack effect: ( -- path status )
 #
-# Your task: Understand directory operations
+# Most of the time the lookup works, but it can fail (for example
+# if the current directory was deleted out from under the process)
+# so the flag is part of the contract.
+#
+# There is no `chdir` — the working directory is set once when
+# the process starts.
+#
+# Your task: write `cwd-or` — return the current directory when
+# available, or the given fallback string when not.
+#
+# Stack hint: after `os.current-dir` your stack is
+# ( fallback path status ). Use the same `nip` / `drop` shape as
+# in exercise 01.
 #
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: cwd-is-string ( -- Bool )
-    # Check that os.cwd returns a string
+: cwd-or ( String -- String )
     # Your code here
-    false
+    drop ""
 ;
 
-: test-cwd ( -- )
-    cwd-is-string
+: test-cwd-non-empty ( -- )
+    "/tmp" cwd-or string.length 0 i.>
 
     # Do not edit below this line
-    true test.assert-eq
+    test.assert
 ;

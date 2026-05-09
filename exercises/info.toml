@@ -634,13 +634,13 @@ mode = "test"
 # ============================================================
 
 [[exercises]]
-name = "01-os-env-get"
-path = "exercises/22-os/01-env-get.seq"
+name = "01-os-getenv"
+path = "exercises/22-os/01-getenv.seq"
 mode = "test"
 
 [[exercises]]
-name = "02-os-env-set"
-path = "exercises/22-os/02-env-set.seq"
+name = "02-os-paths"
+path = "exercises/22-os/02-paths.seq"
 mode = "test"
 
 [[exercises]]

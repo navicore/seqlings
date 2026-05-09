@@ -1,25 +1,45 @@
-# Exercise: Time-Based Patterns
+# Exercise: Sleep and Measure
 #
-# Combine time operations for useful patterns.
+# Put `time.sleep-ms` and `time.nanos` together: pause for a
+# given number of milliseconds, then return the actual elapsed
+# duration in nanoseconds.
 #
-# Your task: Build time utility functions
+# This is the building block for "did that operation take longer
+# than X?" checks — sleep stands in for whatever real work you'd
+# normally measure.
+#
+# Your task: write `sleep-elapsed-nanos` — given a target sleep
+# duration in milliseconds, sleep that long and return the
+# observed elapsed time in nanoseconds.
+#
+# Stack effect: ( Int -- Int )
+#
+# Stack walk:
+#
+#   ( target-ms )
+#   time.nanos                      → ( target-ms before )
+#   swap                            → ( before target-ms )
+#   time.sleep-ms                   → ( before )
+#   time.nanos                      → ( before after )
+#   swap i.-                        → ( after - before )
+#
+# Heads up: sleep is "at least N ms", so the elapsed time will be
+# *at least* target-ms × 1,000,000 nanoseconds, often a little
+# more. The test only asserts that elapsed > 0, which is true
+# whenever the OS sleeps for any non-zero duration.
 #
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: is-recent ( Int Int -- Bool )
-    # Check if timestamp is within threshold ms of now
-    # Args: timestamp threshold
-    # Returns true if (now - timestamp) < threshold
+: sleep-elapsed-nanos ( Int -- Int )
     # Your code here
-    drop drop false
+    drop 0
 ;
 
-: test-recent ( -- )
-    # Current time should be "recent" within 1 second
-    time.now 1000 is-recent
+: test-elapsed ( -- )
+    5 sleep-elapsed-nanos 0 i.>
 
     # Do not edit below this line
-    true test.assert-eq
+    test.assert
 ;

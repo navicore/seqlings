@@ -1,8 +1,11 @@
-: cwd-is-string ( -- Bool )
-    os.cwd string?
+: cwd-or ( String -- String )
+    os.current-dir
+    [ nip ]
+    [ drop ]
+    if
 ;
 
-: test-cwd ( -- )
-    cwd-is-string
-    true test.assert-eq
+: test-cwd-non-empty ( -- )
+    "/tmp" cwd-or string.length 0 i.>
+    test.assert
 ;

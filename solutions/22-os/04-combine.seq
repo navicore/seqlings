@@ -1,11 +1,13 @@
-: get-home-or-default ( -- String )
-    "HOME" os.env-has?
-    [ "HOME" os.env-get ]
-    [ "/tmp" ]
-    if-else
+: home-file ( String -- String )
+    os.home-dir
+    [ ]
+    [ drop "/tmp" ]
+    if
+    swap os.path-join
 ;
 
-: test-home ( -- )
-    get-home-or-default string.length 0 >
-    true test.assert-eq
+: test-contains-name ( -- )
+    "app.toml" home-file
+    "app.toml" string.contains
+    test.assert
 ;
