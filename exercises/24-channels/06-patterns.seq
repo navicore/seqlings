@@ -1,25 +1,45 @@
 # Exercise: Channel Patterns
 #
-# Channels enable powerful concurrent patterns:
+# Producer–consumer is the canonical channel pattern: one side
+# sends values, the other receives them. The producer below
+# sends three integers (1, 2, 3) and then drops its reference
+# with `chan.close`. Your job is to receive those values and
+# sum them.
 #
-# Producer-Consumer:
-#   - One strand produces values, sends them
-#   - Another consumes values, receives them
+# `chan.receive` has stack effect ( Channel -- T Bool ): it
+# consumes the channel reference and returns the value plus a
+# success flag. To receive *more than once* from the same
+# channel you need to keep a reference around — `dup`, `over`,
+# and `rot` are the usual moves.
 #
-# Pipeline:
-#   - Chain of strands, each transforms and passes on
+# Heads up — there is no `while` combinator (see exercise 05).
+# For an *unknown*-length stream you'd write a recursive helper
+# that branches on the flag. Here we know exactly three values
+# were sent, so three explicit receives is simpler and clearer.
 #
-# Fan-out/Fan-in:
-#   - One producer, multiple consumers
-#   - Multiple producers, one consumer
+# (Aside: the test holds an extra reference to the channel from
+# `dup produce-values`, so even after the producer's `chan.close`
+# the channel isn't *fully* closed — the runtime sees that the
+# outer test strand still has a sender reference. That's why a
+# fourth receive on this channel would block instead of returning
+# false. Hardcoding the count avoids the issue.)
 #
-# Your task: Create a simple producer that sends multiple values.
+# Your task: write `sum-from-channel` — receive three values
+# and return their sum.
+#
+# Stack walk:
+#
+#   ( chan )
+#   dup chan.receive drop      # ( chan 1 )    receive #1, drop the flag
+#   over chan.receive drop     # ( chan 1 2 )  copy chan back to top
+#   rot chan.receive drop      # ( 1 2 3 )     chan goes to top, gets consumed
+#   i.+ i.+                    # ( 6 )
+#
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : produce-values ( Channel -- )
-    # Send 1, 2, 3 then close (drop the Bool results from send)
     dup 1 swap chan.send drop
     dup 2 swap chan.send drop
     dup 3 swap chan.send drop
@@ -27,8 +47,7 @@
 ;
 
 : sum-from-channel ( Channel -- Int )
-    # Receive all values and sum them
-    # Your code here - receive until channel is empty
+    # Your code here
     drop 0
 ;
 
@@ -36,6 +55,7 @@
     chan.make
     dup produce-values
     sum-from-channel
+
     # Do not edit below this line
-    6 test.assert-eq   # 1 + 2 + 3 i.= 6
+    6 test.assert-eq
 ;

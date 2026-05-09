@@ -1,33 +1,53 @@
 # Exercise: Yielding Control
 #
-# `chan.yield` voluntarily gives up the current strand's time slice.
-# This allows other strands to run.
+# `chan.yield` voluntarily gives up the current strand's time
+# slice. The scheduler may run another strand before resuming
+# this one. Under cooperative concurrency it's how strands share
+# CPU time.
 #
 # Stack effect: ( -- )
 #
-# In cooperative concurrency, yield is how strands share CPU time.
+# In a single-strand test there's nothing else for the scheduler
+# to run, so `chan.yield` returns more or less immediately. This
+# exercise just verifies you can call it the right number of
+# times.
 #
-# Your task: Understand yield by using it in a loop.
+# Heads up — there is no `while` combinator. Seq's stdlib loops
+# (`times`, `each-integer`, `integer-fold` in `std:loops`) cover
+# counted iteration, but conditional loops require row-polymorphic
+# quotation effects that the typechecker can't yet express. For
+# anything more complex than counted iteration you write direct
+# recursion: a word that calls itself, with an `if` for the base
+# case.
+#
+# Your task: write `count-with-yields` — given N, call
+# `chan.yield` exactly N times and return N unchanged. Use
+# self-recursion: the body of the word references the word
+# itself.
+#
+# Stack hint:
+#
+#   ( N )
+#   dup 0 i.>                       ( N Bool )
+#   [ chan.yield
+#     dup 1 i.- count-with-yields   # recurse with N-1, returns N-1
+#     drop                          # drop what the recursion returned
+#   ]
+#   [ ]                             # base case: leave N on top
+#   if
+#
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : count-with-yields ( Int -- Int )
-    # Count up, yielding each iteration
-    # This is cooperative - we're being a good citizen
-    0 swap
-    [ dup 0 i.> ]
-    [
-        chan.yield   # Let other strands run
-        swap 1 i.+ swap
-        1 i.-
-    ]
-    while
-    drop
+    # Your code here
+    drop 0
 ;
 
 : test-yield ( -- )
     5 count-with-yields
+
     # Do not edit below this line
     5 test.assert-eq
 ;

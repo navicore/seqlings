@@ -1,13 +1,11 @@
 : count-with-yields ( Int -- Int )
-    0 swap
-    [ dup 0 i.> ]
+    dup 0 i.>
     [
         chan.yield
-        swap 1 i.+ swap
-        1 i.-
+        dup 1 i.- count-with-yields drop
     ]
-    while
-    drop
+    [ ]
+    if
 ;
 
 : test-yield ( -- )
