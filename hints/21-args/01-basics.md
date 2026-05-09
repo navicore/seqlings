@@ -11,13 +11,11 @@
 `args.count` always includes `args[0]`, which is the program path
 itself. Subtract one to get the number of user-supplied arguments.
 
-## Why the test asserts 0
+## The test only checks your word runs
 
-The seqlings test runner copies your exercise into a temp file and
-calls `seqc test` on it with no further arguments. Inside that
-invocation `args.count` is 1 (just the temp binary's path), so
-`user-arg-count` is 0.
-
-If you built your code into a real binary and ran it as
-`./prog hello world`, `args.count` would be 3 and `user-arg-count`
-would be 2.
+`seqc test` invokes your program with no extra arguments, so a
+real per-arg assertion can't exercise more than the zero-args
+case. The test in this exercise just verifies your word
+type-checks and doesn't crash — to actually see the count change,
+build the shebang script in the exercise header and run it with
+varying numbers of arguments.

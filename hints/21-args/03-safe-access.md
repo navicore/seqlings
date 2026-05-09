@@ -11,25 +11,30 @@
 ;
 ```
 
+## Why `over`
+
+`over` copies the second value (the index) to the top so we can
+feed it to `args.count` for the comparison without disturbing the
+default we'll need in the failure branch.
+
 ## Trace
 
-For `0 "FALLBACK" arg-or`:
+For `2 "fb" arg-or` against an `args` of length 4:
 
 ```
-( 0 "FALLBACK" )                ← entry
-( 0 "FALLBACK" 0 )              over          — copy idx
-( 0 "FALLBACK" 0 1 )            args.count    — count is 1 under seqc test
-( 0 "FALLBACK" true )           i.<           — 0 < 1
-                                if pops bool, runs success branch
-( 0 )                           drop          — drop default
-( "/tmp/..." )                  args.at       — fetch arg 0
+( 2 "fb" )                ← entry
+( 2 "fb" 2 )              over          — copy idx
+( 2 "fb" 2 4 )            args.count
+( 2 "fb" true )           i.<           — 2 < 4
+( 2 )                     drop          — drop default
+( <arg 2> )               args.at
 ```
 
-For `99 "FALLBACK" arg-or`, `99 < 1` is false, so the failure
-branch runs `nip` to drop the index and leave the default on top.
+For `99 "fb" arg-or`, `99 < 4` is false, so the failure branch
+runs `nip` to drop the index and leave the default on top.
 
-## Why `over` instead of `dup swap`
+## The test only checks your word runs
 
-`over` is exactly the "copy the second value to the top" idiom we
-want here — it gives us a copy of the index to feed to `args.count`
-without disturbing the `default` we'll need in the failure branch.
+To see in-bounds vs out-of-bounds vs explicit-empty in action,
+build the shebang script in the exercise header and try it with
+varying arguments.
