@@ -1,26 +1,66 @@
 # Exercise: Safe Argument Access
 #
-# Use `args.get-or` to safely access arguments with a default:
-#   n default args.get-or
+# `args.at` returns "" for out-of-bounds indices, but that conflates
+# "missing" with "explicitly empty". When the distinction matters,
+# bounds-check first with `args.count`.
 #
-# This returns the argument at index n, or the default if missing.
+# The idiom:
 #
-# Your task: Implement safe argument access patterns
+#   ( index default )
+#   over args.count i.<                   ← is index < count?
+#   [ swap args.at nip ]                   ← in bounds: keep arg
+#   [ nip ]                                ← out of bounds: keep default
+#   if
+#
+# Your task: Write `arg-or` — given an index and a default string,
+# return the argument at that index if it exists, or the default if
+# the index is out of bounds.
+#
+# This is the building block for proper CLI parsing.
+#
+# ## To see it on a real command line
+#
+# Once you've solved it:
+#
+#     ─── try-or.seq ────────────────────────────────
+#     include "exercises/21-args/03-safe-access"
+#
+#     : main ( -- Int )
+#         1 "(no name given)" arg-or io.write-line
+#         0
+#     ;
+#     ───────────────────────────────────────────────
+#
+#     $ seqc build try-or.seq -o try-or
+#     $ ./try-or                 → (no name given)
+#     $ ./try-or alice           → alice
+#     $ ./try-or ""              → "" (an empty arg, *not* the default)
+#
+# Notice the third case: an explicit empty string is in-bounds, so
+# `arg-or` returns it verbatim. That's the precise distinction the
+# previous exercise's `arg-empty?` couldn't make.
 #
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: get-or-default ( Int String -- String )
-    # Get argument at index, or return default
-    # Your code here
-    swap drop
+: arg-or ( Int String -- String )
+    # Bounds-check, fetch, fall back.
+    nip
 ;
 
-: test-default ( -- )
-    # Testing the concept: if arg 100 doesn't exist, return default
-    100 "fallback" get-or-default
-
+: test-in-bounds ( -- )
+    # 0 args.at is the program path; should not be the fallback.
+    0 "FALLBACK" arg-or
+    "FALLBACK" string.equal?
     # Do not edit below this line
-    "fallback" test.assert-eq
+    not test.assert
+;
+
+: test-out-of-bounds ( -- )
+    # Index 99 is past the end; should return the fallback verbatim.
+    99 "FALLBACK" arg-or
+    "FALLBACK" string.equal?
+    # Do not edit below this line
+    test.assert
 ;

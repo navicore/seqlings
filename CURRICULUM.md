@@ -189,10 +189,11 @@ accessors + accumulator recursion) generalizes to any ADT.
 - 04-lines - file.for-each-line+ with side-effect aggregation
 - 05-combine - file.spit + file.append + file.slurp end-to-end
 
-### 21-args (3 exercises)
-- 01-count - args.count
-- 02-at - args.at
-- 03-cli-tool - Building a CLI tool
+### 21-args (4 exercises)
+- 01-basics - count user args with args.count - 1
+- 02-at - read with args.at; OOB returns empty string
+- 03-safe-access - bounds-check pattern (arg-or)
+- 04-combine - small CLI summary using count + at + branch
 
 ### 22-os (6 exercises)
 - 01-getenv - os.getenv

@@ -1,0 +1,66 @@
+# Exercise: Reading an Argument
+#
+# `args.at` retrieves a single argument by index:
+#
+#   args.at  ( Int -- String )
+#
+# What happens if the index is out of range? `args.at` returns the
+# *empty string*, not a panic. That makes it forgiving but a little
+# ambiguous — you can't immediately tell "argument not provided"
+# apart from "argument was an empty string". For most CLI tools
+# that distinction doesn't matter; when it does, you bounds-check
+# with `args.count` first (next exercise).
+#
+# Your task: Write `arg-empty?` — given an index, return true if
+# the argument at that index is the empty string (either because
+# it really is empty *or* because it's out of bounds).
+#
+# Use `string.empty?` from chapter 13 to make the test.
+#
+# ## To see it on a real command line
+#
+# Once you've solved it:
+#
+#     ─── try-at.seq ────────────────────────────────
+#     include "exercises/21-args/02-at"
+#
+#     : main ( -- Int )
+#         1 arg-empty?
+#         [ "arg 1 missing or empty" ]
+#         [ "arg 1 present"          ]
+#         if io.write-line
+#         0
+#     ;
+#     ───────────────────────────────────────────────
+#
+#     $ seqc build try-at.seq -o try-at
+#     $ ./try-at                 → arg 1 missing or empty
+#     $ ./try-at hello           → arg 1 present
+#     $ ./try-at ""              → arg 1 missing or empty
+#
+# That last case is the "missing vs explicitly empty" ambiguity —
+# both produce the same answer here. The next exercise builds the
+# bounds-check that lets you tell them apart.
+#
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: arg-empty? ( Int -- Bool )
+    # args.at the index, then string.empty?
+    drop true
+;
+
+: test-program-path-not-empty ( -- )
+    # 0 args.at is the program path itself — never empty.
+    0 arg-empty?
+    # Do not edit below this line
+    not test.assert
+;
+
+: test-out-of-bounds-is-empty ( -- )
+    # Index 99 is way past the end, so args.at returns "".
+    99 arg-empty?
+    # Do not edit below this line
+    test.assert
+;

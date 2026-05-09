@@ -1,8 +1,0 @@
-: has-args ( Int -- Bool )
-    args.count swap >
-;
-
-: test-has-args ( -- )
-    0 has-args
-    true test.assert-eq
-;

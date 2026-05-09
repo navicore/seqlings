@@ -1,25 +1,56 @@
-# Exercise: Command Line Argument Basics
+# Exercise: How Many Arguments?
 #
-# Access command line arguments with:
-#   args.get-all   - Get all arguments as a list
-#   n args.get     - Get argument at index n
+# Seq exposes command-line arguments through two words:
 #
-# Your task: Understand how arguments work
+#   args.count   ( -- Int )       total number of arguments
+#   args.at      ( Int -- String ) the argument at the given index
+#
+# Two things to know up front:
+#
+# 1. The argument at index 0 is the *program path itself*, not the
+#    first user argument. So `args.count` for `myprog foo bar` is
+#    3, and `0 args.at` is "myprog" (or its full path).
+#
+# 2. Under `seqc test` your program runs with no extra arguments,
+#    so `args.count` is exactly 1 — the test binary's own path.
+#    The assertions in this chapter are written against that fact.
+#
+# Your task: Write `user-arg-count` — the number of *user-supplied*
+# arguments, i.e. `args.count` minus one for the program path.
+#
+# ## To see it on a real command line
+#
+# The seqlings test harness runs your code with no extra args, so
+# the assertion below only ever exercises the zero-args case. Once
+# you've solved it, drop this driver into the project root to play
+# with the other counts:
+#
+#     ─── try-count.seq ─────────────────────────────
+#     include "exercises/21-args/01-basics"
+#
+#     : main ( -- Int )
+#         user-arg-count int->string io.write-line
+#         0
+#     ;
+#     ───────────────────────────────────────────────
+#
+#     $ seqc build try-count.seq -o try-count
+#     $ ./try-count                         → 0
+#     $ ./try-count one                     → 1
+#     $ ./try-count one two three           → 3
 #
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: args-type ( -- String )
-    # What type does args.get-all return?
-    # Return "list" for a list of strings
-    # Your code here
-    ""
+: user-arg-count ( -- Int )
+    # args.count - 1
+    99
 ;
 
-: test-args-type ( -- )
-    args-type
-
+: test-no-user-args ( -- )
+    # Under seqc test there are no user args, so the result is 0.
+    user-arg-count
     # Do not edit below this line
-    "list" test.assert-eq
+    0 test.assert-eq
 ;

@@ -1,8 +1,7 @@
-: args-type ( -- String )
-    "list"
+: user-arg-count ( -- Int )
+    args.count 1 i.-
 ;
 
-: test-args-type ( -- )
-    args-type
-    "list" test.assert-eq
+: test-no-user-args ( -- )
+    user-arg-count 0 test.assert-eq
 ;

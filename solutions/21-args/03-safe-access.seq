@@ -1,8 +1,16 @@
-: get-or-default ( Int String -- String )
-    args.get-or
+: arg-or ( Int String -- String )
+    over args.count i.<
+    [ drop args.at ]
+    [ nip ]
+    if
 ;
 
-: test-default ( -- )
-    100 "fallback" get-or-default
-    "fallback" test.assert-eq
+: test-in-bounds ( -- )
+    0 "FALLBACK" arg-or
+    "FALLBACK" string.equal? not test.assert
+;
+
+: test-out-of-bounds ( -- )
+    99 "FALLBACK" arg-or
+    "FALLBACK" string.equal? test.assert
 ;
