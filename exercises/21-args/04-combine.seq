@@ -1,35 +1,61 @@
-# Exercise: Building Argument Parsers
+# Exercise: A Tiny CLI Summary
 #
-# Combine argument operations to build useful patterns.
+# Time to put count + at + bounds-check together into something
+# that looks like a real CLI helper. The goal: a word that
+# inspects the arguments and returns a one-line summary string.
 #
-# Your task: Create an argument validation function
+# Behaviour:
+#
+#   no user args        → "no arguments provided"
+#   one user arg "foo"  → "got: foo"
+#   two or more args    → "got <N> arguments starting with <first>"
+#
+# All three branches are reachable on a real command line. Under
+# `seqc test`, only the first branch fires (no user args), so the
+# test asserts that exact result.
+#
+# Your task: Write `summary ( -- String )`.
+#
+# Useful pieces:
+#   args.count                                 the total
+#   args.count 1 i.-                           number of *user* args
+#   1 args.at                                  first user arg (if any)
+#   string.concat                              ( a b -- ab )
+#   int->string                                ( Int -- String )
+#
+# ## To see all three branches on a real command line
+#
+# The seqlings test only fires the no-args branch. To exercise the
+# others once you've solved it:
+#
+#     ─── try-summary.seq ───────────────────────────
+#     include "exercises/21-args/04-combine"
+#
+#     : main ( -- Int )
+#         summary io.write-line
+#         0
+#     ;
+#     ───────────────────────────────────────────────
+#
+#     $ seqc build try-summary.seq -o try-summary
+#     $ ./try-summary                  → no arguments provided
+#     $ ./try-summary hello            → got: hello
+#     $ ./try-summary hello world      → got 2 arguments starting with hello
 #
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: require-args ( Int -- Bool )
-    # Check if we have at least n arguments
-    # Your code here
-    drop false
+: summary ( -- String )
+    # Branch on (args.count - 1):
+    #   0 → "no arguments provided"
+    #   1 → "got: " + (1 args.at)
+    #   _ → "got " + count + " arguments starting with " + (1 args.at)
+    "TODO"
 ;
 
-: test-require ( -- )
-    # We should have at least 1 arg (the program)
-    1 require-args
-
+: test-no-args ( -- )
+    summary
     # Do not edit below this line
-    true test.assert-eq
-;
-
-: usage-message ( -- String )
-    # Return a usage string
-    "Usage: program <input> <output>"
-;
-
-: test-usage ( -- )
-    usage-message string.length 0 >
-
-    # Do not edit below this line
-    true test.assert-eq
+    "no arguments provided" string.equal? test.assert
 ;

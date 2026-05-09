@@ -1,17 +1,18 @@
-: require-args ( Int -- Bool )
-    args.count swap >=
+: summary ( -- String )
+    args.count 1 i.- dup
+    0 i.= [
+        drop "no arguments provided"
+    ] [
+        dup 1 i.= [
+            drop "got: " 1 args.at string.concat
+        ] [
+            "got " swap int->string string.concat
+            " arguments starting with " string.concat
+            1 args.at string.concat
+        ] if
+    ] if
 ;
 
-: test-require ( -- )
-    1 require-args
-    true test.assert-eq
-;
-
-: usage-message ( -- String )
-    "Usage: program <input> <output>"
-;
-
-: test-usage ( -- )
-    usage-message string.length 0 >
-    true test.assert-eq
+: test-no-args ( -- )
+    summary "no arguments provided" string.equal? test.assert
 ;

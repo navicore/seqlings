@@ -615,8 +615,8 @@ path = "exercises/21-args/01-basics.seq"
 mode = "test"
 
 [[exercises]]
-name = "02-args-count"
-path = "exercises/21-args/02-count.seq"
+name = "02-args-at"
+path = "exercises/21-args/02-at.seq"
 mode = "test"
 
 [[exercises]]
