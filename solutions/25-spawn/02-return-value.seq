@@ -1,9 +1,8 @@
 : compute-in-strand ( -- Int )
     chan.make
-    dup [ 10 5 i.* swap chan.send drop ] strand.spawn
-    drop
-    chan.receive drop   # (channel value)
-    nip                 # (value)
+    [ 10 5 i.* swap chan.send drop ] strand.spawn
+    drop                  # drop strand-id
+    chan.receive drop     # ( 50 )
 ;
 
 : test-return-value ( -- )

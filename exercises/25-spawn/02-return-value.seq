@@ -1,14 +1,29 @@
 # Exercise: Getting Results from Strands
 #
-# Strands don't directly return values. Use channels!
+# Strands don't return values directly — they share results
+# through channels.
 #
 # Pattern:
-#   1. Create a channel
-#   2. Spawn strand with channel access
-#   3. Strand sends result to channel
-#   4. Main receives from channel
+#   1. Create a channel.
+#   2. Spawn a strand whose body uses that channel to send its
+#      result. The quotation captures the channel by closure
+#      when the `[` literal is built (see exercise 01), so no
+#      `dup` is needed — the original channel stays on the
+#      stack for main to receive on.
+#   3. Drop the strand ID.
+#   4. Receive the result on main.
 #
-# Your task: Spawn a strand that computes 10 * 5 and sends the result.
+# Your task: spawn a strand that computes `10 * 5` and sends
+# the result through the channel; receive it on main.
+#
+# Stack walk:
+#
+#   chan.make                                   ( chan )
+#   [ 10 5 i.* swap chan.send drop ]            ( chan [quot] )
+#   strand.spawn                                ( chan strand-id )
+#   drop                                        ( chan )
+#   chan.receive drop                           ( 50 )
+#
 # When done, delete the marker line below.
 
 # I AM NOT DONE
@@ -16,10 +31,9 @@
 : compute-in-strand ( -- Int )
     chan.make
     # Your code here:
-    # 1. dup the channel
-    # 2. spawn a strand that computes 10 * 5 and sends it
-    # 3. drop the strand ID
-    # 4. receive from channel
+    # 1. spawn a strand that computes 10 * 5 and sends it
+    # 2. drop the strand ID
+    # 3. receive from channel and drop the success flag
     drop 0
 ;
 

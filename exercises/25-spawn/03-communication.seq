@@ -1,38 +1,46 @@
 # Exercise: Two-Way Communication
 #
-# Strands can both send and receive through channels.
+# Strands can both send and receive. The cleanest pattern uses
+# *two* channels — one for requests, one for responses.
 #
-# Pattern: Request-Response
-#   1. Main sends request
-#   2. Worker receives, processes, sends response
-#   3. Main receives response
+# Why two? With a single channel, main would queue its request
+# and could then `chan.receive` its own value before the worker
+# strand had a chance to run (the scheduler is cooperative —
+# strands only get CPU when the current one yields, and most
+# blocking ops yield only when the queue is empty). Two
+# channels remove the ambiguity: main only ever reads from the
+# response channel, the worker only ever reads from the request
+# channel.
 #
-# Your task: Spawn a worker that doubles numbers.
+# Closure capture works the same way it did in exercise 01,
+# just for two channels instead of one. With `( request
+# response )` on the stack, `[ body ] strand.spawn` captures
+# both for the worker and leaves both untouched on main's stack.
+#
+# Your task: write `spawn-doubler` so it creates the two
+# channels, spawns a worker that reads requests, doubles, and
+# writes responses, and returns the two channels for main to
+# use. Then the test below sends 21 and expects 42.
+#
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : spawn-doubler ( -- Channel Channel )
-    # Create two channels: request and response
-    chan.make   # request channel
-    chan.make   # response channel
-    # Spawn worker that reads from request, doubles, sends to response
-    # Return both channels for main to use
-    # Your code here
+    chan.make            # ( request )
+    chan.make            # ( request response )
+    # Your code here — spawn a worker whose body is the doubler.
+    # Worker stack is ( request response ); receive a value from
+    # request, double it, send the doubled value on response.
+    # Drop the strand-id from `strand.spawn` so the two channels
+    # are what's left on the stack.
 ;
 
 : test-communication ( -- )
-    # This test is simplified - just verify you understand the pattern
-    chan.make
-    dup [
-        dup chan.receive drop   # receive 21
-        2 i.*                   # double it
-        swap chan.send drop     # send 42
-    ] strand.spawn drop
-    drop    # clean up extra channel
-    dup 21 swap chan.send drop
-    # Your code: receive from channel, then clean up channel
-    drop 0
+    spawn-doubler                # ( request response )
+    over 21 swap chan.send drop  # send 21 to request: ( request response )
+    chan.receive drop            # receive doubled, drop flag: ( request 42 )
+    nip                          # drop the leftover request channel: ( 42 )
     # Do not edit below this line
     42 test.assert-eq
 ;

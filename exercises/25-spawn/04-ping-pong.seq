@@ -1,35 +1,39 @@
 # Exercise: Ping-Pong
 #
-# Two strands communicating back and forth.
+# Two strands exchanging messages over two channels.
 #
-# This is a classic concurrent programming exercise:
-#   Strand A sends "ping"
-#   Strand B receives, sends "pong"
-#   Strand A receives, sends "ping"
-#   ...and so on
+# Strand A (main) sends "ping" on the ping channel.
+# Strand B (worker) receives ping, sends "pong" on the pong
+# channel. Strand A receives pong.
 #
-# Your task: Set up a simple ping-pong (just one exchange).
+# Same closure-by-copy capture as before, but now the worker
+# quotation needs *two* channels. The typechecker counts how
+# many inputs the body needs and captures that many from the
+# top of the stack at literal time — so with `( ping pong )` on
+# the stack, `[ body ] strand.spawn` captures both and leaves
+# both untouched on main's stack.
+#
+# Your task: send 0 ("ping") to the ping channel, receive 1
+# ("pong") from the pong channel.
+#
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : test-ping-pong ( -- )
-    chan.make   # ping channel (main -> worker)
-    chan.make   # pong channel (worker -> main)
-    # Stack: ( ping pong )
+    chan.make           # ( ping )
+    chan.make           # ( ping pong )
+    [
+        # closure stack: ( ping pong )
+        swap chan.receive drop drop   # receive ping, drop value+flag
+        1 swap chan.send drop         # send pong (1)
+    ] strand.spawn drop                # ( ping pong )
 
-    # Spawn "pong" responder - captures both channels
-    2dup [
-        swap chan.receive drop drop  # Get ping, drop Bool and value
-        1 swap chan.send drop        # Send pong (1) to pong channel
-    ] strand.spawn drop
-    drop drop   # clean up extra channels: ( ping pong )
+    over 0 swap chan.send drop         # send 0 to ping: ( ping pong )
 
-    # Send ping (as 0)
-    over 0 swap chan.send drop   # ( ping pong )
-
-    # Receive pong
-    # Your code here - receive from pong channel, clean up channels
+    # Your code here — receive from pong (top of stack), drop the
+    # flag, and drop the leftover ping reference so only the value
+    # remains.
     drop drop
     0
     # Do not edit below this line

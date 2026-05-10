@@ -1,37 +1,36 @@
 # Exercise: Worker Pool
 #
-# Multiple workers processing from the same channel.
+# Multiple workers processing from the same pair of channels:
+# one for work items, one for results. Each worker captures
+# both channels via closure (no `2dup` needed — same rule as
+# every spawn so far).
 #
-# Pattern:
-#   - Create a work channel
-#   - Spawn multiple workers, all reading from it
-#   - Send work items
-#   - Workers grab items as they're free
+# Workers naturally load-balance: whichever worker calls
+# `chan.receive` first grabs the next work item.
 #
-# This naturally load-balances work across workers.
+# Your task: spawn two workers (each adds 1 to a value), send
+# 10 and 20 as work items, receive both results, sum them.
+# Expected: 11 + 21 = 32.
 #
-# Your task: Spawn two workers that each process one item.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : test-worker-pool ( -- )
-    chan.make   # work channel
-    chan.make   # results channel
-    # Stack: ( work results )
+    chan.make           # ( work )
+    chan.make           # ( work results )
 
-    # Spawn two workers that receive work, add 1, send to results
-    2dup [ over chan.receive drop 1 i.+ swap chan.send drop drop ] strand.spawn drop
-    drop drop   # clean up extra channels: ( work results )
-    2dup [ over chan.receive drop 1 i.+ swap chan.send drop drop ] strand.spawn drop
-    drop drop   # clean up: ( work results )
+    # Spawn two workers — closure captures work + results from the stack
+    [ over chan.receive drop 1 i.+ swap chan.send drop drop ] strand.spawn drop
+    [ over chan.receive drop 1 i.+ swap chan.send drop drop ] strand.spawn drop
+    # Stack still ( work results )
 
     # Send two work items
     over 10 swap chan.send drop
     over 20 swap chan.send drop
 
-    # Receive two results and sum them
-    # Your code here - receive both results, sum them, clean up channels
+    # Your code here — receive both results, sum them, drop the
+    # leftover work and results channels so only the sum remains.
     drop drop 0
     # Do not edit below this line
     # Results are 11 and 21, sum is 32

@@ -1,8 +1,21 @@
 # Hint: Two-Way Communication
 
-The key insight: one channel can be used for both sending and receiving, just at different times.
+The worker captures both channels via closure. With
+`( request response )` on the stack at `[`, the body sees
+`( request response )` too. `swap` brings request to the top
+for `chan.receive`; after doubling, `swap` again brings
+response to the top for `chan.send`.
 
-After sending 21 to the worker, receive the doubled result:
+## Solution
+
 ```seq
-chan.receive drop   # receive 42, drop the Bool: ( value )
+: spawn-doubler ( -- Channel Channel )
+    chan.make
+    chan.make
+    [
+        swap chan.receive drop   # receive request: ( response val )
+        2 i.*                    # ( response doubled )
+        swap chan.send drop      # send doubled
+    ] strand.spawn drop          # ( request response )
+;
 ```

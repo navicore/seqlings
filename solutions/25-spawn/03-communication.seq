@@ -1,13 +1,18 @@
-: test-communication ( -- )
+: spawn-doubler ( -- Channel Channel )
     chan.make
-    dup [
-        # closure has (ch) on its stack
-        dup chan.receive drop   # receive 21: (ch 21)
-        2 i.*                   # double: (ch 42)
-        swap chan.send drop     # send 42: ()
-    ] strand.spawn drop
-    drop    # clean up extra channel: (ch)
-    dup 21 swap chan.send drop   # send 21: (ch)
-    chan.receive drop   # receive 42: (value)
+    chan.make
+    [
+        # closure stack: ( request response )
+        swap chan.receive drop   # receive request, drop flag: ( response val )
+        2 i.*                    # ( response doubled )
+        swap chan.send drop      # send doubled, drop flag: ( )
+    ] strand.spawn drop          # ( request response )
+;
+
+: test-communication ( -- )
+    spawn-doubler
+    over 21 swap chan.send drop  # send 21: ( request response )
+    chan.receive drop            # receive 42: ( request 42 )
+    nip                          # ( 42 )
     42 test.assert-eq
 ;
