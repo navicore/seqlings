@@ -22,7 +22,7 @@
 
 # I AM NOT DONE
 
-: echo-handler ( socket -- )
+: echo-handler ( Socket -- )
     # Your mental trace:
     # 1. dup tcp.read drop - reads data, stack: (socket data)
     # 2. over tcp.write drop - writes data back, stack: (socket)
