@@ -2,27 +2,49 @@
 #
 # `strand.spawn` takes a quotation and runs it in a new strand.
 #
-# Stack effect: ( quot -- strand-id )
+# Stack effect: ( Quotation -- strand-id )
 #
-# The quotation runs concurrently. strand.spawn returns immediately
-# with the strand's ID.
+# The quotation runs concurrently. `strand.spawn` returns
+# immediately with the strand's ID.
 #
 # Example:
-#   [ "Hello from strand!" io.write-line ] strand.spawn
-#   # Main continues while strand runs
 #
-# Your task: Spawn a strand that sends a value through a channel.
+#   [ "hello from strand" io.write-line ] strand.spawn
+#   # main continues while the strand runs
+#
+# Closures and captured values
+#
+# Quotations in Seq are closures: when the `[` literal is
+# evaluated, whatever's on top of the stack at that moment is
+# captured *by copy* into the quotation's environment. The
+# original value stays on the stack — capture doesn't pop it.
+#
+# That's why this works without any `dup`:
+#
+#   chan.make                          ( chan )
+#   [ 42 swap chan.send drop ]         ( chan [quot] )    quot captured chan
+#   strand.spawn                       ( chan strand-id ) spawn ate the quot only
+#
+# Both the spawned strand and main hold references to the same
+# underlying channel: the spawned strand uses its captured copy
+# to send 42; main uses the one still on the stack to receive.
+#
+# Your task: spawn a strand that sends 42 through a channel,
+# then receive that value on the main strand.
+#
+# Stack hint: at the "your code here" marker below, the stack is
+# `( chan )`. `chan.receive` consumes it and leaves ( 42 true );
+# drop the flag and you're done.
+#
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : test-basics ( -- )
     chan.make
-    dup [ 42 swap chan.send drop ] strand.spawn
-    drop   # Drop strand ID
-    # Your code here — receive the value from the channel.
-    # Remember that the receive operation returns the value
-    # together with a status Bool, which you'll need to drop.
+    [ 42 swap chan.send drop ] strand.spawn
+    drop   # drop strand-id, leaving ( chan )
+    # Your code here — receive the value and drop the flag.
     drop
     0
     # Do not edit below this line

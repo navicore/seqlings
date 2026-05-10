@@ -1,8 +1,7 @@
 : test-basics ( -- )
     chan.make
-    dup [ 42 swap chan.send drop ] strand.spawn
-    drop
-    chan.receive drop   # (channel value)
-    nip                 # (value)
+    [ 42 swap chan.send drop ] strand.spawn
+    drop                  # drop strand-id, leaving ( chan )
+    chan.receive drop     # receive value, drop the success flag
     42 test.assert-eq
 ;
