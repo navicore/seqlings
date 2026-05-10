@@ -12,10 +12,10 @@
 # channel you need to keep a reference around — `dup`, `over`,
 # and `rot` are the usual moves.
 #
-# Heads up — there is no `while` combinator (see exercise 05).
-# For an *unknown*-length stream you'd write a recursive helper
-# that branches on the flag. Here we know exactly three values
-# were sent, so three explicit receives is simpler and clearer.
+# For an *unknown*-length stream you'd write the same kind of
+# recursive helper as exercise 05, branching on `chan.receive`'s
+# flag. Here we know exactly three values were sent, so three
+# explicit receives is simpler and clearer.
 #
 # (Aside: the test holds an extra reference to the channel from
 # `dup produce-values`, so even after the producer's `chan.close`

@@ -12,18 +12,14 @@
 # exercise just verifies you can call it the right number of
 # times.
 #
-# Heads up — there is no `while` combinator. Seq's stdlib loops
-# (`times`, `each-integer`, `integer-fold` in `std:loops`) cover
-# counted iteration, but conditional loops require row-polymorphic
-# quotation effects that the typechecker can't yet express. For
-# anything more complex than counted iteration you write direct
-# recursion: a word that calls itself, with an `if` for the base
-# case.
+# Conditional loops in Seq are written as direct recursion: the
+# word calls itself, with an `if` for the base case. (Seq's
+# stdlib loops — `times`, `each-integer`, `integer-fold` in
+# `std:loops` — cover counted iteration when you don't need a
+# condition.)
 #
 # Your task: write `count-with-yields` — given N, call
-# `chan.yield` exactly N times and return N unchanged. Use
-# self-recursion: the body of the word references the word
-# itself.
+# `chan.yield` exactly N times and return N unchanged.
 #
 # Stack hint:
 #

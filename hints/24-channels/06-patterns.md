@@ -24,11 +24,11 @@ is always `true` (we know three values were sent), so a plain
 ;
 ```
 
-## Why no `while` loop?
+## Why not a recursive drain?
 
-`while` was removed from the stdlib (see exercise 05). For
-streaming receives of *unknown* length you'd write a recursive
-helper that branches on `chan.receive`'s success flag — but in
-this test the channel never fully closes (the test strand still
-holds a sender reference), so the recursion would block on a
-fourth receive. Hardcoding the count is the right move here.
+For streaming receives of *unknown* length you'd write a
+recursive helper branching on `chan.receive`'s success flag, the
+same way exercise 05 yields N times. In this test the channel
+never fully closes (the test strand still holds a sender
+reference), so a fourth receive would block. Hardcoding the
+count is the right move here.
