@@ -32,7 +32,7 @@
     over 0 swap chan.send drop         # send 0 to ping: ( ping pong )
 
     # Your code here — receive from pong (top of stack), drop the
-    # flag, and drop the leftover ping reference so only the value
+    # flag, and nip the leftover ping reference so only the value
     # remains.
     drop drop
     0
