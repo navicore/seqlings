@@ -27,8 +27,8 @@ is always `true` (we know three values were sent), so a plain
 ## Why not a recursive drain?
 
 For streaming receives of *unknown* length you'd write a
-recursive helper branching on `chan.receive`'s success flag, the
-same way exercise 05 yields N times. In this test the channel
-never fully closes (the test strand still holds a sender
-reference), so a fourth receive would block. Hardcoding the
-count is the right move here.
+recursive helper branching on `chan.receive`'s success flag —
+the Seq idiom for any conditional loop. In this test the
+channel never fully closes (the test strand still holds a
+sender reference), so a fourth receive would block. Hardcoding
+the count is the right move here.

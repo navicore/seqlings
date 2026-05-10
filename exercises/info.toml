@@ -702,13 +702,8 @@ path = "exercises/24-channels/04-close.seq"
 mode = "test"
 
 [[exercises]]
-name = "05-yield"
-path = "exercises/24-channels/05-yield.seq"
-mode = "test"
-
-[[exercises]]
-name = "06-patterns"
-path = "exercises/24-channels/06-patterns.seq"
+name = "05-patterns"
+path = "exercises/24-channels/05-patterns.seq"
 mode = "test"
 
 # ============================================================
