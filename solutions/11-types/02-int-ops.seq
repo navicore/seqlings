@@ -15,7 +15,7 @@
 ;
 
 : test-int-mod ( -- )
-    17 5 i.mod
+    17 5 i.modulo
     test.assert
     2 test.assert-eq
 ;

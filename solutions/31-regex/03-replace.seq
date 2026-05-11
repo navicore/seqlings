@@ -8,11 +8,11 @@
 
 : test-replace ( -- )
     "Call 555-1234 or 555-5678" censor-numbers
-    "Call XXX-XXXX or XXX-XXXX" test.assert-eq
+    "Call XXX-XXXX or XXX-XXXX" test.assert-eq-str
 
     "hello    world   test" normalize-whitespace
-    "hello world test" test.assert-eq
+    "hello world test" test.assert-eq-str
 
     "a\tb\t\tc" normalize-whitespace
-    "a b c" test.assert-eq
+    "a b c" test.assert-eq-str
 ;

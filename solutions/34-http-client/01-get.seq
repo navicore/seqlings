@@ -1,8 +1,8 @@
-: response-ok? ( Map -- Bool )
+: response-ok? ( Variant -- Bool )
     "ok" map.get drop
 ;
 
-: response-body ( Map -- String )
+: response-body ( Variant -- String )
     dup response-ok? [
         "body" map.get drop
     ] [
@@ -10,15 +10,15 @@
     ] if
 ;
 
-: response-status ( Map -- Int )
+: response-status ( Variant -- Int )
     "status" map.get drop
 ;
 
 : test-get ( -- )
-    map-of
-        "ok" true kv
-        "status" 200 kv
-        "body" "Hello, World!" kv
+    map.make
+        "ok" true map.set
+        "status" 200 map.set
+        "body" "Hello, World!" map.set
 
     dup response-ok?
     test.assert
@@ -27,13 +27,13 @@
     200 test.assert-eq
 
     response-body
-    "Hello, World!" test.assert-eq
+    "Hello, World!" test.assert-eq-str
 
-    map-of
-        "ok" false kv
-        "status" 404 kv
-        "error" "Not Found" kv
-        "body" "" kv
+    map.make
+        "ok" false map.set
+        "status" 404 map.set
+        "error" "Not Found" map.set
+        "body" "" map.set
 
     dup response-ok?
     not test.assert
@@ -42,5 +42,5 @@
     404 test.assert-eq
 
     response-body
-    "" test.assert-eq
+    "" test.assert-eq-str
 ;

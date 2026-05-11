@@ -11,17 +11,17 @@
 : test-roundtrip ( -- )
     "The quick brown fox" base64-roundtrip
     test.assert
-    "The quick brown fox" test.assert-eq
+    "The quick brown fox" test.assert-eq-str
 
     "jumps over" hex-roundtrip
     test.assert
-    "jumps over" test.assert-eq
+    "jumps over" test.assert-eq-str
 
     "" base64-roundtrip
     test.assert
-    "" test.assert-eq
+    "" test.assert-eq-str
 
     "Hello\nWorld\t!" base64-roundtrip
     test.assert
-    "Hello\nWorld\t!" test.assert-eq
+    "Hello\nWorld\t!" test.assert-eq-str
 ;

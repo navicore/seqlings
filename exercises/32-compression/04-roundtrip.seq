@@ -26,16 +26,16 @@
     safe-gzip-roundtrip
     # Do not edit below this line
     test.assert
-    "The quick brown fox jumps over the lazy dog." test.assert-eq
+    "The quick brown fox jumps over the lazy dog." test.assert-eq-str
 
     # Zstd roundtrip preserves data
     "Pack my box with five dozen liquor jugs."
     safe-zstd-roundtrip
     test.assert
-    "Pack my box with five dozen liquor jugs." test.assert-eq
+    "Pack my box with five dozen liquor jugs." test.assert-eq-str
 
     # Empty string roundtrip
     "" safe-gzip-roundtrip
     test.assert
-    "" test.assert-eq
+    "" test.assert-eq-str
 ;

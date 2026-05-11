@@ -1,5 +1,5 @@
 : string-to-quarter ( String -- Int )
-    string->int int->float 4.0 f./ float->int
+    string->int drop int->float 4.0 f./ float->int
 ;
 
 : test-combine ( -- )
@@ -8,6 +8,6 @@
 ;
 
 : test-round-trip ( -- )
-    42 int->string string->int
+    42 int->string string->int drop
     42 test.assert-eq
 ;

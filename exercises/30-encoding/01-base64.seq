@@ -30,14 +30,14 @@
     # Test encoding
     "Hello, World!" encode-message
     # Do not edit below this line
-    "SGVsbG8sIFdvcmxkIQ==" test.assert-eq
+    "SGVsbG8sIFdvcmxkIQ==" test.assert-eq-str
 
     # Test decoding
     "U2VxIGlzIGF3ZXNvbWU=" decode-message
     test.assert
-    "Seq is awesome" test.assert-eq
+    "Seq is awesome" test.assert-eq-str
 
     # Test empty string
     "" encode-message
-    "" test.assert-eq
+    "" test.assert-eq-str
 ;

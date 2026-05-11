@@ -31,14 +31,14 @@
     # Test encoding
     "user:12345" make-token
     # Do not edit below this line
-    "dXNlcjoxMjM0NQ" test.assert-eq
+    "dXNlcjoxMjM0NQ" test.assert-eq-str
 
     # Test decoding
     "YWRtaW46c2VjcmV0" parse-token
     test.assert
-    "admin:secret" test.assert-eq
+    "admin:secret" test.assert-eq-str
 
     # Verify no padding (standard base64 would have =)
     "ab" make-token
-    "YWI" test.assert-eq
+    "YWI" test.assert-eq-str
 ;

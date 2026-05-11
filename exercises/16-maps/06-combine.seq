@@ -13,7 +13,7 @@
 
 # I AM NOT DONE
 
-: make-profile ( String String String -- Map )
+: make-profile ( String String String -- Variant )
     # Arguments on stack: name, email, city (city on top).
     # Build a map with keys "name", "email", "city".
     # Hint: rearrange the stack to pair each value with its key
@@ -29,7 +29,7 @@
     "city" map.get drop "Portland" string.equal? test.assert
 ;
 
-: update-city ( Map String -- Map )
+: update-city ( Variant String -- Variant )
     # Update the "city" field with a new value
     # Your code here
     drop

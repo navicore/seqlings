@@ -1,9 +1,9 @@
 # Hint: Processing File Lines
 
-## file.for-each-line+
+## file.for-each-line
 
 ```
-( path quot -- "" true )
+( path quot -- Bool )
 ```
 
 The quotation runs once per line and must have effect
@@ -12,8 +12,8 @@ of that polymorphism constraint, **you can't accumulate on the
 stack** across iterations: the type system rejects any quot whose
 shape depends on a specific ..a. Aggregate via side effects.
 
-After the call, the word leaves a sentinel `( "" true )` on top of
-the stack — drop it with `drop drop`.
+After the call, the word leaves a single success `Bool` on top of
+the stack — `drop` it (or branch on it to handle a missing file).
 
 ## The line carries its own newline
 
@@ -30,8 +30,8 @@ or parse a line, `string.chomp` it first.
     [
         "> " swap string.concat
         "/tmp/seqlings-04-out.txt" file.append drop
-    ] file.for-each-line+
-    drop drop
+    ] file.for-each-line
+    drop
     "/tmp/seqlings-04-out.txt" file.slurp
     [ string.chomp ]
     [ drop "" ]

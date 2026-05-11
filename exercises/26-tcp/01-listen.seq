@@ -1,13 +1,13 @@
 # Exercise: Starting a TCP Listener
 #
-# `tcp.listen` creates a TCP socket listening on a port.
+# `net.tcp.listen` creates a TCP socket listening on a port.
 #
 # Stack effect: ( port -- socket success )
 #   Returns the socket handle and a Bool indicating success.
 #   Failure can occur if the port is already in use.
 #
 # Example:
-#   8080 tcp.listen   # ( socket true ) on success
+#   8080 net.tcp.listen   # ( socket true ) on success
 #                     # ( 0 false ) if port unavailable
 #
 # The returned socket is a handle used for accepting connections.
@@ -15,21 +15,21 @@
 # Note: This is a conceptual exercise. The test just verifies
 # you understand the pattern - actual networking requires a running server.
 #
-# Your task: Understand tcp.listen and port binding.
+# Your task: Understand net.tcp.listen and port binding.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : test-listen ( -- )
     # In real code:
-    #   8080 tcp.listen [
+    #   8080 net.tcp.listen [
     #     # ... accept connections ...
-    #     tcp.close drop
+    #     net.tcp.close drop
     #   ] [
     #     drop "Failed to bind" io.write-line
     #   ] if
 
-    # Verify you understand: tcp.listen takes a port number
+    # Verify you understand: net.tcp.listen takes a port number
     # Do not edit below this line
     true test.assert
 ;

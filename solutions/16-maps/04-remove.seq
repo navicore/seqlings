@@ -1,4 +1,4 @@
-: make-test-map ( -- Map )
+: make-test-map ( -- Variant )
     map.make
     "a" 1 map.set
     "b" 2 map.set

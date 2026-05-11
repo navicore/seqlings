@@ -1,4 +1,4 @@
-: acc-loop ( Ctx Int -- | Yield Int )
+: acc-loop ( T Int -- | Yield Int )
     tuck
     yield
     rot

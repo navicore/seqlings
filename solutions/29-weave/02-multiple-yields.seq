@@ -1,4 +1,4 @@
-: three-values ( Ctx Int -- Ctx | Yield Int )
+: three-values ( T Int -- T | Yield Int )
     drop
     1 yield drop
     2 yield drop

@@ -1,8 +1,8 @@
-: empty ( -- List )
+: empty ( -- Variant )
     :Empty variant.make-0
 ;
 
-: prepend ( T List -- List )
+: prepend ( T Variant -- Variant )
     :Cons variant.make-2
 ;
 

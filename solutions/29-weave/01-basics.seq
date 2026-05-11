@@ -1,4 +1,4 @@
-: yield-42 ( Ctx Int -- Ctx | Yield Int )
+: yield-42 ( T Int -- T | Yield Int )
     drop           # drop resume value
     42 yield       # yield 42
     drop           # drop next resume value

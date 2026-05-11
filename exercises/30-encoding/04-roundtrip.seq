@@ -27,20 +27,20 @@
     "The quick brown fox" base64-roundtrip
     # Do not edit below this line
     test.assert
-    "The quick brown fox" test.assert-eq
+    "The quick brown fox" test.assert-eq-str
 
     # Hex roundtrip
     "jumps over" hex-roundtrip
     test.assert
-    "jumps over" test.assert-eq
+    "jumps over" test.assert-eq-str
 
     # Empty string roundtrip
     "" base64-roundtrip
     test.assert
-    "" test.assert-eq
+    "" test.assert-eq-str
 
     # Special characters roundtrip
     "Hello\nWorld\t!" base64-roundtrip
     test.assert
-    "Hello\nWorld\t!" test.assert-eq
+    "Hello\nWorld\t!" test.assert-eq-str
 ;

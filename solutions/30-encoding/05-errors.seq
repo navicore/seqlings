@@ -16,17 +16,17 @@
 
 : test-errors ( -- )
     "SGVsbG8=" safe-base64-decode
-    "Hello" test.assert-eq
+    "Hello" test.assert-eq-str
 
     "Not!!!Valid" safe-base64-decode
-    "ERROR" test.assert-eq
+    "ERROR" test.assert-eq-str
 
     "48656c6c6f" safe-hex-decode
-    "Hello" test.assert-eq
+    "Hello" test.assert-eq-str
 
     "xyz123" safe-hex-decode
-    "ERROR" test.assert-eq
+    "ERROR" test.assert-eq-str
 
     "123" safe-hex-decode
-    "ERROR" test.assert-eq
+    "ERROR" test.assert-eq-str
 ;

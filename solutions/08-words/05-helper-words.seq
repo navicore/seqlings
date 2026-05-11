@@ -1,5 +1,5 @@
 : is-even? ( Int -- Bool )
-    2 i.mod drop 0 i.=
+    2 i.modulo drop 0 i.=
 ;
 
 : test-helper-words ( -- )

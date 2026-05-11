@@ -6,22 +6,22 @@ Seq provides built-in TCP networking for building servers and clients.
 
 | Word | Stack Effect | Description |
 |------|--------------|-------------|
-| `tcp.listen` | `( port -- socket )` | Listen on a port, returns socket |
-| `tcp.accept` | `( socket -- client )` | Accept a connection, returns client socket |
-| `tcp.read` | `( socket -- string )` | Read data from socket |
-| `tcp.write` | `( string socket -- )` | Write data to socket |
-| `tcp.close` | `( socket -- )` | Close a socket |
+| `net.tcp.listen` | `( port -- socket )` | Listen on a port, returns socket |
+| `net.tcp.accept` | `( socket -- client )` | Accept a connection, returns client socket |
+| `net.tcp.read` | `( socket -- string )` | Read data from socket |
+| `net.tcp.write` | `( string socket -- )` | Write data to socket |
+| `net.tcp.close` | `( socket -- )` | Close a socket |
 
 ## Server Pattern
 
 ```seq
 : echo-server ( -- )
-    8080 tcp.listen   # Start listening on port 8080
-    tcp.accept        # Wait for a connection
-    dup tcp.read      # Read from client
-    over tcp.write    # Echo back
-    tcp.close         # Close client connection
-    tcp.close         # Close server socket
+    8080 net.tcp.listen   # Start listening on port 8080
+    net.tcp.accept        # Wait for a connection
+    dup net.tcp.read      # Read from client
+    over net.tcp.write    # Echo back
+    net.tcp.close         # Close client connection
+    net.tcp.close         # Close server socket
 ;
 ```
 

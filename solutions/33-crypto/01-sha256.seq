@@ -10,7 +10,7 @@
 
 : test-sha256 ( -- )
     "hello" hash-message
-    64 string.length test.assert-eq
+    string.length 64 test.assert-eq
 
     "test" "test" same-hash?
     test.assert
@@ -19,5 +19,5 @@
     not test.assert
 
     "" hash-message
-    64 string.length test.assert-eq
+    string.length 64 test.assert-eq
 ;

@@ -26,17 +26,17 @@
 # I AM NOT DONE
 
 # ─── Already defined for you ───────────────────────────────────
-: empty ( -- List )         :Empty variant.make-0 ;
-: prepend ( T List -- List ) :Cons variant.make-2 ;
-: empty? ( List -- Bool )    variant.tag :Empty symbol.= ;
+: empty ( -- Variant )         :Empty variant.make-0 ;
+: prepend ( T Variant -- Variant ) :Cons variant.make-2 ;
+: empty? ( Variant -- Bool )    variant.tag :Empty symbol.= ;
 # ───────────────────────────────────────────────────────────────
 
-: head ( List -- T )
+: head ( Variant -- T )
     # field-at index 0
     drop 0
 ;
 
-: tail ( List -- List )
+: tail ( Variant -- Variant )
     # field-at index 1
     drop empty
 ;

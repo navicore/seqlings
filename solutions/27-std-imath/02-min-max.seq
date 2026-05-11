@@ -1,18 +1,18 @@
-use std:imath
+include std:imath
 
 : range ( Int Int -- Int )
-    over over imath.max
-    rot rot imath.min
+    over over max
+    rot rot min
     i.-
 ;
 
 : test-min ( -- )
-    10 3 imath.min
+    10 3 min
     3 test.assert-eq
 ;
 
 : test-max ( -- )
-    10 3 imath.max
+    10 3 max
     10 test.assert-eq
 ;
 

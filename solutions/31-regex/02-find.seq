@@ -2,14 +2,14 @@
     "\\d+" regex.find
 ;
 
-: find-all-words ( String -- List )
+: find-all-words ( String -- Variant )
     "\\w+" regex.find-all drop
 ;
 
 : test-find ( -- )
     "Order #42 shipped" find-first-number
     test.assert
-    "42" test.assert-eq
+    "42" test.assert-eq-str
 
     "no numbers" find-first-number
     not test.assert

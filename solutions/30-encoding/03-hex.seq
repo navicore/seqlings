@@ -8,16 +8,16 @@
 
 : test-hex ( -- )
     "Hello" to-hex
-    "48656c6c6f" test.assert-eq
+    "48656c6c6f" test.assert-eq-str
 
     "576f726c64" from-hex
     test.assert
-    "World" test.assert-eq
+    "World" test.assert-eq-str
 
     "48454C4C4F" from-hex
     test.assert
-    "HELLO" test.assert-eq
+    "HELLO" test.assert-eq-str
 
     "A" to-hex
-    "41" test.assert-eq
+    "41" test.assert-eq-str
 ;

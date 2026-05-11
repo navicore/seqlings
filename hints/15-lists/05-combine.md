@@ -1,12 +1,13 @@
 # Hint: Combining Operations
 
-Chain filter then fold.
+Chain filter then fold. `i.modulo` returns `( remainder success )`,
+so `drop` the flag before the equality check.
 
 ## Solution
 
 ```seq
-: product-of-odds ( List -- Int )
-    [ 2 i.mod 1 = ] list.filter
+: product-of-odds ( Variant -- Int )
+    [ 2 i.modulo drop 1 i.= ] list.filter
     1 [ i.* ] list.fold
 ;
 ```

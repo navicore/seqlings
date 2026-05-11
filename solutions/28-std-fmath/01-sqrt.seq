@@ -1,17 +1,15 @@
-use std:fmath
+: hypotenuse ( Float Float -- Float )
+    dup f.* swap dup f.* f.+ f.sqrt
+;
 
 : test-sqrt-perfect ( -- )
-    25.0 fmath.sqrt
+    25.0 f.sqrt
     5.0 f.= test.assert
 ;
 
 : test-sqrt-100 ( -- )
-    100.0 fmath.sqrt
+    100.0 f.sqrt
     10.0 f.= test.assert
-;
-
-: hypotenuse ( Float Float -- Float )
-    dup f.* swap dup f.* f.+ fmath.sqrt
 ;
 
 : test-hypotenuse ( -- )

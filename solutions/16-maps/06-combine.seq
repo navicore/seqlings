@@ -1,4 +1,4 @@
-: make-profile ( String String String -- Map )
+: make-profile ( String String String -- Variant )
     # Stack: name email city (city on top)
     map.make
     "city" rot map.set
@@ -13,7 +13,7 @@
     "city" map.get drop "Portland" string.equal? test.assert
 ;
 
-: update-city ( Map String -- Map )
+: update-city ( Variant String -- Variant )
     "city" swap map.set
 ;
 

@@ -18,14 +18,14 @@
 # I AM NOT DONE
 
 # Simple generator body that yields 42 and completes
-# Receives (Ctx, resume_value) - ignore the resume value, yield 42
-: yield-42 ( Ctx Int -- Ctx | Yield Int )
+# Receives (T, resume_value) - ignore the resume value, yield 42
+: yield-42 ( T Int -- T | Yield Int )
     # Your code here
     # 1. drop the resume value
     # 2. push 42 and yield it (42 yield)
     # 3. drop the value returned from yield
     # The weave then completes (returns)
-    drop drop  # placeholder - replace with your solution
+    drop 0 yield drop  # placeholder yields 0 — replace with your solution
 ;
 
 : test-basic-weave ( -- )

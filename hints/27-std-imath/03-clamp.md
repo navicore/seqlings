@@ -1,11 +1,11 @@
 # Hint: Clamping Values
 
+`clamp` takes value, min, max and returns the clamped value.
+
 ## Solution
 
 ```seq
 : clamp-percent ( Int -- Int )
-    0 100 imath.clamp
+    0 100 clamp
 ;
 ```
-
-The clamp function takes: value, min, max and returns the clamped value.

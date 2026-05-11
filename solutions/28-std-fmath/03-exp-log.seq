@@ -1,21 +1,19 @@
-use std:fmath
-
 : test-exp-zero ( -- )
-    0.0 fmath.exp
+    0.0 f.exp
     1.0 f.= test.assert
 ;
 
 : test-ln-e ( -- )
-    fmath.e fmath.ln
+    f.e f.ln
     1.0 f.= test.assert
 ;
 
 : test-log10 ( -- )
-    100.0 fmath.log10
+    100.0 f.log10
     2.0 f.= test.assert
 ;
 
 : test-pow ( -- )
-    2.0 8.0 fmath.pow
+    2.0 8.0 f.pow
     256.0 f.= test.assert
 ;

@@ -40,9 +40,9 @@
     dup string.length 18 i.> test.assert
 
     # Decrypt with same key
-    rot decrypt
+    swap decrypt
     test.assert   # Decryption should succeed
-    "Hello, Encryption!" test.assert-eq
+    "Hello, Encryption!" test.assert-eq-str
 
     # Wrong key fails to decrypt
     32 crypto.random-bytes   # key1

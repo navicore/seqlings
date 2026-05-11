@@ -16,13 +16,14 @@
 # I AM NOT DONE
 
 # Generator that yields 1, 2, 3 in sequence
-: three-values ( Ctx Int -- Ctx | Yield Int )
+: three-values ( T Int -- T | Yield Int )
     drop           # ignore initial resume value
     # Your code here:
     # Yield 1, drop the resume response
     # Yield 2, drop the resume response
     # Yield 3, drop the resume response
     # Then just return (weave completes)
+    0 yield drop   # placeholder yields 0 once — replace with your solution
 ;
 
 : test-multiple-yields ( -- )

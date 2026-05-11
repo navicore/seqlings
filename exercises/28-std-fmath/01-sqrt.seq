@@ -1,40 +1,42 @@
 # Exercise: Square Roots
 #
-# The `fmath.sqrt` function calculates the square root.
+# `f.sqrt` is a float built-in — no include needed:
 #
-# Examples:
-#   4.0 fmath.sqrt     # 2.0
-#   9.0 fmath.sqrt     # 3.0
-#   2.0 fmath.sqrt     # ~1.414...
+#   4.0 f.sqrt     # 2.0
+#   9.0 f.sqrt     # 3.0
+#   2.0 f.sqrt     # ~1.4142...
 #
-# Your task: Use square roots in calculations
+# Stack effect: ( Float -- Float )
+#
+# Like the other float builtins, errors are IEEE 754 values:
+# `-1.0 f.sqrt` returns `NaN`, not a flag.
+#
+# Your task: write `hypotenuse` — given the two legs of a right
+# triangle, return the hypotenuse using the Pythagorean theorem
+# (sqrt of the sum of the squares).
 #
 # When done, delete the marker line below.
 
-use std:fmath
-
 # I AM NOT DONE
 
+: hypotenuse ( Float Float -- Float )
+    # Calculate sqrt(a^2 + b^2)
+    # Your code here
+    drop drop 0.0
+;
+
 : test-sqrt-perfect ( -- )
-    25.0 fmath.sqrt
+    25.0 f.sqrt
 
     # Do not edit below this line
     5.0 f.= test.assert
 ;
 
 : test-sqrt-100 ( -- )
-    # Calculate sqrt of 100
-    # Your code here
-    0.0
+    100.0 f.sqrt
 
     # Do not edit below this line
     10.0 f.= test.assert
-;
-
-: hypotenuse ( Float Float -- Float )
-    # Calculate hypotenuse: sqrt(a^2 + b^2)
-    # Your code here
-    drop drop 0.0
 ;
 
 : test-hypotenuse ( -- )

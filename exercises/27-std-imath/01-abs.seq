@@ -1,17 +1,21 @@
 # Exercise: Absolute Value
 #
-# The `imath.abs` function returns the absolute value of an integer.
+# `abs` returns the absolute value of an integer. It's part of
+# the `std:imath` module, so you have to `include std:imath` at
+# the top of the file to bring it into scope.
+#
+# After the include, the word is just `abs` — no `imath.` prefix.
 #
 # Example:
-#   -42 imath.abs    # Stack: ( 42 )
-#   5 imath.abs      # Stack: ( 5 )
+#   -42 abs    # Stack: ( 42 )
+#   5 abs      # Stack: ( 5 )
 #
 # Your task: Implement a word that returns the absolute difference
 # between two numbers.
 #
 # When done, delete the marker line below.
 
-use std:imath
+include std:imath
 
 # I AM NOT DONE
 
@@ -22,7 +26,7 @@ use std:imath
 ;
 
 : test-abs ( -- )
-    -10 imath.abs
+    -10 abs
 
     # Do not edit below this line
     10 test.assert-eq

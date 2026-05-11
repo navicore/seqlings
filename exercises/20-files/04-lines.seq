@@ -1,11 +1,12 @@
 # Exercise: Processing File Lines
 #
-# `file.for-each-line+` walks a file one line at a time, calling a
+# `file.for-each-line` walks a file one line at a time, calling a
 # quotation on each line.
 #
-# Stack effect: ( path quot -- "" true )
+# Stack effect: ( path quot -- Bool )
 #   path : String — the file to read
 #   quot : ( ..a String -- ..a ) — runs once per line
+#   Bool : true on success, false on open/read failure
 #
 # Three things to know about this word:
 #
@@ -19,8 +20,9 @@
 #      Strip with `string.chomp` if you want to compare/parse, or
 #      pass it through as-is when round-tripping.
 #
-#   3. After iteration, the word leaves ( "" true ) on the stack —
-#      a sentinel pair you have to `drop drop` before continuing.
+#   3. After iteration, the word leaves a single success `Bool` on
+#      the stack — `drop` it before continuing (or branch on it if
+#      you want to handle file-open failure).
 #
 # Your task: Take the fixture at exercises/20-files/data/lines.txt
 # (three lines: "alpha", "beta", "gamma"), and write a copy to
@@ -35,10 +37,10 @@
 
 : quote-lines ( -- String )
     # 1) Reset /tmp/seqlings-04-out.txt to empty (file.spit "" ...).
-    # 2) for-each-line+ on the fixture, appending "> " + line to the
+    # 2) for-each-line on the fixture, appending "> " + line to the
     #    output file in the quotation. Don't forget the line already
     #    carries its own trailing newline.
-    # 3) drop drop the sentinel pair.
+    # 3) drop the success Bool.
     # 4) slurp the output file, chomp, and return.
     ""
 ;

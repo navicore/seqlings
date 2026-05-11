@@ -1,19 +1,19 @@
 # Exercise: Clamping Values
 #
-# The `imath.clamp` function constrains a value to a range [min, max].
+# `clamp` constrains a value to a range [min, max].
 #
 # Stack effect: ( value min max -- clamped )
 #
 # Examples:
-#   15 0 10 imath.clamp    # 15 i.> 10, returns 10
-#   -5 0 10 imath.clamp    # -5 i.< 0, returns 0
-#   5 0 10 imath.clamp     # 5 in range, returns 5
+#   15 0 10 clamp    # value > max → returns 10
+#   -5 0 10 clamp    # value < min → returns 0
+#    5 0 10 clamp    # in range  → returns 5
 #
-# Your task: Clamp a percentage to valid range [0, 100]
+# Your task: Clamp a percentage to the valid range [0, 100].
 #
 # When done, delete the marker line below.
 
-use std:imath
+include std:imath
 
 # I AM NOT DONE
 

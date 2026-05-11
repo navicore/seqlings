@@ -1,12 +1,12 @@
-: empty ( -- List )         :Empty variant.make-0 ;
-: prepend ( T List -- List ) :Cons variant.make-2 ;
-: empty? ( List -- Bool )    variant.tag :Empty symbol.= ;
+: empty ( -- Variant )         :Empty variant.make-0 ;
+: prepend ( T Variant -- Variant ) :Cons variant.make-2 ;
+: empty? ( Variant -- Bool )    variant.tag :Empty symbol.= ;
 
-: head ( List -- T )
+: head ( Variant -- T )
     0 variant.field-at
 ;
 
-: tail ( List -- List )
+: tail ( Variant -- Variant )
     1 variant.field-at
 ;
 

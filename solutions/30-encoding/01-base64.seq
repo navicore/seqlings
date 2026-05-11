@@ -8,12 +8,12 @@
 
 : test-base64 ( -- )
     "Hello, World!" encode-message
-    "SGVsbG8sIFdvcmxkIQ==" test.assert-eq
+    "SGVsbG8sIFdvcmxkIQ==" test.assert-eq-str
 
     "U2VxIGlzIGF3ZXNvbWU=" decode-message
     test.assert
-    "Seq is awesome" test.assert-eq
+    "Seq is awesome" test.assert-eq-str
 
     "" encode-message
-    "" test.assert-eq
+    "" test.assert-eq-str
 ;

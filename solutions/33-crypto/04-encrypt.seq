@@ -14,9 +14,9 @@
 
     dup string.length 18 i.> test.assert
 
-    rot decrypt
+    swap decrypt
     test.assert
-    "Hello, Encryption!" test.assert-eq
+    "Hello, Encryption!" test.assert-eq-str
 
     32 crypto.random-bytes
     32 crypto.random-bytes

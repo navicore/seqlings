@@ -8,12 +8,12 @@
 
 : test-base64url ( -- )
     "user:12345" make-token
-    "dXNlcjoxMjM0NQ" test.assert-eq
+    "dXNlcjoxMjM0NQ" test.assert-eq-str
 
     "YWRtaW46c2VjcmV0" parse-token
     test.assert
-    "admin:secret" test.assert-eq
+    "admin:secret" test.assert-eq-str
 
     "ab" make-token
-    "YWI" test.assert-eq
+    "YWI" test.assert-eq-str
 ;
