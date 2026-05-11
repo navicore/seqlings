@@ -5,7 +5,7 @@ fold takes an initial value and combines it with each element.
 ## Solution
 
 ```seq
-: sum-list ( List -- Int )
+: sum-list ( Variant -- Int )
     0 [ i.+ ] list.fold
 ;
 ```

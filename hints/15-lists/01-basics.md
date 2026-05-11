@@ -5,7 +5,7 @@ Use `list.length` to count elements. Lists are created using `string.split`.
 ## Solution
 
 ```seq
-: has-three-elements? ( Variant -- Int )
-    list.length 3 =
+: has-three-elements? ( Variant -- Bool )
+    list.length 3 i.=
 ;
 ```

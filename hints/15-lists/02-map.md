@@ -5,14 +5,14 @@ Apply a transformation to every element.
 ## Solution
 
 ```seq
-: double-all ( List -- List )
+: double-all ( Variant -- Variant )
     [ dup i.+ ] list.map
 ;
 ```
 
 Or equivalently:
 ```seq
-: double-all ( List -- List )
+: double-all ( Variant -- Variant )
     [ 2 i.* ] list.map
 ;
 ```
