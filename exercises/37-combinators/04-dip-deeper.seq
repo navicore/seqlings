@@ -1,20 +1,18 @@
-# Exercise: Reaching Deeper with dip
+# Exercise: Nested dip
 #
 # `dip` hides exactly one value while running a quotation. To
-# reach *further* into the stack, you rearrange inside the
-# quotation. The cleanest shape is:
+# reach further into the stack, nest dips:
 #
-#   x [ swap ...work on the new top... swap ] dip
+#   Single dip reaches past 1 value:
+#     a b [ quot ] dip      → runs quot on a, preserves b
 #
-# That hides x with `dip`, the inner `swap` brings the next item
-# up, the body operates on it, the trailing `swap` restores
-# order, and `dip` puts x back on top when the quotation
-# returns.
+#   Nested dip reaches past 2 values:
+#     a b c [ [ quot ] dip ] dip
+#                           → runs quot on a, preserves b and c
 #
-# (You might be tempted to *nest* dips — `[ [ quot ] dip ] dip`.
-# The type checker can't prove the inner dip has a value below
-# its quotation, because inside a quotation the surrounding
-# stack is row-polymorphic. Use the swap-inside form instead.)
+# The outer `dip` hides c; inside its quotation, the inner
+# `dip` hides b and runs `quot` on a. When the quotations
+# unwind, b and c are restored on top in their original order.
 #
 # Your task: given stack ( 100 5 3 ), add 50 to the 100 (the
 # deepest of the three values), preserving both 5 and 3.
@@ -26,8 +24,7 @@
 
 : test-dip-deeper ( -- )
     100 5 3
-    # Your code here — hide 3 with dip, swap inside to expose
-    # 100, add 50, swap back.
+    # Your code here — use nested dip to add 50 to the deepest value
     drop drop 0
 
     # Do not edit below this line
