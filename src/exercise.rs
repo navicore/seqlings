@@ -1,7 +1,7 @@
 //! Exercise loading and status tracking
 
 use crate::runner;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 
 /// Exercise mode - how to verify completion
@@ -40,7 +40,7 @@ pub struct Exercise {
 }
 
 /// Exercise completion status
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum ExerciseStatus {
     /// Exercise is complete (compiles, tests pass, no NOT DONE marker)
     Done,

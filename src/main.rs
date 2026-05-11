@@ -10,26 +10,158 @@ use clap_complete::{Shell, generate};
 use colored::Colorize;
 use exercise::{Exercise, ExerciseStatus, load_exercises};
 use include_dir::{Dir, include_dir};
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::process;
-use std::time::{Duration, SystemTime};
+use std::time::{Duration, SystemTime, UNIX_EPOCH};
+
+/// Path (relative to cwd) where the status cache lives between runs.
+const STATE_FILE: &str = ".seqlings-state.json";
 
 // Embed exercise files at compile time
 static EXERCISES_DIR: Dir = include_dir!("$CARGO_MANIFEST_DIR/exercises");
 static SOLUTIONS_DIR: Dir = include_dir!("$CARGO_MANIFEST_DIR/solutions");
 static HINTS_DIR: Dir = include_dir!("$CARGO_MANIFEST_DIR/hints");
 
-/// Cache for exercise status to avoid repeated compiler invocations
+/// Serializable timestamp (whole seconds + sub-second nanos since UNIX_EPOCH).
+/// `SystemTime` itself doesn't implement serde, so we round-trip through this.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+struct StoredMtime {
+    secs: u64,
+    nanos: u32,
+}
+
+impl StoredMtime {
+    fn from_system(t: SystemTime) -> Self {
+        let d = t.duration_since(UNIX_EPOCH).unwrap_or_default();
+        Self {
+            secs: d.as_secs(),
+            nanos: d.subsec_nanos(),
+        }
+    }
+}
+
+/// Identity fingerprint for the `seqc` binary. If any of these change, all
+/// cached statuses are invalidated — the user may have upgraded the
+/// compiler and previously-passing exercises could now fail.
+#[derive(Clone, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+struct SeqcIdentity {
+    path: String,
+    mtime: StoredMtime,
+}
+
+impl SeqcIdentity {
+    /// Resolve the current `seqc` on PATH and stat it. Returns an empty
+    /// identity (path="") if seqc can't be found — that just means every
+    /// run will be a cold cache, which is safe.
+    fn current() -> Self {
+        let path = match resolve_seqc_path() {
+            Some(p) => p,
+            None => return Self::default(),
+        };
+        let mtime = std::fs::metadata(&path)
+            .and_then(|m| m.modified())
+            .map(StoredMtime::from_system)
+            .unwrap_or_default();
+        Self {
+            path: path.to_string_lossy().into_owned(),
+            mtime,
+        }
+    }
+}
+
+/// Walk PATH manually to locate `seqc`. Avoids adding a `which` dependency.
+fn resolve_seqc_path() -> Option<PathBuf> {
+    let path_env = std::env::var_os("PATH")?;
+    for dir in std::env::split_paths(&path_env) {
+        let candidate = dir.join("seqc");
+        if candidate.is_file() {
+            return Some(candidate);
+        }
+    }
+    None
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+struct CacheEntry {
+    mtime: StoredMtime,
+    status: ExerciseStatus,
+}
+
+/// On-disk shape of the cache. The header is checked on load — if the
+/// compiler identity has changed, the entries are discarded.
+#[derive(Default, Serialize, Deserialize)]
+struct PersistedCache {
+    seqc: SeqcIdentity,
+    entries: HashMap<PathBuf, CacheEntry>,
+}
+
+/// Cache for exercise status to avoid repeated compiler invocations.
+/// Persists to `.seqlings-state.json` between runs and invalidates when
+/// the `seqc` binary changes.
 struct StatusCache {
-    /// Maps exercise path to (last_mtime, cached_status)
-    cache: HashMap<PathBuf, (SystemTime, ExerciseStatus)>,
+    seqc: SeqcIdentity,
+    entries: HashMap<PathBuf, CacheEntry>,
+    /// Tracks whether any entry has been added or changed since the last
+    /// save — used to skip pointless disk writes.
+    dirty: bool,
 }
 
 impl StatusCache {
+    /// Construct an empty cache (no on-disk read).
     fn new() -> Self {
         Self {
-            cache: HashMap::new(),
+            seqc: SeqcIdentity::current(),
+            entries: HashMap::new(),
+            dirty: false,
+        }
+    }
+
+    /// Construct a cache from `.seqlings-state.json` if present and
+    /// compatible with the current `seqc`. On any error or mismatch,
+    /// returns a fresh empty cache.
+    fn load_or_new() -> Self {
+        let current = SeqcIdentity::current();
+        let bytes = match std::fs::read(STATE_FILE) {
+            Ok(b) => b,
+            Err(_) => return Self::new(),
+        };
+        let persisted: PersistedCache = match serde_json::from_slice(&bytes) {
+            Ok(p) => p,
+            Err(_) => return Self::new(),
+        };
+        if persisted.seqc != current {
+            // seqc changed (likely an upgrade) — discard everything so
+            // every exercise is re-verified against the new compiler.
+            return Self {
+                seqc: current,
+                entries: HashMap::new(),
+                dirty: false,
+            };
+        }
+        Self {
+            seqc: current,
+            entries: persisted.entries,
+            dirty: false,
+        }
+    }
+
+    /// Write the cache to `.seqlings-state.json` if it has changed since
+    /// the last save. Best-effort: errors are silently ignored so a
+    /// read-only working directory doesn't break the watch loop.
+    fn save(&mut self) {
+        if !self.dirty {
+            return;
+        }
+        let persisted = PersistedCache {
+            seqc: self.seqc.clone(),
+            entries: self.entries.clone(),
+        };
+        if let Ok(bytes) = serde_json::to_vec_pretty(&persisted)
+            && std::fs::write(STATE_FILE, bytes).is_ok()
+        {
+            self.dirty = false;
         }
     }
 
@@ -39,7 +171,7 @@ impl StatusCache {
     fn get_status(&mut self, exercise: &Exercise) -> ExerciseStatus {
         // Get current file mtime
         let current_mtime = match std::fs::metadata(&exercise.path) {
-            Ok(meta) => meta.modified().ok(),
+            Ok(meta) => meta.modified().ok().map(StoredMtime::from_system),
             Err(_) => return ExerciseStatus::CompileError,
         };
 
@@ -50,18 +182,23 @@ impl StatusCache {
         {
             // Update cache with NotDone status
             if let Some(mtime) = current_mtime {
-                self.cache
-                    .insert(exercise.path.clone(), (mtime, ExerciseStatus::NotDone));
+                self.insert(
+                    exercise.path.clone(),
+                    CacheEntry {
+                        mtime,
+                        status: ExerciseStatus::NotDone,
+                    },
+                );
             }
             return ExerciseStatus::NotDone;
         }
 
         // Check cache: if mtime unchanged, return cached status
         if let Some(mtime) = current_mtime
-            && let Some((cached_mtime, cached_status)) = self.cache.get(&exercise.path)
-            && *cached_mtime == mtime
+            && let Some(entry) = self.entries.get(&exercise.path)
+            && entry.mtime == mtime
         {
-            return cached_status.clone();
+            return entry.status.clone();
         }
 
         // Cache miss or file changed - run the full status check
@@ -69,17 +206,35 @@ impl StatusCache {
 
         // Update cache
         if let Some(mtime) = current_mtime {
-            self.cache
-                .insert(exercise.path.clone(), (mtime, status.clone()));
+            self.insert(
+                exercise.path.clone(),
+                CacheEntry {
+                    mtime,
+                    status: status.clone(),
+                },
+            );
         }
 
         status
     }
 
+    fn insert(&mut self, path: PathBuf, entry: CacheEntry) {
+        let unchanged = self.entries.get(&path).is_some_and(|existing| {
+            existing.mtime == entry.mtime && existing.status == entry.status
+        });
+        if !unchanged {
+            self.dirty = true;
+        }
+        self.entries.insert(path, entry);
+    }
+
     /// Clear the cache (useful for commands that need fresh data)
     #[allow(dead_code)]
     fn clear(&mut self) {
-        self.cache.clear();
+        if !self.entries.is_empty() {
+            self.dirty = true;
+        }
+        self.entries.clear();
     }
 }
 
@@ -604,8 +759,9 @@ fn print_banner() {
 
 /// Watch mode: continuously monitor exercises and provide feedback
 fn cmd_watch(exercises: &[Exercise]) {
-    // Create status cache to avoid repeated compiler invocations
-    let mut cache = StatusCache::new();
+    // Restore status cache from disk to avoid re-checking exercises whose
+    // files (and the compiler) haven't changed since the last run.
+    let mut cache = StatusCache::load_or_new();
 
     // Warm up cache silently (transient progress indicator gets cleared before first frame)
     use std::io::Write;
@@ -614,6 +770,7 @@ fn cmd_watch(exercises: &[Exercise]) {
     for ex in exercises.iter() {
         cache.get_status(ex);
     }
+    cache.save();
 
     // First frame: clear away the warmup line, render banner, then assessment
     clear_screen();
@@ -640,6 +797,7 @@ fn cmd_watch(exercises: &[Exercise]) {
             clear_screen();
             print_banner();
             display_current_exercise(exercises, &mut current_exercise_name, &mut cache);
+            cache.save();
         }
     }
 }
@@ -796,7 +954,7 @@ fn display_current_exercise(
 /// Open exercise in editor (alternative to watch mode)
 #[allow(dead_code)]
 fn cmd_run(exercises: &[Exercise]) {
-    let mut cache = StatusCache::new();
+    let mut cache = StatusCache::load_or_new();
 
     // Find first incomplete exercise
     let current = exercises.iter().find(|e| {
@@ -875,7 +1033,7 @@ fn cmd_run(exercises: &[Exercise]) {
 
 /// List all exercises
 fn cmd_list(exercises: &[Exercise]) {
-    let mut cache = StatusCache::new();
+    let mut cache = StatusCache::load_or_new();
 
     println!("\n{}\n", "Seqlings Exercises".green().bold());
 
@@ -907,11 +1065,12 @@ fn cmd_list(exercises: &[Exercise]) {
 
     println!();
     show_progress(exercises, &mut cache);
+    cache.save();
 }
 
 /// Show hint for an exercise
 fn cmd_hint(exercises: &[Exercise], name: Option<String>) {
-    let mut cache = StatusCache::new();
+    let mut cache = StatusCache::load_or_new();
     let name_provided = name.is_some();
     let exercise = match &name {
         Some(n) => exercises.iter().find(|e| &e.name == n),
@@ -955,7 +1114,7 @@ fn cmd_hint(exercises: &[Exercise], name: Option<String>) {
 /// Reset an exercise to its original stub by restoring the content embedded
 /// in the binary at compile time.
 fn cmd_reset(exercises: &[Exercise], name: Option<String>) {
-    let mut cache = StatusCache::new();
+    let mut cache = StatusCache::load_or_new();
     let exercise = match name {
         Some(n) => exercises.iter().find(|e| e.name == n),
         None => exercises.iter().find(|e| {
@@ -1003,7 +1162,7 @@ fn cmd_reset(exercises: &[Exercise], name: Option<String>) {
 
 /// Verify all exercises
 fn cmd_verify(exercises: &[Exercise]) {
-    let mut cache = StatusCache::new();
+    let mut cache = StatusCache::load_or_new();
 
     println!("\n{}\n", "Verifying all exercises...".green().bold());
 
@@ -1019,11 +1178,12 @@ fn cmd_verify(exercises: &[Exercise]) {
 
     println!();
     show_progress(exercises, &mut cache);
+    cache.save();
 }
 
 /// Skip to next exercise
 fn cmd_next(exercises: &[Exercise]) {
-    let mut cache = StatusCache::new();
+    let mut cache = StatusCache::load_or_new();
 
     // Find current incomplete
     let current_idx = exercises.iter().position(|e| {
@@ -1044,12 +1204,13 @@ fn cmd_next(exercises: &[Exercise]) {
             println!("{}", "No more exercises to skip to.".yellow());
         }
     }
+    cache.save();
 }
 
 /// Verify a single exercise and show result
 #[allow(dead_code)]
 fn verify_exercise(exercise: &Exercise) {
-    let mut cache = StatusCache::new();
+    let mut cache = StatusCache::load_or_new();
     let status = cache.get_status(exercise);
     println!("{} {}", "Exercise status:".bold(), format_status(&status));
 

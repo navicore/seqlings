@@ -16,7 +16,7 @@ In Seq, lists are created using `string.split`. Lists are actually variants (tag
 | Word              | Effect                          | Description              |
 |-------------------|--------------------------------|--------------------------|
 | `list.length`     | `( Variant -- Int )`           | Number of elements       |
-| `list.empty?`     | `( Variant -- Int )`           | 1 if empty, 0 otherwise  |
+| `list.empty?`     | `( Variant -- Bool )`          | true if empty            |
 | `variant.field-at`| `( Variant Int -- value )`     | Get element at index     |
 
 ## Higher-Order List Operations
