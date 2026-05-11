@@ -219,10 +219,9 @@ impl StatusCache {
     }
 
     fn insert(&mut self, path: PathBuf, entry: CacheEntry) {
-        let unchanged = self
-            .entries
-            .get(&path)
-            .is_some_and(|existing| existing.mtime == entry.mtime && existing.status == entry.status);
+        let unchanged = self.entries.get(&path).is_some_and(|existing| {
+            existing.mtime == entry.mtime && existing.status == entry.status
+        });
         if !unchanged {
             self.dirty = true;
         }
