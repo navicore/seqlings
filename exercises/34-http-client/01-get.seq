@@ -1,6 +1,6 @@
 # Exercise: HTTP GET Requests
 #
-# http.get ( String -- Map )
+# net.http.get ( String -- Map )
 #
 # Returns a map with:
 #   "ok"     - Bool: true if successful
@@ -13,19 +13,19 @@
 
 # I AM NOT DONE
 
-: response-ok? ( Map -- Bool )
+: response-ok? ( Variant -- Bool )
     # Check if response was successful
     # Your code here
     drop false
 ;
 
-: response-body ( Map -- String )
+: response-body ( Variant -- String )
     # Get the response body (or empty string if failed)
     # Your code here
     drop ""
 ;
 
-: response-status ( Map -- Int )
+: response-status ( Variant -- Int )
     # Get the HTTP status code
     # Your code here
     drop 0
@@ -33,10 +33,10 @@
 
 : test-get ( -- )
     # Simulate a successful response
-    map-of
-        "ok" true kv
-        "status" 200 kv
-        "body" "Hello, World!" kv
+    map.make
+        "ok" true map.set
+        "status" 200 map.set
+        "body" "Hello, World!" map.set
     # Do not edit below this line
 
     dup response-ok?
@@ -46,14 +46,14 @@
     200 test.assert-eq
 
     response-body
-    "Hello, World!" test.assert-eq
+    "Hello, World!" test.assert-eq-str
 
     # Simulate a failed response
-    map-of
-        "ok" false kv
-        "status" 404 kv
-        "error" "Not Found" kv
-        "body" "" kv
+    map.make
+        "ok" false map.set
+        "status" 404 map.set
+        "error" "Not Found" map.set
+        "body" "" map.set
 
     dup response-ok?
     not test.assert
@@ -62,5 +62,5 @@
     404 test.assert-eq
 
     response-body
-    "" test.assert-eq
+    "" test.assert-eq-str
 ;

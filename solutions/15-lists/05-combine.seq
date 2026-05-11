@@ -1,4 +1,4 @@
-: count-a-word-chars ( List -- Int )
+: count-a-word-chars ( Variant -- Int )
     [ 0 string.char-at 97 i.= ] list.filter
     0 [ string.length i.+ ] list.fold
 ;

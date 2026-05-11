@@ -1,22 +1,30 @@
 # Exercise: Trigonometric Functions
 #
-# Basic trig functions (input in radians):
-#   fmath.sin    - sine
-#   fmath.cos    - cosine
-#   fmath.tan    - tangent
+# The trig builtins take their argument in radians:
 #
-# The constant fmath.pi gives you pi.
+#   f.sin    ( Float -- Float )    sine
+#   f.cos    ( Float -- Float )    cosine
+#   f.tan    ( Float -- Float )    tangent
 #
-# Your task: Work with trig functions
+# Inverse forms `f.asin`, `f.acos`, `f.atan` also exist, plus
+# `f.atan2 ( y x -- result )` for the angle from origin to a
+# point.
+#
+# `f.pi` is the constant. No include needed for any of these —
+# all builtins.
+#
+# Your tasks:
+#   - In `test-cos-zero`, compute cos(0) and let the assertion
+#     verify it equals 1.0.
+#   - In `test-sin-pi-half`, compute sin(π/2) and assert it
+#     equals 1.0.
 #
 # When done, delete the marker line below.
-
-use std:fmath
 
 # I AM NOT DONE
 
 : test-sin-zero ( -- )
-    0.0 fmath.sin
+    0.0 f.sin
 
     # Do not edit below this line (sin(0) = 0)
     0.0 f.= test.assert
@@ -32,8 +40,7 @@ use std:fmath
 ;
 
 : test-sin-pi-half ( -- )
-    # sin(pi/2) = 1
-    # Hint: fmath.pi gives pi
+    # sin(π/2) = 1 — `f.pi 2.0 f./` is π/2
     # Your code here
     0.0
 

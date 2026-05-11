@@ -5,11 +5,11 @@ This exercise uses the resume value to accumulate state across yields.
 ## Solution
 
 ```seq
-: acc-loop ( Ctx Int -- | Yield Int )
-    tuck           # ( sum Ctx sum )
-    yield          # yield sum, receive increment -> ( sum Ctx increment )
-    rot            # ( Ctx increment sum )
-    i.add          # ( Ctx new_sum )
+: acc-loop ( T Int -- | Yield Int )
+    tuck           # ( sum T sum )
+    yield          # yield sum, receive increment -> ( sum T increment )
+    rot            # ( T increment sum )
+    i.add          # ( T new_sum )
     acc-loop       # tail recurse forever
 ;
 ```
@@ -17,18 +17,18 @@ This exercise uses the resume value to accumulate state across yields.
 ## Stack Trace
 
 ```
-Initial: ( Ctx 10 )           # from first strand.resume with 10
-tuck:    ( 10 Ctx 10 )        # duplicate sum under Ctx
-yield:   ( 10 Ctx 5 )         # yield 10, resume gets 5
-rot:     ( Ctx 5 10 )         # rearrange
-i.add:   ( Ctx 15 )           # 5 + 10 = 15
-acc-loop: recurse with ( Ctx 15 )
+Initial: ( T 10 )           # from first strand.resume with 10
+tuck:    ( 10 T 10 )        # duplicate sum under T
+yield:   ( 10 T 5 )         # yield 10, resume gets 5
+rot:     ( T 5 10 )         # rearrange
+i.add:   ( T 15 )           # 5 + 10 = 15
+acc-loop: recurse with ( T 15 )
 
 Next iteration:
-tuck:    ( 15 Ctx 15 )
-yield:   ( 15 Ctx 3 )         # yield 15, resume gets 3
-rot:     ( Ctx 3 15 )
-i.add:   ( Ctx 18 )           # 3 + 15 = 18
+tuck:    ( 15 T 15 )
+yield:   ( 15 T 3 )         # yield 15, resume gets 3
+rot:     ( T 3 15 )
+i.add:   ( T 18 )           # 3 + 15 = 18
 ...
 ```
 

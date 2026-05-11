@@ -1,7 +1,7 @@
-: echo-handler ( socket -- )
-    dup tcp.read drop
-    over tcp.write drop
-    tcp.close drop
+: echo-handler ( Socket -- )
+    dup net.tcp.read drop
+    over net.tcp.write drop
+    net.tcp.close drop
 ;
 
 : test-echo ( -- )

@@ -2,25 +2,26 @@
     chan.make   # work
     chan.make   # results
 
-    2dup [ swap chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
-           swap chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
-           swap chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
-           drop drop ] strand.spawn drop
+    [
+        over chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
+        over chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
+        over chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
+        drop drop
+    ] strand.spawn drop
+
+    time.now >aux
+
+    over 1 swap chan.send drop
+    over 1 swap chan.send drop
+    over 1 swap chan.send drop
+
+    dup chan.receive drop drop
+    dup chan.receive drop drop
+    dup chan.receive drop drop
+
     drop drop
 
-    time.now
-
-    rot 1 swap chan.send drop
-    rot 1 swap chan.send drop
-    rot 1 swap chan.send drop
-
-    # Receive 3 results
-    rot dup chan.receive drop drop
-    dup chan.receive drop drop
-    dup chan.receive drop drop
-    drop   # drop results channel
-    # Stack: ( start )
-    time.now swap i.-
+    time.now aux> i.-
 
     30 >= test.assert
 ;

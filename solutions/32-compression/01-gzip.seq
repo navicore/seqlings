@@ -15,5 +15,5 @@
     test.assert
     gzip-decompress
     test.assert
-    "Seq compression test!" test.assert-eq
+    "Seq compression test!" test.assert-eq-str
 ;

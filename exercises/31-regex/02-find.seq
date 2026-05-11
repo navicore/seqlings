@@ -22,7 +22,7 @@
     drop "" false
 ;
 
-: find-all-words ( String -- List )
+: find-all-words ( String -- Variant )
     # Find all sequences of word characters (\w+)
     # Return only the list (drop the success Bool)
     # Your code here
@@ -34,7 +34,7 @@
     "Order #42 shipped" find-first-number
     # Do not edit below this line
     test.assert
-    "42" test.assert-eq
+    "42" test.assert-eq-str
 
     # No number found
     "no numbers" find-first-number

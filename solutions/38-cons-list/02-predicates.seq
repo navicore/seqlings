@@ -1,7 +1,7 @@
-: empty ( -- List )         :Empty variant.make-0 ;
-: prepend ( T List -- List ) :Cons variant.make-2 ;
+: empty ( -- Variant )         :Empty variant.make-0 ;
+: prepend ( T Variant -- Variant ) :Cons variant.make-2 ;
 
-: empty? ( List -- Bool )
+: empty? ( Variant -- Bool )
     variant.tag :Empty symbol.=
 ;
 

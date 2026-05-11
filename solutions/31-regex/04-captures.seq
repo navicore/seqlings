@@ -22,14 +22,14 @@
 : test-captures ( -- )
     "2024-01-15" parse-date
     test.assert
-    "15" test.assert-eq
-    "01" test.assert-eq
-    "2024" test.assert-eq
+    "15" test.assert-eq-str
+    "01" test.assert-eq-str
+    "2024" test.assert-eq-str
 
     "14:30" parse-time
     test.assert
-    "30" test.assert-eq
-    "14" test.assert-eq
+    "30" test.assert-eq-str
+    "14" test.assert-eq-str
 
     "not-a-date" parse-date
     not test.assert

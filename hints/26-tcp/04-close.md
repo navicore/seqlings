@@ -3,6 +3,6 @@
 Always close sockets when done:
 
 ```seq
-client tcp.close   # Close client connection
-server tcp.close   # Close server when shutting down
+client net.tcp.close   # Close client connection
+server net.tcp.close   # Close server when shutting down
 ```

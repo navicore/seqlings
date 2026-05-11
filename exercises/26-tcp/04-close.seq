@@ -1,6 +1,6 @@
 # Exercise: Closing Connections
 #
-# `tcp.close` closes a socket, freeing resources.
+# `net.tcp.close` closes a socket, freeing resources.
 #
 # Stack effect: ( socket -- success )
 #   Returns a Bool indicating whether close succeeded.
@@ -10,8 +10,8 @@
 #   - Close server socket when shutting down
 #
 # Example:
-#   client tcp.close drop   # Close client (drop success)
-#   server tcp.close drop   # Close server (drop success)
+#   client net.tcp.close drop   # Close client (drop success)
+#   server net.tcp.close drop   # Close server (drop success)
 #
 # Your task: Understand resource cleanup.
 # When done, delete the marker line below.
@@ -20,11 +20,11 @@
 
 : test-close ( -- )
     # Pattern for handling one client:
-    #   8080 tcp.listen drop
-    #   dup tcp.accept drop     # server + client on stack
-    #   dup tcp.read drop drop  # Handle client (read, drop success + data)
-    #   tcp.close drop          # Close client
-    #   tcp.close drop          # Close server
+    #   8080 net.tcp.listen drop
+    #   dup net.tcp.accept drop     # server + client on stack
+    #   dup net.tcp.read drop drop  # Handle client (read, drop success + data)
+    #   net.tcp.close drop          # Close client
+    #   net.tcp.close drop          # Close server
 
     # Do not edit below this line
     true test.assert

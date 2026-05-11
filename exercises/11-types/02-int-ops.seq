@@ -5,7 +5,7 @@
 #   i.-  Subtract
 #   i.*  Multiply
 #   i./    Divide (returns quotient and success Bool)
-#   i.mod       Modulo (returns remainder and success Bool)
+#   i.modulo       Modulo (returns remainder and success Bool)
 #
 # Division and modulo return (value Bool) to handle division by zero.
 # These operations require both operands to be integers.

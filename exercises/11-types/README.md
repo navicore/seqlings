@@ -16,7 +16,7 @@ Seq is statically typed - the compiler checks types at compile time. Understandi
 Operations are namespaced by type:
 
 **Integer operations:**
-- `i.add`, `i.subtract`, `i.multiply`, `i.divide`, `i.mod`
+- `i.add`, `i.subtract`, `i.multiply`, `i.divide`, `i.modulo`
 - `i.negate`, `i.abs`
 
 **Float operations:**

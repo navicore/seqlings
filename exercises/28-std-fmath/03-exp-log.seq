@@ -1,24 +1,28 @@
 # Exercise: Exponential and Logarithmic
 #
-# Exponential:
-#   fmath.exp     - e^x
-#   fmath.pow     - base^exponent
+# Builtins:
 #
-# Logarithmic:
-#   fmath.ln      - natural log (base e)
-#   fmath.log10   - log base 10
+#   f.exp     ( Float -- Float )           e^x
+#   f.ln      ( Float -- Float )           natural log (base e)
+#   f.log10   ( Float -- Float )           log base 10
+#   f.log2    ( Float -- Float )           log base 2
+#   f.pow     ( Float Float -- Float )     base^exp
 #
-# Your task: Use exp and log functions
+# `f.pow` argument order is `base exp` — `2.0 8.0 f.pow` is 2⁸.
+#
+# Errors are IEEE 754 values: `f.ln 0.0` is `-Infinity`, not a
+# flag. `f.ln` of a negative is `NaN`.
+#
+# Your tasks: fill in `test-log10` (log₁₀ 100 = 2) and `test-pow`
+# (2⁸ = 256).
 #
 # When done, delete the marker line below.
-
-use std:fmath
 
 # I AM NOT DONE
 
 : test-exp-zero ( -- )
-    # e^0 i.= 1
-    0.0 fmath.exp
+    # e^0 = 1
+    0.0 f.exp
 
     # Do not edit below this line
     1.0 f.= test.assert
@@ -26,7 +30,7 @@ use std:fmath
 
 : test-ln-e ( -- )
     # ln(e) = 1
-    fmath.e fmath.ln
+    f.e f.ln
 
     # Do not edit below this line
     1.0 f.= test.assert
@@ -42,7 +46,7 @@ use std:fmath
 ;
 
 : test-pow ( -- )
-    # 2^8 i.= 256
+    # 2^8 = 256
     # Your code here
     0.0
 

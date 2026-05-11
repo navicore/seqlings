@@ -1,4 +1,4 @@
-: has-three-elements? ( List -- Bool )
+: has-three-elements? ( Variant -- Bool )
     list.length 3 i.=
 ;
 

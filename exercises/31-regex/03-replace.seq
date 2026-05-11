@@ -34,13 +34,13 @@
     # Censor numbers
     "Call 555-1234 or 555-5678" censor-numbers
     # Do not edit below this line
-    "Call XXX-XXXX or XXX-XXXX" test.assert-eq
+    "Call XXX-XXXX or XXX-XXXX" test.assert-eq-str
 
     # Normalize whitespace
     "hello    world   test" normalize-whitespace
-    "hello world test" test.assert-eq
+    "hello world test" test.assert-eq-str
 
     # Tabs too
     "a\tb\t\tc" normalize-whitespace
-    "a b c" test.assert-eq
+    "a b c" test.assert-eq-str
 ;

@@ -1,13 +1,14 @@
-use std:imath
+include std:imath
 
 : simplify-numerator ( Int Int -- Int )
-    over over imath.gcd
-    swap drop
-    i./
+    over over gcd       # ( num denom gcd )
+    swap drop           # ( num gcd )
+    i./                 # ( quot success )
+    drop                # ( quot )
 ;
 
 : test-gcd ( -- )
-    48 18 imath.gcd
+    48 18 gcd
     6 test.assert-eq
 ;
 

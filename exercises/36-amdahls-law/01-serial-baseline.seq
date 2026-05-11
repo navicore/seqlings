@@ -4,12 +4,17 @@
 #   p = fraction of work that can be parallelized
 #   n = number of workers
 #
-# Before measuring speedup, we need a baseline.
-# Time a serial task: 3 items processed sequentially (10ms each).
+# Before measuring speedup, we need a baseline. Time a serial
+# task: 3 items processed sequentially (10ms each). Elapsed
+# should be at least 30ms (3 × 10ms).
 #
-# Your task: Measure the total time for serial processing.
-# Send 3 items to 1 worker, receive all results.
-# Elapsed time should be >= 30ms (3 x 10ms).
+# Your task: receive 3 results, then compute elapsed = now - start.
+#
+# Stack hint: the `start` timestamp is stashed on the aux stack
+# with `>aux` so it's out of the way while you juggle the work
+# and results channels. Pull it back with `aux>` once the work
+# is done.
+#
 # When done, delete the marker line below.
 
 # I AM NOT DONE
@@ -18,26 +23,29 @@
     chan.make   # work
     chan.make   # results
 
-    # 1 worker processes 3 items serially
-    2dup [ swap chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
-           swap chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
-           swap chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
-           drop drop ] strand.spawn drop
-    drop drop
+    # 1 worker processes 3 items serially. Closure captures
+    # ( work results ); `over` copies the work channel each
+    # iteration so it survives the receive.
+    [
+        over chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
+        over chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
+        over chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
+        drop drop
+    ] strand.spawn drop
+    # Stack: ( work results )
 
-    time.now   # start
+    time.now >aux   # stash start time on the aux stack
 
-    # Send 3 items
-    rot 1 swap chan.send drop
-    rot 1 swap chan.send drop
-    rot 1 swap chan.send drop
+    # Send 3 items into work
+    over 1 swap chan.send drop
+    over 1 swap chan.send drop
+    over 1 swap chan.send drop
 
     # Your code here:
-    # 1. Receive 3 results from results channel
-    # 2. Drop the received values (we just need timing)
-    # 3. Measure elapsed time
-    # Stack has ( results start ) after sends
-    # Leave elapsed time on stack
+    # 1. Receive 3 results (drop value and flag each time).
+    # 2. Drop the work + results channels.
+    # 3. Push `time.now`, pull `start` back with `aux>`,
+    #    compute elapsed with `i.-`.
     drop drop 0
 
     # Do not edit below this line

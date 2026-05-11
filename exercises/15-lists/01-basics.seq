@@ -16,7 +16,7 @@
 
 # I AM NOT DONE
 
-: has-three-elements? ( List -- Bool )
+: has-three-elements? ( Variant -- Bool )
     # Your code here
     drop false
 ;

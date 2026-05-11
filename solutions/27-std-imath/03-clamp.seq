@@ -1,7 +1,7 @@
-use std:imath
+include std:imath
 
 : clamp-percent ( Int -- Int )
-    0 100 imath.clamp
+    0 100 clamp
 ;
 
 : test-clamp-high ( -- )

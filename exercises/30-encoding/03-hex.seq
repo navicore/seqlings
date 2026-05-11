@@ -32,19 +32,19 @@
     # Test encoding
     "Hello" to-hex
     # Do not edit below this line
-    "48656c6c6f" test.assert-eq
+    "48656c6c6f" test.assert-eq-str
 
     # Test decoding
     "576f726c64" from-hex
     test.assert
-    "World" test.assert-eq
+    "World" test.assert-eq-str
 
     # Test case-insensitive decode
     "48454C4C4F" from-hex
     test.assert
-    "HELLO" test.assert-eq
+    "HELLO" test.assert-eq-str
 
     # Test single byte
     "A" to-hex
-    "41" test.assert-eq
+    "41" test.assert-eq-str
 ;

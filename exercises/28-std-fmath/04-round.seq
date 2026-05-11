@@ -1,21 +1,26 @@
-# Exercise: Rounding Functions
+# Exercise: Rounding
 #
-# Rounding operations:
-#   fmath.floor   - Round down
-#   fmath.ceil    - Round up
-#   fmath.round   - Round to nearest
-#   fmath.abs     - Absolute value
+# Four rounding modes, all builtins, all `( Float -- Float )`:
 #
-# Your task: Use rounding functions
+#   f.floor    round toward -∞     ( 3.7 → 3.0,   -3.2 → -4.0 )
+#   f.ceil     round toward +∞     ( 3.2 → 4.0,   -3.7 → -3.0 )
+#   f.round    nearest, ties even  ( 2.6 → 3.0,   2.5 → 2.0 )
+#   f.trunc    round toward 0      ( 3.7 → 3.0,   -3.7 → -3.0 )
+#
+# `f.round` uses **banker's rounding** — ties go to the nearest
+# even integer. So `0.5 f.round → 0.0`, `1.5 f.round → 2.0`,
+# `2.5 f.round → 2.0`. If you specifically want away-from-zero
+# rounding on ties, use `f.trunc` after biasing the input.
+#
+# Your tasks: fill in tests for `f.ceil`, `f.round`, and
+# `f.trunc`.
 #
 # When done, delete the marker line below.
-
-use std:fmath
 
 # I AM NOT DONE
 
 : test-floor ( -- )
-    3.7 fmath.floor
+    3.7 f.floor
 
     # Do not edit below this line
     3.0 f.= test.assert
@@ -39,11 +44,11 @@ use std:fmath
     3.0 f.= test.assert
 ;
 
-: test-abs ( -- )
-    # Absolute value of -7.5
+: test-trunc ( -- )
+    # Truncate -3.7 toward zero
     # Your code here
     0.0
 
     # Do not edit below this line
-    7.5 f.= test.assert
+    -3.0 f.= test.assert
 ;

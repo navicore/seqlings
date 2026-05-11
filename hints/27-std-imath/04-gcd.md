@@ -1,22 +1,15 @@
 # Hint: Greatest Common Divisor
 
+Compute the gcd of num and denom, divide num by it, then drop
+the success flag that `i./` leaves on top.
+
 ## Solution
 
 ```seq
 : simplify-numerator ( Int Int -- Int )
-    # Stack: num denom
-    2dup imath.gcd    # Stack: num denom gcd
-    rot swap i./      # Stack: denom (num/gcd)
-    swap drop         # Stack: (num/gcd)
-;
-```
-
-Or more directly:
-
-```seq
-: simplify-numerator ( Int Int -- Int )
-    over over imath.gcd  # num denom gcd
-    swap drop            # num gcd
-    i./                  # num/gcd
+    over over gcd       # ( num denom gcd )
+    swap drop           # ( num gcd )
+    i./                 # ( quot success )
+    drop                # ( quot )
 ;
 ```

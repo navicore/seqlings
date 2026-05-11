@@ -1,20 +1,20 @@
 # Exercise: Reading and Writing Data
 #
-# `tcp.read` reads data from a socket.
-# `tcp.write` writes data to a socket.
+# `net.tcp.read` reads data from a socket.
+# `net.tcp.write` writes data to a socket.
 #
 # Stack effects:
-#   tcp.read  ( socket -- string success )
-#   tcp.write ( string socket -- success )
+#   net.tcp.read  ( socket -- string success )
+#   net.tcp.write ( string socket -- success )
 #
 # Example:
-#   client tcp.read           # ( string success )
+#   client net.tcp.read           # ( string success )
 #   [ process-request ]       # Read succeeded
 #   [ drop ] if               # Read failed, drop empty string
 #
-#   "Hello!" client tcp.write drop  # Write (drop success Bool)
+#   "Hello!" client net.tcp.write drop  # Write (drop success Bool)
 #
-# Note: tcp.read may return partial data. For protocols,
+# Note: net.tcp.read may return partial data. For protocols,
 # you may need to accumulate until you have a complete message.
 #
 # Your task: Understand the read/write pattern.
@@ -24,9 +24,9 @@
 
 : test-read-write ( -- )
     # In real code:
-    #   client tcp.read [
+    #   client net.tcp.read [
     #     process-request
-    #     response client tcp.write drop
+    #     response client net.tcp.write drop
     #   ] [
     #     drop  # drop empty string on read failure
     #   ] if

@@ -2,10 +2,10 @@
 
 Read from a socket:
 ```seq
-client tcp.read   # ( socket -- string )
+client net.tcp.read   # ( socket -- string )
 ```
 
 Write to a socket:
 ```seq
-"Hello" client tcp.write   # ( string socket -- )
+"Hello" client net.tcp.write   # ( string socket -- )
 ```

@@ -14,7 +14,7 @@
 
 # I AM NOT DONE
 
-: split-csv ( String -- List )
+: split-csv ( String -- Variant )
     # Split on comma with optional surrounding whitespace
     # "a, b,  c" -> ["a", "b", "c"]
     # Pattern: \s*,\s* (drop the success Bool)
@@ -22,7 +22,7 @@
     drop list-of
 ;
 
-: split-sentences ( String -- List )
+: split-sentences ( String -- Variant )
     # Split on sentence-ending punctuation (. ! ?)
     # Pattern: [.!?]+\s* (drop the success Bool)
     # Your code here

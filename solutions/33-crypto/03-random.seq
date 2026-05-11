@@ -8,17 +8,17 @@
 
 : test-random ( -- )
     16 generate-token
-    32 string.length test.assert-eq
+    string.length 32 test.assert-eq
 
     32 generate-token
-    64 string.length test.assert-eq
+    string.length 64 test.assert-eq
 
     16 generate-token
     16 generate-token
     = not test.assert
 
     generate-uuid
-    36 string.length test.assert-eq
+    string.length 36 test.assert-eq
 
     generate-uuid
     generate-uuid

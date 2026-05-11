@@ -1,9 +1,9 @@
-: make-test-map ( -- Map )
+: make-test-map ( -- Variant )
     map.make
     "name" "Bob" map.set
 ;
 
-: get-or ( Map String String -- String )
+: get-or ( Variant String String -- String )
     rot rot map.get
     [ nip ]
     [ drop ]

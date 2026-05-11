@@ -1,8 +1,8 @@
-: split-csv ( String -- List )
+: split-csv ( String -- Variant )
     "\\s*,\\s*" regex.split drop
 ;
 
-: split-sentences ( String -- List )
+: split-sentences ( String -- Variant )
     "[.!?]+\\s*" regex.split drop
 ;
 

@@ -1,20 +1,20 @@
-# Hint: Rounding Functions
+# Hint: Rounding
 
 ## Solution
 
 ```seq
 : test-ceil ( -- )
-    3.2 fmath.ceil
+    3.2 f.ceil
     4.0 f.= test.assert
 ;
 
 : test-round ( -- )
-    2.6 fmath.round
+    2.6 f.round
     3.0 f.= test.assert
 ;
 
-: test-abs ( -- )
-    -7.5 fmath.abs
-    7.5 f.= test.assert
+: test-trunc ( -- )
+    -3.7 f.trunc
+    -3.0 f.= test.assert
 ;
 ```

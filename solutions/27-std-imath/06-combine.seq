@@ -1,8 +1,8 @@
-use std:imath
+include std:imath
 
 : manhattan-distance ( Int Int Int Int -- Int )
-    rot i.- imath.abs
-    rot rot i.- imath.abs
+    rot i.- abs
+    rot rot i.- abs
     i.+
 ;
 
@@ -12,8 +12,10 @@ use std:imath
 ;
 
 : bounded-power ( Int Int Int Int -- Int )
-    2swap imath.pow
-    rot rot imath.clamp
+    >aux >aux       # stash min and max
+    pow             # base^exp
+    aux> aux>       # restore min, max
+    clamp
 ;
 
 : test-bounded-power ( -- )

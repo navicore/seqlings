@@ -1,19 +1,19 @@
 # Exercise: Accepting Connections
 #
-# `tcp.accept` blocks until a client connects, then returns a socket.
+# `net.tcp.accept` blocks until a client connects, then returns a socket.
 #
 # Stack effect: ( server-socket -- client-socket success )
 #   Returns the client socket and a Bool indicating success.
 #
 # Example:
-#   8080 tcp.listen drop  # Get server socket (drop success)
-#   tcp.accept [          # Wait for connection, then check success
+#   8080 net.tcp.listen drop  # Get server socket (drop success)
+#   net.tcp.accept [          # Wait for connection, then check success
 #     # client socket is valid, handle it
 #   ] [
 #     drop                # drop invalid socket
 #   ] if
 #
-# Each call to tcp.accept gets the next waiting connection.
+# Each call to net.tcp.accept gets the next waiting connection.
 #
 # Your task: Understand the accept pattern.
 # When done, delete the marker line below.
@@ -22,8 +22,8 @@
 
 : test-accept ( -- )
     # In real code:
-    #   8080 tcp.listen drop
-    #   tcp.accept [ handle-client ] [ drop ] if
+    #   8080 net.tcp.listen drop
+    #   net.tcp.accept [ handle-client ] [ drop ] if
 
     # The pattern: listen creates server socket, accept gets client sockets
     # Do not edit below this line

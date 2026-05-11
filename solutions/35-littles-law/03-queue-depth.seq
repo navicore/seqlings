@@ -2,23 +2,21 @@
     chan.make   # work
     chan.make   # results
 
-    2dup [ swap chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
-           swap chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
-           swap chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
-           drop drop ] strand.spawn drop
-    drop drop
+    [
+        over chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
+        over chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
+        over chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
+        drop drop
+    ] strand.spawn drop
 
-    time.now
+    over 1 swap chan.send drop
+    over 1 swap chan.send drop
+    over 1 swap chan.send drop
 
-    rot 1 swap chan.send drop
-    rot 1 swap chan.send drop
-    rot 1 swap chan.send drop
+    dup chan.receive drop          # ( work results val1 )
+    over chan.receive drop i.+     # ( work results sum2 )
+    over chan.receive drop i.+     # ( work results sum3 )
 
-    # Receive 3 results and sum
-    rot dup chan.receive drop
-    over chan.receive drop i.+
-    over chan.receive drop i.+
-    # Stack: ( start results sum )
-    nip nip   # ( start sum )
+    nip nip                        # ( sum )
     6 test.assert-eq
 ;

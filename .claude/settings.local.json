@@ -6,7 +6,9 @@
       "Bash(head -5 grep -r \"because.*i\\\\.=\" exercises/*.seq)",
       "Bash(seqc test:*)",
       "Bash(ls:*)",
-      "Bash(seqc lint *)"
+      "Bash(seqc lint *)",
+      "Bash(fj whoami *)",
+      "Bash(fj issue *)"
     ]
   }
 }

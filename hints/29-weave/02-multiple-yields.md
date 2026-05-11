@@ -5,7 +5,7 @@ Each `yield` pauses execution, sends a value, and waits for the next resume.
 ## Solution
 
 ```seq
-: three-values ( Ctx Int -- Ctx | Yield Int )
+: three-values ( T Int -- T | Yield Int )
     drop           # ignore initial resume value
     1 yield drop   # yield 1, drop resume response
     2 yield drop   # yield 2, drop resume response
@@ -20,13 +20,13 @@ Each `yield` pauses execution, sends a value, and waits for the next resume.
 Caller                          Weave
 ------                          -----
 strand.weave                    (waiting)
-0 strand.resume     -->         wakes with ( Ctx 0 )
+0 strand.resume     -->         wakes with ( T 0 )
                                 drop, 1 yield
 (Handle 1 true)     <--         (paused)
-0 strand.resume     -->         wakes with ( Ctx 0 )
+0 strand.resume     -->         wakes with ( T 0 )
                                 drop, 2 yield
 (Handle 2 true)     <--         (paused)
-0 strand.resume     -->         wakes with ( Ctx 0 )
+0 strand.resume     -->         wakes with ( T 0 )
                                 drop, 3 yield
 (Handle 3 true)     <--         (paused)
 0 strand.resume     -->         wakes, drops, returns

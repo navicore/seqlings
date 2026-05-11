@@ -6,60 +6,68 @@
 # Pattern:
 #   1. Make HTTP request
 #   2. Check for success
-#   3. Parse JSON body
-#   4. Extract needed fields
+#   3. Parse JSON body (succeeds → Variant Bool=true; fails → garbage False)
 #
-# Your task: Build helpers for JSON API responses
+# JSON parsing returns a Variant tagged as a JsonObject/Array/etc.,
+# not a Seq `Map`. Drilling into specific fields uses the
+# `variant.field-at` API or the predicates in `std:json` — outside
+# this exercise's scope. Here we only check that parsing succeeds
+# for well-formed input and fails for malformed input.
+#
+# Your task: Build `api-success?` (checks `ok` and `status` keys)
+# and `get-json-body` (parse the `body` field as JSON).
+#
 # When done, delete the marker line below.
+
+include std:json
 
 # I AM NOT DONE
 
-: api-success? ( Map -- Bool )
+: api-success? ( Variant -- Bool )
     # Check if API call succeeded (ok=true and status=200)
     # Your code here
     drop false
 ;
 
-: get-json-body ( Map -- Map Bool )
+: get-json-body ( Variant -- Variant Bool )
     # Get parsed JSON from response body
-    # Returns: ( json-map success )
+    # Returns: ( parsed-value success )
     # Your code here
-    drop map-of false
+    drop map.make false
 ;
 
 : test-json ( -- )
     # Successful API response with JSON body
-    map-of
-        "ok" true kv
-        "status" 200 kv
-        "body" "{\"user\":\"alice\",\"id\":42}" kv
+    map.make
+        "ok" true map.set
+        "status" 200 map.set
+        "body" "{\"user\":\"alice\",\"id\":42}" map.set
     # Do not edit below this line
 
     dup api-success?
     test.assert
 
     get-json-body
-    test.assert   # JSON parsing should succeed
-    "user" map.get drop
-    "alice" test.assert-eq
+    test.assert     # JSON parsing should succeed
+    drop            # discard the parsed Variant
 
     # Failed API response
-    map-of
-        "ok" false kv
-        "status" 500 kv
-        "error" "Server Error" kv
-        "body" "" kv
+    map.make
+        "ok" false map.set
+        "status" 500 map.set
+        "error" "Server Error" map.set
+        "body" "" map.set
 
     api-success?
     not test.assert
 
     # Response with invalid JSON
-    map-of
-        "ok" true kv
-        "status" 200 kv
-        "body" "not valid json" kv
+    map.make
+        "ok" true map.set
+        "status" 200 map.set
+        "body" "not valid json" map.set
 
     get-json-body
     not test.assert   # JSON parsing should fail
-    drop
+    drop              # discard the dummy Variant
 ;

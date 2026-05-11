@@ -21,12 +21,12 @@
 
 # I AM NOT DONE
 
-: make-test-map ( -- Map )
+: make-test-map ( -- Variant )
     map.make
     "name" "Bob" map.set
 ;
 
-: get-or ( Map String String -- String )
+: get-or ( Variant String String -- String )
     # Stack: Map Key Default
     # Your code here (placeholder always returns Default)
     nip nip

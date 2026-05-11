@@ -1,17 +1,22 @@
 # Exercise: roll
 #
-# The `roll` word rotates n elements, bringing the deepest to the top.
-# 1 roll = does nothing (rotate 1 element)
-# 2 roll = swap (rotate 2 elements)
-# 3 roll = rot (rotate 3 elements)
+# The `roll` word rotates `n + 1` items, bringing the item at
+# depth `n` (0-indexed from the top) up to the new top.
 #
-# Stack effect: ( ...values n -- ...rotated )
+#   0 roll = does nothing            (rotates 1 item)
+#   1 roll = swap                    (rotates 2 items)
+#   2 roll = rot                     (rotates 3 items)
+#
+# Stack effect: ( ..values n -- ..rotated )
 #
 # Example:
-#   1 2 3 4  3 roll    # Rotates top 3: ( 1 3 4 2 )
-#                      # The 2 (3rd from top) moves to top
+#   1 2 3 4  2 roll    # rotates top 3 items: depth-2 is 2,
+#                      # so 2 moves to top: ( 1 4 3 2 )
 #
-# Your task: Use roll to bring the 10 to the top.
+# Your task: with `10 20 30 40` on the stack, use `roll` to
+# bring the 10 to the top. Count from 0: 40 is at depth 0,
+# 30 at depth 1, 20 at depth 2, 10 at depth 3.
+#
 # When done, delete the marker line below.
 
 # I AM NOT DONE

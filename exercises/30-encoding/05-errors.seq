@@ -29,21 +29,21 @@
     # Valid base64
     "SGVsbG8=" safe-base64-decode
     # Do not edit below this line
-    "Hello" test.assert-eq
+    "Hello" test.assert-eq-str
 
     # Invalid base64 (bad characters)
     "Not!!!Valid" safe-base64-decode
-    "ERROR" test.assert-eq
+    "ERROR" test.assert-eq-str
 
     # Valid hex
     "48656c6c6f" safe-hex-decode
-    "Hello" test.assert-eq
+    "Hello" test.assert-eq-str
 
     # Invalid hex (non-hex characters)
     "xyz123" safe-hex-decode
-    "ERROR" test.assert-eq
+    "ERROR" test.assert-eq-str
 
     # Invalid hex (odd length)
     "123" safe-hex-decode
-    "ERROR" test.assert-eq
+    "ERROR" test.assert-eq-str
 ;

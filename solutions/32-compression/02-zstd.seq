@@ -15,5 +15,5 @@
     test.assert
     zstd-decompress
     test.assert
-    "Modern compression is fast!" test.assert-eq
+    "Modern compression is fast!" test.assert-eq-str
 ;

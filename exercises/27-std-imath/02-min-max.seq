@@ -1,17 +1,18 @@
 # Exercise: Min and Max
 #
-# The `imath.min` and `imath.max` functions find the smaller/larger
-# of two integers.
+# `min` and `max` find the smaller/larger of two integers.
+# Both come from `std:imath` — bring them into scope with
+# `include std:imath` (no `imath.` prefix on the call site).
 #
 # Examples:
-#   5 3 imath.min    # Stack: ( 3 )
-#   5 3 imath.max    # Stack: ( 5 )
+#   5 3 min    # Stack: ( 3 )
+#   5 3 max    # Stack: ( 5 )
 #
-# Your task: Find the range (max - min) of two numbers
+# Your task: Find the range (max - min) of two numbers.
 #
 # When done, delete the marker line below.
 
-use std:imath
+include std:imath
 
 # I AM NOT DONE
 
@@ -22,14 +23,14 @@ use std:imath
 ;
 
 : test-min ( -- )
-    10 3 imath.min
+    10 3 min
 
     # Do not edit below this line
     3 test.assert-eq
 ;
 
 : test-max ( -- )
-    10 3 imath.max
+    10 3 max
 
     # Do not edit below this line
     10 test.assert-eq

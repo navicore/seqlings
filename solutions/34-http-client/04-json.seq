@@ -1,41 +1,42 @@
-: api-success? ( Map -- Bool )
+include std:json
+
+: api-success? ( Variant -- Bool )
     dup "ok" map.get drop
     swap "status" map.get drop
     200 i.= and
 ;
 
-: get-json-body ( Map -- Map Bool )
+: get-json-body ( Variant -- Variant Bool )
     "body" map.get drop
-    json.parse
+    json-parse
 ;
 
 : test-json ( -- )
-    map-of
-        "ok" true kv
-        "status" 200 kv
-        "body" "{\"user\":\"alice\",\"id\":42}" kv
+    map.make
+        "ok" true map.set
+        "status" 200 map.set
+        "body" "{\"user\":\"alice\",\"id\":42}" map.set
 
     dup api-success?
     test.assert
 
     get-json-body
     test.assert
-    "user" map.get drop
-    "alice" test.assert-eq
+    drop
 
-    map-of
-        "ok" false kv
-        "status" 500 kv
-        "error" "Server Error" kv
-        "body" "" kv
+    map.make
+        "ok" false map.set
+        "status" 500 map.set
+        "error" "Server Error" map.set
+        "body" "" map.set
 
     api-success?
     not test.assert
 
-    map-of
-        "ok" true kv
-        "status" 200 kv
-        "body" "not valid json" kv
+    map.make
+        "ok" true map.set
+        "status" 200 map.set
+        "body" "not valid json" map.set
 
     get-json-body
     not test.assert

@@ -1,6 +1,6 @@
 # Exercise: HTTP POST Requests
 #
-# http.post ( String String String -- Map )
+# net.http.post ( String String String -- Map )
 #          ( url body content-type -- response )
 #
 # Common content types:
@@ -36,15 +36,15 @@
     # Content types
     json-content-type
     # Do not edit below this line
-    "application/json" test.assert-eq
+    "application/json" test.assert-eq-str
 
     form-content-type
-    "application/x-www-form-urlencoded" test.assert-eq
+    "application/x-www-form-urlencoded" test.assert-eq-str
 
     # JSON body creation
     "Alice" 30 make-json-body
-    "{\"name\":\"Alice\",\"age\":30}" test.assert-eq
+    "{\"name\":\"Alice\",\"age\":30}" test.assert-eq-str
 
     "Bob" 25 make-json-body
-    "{\"name\":\"Bob\",\"age\":25}" test.assert-eq
+    "{\"name\":\"Bob\",\"age\":25}" test.assert-eq-str
 ;

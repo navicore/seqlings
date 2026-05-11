@@ -40,8 +40,8 @@ drop drop           # Cleanup
 Inside a weave, the `WeaveCtx` must be explicitly threaded through `yield`:
 
 ```seq
-: my-generator ( Ctx Int -- | Yield Int )
-    tuck        # ( Int Ctx Int )
+: my-generator ( T Int -- | Yield Int )
+    tuck        # ( Int T Int )
     yield       # Send Int, receive next Int
     rot         # Rearrange stack
     i.+         # Process

@@ -18,14 +18,14 @@
     "The quick brown fox jumps over the lazy dog."
     safe-gzip-roundtrip
     test.assert
-    "The quick brown fox jumps over the lazy dog." test.assert-eq
+    "The quick brown fox jumps over the lazy dog." test.assert-eq-str
 
     "Pack my box with five dozen liquor jugs."
     safe-zstd-roundtrip
     test.assert
-    "Pack my box with five dozen liquor jugs." test.assert-eq
+    "Pack my box with five dozen liquor jugs." test.assert-eq-str
 
     "" safe-gzip-roundtrip
     test.assert
-    "" test.assert-eq
+    "" test.assert-eq-str
 ;

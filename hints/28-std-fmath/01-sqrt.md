@@ -1,16 +1,11 @@
 # Hint: Square Roots
 
+Square each leg, add the squares, take the square root.
+
 ## Solution
 
 ```seq
-: test-sqrt-100 ( -- )
-    100.0 fmath.sqrt
-    10.0 f.= test.assert
-;
-
 : hypotenuse ( Float Float -- Float )
-    dup f.* swap dup f.* f.+ fmath.sqrt
+    dup f.* swap dup f.* f.+ f.sqrt
 ;
 ```
-
-For hypotenuse: square each, add, take square root.

@@ -28,7 +28,7 @@
     "hello" hash-message
     # Do not edit below this line
     # SHA-256 of "hello" is a known value
-    64 string.length test.assert-eq   # Hash is 64 hex chars
+    string.length 64 test.assert-eq   # Hash is 64 hex chars
 
     # Same input = same hash
     "test" "test" same-hash?
@@ -40,5 +40,5 @@
 
     # Empty string has a hash too
     "" hash-message
-    64 string.length test.assert-eq
+    string.length 64 test.assert-eq
 ;

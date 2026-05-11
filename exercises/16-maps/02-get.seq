@@ -20,7 +20,7 @@
 
 # I AM NOT DONE
 
-: make-test-map ( -- Map )
+: make-test-map ( -- Variant )
     map.make
     "color" "blue" map.set
     "size" "large" map.set

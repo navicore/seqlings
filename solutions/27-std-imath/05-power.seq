@@ -1,11 +1,11 @@
-use std:imath
+include std:imath
 
 : power-of-2 ( Int -- Int )
-    2 swap imath.pow
+    2 swap pow
 ;
 
 : test-pow ( -- )
-    3 4 imath.pow
+    3 4 pow
     81 test.assert-eq
 ;
 

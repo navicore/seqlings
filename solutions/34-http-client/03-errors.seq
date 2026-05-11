@@ -42,8 +42,8 @@
     599 is-server-error? test.assert
     600 is-server-error? not test.assert
 
-    200 describe-status "success" test.assert-eq
-    404 describe-status "client-error" test.assert-eq
-    500 describe-status "server-error" test.assert-eq
-    100 describe-status "unknown" test.assert-eq
+    200 describe-status "success" test.assert-eq-str
+    404 describe-status "client-error" test.assert-eq-str
+    500 describe-status "server-error" test.assert-eq-str
+    100 describe-status "unknown" test.assert-eq-str
 ;

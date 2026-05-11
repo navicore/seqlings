@@ -1,4 +1,4 @@
-: keep ( A Variant -- B A )
+: keep ( ..a A [ ..a A -- ..b ] -- ..b A )
     over
     swap
     call

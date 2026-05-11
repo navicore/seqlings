@@ -1,11 +1,11 @@
-use std:imath
+include std:imath
 
 : abs-diff ( Int Int -- Int )
-    i.- imath.abs
+    i.- abs
 ;
 
 : test-abs ( -- )
-    -10 imath.abs
+    -10 abs
     10 test.assert-eq
 ;
 

@@ -4,8 +4,8 @@
     [
         "> " swap string.concat
         "/tmp/seqlings-04-out.txt" file.append drop
-    ] file.for-each-line+
-    drop drop
+    ] file.for-each-line
+    drop
     "/tmp/seqlings-04-out.txt" file.slurp
     [ string.chomp ]
     [ drop "" ]

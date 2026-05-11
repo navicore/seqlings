@@ -5,10 +5,10 @@ Seq provides built-in HTTP client functions for making web requests.
 ## HTTP Methods
 
 ```seq
-http.get    ( String -- Map )                    # GET request
-http.post   ( String String String -- Map )      # POST with body and content-type
-http.put    ( String String String -- Map )      # PUT with body and content-type
-http.delete ( String -- Map )                    # DELETE request
+net.http.get    ( String -- Map )                    # GET request
+net.http.post   ( String String String -- Map )      # POST with body and content-type
+net.http.put    ( String String String -- Map )      # PUT with body and content-type
+net.http.delete ( String -- Map )                    # DELETE request
 ```
 
 ## Response Format
@@ -26,7 +26,7 @@ All HTTP functions return a Map with these keys:
 
 ```seq
 # Simple GET
-"https://api.example.com/data" http.get
+"https://api.example.com/data" net.http.get
 dup "ok" map.get drop [
     "body" map.get drop io.write-line
 ] [
@@ -37,7 +37,7 @@ dup "ok" map.get drop [
 "https://api.example.com/users"
 "{\"name\":\"Alice\"}"
 "application/json"
-http.post
+net.http.post
 ```
 
 ## Error Handling
@@ -46,7 +46,7 @@ Always check the `ok` field before using the response:
 
 ```seq
 : fetch-data ( String -- String Bool )
-    http.get
+    net.http.get
     dup "ok" map.get drop [
         "body" map.get drop true
     ] [

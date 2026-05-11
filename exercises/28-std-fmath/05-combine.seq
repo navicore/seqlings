@@ -1,12 +1,18 @@
 # Exercise: Mathematical Formulas
 #
-# Combine fmath functions to implement formulas.
+# Combine float builtins to implement common formulas.
 #
-# Your task: Implement useful mathematical functions
+# The "approximately equal" pattern uses `f.abs` from
+# `std:fmath` — the only word in this exercise that needs the
+# include. (The builtin `f.sqrt`, `f.pi`, etc. are always
+# available.)
+#
+# Your tasks: implement `circle-area`, `degrees-to-radians`,
+# and `distance`.
 #
 # When done, delete the marker line below.
 
-use std:fmath
+include std:fmath
 
 # I AM NOT DONE
 
@@ -17,11 +23,11 @@ use std:fmath
 ;
 
 : test-circle-area ( -- )
-    # Area of circle with radius 2
+    # Area of circle with radius 2 is ~12.566...
     2.0 circle-area
 
-    # Do not edit below this line (approximately 12.566...)
-    12.566 f.- fmath.abs 0.01 f.< test.assert
+    # Do not edit below this line
+    12.566 f.- f.abs 0.01 f.< test.assert
 ;
 
 : degrees-to-radians ( Float -- Float )
@@ -35,11 +41,11 @@ use std:fmath
     180.0 degrees-to-radians
 
     # Do not edit below this line
-    fmath.pi f.- fmath.abs 0.0001 f.< test.assert
+    f.pi f.- f.abs 0.0001 f.< test.assert
 ;
 
 : distance ( Float Float Float Float -- Float )
-    # Euclidean distance between (x1,y1) and (x2,y2)
+    # Euclidean distance between (x1,y1) and (x2,y2):
     # sqrt((x2-x1)^2 + (y2-y1)^2)
     # Your code here
     drop drop drop drop 0.0

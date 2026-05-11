@@ -24,7 +24,7 @@
 
 # I AM NOT DONE
 
-: count-a-word-chars ( List -- Int )
+: count-a-word-chars ( Variant -- Int )
     # Your code here
     # Step 1: filter words starting with 'a' using [ 0 string.char-at 97 i.= ]
     #         (97 is ASCII for 'a')
