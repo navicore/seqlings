@@ -1,3 +1,13 @@
+# A one-shot echo server: accepts a single connection, echoes the
+# client's bytes back, then returns.
+#
+# Ownership: this strand only owns the *accepted client* socket.
+# The listener was copied to this strand via copy-on-spawn, but the
+# parent strand remains the owner of the kernel handle and will
+# close it after the test. We drop our stale copy without closing.
+#
+# A multi-connection echo server would loop on accept instead of
+# returning after the first connection.
 # seq:allow(unchecked-tcp-write)
 : echo-server ( Socket -- )
     dup net.tcp.accept
@@ -8,10 +18,12 @@
       ]
       [ drop ]
       if
-      net.tcp.close drop
-      net.tcp.close drop
+      net.tcp.close drop      # close the accepted client (we own this)
+      drop                     # drop our stale copy of the listener
     ]
-    [ drop net.tcp.close drop ]
+    [ # accept failed: ( server junk-client )
+      drop drop                # drop both; parent will close the real listener
+    ]
     if
 ;
 
@@ -20,21 +32,21 @@
     18265 net.tcp.listen
     [ # ( server )
       [ echo-server ] strand.spawn drop
-      drop
       "127.0.0.1" 18265 net.tcp.connect
-      [ # ( client )
+      [ # ( server client )
         "ping" over net.tcp.write drop
         dup net.tcp.read
-        [ # ( client data )
+        [ # ( server client data )
           "ping" test.assert-eq-str
         ]
         [ drop ]
         if
-        net.tcp.close drop
+        net.tcp.close drop      # close our client side
       ]
-      [ drop ]
+      [ drop ]                  # connect failed
       if
+      net.tcp.close drop        # close the listener — we own it
     ]
-    [ drop ]
+    [ drop ]                    # listen failed
     if
 ;

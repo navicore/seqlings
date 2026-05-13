@@ -4,22 +4,22 @@
 # a working TCP echo server and exercised it against a working TCP
 # client — both ends running cooperatively in the same program.
 #
-# The shape (don't memorize — read it once and then write it):
+# This is a **one-shot** echo server: it accepts one connection,
+# echoes it, and returns. A multi-connection echo server would loop
+# on accept instead. The test is built around one round-trip because
+# the test asserts exactly one thing — that the echo round-tripped.
 #
-#   1. Main listens on a port.
-#   2. Main spawns a strand that runs `echo-server` against the
-#      listen socket. (Copy-on-spawn gives the spawned strand its
-#      own copy of the socket integer; both reference the same
-#      kernel handle.)
-#   3. Main drops its copy of the listen socket — the spawned
-#      strand is now the sole owner.
-#   4. Main connects to "127.0.0.1" on that port, writes "ping",
-#      and reads the response.
-#   5. The spawned `echo-server` accepts the connection (unparks
-#      when main's connect arrives), reads "ping", writes it back,
-#      and closes both server and client sockets.
-#   6. Main asserts the response is exactly "ping" and closes its
-#      end.
+# Socket ownership (the design choice you might second-guess):
+#
+#   - Main owns the listener. It calls listen and closes it after
+#     the assertion.
+#   - The spawned strand owns *only* the accepted client connection.
+#     It gets a copy of the listener via copy-on-spawn, but treats
+#     it as a read-only handle for `accept` and drops the copy when
+#     done — main will close the real kernel handle.
+#   - Each side closes its own end of the actual TCP connection
+#     (server closes the accepted client; main closes the connect
+#     socket). The kernel handles both halves of a close cleanly.
 #
 # Strand cooperation: every `net.tcp.*` parking point gives the
 # scheduler an opportunity to run the other strand. The data
@@ -45,10 +45,12 @@
       ]
       [ drop ]
       if
-      net.tcp.close drop
-      net.tcp.close drop
+      net.tcp.close drop      # close the accepted client (we own this)
+      drop                     # drop our stale copy of the listener
     ]
-    [ drop net.tcp.close drop ]
+    [ # accept failed
+      drop drop
+    ]
     if
 ;
 
@@ -57,15 +59,21 @@
     18265 net.tcp.listen
     [ # ( server )
       [ echo-server ] strand.spawn drop
-      drop                            # spawned strand now owns the listener
 
       # Your code here: open the client side of the echo.
+      # Stack when you start: ( server )
+      # Stack when you finish: ( server )  ← so the close below fires
+      #
+      # Steps:
       #   1. net.tcp.connect to "127.0.0.1" 18265
       #   2. on success: write "ping", read, assert response is "ping",
-      #      close the client socket. Use a `[ ok ] [ err ] if` for
-      #      both write/read and the connect itself.
-      #   3. on failure: drop the junk socket and fail the test.
+      #      close the client socket. Use a `[ ok ] [ err ] if` on
+      #      the read Bool.
+      #   3. on connect failure: drop the junk socket and fail the test.
       false test.assert                # placeholder
+
+      # Do not edit below this line
+      net.tcp.close drop               # main closes the listener
     ]
     [ drop ]
     if
