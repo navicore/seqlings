@@ -1,3 +1,7 @@
 : test-listen ( -- )
-    true test.assert
+    18261 net.tcp.listen
+    [ net.tcp.close drop true ]
+    [ drop false ]
+    if
+    test.assert
 ;

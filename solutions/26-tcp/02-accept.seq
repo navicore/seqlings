@@ -1,3 +1,28 @@
+: connector ( -- )
+    "127.0.0.1" 18262 net.tcp.connect
+    [ net.tcp.close drop ]
+    [ drop ]
+    if
+;
+
 : test-accept ( -- )
-    true test.assert
+    18262 net.tcp.listen
+    [ # ( server )
+      [ connector ] strand.spawn drop
+      dup net.tcp.accept
+      [ # ( server client )
+        net.tcp.close drop
+        net.tcp.close drop
+        true
+      ]
+      [ # ( server client-junk )
+        drop
+        net.tcp.close drop
+        false
+      ]
+      if
+    ]
+    [ drop false ]
+    if
+    test.assert
 ;

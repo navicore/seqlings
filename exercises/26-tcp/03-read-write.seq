@@ -1,36 +1,71 @@
 # Exercise: Reading and Writing Data
 #
-# `net.tcp.read` reads data from a socket.
-# `net.tcp.write` writes data to a socket.
-#
 # Stack effects:
-#   net.tcp.read  ( socket -- string success )
-#   net.tcp.write ( string socket -- success )
+#   net.tcp.read   ( Socket -- String Bool )
+#   net.tcp.write  ( String Socket -- Bool )
 #
-# Example:
-#   client net.tcp.read           # ( string success )
-#   [ process-request ]       # Read succeeded
-#   [ drop ] if               # Read failed, drop empty string
+# Like every other word in net.tcp, both end with a success Bool.
+# The interesting one here is `read` — it returns `( data success )`
+# where `success` distinguishes between "got data" and "read failed
+# / peer closed". For the failure case, the returned String is empty
+# but still present, so you must `drop` it in the failure branch.
 #
-#   "Hello!" client net.tcp.write drop  # Write (drop success Bool)
+# Also note: `net.tcp.read` does **not** consume the socket. Like
+# accept it leaves the socket effectively in place — but unlike
+# accept it pushes the data on top. To both read AND keep the socket
+# for a later close, use `dup`:
 #
-# Note: net.tcp.read may return partial data. For protocols,
-# you may need to accumulate until you have a complete message.
+#     dup net.tcp.read   # ( socket data success )
 #
-# Your task: Understand the read/write pattern.
+# This exercise reuses the spawn+accept pattern from 02. The
+# connector sends the string "hello"; the server reads it and the
+# test asserts the read data is exactly "hello".
+#
+# Your task: write the read + assertion inside the accept-success
+# branch. The accepted client socket is already on the stack.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: test-read-write ( -- )
-    # In real code:
-    #   client net.tcp.read [
-    #     process-request
-    #     response client net.tcp.write drop
-    #   ] [
-    #     drop  # drop empty string on read failure
-    #   ] if
+# seq:allow(unchecked-tcp-write)
+: connector ( -- )
+    "127.0.0.1" 18263 net.tcp.connect
+    [ # ( socket )
+      "hello" over net.tcp.write drop
+      net.tcp.close drop
+    ]
+    [ drop ]
+    if
+;
 
-    # Do not edit below this line
-    true test.assert
+: test-read-write ( -- )
+    18263 net.tcp.listen
+    [ # ( server )
+      [ connector ] strand.spawn drop
+      dup net.tcp.accept
+      [ # ( server client )
+        # Your code here:
+        #   1. on read success: assert the data is "hello" via
+        #      test.assert-eq-str  (it consumes the data string)
+        #   2. on read failure: drop the empty data string
+        #   3. leave the stack as ( server client ) so the closes
+        #      below clean up correctly
+        dup net.tcp.read
+        [ # success: ( server client data )
+          drop false test.assert                    # placeholder
+        ]
+        [ # failure: ( server client data-junk )
+          drop false test.assert                    # placeholder
+        ]
+        if
+
+        # Do not edit below this line
+        net.tcp.close drop
+        net.tcp.close drop
+      ]
+      [ drop net.tcp.close drop ]
+      if
+    ]
+    [ drop ]
+    if
 ;

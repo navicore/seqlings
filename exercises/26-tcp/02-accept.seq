@@ -1,31 +1,60 @@
 # Exercise: Accepting Connections
 #
-# `net.tcp.accept` blocks until a client connects, then returns a socket.
+# `net.tcp.accept` blocks the calling strand until a client connects,
+# then returns a fresh socket for that connection.
 #
-# Stack effect: ( server-socket -- client-socket success )
-#   Returns the client socket and a Bool indicating success.
+# Stack effect: ( Socket -- Socket Bool )
+#   ( server-socket -- client-socket success )
 #
-# Example:
-#   8080 net.tcp.listen drop  # Get server socket (drop success)
-#   net.tcp.accept [          # Wait for connection, then check success
-#     # client socket is valid, handle it
-#   ] [
-#     drop                # drop invalid socket
-#   ] if
+# Note: accept *replaces* the server socket on the stack with the
+# client socket. To keep the server socket for later (closing it,
+# or accepting another connection), `dup` it first:
 #
-# Each call to net.tcp.accept gets the next waiting connection.
+#     server-sock dup net.tcp.accept   # ( server client success )
 #
-# Your task: Understand the accept pattern.
+# But accept only returns when *somebody* connects. In production
+# that somebody is another machine; in a test we spawn a strand
+# inside this program to do the connecting. This is the real
+# loopback pattern, the same one that runs the patch-seq net.tcp
+# integration tests:
+#
+#   1. Main strand listens on a port.
+#   2. Main strand spawns a `connector` strand.
+#   3. Main strand `dup net.tcp.accept` — parks until the connector
+#      runs and calls `net.tcp.connect`.
+#   4. Strands cooperate: while main is parked in accept, the
+#      runtime gives the connector a chance to make its connect call.
+#   5. Both sides close their sockets.
+#
+# The order matters: main calls listen *before* spawn, so the
+# spawned connector can't fail to find the listener.
+#
+# Your task: fill in the spawn + accept dance in the success branch.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: test-accept ( -- )
-    # In real code:
-    #   8080 net.tcp.listen drop
-    #   net.tcp.accept [ handle-client ] [ drop ] if
+: connector ( -- )
+    "127.0.0.1" 18262 net.tcp.connect
+    [ net.tcp.close drop ]
+    [ drop ]
+    if
+;
 
-    # The pattern: listen creates server socket, accept gets client sockets
+: test-accept ( -- )
+    18262 net.tcp.listen
+    [ # ( server ) — write the spawn+accept here:
+      #   1. spawn the `connector` word as a strand (drop its id)
+      #   2. dup the server socket and call net.tcp.accept
+      #   3. close BOTH sockets (server and client) and leave `true`
+      #      on the stack for the assertion. Use a nested if on the
+      #      accept-success Bool — close the server even when accept
+      #      fails so the listener doesn't leak.
+      drop false                # placeholder — replace this block
+    ]
+    [ drop false ]
+    if
+
     # Do not edit below this line
-    true test.assert
+    test.assert
 ;
