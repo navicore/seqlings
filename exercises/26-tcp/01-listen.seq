@@ -1,35 +1,43 @@
 # Exercise: Starting a TCP Listener
 #
-# `net.tcp.listen` creates a TCP socket listening on a port.
+# `net.tcp.listen` opens a TCP socket bound to a local port and
+# starts listening for incoming connections.
 #
-# Stack effect: ( port -- socket success )
-#   Returns the socket handle and a Bool indicating success.
-#   Failure can occur if the port is already in use.
+# Stack effect: ( Int -- Socket Bool )
+#   ( port -- socket success )
 #
-# Example:
-#   8080 net.tcp.listen   # ( socket true ) on success
-#                     # ( 0 false ) if port unavailable
+# Like every other word in net.tcp, listen ends with a success Bool
+# so the caller decides how to handle failure. Listen fails when the
+# port is already in use, when you don't have permission to bind it,
+# or when the socket registry is full.
 #
-# The returned socket is a handle used for accepting connections.
+# Idiomatic shape — `[ ok-branch ] [ err-branch ] if`:
 #
-# Note: This is a conceptual exercise. The test just verifies
-# you understand the pattern - actual networking requires a running server.
+#     8080 net.tcp.listen
+#     [ # ( socket )
+#       net.tcp.close drop
+#     ]
+#     [ # the socket value on failure is junk; just drop it
+#       drop
+#     ]
+#     if
 #
-# Your task: Understand net.tcp.listen and port binding.
+# Your task: fill in the success branch so that the test asserts
+# success after a clean listen-then-close round-trip.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : test-listen ( -- )
-    # In real code:
-    #   8080 net.tcp.listen [
-    #     # ... accept connections ...
-    #     net.tcp.close drop
-    #   ] [
-    #     drop "Failed to bind" io.write-line
-    #   ] if
+    18261 net.tcp.listen
+    [ # ( socket )  -- write your code here:
+      #   close the socket, drop the close-success Bool,
+      #   then leave `true` for the assertion below.
+      drop false
+    ]
+    [ drop false ]
+    if
 
-    # Verify you understand: net.tcp.listen takes a port number
     # Do not edit below this line
-    true test.assert
+    test.assert
 ;

@@ -1,31 +1,54 @@
-# Exercise: Closing Connections
+# Exercise: Detecting Peer Close
 #
-# `net.tcp.close` closes a socket, freeing resources.
+# The Bool returned by `net.tcp.read` is necessary but not sufficient
+# for handling a stream. There are three real outcomes:
 #
-# Stack effect: ( socket -- success )
-#   Returns a Bool indicating whether close succeeded.
+#   ( "...data..." true  )   — got bytes, keep going
+#   ( ""           true  )   — peer closed cleanly (EOF)
+#   ( ""           false )   — hard error (RST, kernel error, ...)
 #
-# Always close sockets when done:
-#   - Close client sockets after handling requests
-#   - Close server socket when shutting down
+# Production code has to handle all three. The Bool covers only the
+# third one. The clean-EOF case is success with an empty string —
+# read it as "the other side hung up." Loop forever on a peer-close
+# without this check and you have an infinite spin-read.
 #
-# Example:
-#   client net.tcp.close drop   # Close client (drop success)
-#   server net.tcp.close drop   # Close server (drop success)
+# This exercise: the connector connects and *immediately closes*
+# without writing anything. The server accepts, then reads — which
+# returns `("" true)`. Your task is to distinguish that from a real
+# read of data, and from a hard error.
 #
-# Your task: Understand resource cleanup.
+# Your task: write the read with proper three-way handling.
+#   - Bool true  + empty data  → peer closed, assert that string.length is 0
+#   - Bool true  + non-empty   → unexpected data, fail the test
+#   - Bool false               → hard error, fail the test
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: test-close ( -- )
-    # Pattern for handling one client:
-    #   8080 net.tcp.listen drop
-    #   dup net.tcp.accept drop     # server + client on stack
-    #   dup net.tcp.read drop drop  # Handle client (read, drop success + data)
-    #   net.tcp.close drop          # Close client
-    #   net.tcp.close drop          # Close server
+: connector ( -- )
+    "127.0.0.1" 18264 net.tcp.connect
+    [ net.tcp.close drop ]
+    [ drop ]
+    if
+;
 
-    # Do not edit below this line
-    true test.assert
+: test-close ( -- )
+    18264 net.tcp.listen
+    [ # ( server )
+      [ connector ] strand.spawn drop
+      dup net.tcp.accept
+      [ # ( server client )
+        # Replace this block with your three-way handling.
+        # End with stack ( server client ) for the cleanup below.
+        false test.assert                # placeholder
+
+        # Do not edit below this line
+        net.tcp.close drop
+        net.tcp.close drop
+      ]
+      [ drop net.tcp.close drop ]
+      if
+    ]
+    [ drop ]
+    if
 ;

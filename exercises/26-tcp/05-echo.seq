@@ -1,42 +1,72 @@
-# Exercise: Echo Server Pattern
+# Exercise: Real Echo Server
 #
-# An echo server reads data and sends it back.
-# This is a classic first network program.
+# This is the capstone. By the end of this exercise you have written
+# a working TCP echo server and exercised it against a working TCP
+# client — both ends running cooperatively in the same program.
 #
-# Pattern:
-#   1. Listen on a port
-#   2. Accept a connection
-#   3. Read from client
-#   4. Write same data back
-#   5. Close connections
+# The shape (don't memorize — read it once and then write it):
 #
-# Example echo handler:
-#   : handle-echo ( client -- )
-#       dup net.tcp.read drop   # Read from client (drop success)
-#       over net.tcp.write drop # Write it back (drop success)
-#       net.tcp.close drop      # Close client (drop success)
-#   ;
+#   1. Main listens on a port.
+#   2. Main spawns a strand that runs `echo-server` against the
+#      listen socket. (Copy-on-spawn gives the spawned strand its
+#      own copy of the socket integer; both reference the same
+#      kernel handle.)
+#   3. Main drops its copy of the listen socket — the spawned
+#      strand is now the sole owner.
+#   4. Main connects to "127.0.0.1" on that port, writes "ping",
+#      and reads the response.
+#   5. The spawned `echo-server` accepts the connection (unparks
+#      when main's connect arrives), reads "ping", writes it back,
+#      and closes both server and client sockets.
+#   6. Main asserts the response is exactly "ping" and closes its
+#      end.
 #
-# Your task: Trace through the echo pattern.
+# Strand cooperation: every `net.tcp.*` parking point gives the
+# scheduler an opportunity to run the other strand. The data
+# dependencies enforce the ordering — accept can't return until
+# main connects; main's read can't return until echo-server's
+# write completes.
+#
+# Your task: complete the test-echo body. The echo-server word
+# is already written for you (study it; it's the canonical shape
+# you'll write again). The piece you fill in is the client side
+# in main: connect, write, read, assert, close.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
-: echo-handler ( Socket -- )
-    # Your mental trace:
-    # 1. dup net.tcp.read drop - reads data, stack: (socket data)
-    # 2. over net.tcp.write drop - writes data back, stack: (socket)
-    # 3. net.tcp.close drop - closes socket, stack: ()
-    drop
+# seq:allow(unchecked-tcp-write)
+: echo-server ( Socket -- )
+    dup net.tcp.accept
+    [ # ( server client )
+      dup net.tcp.read
+      [ # ( server client data )
+        over net.tcp.write drop
+      ]
+      [ drop ]
+      if
+      net.tcp.close drop
+      net.tcp.close drop
+    ]
+    [ drop net.tcp.close drop ]
+    if
 ;
 
+# seq:allow(unchecked-tcp-write)
 : test-echo ( -- )
-    # The echo pattern combines:
-    # - net.tcp.listen (server setup)
-    # - net.tcp.accept (get client)
-    # - net.tcp.read / net.tcp.write (communicate)
-    # - net.tcp.close (cleanup)
+    18265 net.tcp.listen
+    [ # ( server )
+      [ echo-server ] strand.spawn drop
+      drop                            # spawned strand now owns the listener
 
-    # Do not edit below this line
-    true test.assert
+      # Your code here: open the client side of the echo.
+      #   1. net.tcp.connect to "127.0.0.1" 18265
+      #   2. on success: write "ping", read, assert response is "ping",
+      #      close the client socket. Use a `[ ok ] [ err ] if` for
+      #      both write/read and the connect itself.
+      #   3. on failure: drop the junk socket and fail the test.
+      false test.assert                # placeholder
+    ]
+    [ drop ]
+    if
 ;
