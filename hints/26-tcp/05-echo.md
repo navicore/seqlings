@@ -1,14 +1,16 @@
 # Hint: Real Echo Server
 
-The client side that goes in `test-echo` (between the spawn and the
-`Do not edit` line):
+Remember the role split: `echo-server` is the SERVER (already
+written for you, runs in the spawned strand). The block you need
+to write is the CLIENT side, and it lives on the MAIN strand
+inside `test-echo`, between the spawn and the `Do not edit` line.
 
 ```seq
 "127.0.0.1" 18265 net.tcp.connect
-[ # success: ( server client )
+[ # connect ok:  ( listener client )
   "ping" over net.tcp.write drop
   dup net.tcp.read
-  [ # ( server client data )
+  [ # read ok:  ( listener client data )
     "ping" test.assert-eq-str
   ]
   [ drop ]
@@ -21,7 +23,7 @@ The client side that goes in `test-echo` (between the spawn and the
 if
 ```
 
-Final stack must be `( server )` so the listener-close below fires.
+Final stack must be `( listener )` so the listener-close below fires.
 
 ## Why main closes the listener and the spawned strand does not
 

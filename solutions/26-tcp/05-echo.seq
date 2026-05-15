@@ -1,51 +1,62 @@
-# A one-shot echo server: accepts a single connection, echoes the
-# client's bytes back, then returns.
+# A working TCP echo round-trip — two roles, one program:
 #
-# Ownership: this strand only owns the *accepted client* socket.
-# The listener was copied to this strand via copy-on-spawn, but the
-# parent strand remains the owner of the kernel handle and will
-# close it after the test. We drop our stale copy without closing.
+#   echo-server  — runs in a SPAWNED strand. Plays the SERVER role:
+#                  accept, read, write the bytes back, close.
+#   test-echo    — runs on the MAIN strand. After spawning the
+#                  server, plays the CLIENT role: connect, write,
+#                  read, assert, close. Also owns the listener.
 #
-# A multi-connection echo server would loop on accept instead of
-# returning after the first connection.
+# Ownership: echo-server only owns its *accepted* socket. The
+# listener was copied to it by copy-on-spawn, but main remains the
+# real owner and closes the listener after the test. The spawned
+# strand drops its stale copy without closing.
+#
+# One-shot: echo-server returns after a single connection because
+# the test asserts a single round-trip. A multi-connection server
+# would loop on accept.
+
+# ───────── SERVER (runs in the spawned strand) ─────────
 # seq:allow(unchecked-tcp-write)
 : echo-server ( Socket -- )
     dup net.tcp.accept
-    [ # ( server client )
+    [ # accept ok:  ( listener accepted )
       dup net.tcp.read
-      [ # ( server client data )
+      [ # read ok:  ( listener accepted data )
         over net.tcp.write drop
       ]
       [ drop ]
       if
-      net.tcp.close drop      # close the accepted client (we own this)
-      drop                     # drop our stale copy of the listener
+      net.tcp.close drop      # close the accepted socket (we own it)
+      drop                     # drop our copy of the listener (we don't)
     ]
-    [ # accept failed: ( server junk-client )
-      drop drop                # drop both; parent will close the real listener
+    [ # accept failed: ( listener junk )
+      drop drop                # parent will close the real listener
     ]
     if
 ;
 
+# ───────── MAIN: spawns the server, then plays the CLIENT ─────────
 # seq:allow(unchecked-tcp-write)
 : test-echo ( -- )
     18265 net.tcp.listen
-    [ # ( server )
-      [ echo-server ] strand.spawn drop
+    [ # listen ok:  ( listener )
+      [ echo-server ] strand.spawn drop          # ── server strand queued ──
+
+      # --- below this line, main plays the CLIENT ---
       "127.0.0.1" 18265 net.tcp.connect
-      [ # ( server client )
+      [ # connect ok:  ( listener client )
         "ping" over net.tcp.write drop
         dup net.tcp.read
-        [ # ( server client data )
+        [ # read ok:  ( listener client data )
           "ping" test.assert-eq-str
         ]
         [ drop ]
         if
-        net.tcp.close drop      # close our client side
+        net.tcp.close drop      # close our client end
       ]
       [ drop ]                  # connect failed
       if
-      net.tcp.close drop        # close the listener — we own it
+      net.tcp.close drop        # main closes the listener — main owns it
     ]
     [ drop ]                    # listen failed
     if

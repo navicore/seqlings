@@ -1,52 +1,56 @@
 # Exercise: Real Echo Server
 #
 # This is the capstone. By the end of this exercise you have written
-# a working TCP echo server and exercised it against a working TCP
-# client — both ends running cooperatively in the same program.
+# a working TCP echo round-trip — server and client cooperating in
+# the same program on the same machine.
 #
-# This is a **one-shot** echo server: it accepts one connection,
-# echoes it, and returns. A multi-connection echo server would loop
-# on accept instead. The test is built around one round-trip because
-# the test asserts exactly one thing — that the echo round-tripped.
+# Two roles, one program:
 #
-# Socket ownership (the design choice you might second-guess):
+#   echo-server  — runs in a SPAWNED strand. Plays the SERVER role:
+#                  accept, read, echo, close. (Already written below;
+#                  study it as the canonical shape you'll write again.)
+#   test-echo    — runs on the MAIN strand. After spawning the
+#                  server, plays the CLIENT role: connect, write,
+#                  read, assert, close.
+#
+# Both ends run cooperatively under the same scheduler. Every
+# `net.tcp.*` parking point gives the scheduler a chance to run
+# the other strand. Data dependencies enforce ordering — accept
+# can't return until main connects; main's read can't return
+# until echo-server's write completes.
+#
+# This is a one-shot echo server: it accepts one connection and
+# returns. A multi-connection server would loop on accept; we
+# don't loop here because the test asserts exactly one round-trip.
+#
+# Socket ownership:
 #
 #   - Main owns the listener. It calls listen and closes it after
-#     the assertion.
-#   - The spawned strand owns *only* the accepted client connection.
-#     It gets a copy of the listener via copy-on-spawn, but treats
-#     it as a read-only handle for `accept` and drops the copy when
-#     done — main will close the real kernel handle.
-#   - Each side closes its own end of the actual TCP connection
-#     (server closes the accepted client; main closes the connect
-#     socket). The kernel handles both halves of a close cleanly.
+#     the assertion. The spawned strand only sees a *copy* of the
+#     listener via copy-on-spawn — it uses that copy to accept,
+#     then drops it without closing.
+#   - The accepted socket is owned by the spawned strand; the
+#     connect socket is owned by main. Each closes its own end.
 #
-# Strand cooperation: every `net.tcp.*` parking point gives the
-# scheduler an opportunity to run the other strand. The data
-# dependencies enforce the ordering — accept can't return until
-# main connects; main's read can't return until echo-server's
-# write completes.
-#
-# Your task: complete the test-echo body. The echo-server word
-# is already written for you (study it; it's the canonical shape
-# you'll write again). The piece you fill in is the client side
-# in main: connect, write, read, assert, close.
+# Your task: complete the test-echo body — the CLIENT side.
+# Connect, write "ping", read, assert "ping", close.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
+# ───────── SERVER (runs in the spawned strand) ─────────
 # seq:allow(unchecked-tcp-write)
 : echo-server ( Socket -- )
     dup net.tcp.accept
-    [ # ( server client )
+    [ # accept ok:  ( listener accepted )
       dup net.tcp.read
-      [ # ( server client data )
+      [ # read ok:  ( listener accepted data )
         over net.tcp.write drop
       ]
       [ drop ]
       if
-      net.tcp.close drop      # close the accepted client (we own this)
-      drop                     # drop our stale copy of the listener
+      net.tcp.close drop      # close the accepted socket (we own it)
+      drop                     # drop our copy of the listener (we don't)
     ]
     [ # accept failed
       drop drop
@@ -54,21 +58,23 @@
     if
 ;
 
+# ───────── MAIN: spawns the server, then plays the CLIENT ─────────
 # seq:allow(unchecked-tcp-write)
 : test-echo ( -- )
     18265 net.tcp.listen
-    [ # ( server )
-      [ echo-server ] strand.spawn drop
+    [ # listen ok:  ( listener )
+      [ echo-server ] strand.spawn drop         # ── server strand queued ──
 
+      # --- below this line, main plays the CLIENT ---
       # Your code here: open the client side of the echo.
-      # Stack when you start: ( server )
-      # Stack when you finish: ( server )  ← so the close below fires
+      # Stack when you start:  ( listener )
+      # Stack when you finish: ( listener )   ← so the close below fires
       #
       # Steps:
       #   1. net.tcp.connect to "127.0.0.1" 18265
-      #   2. on success: write "ping", read, assert response is "ping",
-      #      close the client socket. Use a `[ ok ] [ err ] if` on
-      #      the read Bool.
+      #   2. on connect success: write "ping", read, assert the
+      #      response is "ping", close the connect socket. Use
+      #      a `[ ok ] [ err ] if` on the read Bool.
       #   3. on connect failure: drop the junk socket and fail the test.
       false test.assert                # placeholder
 
