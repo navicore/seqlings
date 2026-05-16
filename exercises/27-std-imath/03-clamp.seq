@@ -23,23 +23,19 @@ include std:imath
     drop 0
 ;
 
+# Do not edit below this line
+
 : test-clamp-high ( -- )
     150 clamp-percent
-
-    # Do not edit below this line
     100 test.assert-eq
 ;
 
 : test-clamp-low ( -- )
     -20 clamp-percent
-
-    # Do not edit below this line
     0 test.assert-eq
 ;
 
 : test-clamp-ok ( -- )
     50 clamp-percent
-
-    # Do not edit below this line
     50 test.assert-eq
 ;

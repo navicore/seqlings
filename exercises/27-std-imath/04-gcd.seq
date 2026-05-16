@@ -8,7 +8,16 @@
 #   15 10 gcd    # Stack: ( 5 )
 #   7 13 gcd     # Stack: ( 1 ) — coprime
 #
-# Your task: Use GCD to simplify a fraction.
+# Your task: *compose* `gcd` with integer division to simplify a
+# fraction. Unlike the earlier exercises in this chapter (which
+# mostly wrapped a single std:imath word), `simplify-numerator`
+# is not a rename of `gcd` — it builds on top of it:
+#
+#   1. compute gcd(numerator, denominator)
+#   2. divide the numerator by that gcd
+#   3. return the result (the simplified numerator)
+#
+# So for 12/8: gcd(12, 8) = 4, and 12 / 4 = 3.
 #
 # Note: integer division `i./` returns ( quotient Bool ) — the
 # Bool reports success/failure (false on divide-by-zero). For
@@ -23,23 +32,23 @@ include std:imath
 
 : simplify-numerator ( Int Int -- Int )
     # Given numerator and denominator, return simplified numerator.
-    # Hint: numerator denominator gcd swap drop  divides both numbers
-    # by their GCD; remember to drop the i./ success flag.
+    # Hint: `gcd` consumes both inputs, so use `over over` to peek
+    # at the pair before calling it, then arrange the stack so you
+    # can divide the numerator by the gcd via `i./` (and drop the
+    # success flag it leaves on top).
     # Your code here
     drop
 ;
 
+# Do not edit below this line
+
 : test-gcd ( -- )
     48 18 gcd
-
-    # Do not edit below this line
     6 test.assert-eq
 ;
 
 : test-simplify ( -- )
-    # 12/8 simplifies to 3/2, so numerator becomes 3
+    # gcd(12, 8) = 4, so 12 / 4 = 3 → simplified numerator is 3
     12 8 simplify-numerator
-
-    # Do not edit below this line
     3 test.assert-eq
 ;

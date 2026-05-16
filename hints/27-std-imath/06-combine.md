@@ -20,14 +20,14 @@ and `i.- abs` then computes `|y2 - y1|`. The second pair of
 The aux stack (`>aux` / `aux>`) is word-local temporary
 storage — push values out of the way, do work on the main
 stack, pop them back. With `( base exp min max )` on top, stash
-`max` then `min` to aux, leaving `( base exp )` for `pow`, then
-restore them in reverse order so `( result min max )` is exactly
-what `clamp` wants.
+`max` then `min` to aux, leaving `( base exp )` for `i.pow`. Drop
+the success Bool, restore min and max in the right order, then
+`clamp` does the rest.
 
 ```seq
 : bounded-power ( Int Int Int Int -- Int )
     >aux >aux       # stash min and max
-    pow             # base^exp
+    i.pow drop      # base^exp (drop the success Bool)
     aux> aux>       # restore min, max
     clamp
 ;

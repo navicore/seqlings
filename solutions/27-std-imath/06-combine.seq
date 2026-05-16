@@ -11,9 +11,10 @@ include std:imath
     7 test.assert-eq
 ;
 
+# seq:allow(unchecked-i-pow)
 : bounded-power ( Int Int Int Int -- Int )
     >aux >aux       # stash min and max
-    pow             # base^exp
+    i.pow drop      # base^exp (drop the success Bool)
     aux> aux>       # restore min, max
     clamp
 ;

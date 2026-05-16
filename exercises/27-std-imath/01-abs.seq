@@ -25,23 +25,19 @@ include std:imath
     drop drop 0
 ;
 
+# Do not edit below this line
+
 : test-abs ( -- )
     -10 abs
-
-    # Do not edit below this line
     10 test.assert-eq
 ;
 
 : test-abs-diff ( -- )
     7 3 abs-diff
-
-    # Do not edit below this line
     4 test.assert-eq
 ;
 
 : test-abs-diff-negative ( -- )
     3 7 abs-diff
-
-    # Do not edit below this line
     4 test.assert-eq
 ;

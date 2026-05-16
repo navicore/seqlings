@@ -19,29 +19,29 @@ include std:imath
     drop drop drop drop 0
 ;
 
-: test-manhattan ( -- )
-    0 0 3 4 manhattan-distance
-
-    # Do not edit below this line
-    7 test.assert-eq
-;
-
+# seq:allow(unchecked-i-pow)
 : bounded-power ( Int Int Int Int -- Int )
     # base^exp, clamped to [min, max]
     # Stack: base exp min max  (max on top)
     #
     # Hint: `>aux` moves the top of the stack to a word-local
     # aux stack; `aux>` moves it back. Stashing min and max to
-    # aux frees the main stack for the `pow` call, after which
-    # you can restore them and call `clamp`.
+    # aux frees the main stack for the `i.pow` call (remember to
+    # drop its success Bool), after which you can restore min
+    # and max and call `clamp`.
     # Your code here
     drop drop drop drop 0
+;
+
+# Do not edit below this line
+
+: test-manhattan ( -- )
+    0 0 3 4 manhattan-distance
+    7 test.assert-eq
 ;
 
 : test-bounded-power ( -- )
     # 2^10 = 1024, clamped to [0, 500] → 500
     2 10 0 500 bounded-power
-
-    # Do not edit below this line
     500 test.assert-eq
 ;

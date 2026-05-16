@@ -1,12 +1,12 @@
-include std:imath
-
+# seq:allow(unchecked-i-pow)
 : power-of-2 ( Int -- Int )
-    2 swap pow
+    2 swap i.pow drop
 ;
 
 : test-pow ( -- )
-    3 4 pow
-    81 test.assert-eq
+    3 4 i.pow                 # ( 81 true )
+    swap 81 test.assert-eq    # ( true ) — checks result
+    test.assert               # consumes the success Bool
 ;
 
 : test-power-of-2 ( -- )

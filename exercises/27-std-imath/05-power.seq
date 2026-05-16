@@ -1,45 +1,53 @@
 # Exercise: Integer Power
 #
-# `pow` calculates integer exponentiation.
+# `i.pow` is the builtin for integer exponentiation. Like `i./` and
+# `i.%` from earlier exercises, it returns a success Bool on top of
+# the result:
 #
-# Stack effect: ( base exponent -- result )
+#   Stack effect: ( base exp -- result Bool )
 #
-# Examples:
-#   2 3 pow      # 2^3 = 8
-#   5 0 pow      # 5^0 = 1
-#   10 2 pow     # 10^2 = 100
+# The Bool is `false` for negative exponents, exponents larger than
+# u32::MAX, or arithmetic overflow. `0^0 = 1` with Bool=true.
+#
+# Examples (drop the Bool when you know the inputs are safe):
+#   2 3 i.pow drop      # 8        — 2^3
+#   5 0 i.pow drop      # 1        — 5^0
+#   10 2 i.pow drop     # 100      — 10^2
+#
+# Note: `i.pow` is a builtin; it is NOT brought in by `include
+# std:imath` the way `abs`/`min`/`max`/`gcd`/`clamp` are — so
+# this file doesn't include std:imath at all. The bare name
+# `pow` does not currently resolve (patch-seq #489). Other
+# integer ops like `+`, `-`, `*`, `<`, `>` *do* resolve unprefixed
+# via sugar — `pow` is just an outlier until that ships.
 #
 # Your task: Calculate powers of 2.
 #
 # When done, delete the marker line below.
 
-include std:imath
-
 # I AM NOT DONE
 
+# seq:allow(unchecked-i-pow)
 : power-of-2 ( Int -- Int )
-    # Calculate 2^n
+    # Calculate 2^n. Drop the success Bool from i.pow.
     # Your code here
     drop 0
 ;
 
-: test-pow ( -- )
-    3 4 pow
+# Do not edit below this line
 
-    # Do not edit below this line
-    81 test.assert-eq
+: test-pow ( -- )
+    3 4 i.pow                 # ( 81 true )
+    swap 81 test.assert-eq    # ( true ) — checks result
+    test.assert               # consumes the success Bool
 ;
 
 : test-power-of-2 ( -- )
     8 power-of-2
-
-    # Do not edit below this line
     256 test.assert-eq
 ;
 
 : test-power-zero ( -- )
     0 power-of-2
-
-    # Do not edit below this line
     1 test.assert-eq
 ;
