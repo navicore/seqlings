@@ -26,7 +26,7 @@
     # Find all sequences of word characters (\w+)
     # Return only the list (drop the success Bool)
     # Your code here
-    drop list-of
+    drop list.make
 ;
 
 : test-find ( -- )

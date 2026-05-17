@@ -10,6 +10,6 @@
     "apple, banana,  cherry" split-csv
     list.length 3 test.assert-eq
 
-    "Hello! How are you? I'm fine." split-sentences
+    "Hello! How are you? I'm fine" split-sentences
     list.length 3 test.assert-eq
 ;

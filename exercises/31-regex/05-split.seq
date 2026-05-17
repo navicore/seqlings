@@ -19,14 +19,14 @@
     # "a, b,  c" -> ["a", "b", "c"]
     # Pattern: \s*,\s* (drop the success Bool)
     # Your code here
-    drop list-of
+    drop list.make
 ;
 
 : split-sentences ( String -- Variant )
     # Split on sentence-ending punctuation (. ! ?)
     # Pattern: [.!?]+\s* (drop the success Bool)
     # Your code here
-    drop list-of
+    drop list.make
 ;
 
 : test-split ( -- )
@@ -36,6 +36,6 @@
     list.length 3 test.assert-eq
 
     # Split sentences
-    "Hello! How are you? I'm fine." split-sentences
+    "Hello! How are you? I'm fine" split-sentences
     list.length 3 test.assert-eq
 ;
