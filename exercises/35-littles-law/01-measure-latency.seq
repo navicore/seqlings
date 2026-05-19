@@ -34,12 +34,13 @@
     # Send work item
     rot 1 swap chan.send drop
 
+    # Stack going in: ( results start )
     # Your code here:
     # - receive the result from the results channel (the second
     #   channel on the stack) and discard the value itself
     # - take another timestamp, subtract the start, and leave only
     #   the elapsed time on the stack
-    # Stack at this point: ( results start )
+    # Stack coming out: ( elapsed )
     drop drop 0
 
     # Do not edit below this line
