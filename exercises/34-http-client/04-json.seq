@@ -1,21 +1,22 @@
 # Exercise: Working with JSON APIs
 #
-# Most modern APIs return JSON. Combine HTTP client with
-# JSON parsing to build useful API clients.
+# `include std:json` brings in `json-parse`:
 #
-# Pattern:
-#   1. Make HTTP request
-#   2. Check for success
-#   3. Parse JSON body (succeeds → Variant Bool=true; fails → garbage False)
+#   json-parse ( String -- Variant Bool )
+#     Parses a JSON string. Returns the parsed value and a
+#     success Bool (false on malformed input).
 #
-# JSON parsing returns a Variant tagged as a JsonObject/Array/etc.,
-# not a Seq `Map`. Drilling into specific fields uses the
-# `variant.field-at` API or the predicates in `std:json` — outside
-# this exercise's scope. Here we only check that parsing succeeds
-# for well-formed input and fails for malformed input.
+# The parsed value is a Variant tagged as JsonObject / JsonArray /
+# etc. — *not* a Seq `Map`, so you can't drill into its fields with
+# `map.get`. (Field access uses `variant.field-at` and the predicates
+# in `std:json`, outside this exercise's scope.) Here we only check
+# that parsing succeeds for well-formed input and fails otherwise.
 #
-# Your task: Build `api-success?` (checks `ok` and `status` keys)
-# and `get-json-body` (parse the `body` field as JSON).
+# Your task:
+#   - `api-success?`  — true when the response Map has `ok=true`
+#                       AND `status=200` (use `map.get` from ch 16)
+#   - `get-json-body` — pull the `body` String from the Map and
+#                       hand it to `json-parse`
 #
 # When done, delete the marker line below.
 
