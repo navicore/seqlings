@@ -1,22 +1,27 @@
-# Exercise: Queue Depth
+# Exercise: Measure L (Queue Depth)
 #
 # Little's Law: L = λW
-# L = average number of items in the system (queue depth).
+#   L = the average number of items in the system at any moment
 #
-# When items arrive faster than they're processed, L grows.
-# Here we send 3 items instantly but each takes 20ms to process.
-# With 1 worker, items queue up!
+# When arrivals outpace service, items queue up — L grows. Setup:
+# one slow worker (20ms per item) and a burst of 4 items sent
+# back-to-back. Because the sends are near-instant and the worker
+# can only chew through one item every 20ms, all 4 items pile up
+# in the system before the first one finishes.
 #
-# Your task: Receive all 3 results from `results` and sum them.
-# (Each item starts at 1 and the worker adds 1 → expected sum is
-# `(1+1) × 3 = 6`.)
+# To MEASURE L, we maintain an in-flight counter ourselves:
+#   - increment on each `chan.send`
+#   - decrement on each `chan.receive`
+# After the last send (before any receives), the counter is at its
+# peak — that peak IS an L sample, and it's the easiest to capture.
 #
-# Stack convention: the spawned worker captures `work` and
-# `results` via closure. After `strand.spawn drop`, main keeps
-# `( work results )` on the stack. We send three 1s into `work`
-# using `over` so the channels stay accessible, then receive
-# three results from `results` the same way.
+# Stack-shuffling notes:
+#   `2 pick` copies the element 2 positions down. With the counter
+#   on top of ( w r counter ), `2 pick` reaches the work channel.
+#   Same trick with ( w r peak counter ) — `2 pick` reaches r.
 #
+# Your task: bracket the burst with a counter, capture the peak
+# value, then drain the queue. Leave the peak on top.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
@@ -25,27 +30,27 @@
     chan.make   # work
     chan.make   # results
 
-    # Spawn 1 slow worker: receive, sleep 20ms, add 1, send — three times.
-    # Worker captures ( work results ) by closure; `over` copies the
-    # work channel each iteration so it survives the receive.
-    [
-        over chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
-        over chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
-        over chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
-        drop drop
-    ] strand.spawn drop
-    # Stack: ( work results )
+    # Spawn 1 slow worker, unrolled to handle 4 items at 20ms each
+    [ over chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
+      over chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
+      over chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
+      over chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
+      drop drop ] strand.spawn drop
 
-    # Send 3 items into the work channel (each is 1).
-    over 1 swap chan.send drop
-    over 1 swap chan.send drop
-    over 1 swap chan.send drop
-
+    # Stack going in: ( work results )
     # Your code here:
-    # 1. Receive 3 results from the results channel and sum them.
-    # 2. Use `nip nip` to drop work + results, leaving just the sum.
+    # - push a 0 — that's our starting in-flight counter
+    # - for each of 4 items (1, 2, 3, 4): send it on work, then
+    #   increment the counter (use `2 pick` to reach work without
+    #   consuming it)
+    # - `dup` the counter to save the peak value
+    # - receive 4 results, decrementing the counter each time
+    # - drop the (now-zero) counter, then clean the two channels
+    #   off the stack with `nip nip`
+    # Stack coming out: ( peak-L )
     drop drop 0
 
     # Do not edit below this line
-    6 test.assert-eq
+    # Peak L should be at least 3 — proves the queue built up
+    3 i.>= test.assert
 ;

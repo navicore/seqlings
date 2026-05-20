@@ -1,8 +1,10 @@
-# Hint: Measure Latency
+# Hint: Measure W (Latency)
 
-After sending the work item, your stack has `( results start )`. Receive from the results channel, then measure time:
+Going in: `( results start )`. You need to receive on `results` (one-shot, the value doesn't matter), then take a fresh `time.now` and subtract `start`:
+
 ```seq
-swap dup chan.receive drop drop   # receive result, drop value ( start results )
-drop                              # ( start )
-time.now swap i.-                 # ( elapsed )
+swap chan.receive drop drop      # ( start ) — value+Bool dropped, results consumed
+time.now swap i.-                # ( W )
 ```
+
+`time.now` is microseconds, not milliseconds — the elapsed value will be in the tens-of-thousands range (10ms ≈ 10_000us), which is why the test asserts `> 9_000us`.

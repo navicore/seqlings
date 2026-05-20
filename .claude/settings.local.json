@@ -8,7 +8,8 @@
       "Bash(ls:*)",
       "Bash(seqc lint *)",
       "Bash(fj whoami *)",
-      "Bash(fj issue *)"
+      "Bash(fj issue *)",
+      "Bash(echo \"---exit=$?\")"
     ]
   }
 }

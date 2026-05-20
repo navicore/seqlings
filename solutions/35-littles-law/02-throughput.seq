@@ -1,23 +1,28 @@
 : test-throughput ( -- )
-    chan.make   # work
-    chan.make   # results
+    chan.make
+    chan.make
 
-    2dup [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
-    drop drop
-    2dup [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
-    drop drop
+    [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
+    [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
+    [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
+    [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
 
-    over 10 swap chan.send drop
-    over 20 swap chan.send drop
-    over 30 swap chan.send drop
-    over 40 swap chan.send drop
+    time.now
+    # ( work results start )
 
-    # Receive 4 results and sum
-    dup chan.receive drop
-    over chan.receive drop i.+
-    over chan.receive drop i.+
-    over chan.receive drop i.+
-    nip nip   # drop channels
+    2 pick 10 swap chan.send drop
+    2 pick 20 swap chan.send drop
+    2 pick 30 swap chan.send drop
+    2 pick 40 swap chan.send drop
 
-    104 test.assert-eq
+    1 pick chan.receive drop drop
+    1 pick chan.receive drop drop
+    1 pick chan.receive drop drop
+    1 pick chan.receive drop drop
+
+    time.now swap i.-
+    nip nip
+    # ( elapsed )
+
+    25000 i.< test.assert
 ;

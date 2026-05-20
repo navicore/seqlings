@@ -1,27 +1,28 @@
 : test-verify-law ( -- )
-    chan.make   # work
-    chan.make   # results
+    chan.make
+    chan.make
 
-    2dup [ over chan.receive drop 20 time.sleep-ms 1 i.+ swap chan.send drop
-           over chan.receive drop 20 time.sleep-ms 1 i.+ swap chan.send drop
-           drop drop ] strand.spawn drop
-    drop drop
-    2dup [ over chan.receive drop 20 time.sleep-ms 1 i.+ swap chan.send drop
-           over chan.receive drop 20 time.sleep-ms 1 i.+ swap chan.send drop
-           drop drop ] strand.spawn drop
-    drop drop
+    [ over chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
+      over chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
+      over chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
+      drop drop ] strand.spawn drop
 
-    over 10 swap chan.send drop
-    over 20 swap chan.send drop
-    over 30 swap chan.send drop
-    over 40 swap chan.send drop
+    time.now
 
-    # Receive 4 results and sum
-    dup chan.receive drop
-    over chan.receive drop i.+
-    over chan.receive drop i.+
-    over chan.receive drop i.+
-    nip nip
+    2 pick 1 swap chan.send drop
+    2 pick 2 swap chan.send drop
+    2 pick 3 swap chan.send drop
 
-    104 test.assert-eq
+    0
+
+    2 pick chan.receive drop drop time.now 2 pick i.- swap i.+
+    2 pick chan.receive drop drop time.now 2 pick i.- swap i.+
+    2 pick chan.receive drop drop time.now 2 pick i.- swap i.+
+
+    time.now 2 pick i.-
+    i./ drop
+    nip nip nip
+
+    dup 1 i.>= test.assert
+    3 i.<= test.assert
 ;

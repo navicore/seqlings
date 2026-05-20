@@ -1,21 +1,28 @@
-# Exercise: Measure Latency
+# Exercise: Measure W (Latency)
 #
 # Little's Law: L = λW
-# Before we can apply the law, we need to measure W (latency).
+#   L = average number of items in the system
+#   λ = throughput (items per unit time)
+#   W = average time one item spends in the system
 #
-# W = the average time an item spends in the system.
-# Here, we'll time a single item through a worker:
-#   send item → worker processes (sleeps 10ms) → receive result
+# This chapter measures each of L, λ, and W and then verifies the
+# law. We start with W — the simplest of the three, because we only
+# need to time one item end-to-end.
 #
-# `time.now` returns a millisecond timestamp. The idiomatic pattern
-# for measuring elapsed time is to take a timestamp before the work,
-# take another after, and subtract the start from the end.
+# Setup: a worker strand sleeps 10ms (the "service time") and sends
+# the item back. We send one item, time the round trip from send to
+# receive, and that elapsed time IS W for this system.
 #
-# Example:
-#   time.now ...work... time.now swap i.-
+# `time.now` returns a microsecond timestamp (not ms — important for
+# the arithmetic later in the chapter). The idiomatic pattern for
+# elapsed time is to take one timestamp before the work, another
+# after, and subtract:
 #
-# Your task: Receive the result and calculate elapsed time.
-# The elapsed time should be at least 10 milliseconds.
+#     time.now ...work... time.now swap i.-
+#
+# Your task: receive the result and compute W (the elapsed time).
+# The test asserts the elapsed time is at least 9_000us — anything
+# less means the 10ms sleep didn't actually happen.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
@@ -25,25 +32,21 @@
     chan.make   # results channel
 
     # Spawn worker: receive item, sleep 10ms, send to results
-    2dup [ over chan.receive drop 10 time.sleep-ms swap chan.send drop drop ] strand.spawn drop
-    drop drop
+    [ over chan.receive drop 10 time.sleep-ms swap chan.send drop drop ] strand.spawn drop
 
-    # Record start time
-    time.now
-
-    # Send work item
-    rot 1 swap chan.send drop
+    # Record start time, then send the work item
+    time.now                        # ( work results start )
+    rot 1 swap chan.send drop       # ( results start )
 
     # Stack going in: ( results start )
     # Your code here:
-    # - receive the result from the results channel (the second
-    #   channel on the stack) and discard the value itself
-    # - take another timestamp, subtract the start, and leave only
-    #   the elapsed time on the stack
-    # Stack coming out: ( elapsed )
+    # - receive from the results channel (the channel just below start),
+    #   discarding the value itself — we care about timing, not the value
+    # - call time.now again and subtract start from it
+    # Stack coming out: ( W )    -- W is the elapsed-time-per-item in us
     drop drop 0
 
     # Do not edit below this line
-    # Elapsed time should be at least 10ms
-    10 >= test.assert
+    # W should be at least 9_000us (sleep was 10ms; allow small jitter)
+    9000 i.> test.assert
 ;

@@ -1,62 +1,73 @@
-# Exercise: Verify Little's Law
+# Exercise: Verify L = λW
 #
-# Little's Law: L = λW
-#   L = avg items in system
-#   λ = throughput (items/sec)
-#   W = avg latency per item
+# Little's Law: L = λW. The chapter's centerpiece. Now we MEASURE
+# all three quantities from a real run and check they line up.
 #
-# We verify with a controlled experiment:
-#   - 1 worker, processing time = 20ms per item
-#   - Send 3 items as fast as possible
-#   - W ≈ 20ms (each item's processing time)
-#   - Total time ≈ 60ms (3 × 20ms with 1 worker)
-#   - λ = 3 items / 60ms ≈ 0.05 items/ms
-#   - L = λ × W = 0.05 × 20 = 1.0
+# A useful algebraic identity:
 #
-# With 1 worker, L = 1 makes sense: on average, 1 item
-# is being processed at any moment.
+#     L = λ × W_avg
+#       = (N / elapsed) × (sum_W / N)
+#       = sum_W / elapsed
 #
-# Now add a second worker:
-#   - Total time ≈ 40ms (ceiling of 3/2 × 20ms)
-#   - λ = 3 / 40ms ≈ 0.075 items/ms
-#   - L = 0.075 × 20 = 1.5
+# where sum_W is the total time-in-system across all N items. So
+# instead of measuring λ and W separately and multiplying (with
+# integer-division headaches), we measure sum_W and elapsed and
+# divide once at the end.
 #
-# With 2 workers, L ≈ 1.5: on average, 1-2 items in flight.
+# Setup: 1 worker, 3 items at 20ms each (serial; nothing fancy).
+#   Item i (1-indexed) enters at t=0, leaves at t = i × 20ms.
+#   Predicted W's: 20, 40, 60 ms. sum_W = 120 ms.
+#   Predicted elapsed: 60 ms.
+#   Predicted L = 120 / 60 = 2.
 #
-# Your task: Run 4 items through 2 workers (20ms each).
-# Calculate that more workers = higher throughput.
-# The 2 workers should finish 4 items in ~40ms (2 batches).
-# Verify all items are processed (sum check).
+# We assert 1 <= L <= 3 — a generous window for jitter and
+# integer-division rounding.
+#
+# Notes on the pattern below:
+#   - `time.now` captures a microsecond timestamp.
+#   - `i./` returns ( quotient Bool ) — drop the bool.
+#   - Per-receive accumulator pattern:
+#         <copy r> chan.receive drop drop      \ ack receive
+#         time.now <copy start> i.-            \ that item's W
+#         swap i.+                              \ fold into running sum
+#
+# Your task: measure sum_W and elapsed, divide to get L, leave it
+# on top. The boilerplate is set up — fill in the per-receive line.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : test-verify-law ( -- )
-    chan.make   # work
-    chan.make   # results
+    chan.make
+    chan.make
 
-    # Spawn 2 workers: each processes items with 20ms delay
-    2dup [ over chan.receive drop 20 time.sleep-ms 1 i.+ swap chan.send drop
-           over chan.receive drop 20 time.sleep-ms 1 i.+ swap chan.send drop
-           drop drop ] strand.spawn drop
-    drop drop
-    2dup [ over chan.receive drop 20 time.sleep-ms 1 i.+ swap chan.send drop
-           over chan.receive drop 20 time.sleep-ms 1 i.+ swap chan.send drop
-           drop drop ] strand.spawn drop
-    drop drop
+    [ over chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
+      over chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
+      over chan.receive drop 20 time.sleep-ms 1 i.+ over chan.send drop
+      drop drop ] strand.spawn drop
 
-    # Send 4 items
-    over 10 swap chan.send drop
-    over 20 swap chan.send drop
-    over 30 swap chan.send drop
-    over 40 swap chan.send drop
+    time.now                            # ( w r start )
 
-    # Your code here:
-    # Receive 4 results, sum them
-    # Items 10,20,30,40 each get +1 = 11,21,31,41
-    # Sum should be 104
-    drop drop 0
+    2 pick 1 swap chan.send drop
+    2 pick 2 swap chan.send drop
+    2 pick 3 swap chan.send drop
+
+    0                                   # ( w r start sum_W=0 )
+
+    # Stack going in: ( w r start sum_W )
+    # Your code here — three lines, one per receive. Each line:
+    # - uses 2 pick on r to receive (drop drop the value+Bool)
+    # - takes time.now, subtracts start, that's W_i for this item
+    # - folds W_i into the running sum
+    # After three receives, stack should be: ( w r start sum_W )
+    drop drop drop drop 0 0 0 0    # placeholder — replace this
+
+    time.now 2 pick i.-                 # ( w r start sum_W elapsed )
+    i./ drop                            # ( w r start L )
+    nip nip nip                         # ( L )
 
     # Do not edit below this line
-    104 test.assert-eq
+    # L for 1 worker / 3 items / 20ms should be ≈ 2
+    dup 1 i.>= test.assert
+    3 i.<= test.assert
 ;

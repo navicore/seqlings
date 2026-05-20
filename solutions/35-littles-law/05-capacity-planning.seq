@@ -1,27 +1,32 @@
-: spawn-worker ( work results -- work results )
-    2dup [ over chan.receive drop 20 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
-    drop drop
+: spawn-worker ( Channel Channel -- Channel Channel )
+    [ over chan.receive drop 20 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
 ;
 
 : test-capacity-planning ( -- )
-    chan.make   # work
-    chan.make   # results
+    chan.make
+    chan.make
 
     spawn-worker
     spawn-worker
     spawn-worker
     spawn-worker
 
-    over 10 swap chan.send drop
-    over 20 swap chan.send drop
-    over 30 swap chan.send drop
-    over 40 swap chan.send drop
+    time.now
 
-    dup chan.receive drop
-    over chan.receive drop i.+
-    over chan.receive drop i.+
-    over chan.receive drop i.+
+    2 pick 10 swap chan.send drop
+    2 pick 20 swap chan.send drop
+    2 pick 30 swap chan.send drop
+    2 pick 40 swap chan.send drop
+
+    1 pick chan.receive drop drop
+    1 pick chan.receive drop drop
+    1 pick chan.receive drop drop
+    1 pick chan.receive drop drop
+
+    time.now swap i.-
+    4 1000000 i.* swap i./ drop
+
     nip nip
 
-    104 test.assert-eq
+    160 i.>= test.assert
 ;

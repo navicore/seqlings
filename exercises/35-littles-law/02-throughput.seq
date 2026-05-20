@@ -1,16 +1,28 @@
-# Exercise: Measure Throughput
+# Exercise: Measure λ (Throughput)
 #
 # Little's Law: L = λW
-# Now we measure λ (throughput) - the rate items complete.
+#   λ = the rate at which items leave the system (items per unit time)
 #
-# λ = items_completed / total_time
+# In ex 1 we measured W with one worker and one item. Now we measure
+# what happens with N parallel workers: throughput should rise.
 #
-# With 2 workers each sleeping 10ms and 4 items to process,
-# workers process in parallel so total time < 4 × 10ms.
+# Setup: 4 workers, each sleeps 10ms (W stays 10ms). We send 4 items
+# at once. If the workers truly run in parallel, wall-clock time is
+# close to ONE worker's service time, not four times it.
 #
-# Your task: Send 4 items and receive all 4 results.
-# Each worker adds 1 to the item value.
-# Items: 10, 20, 30, 40 → Results: 11, 21, 31, 41 (sum = 104)
+#   Serial would be:   ~4 × 10ms = ~40_000us   →  λ ≈ 100 items/sec
+#   Parallel should be: ~10ms      = ~10_000us  →  λ ≈ 400 items/sec
+#
+# We assert wall time < 25_000us (25ms). Crossing that threshold means
+# workers really did overlap — proves λ scaled with worker count.
+#
+# Stack-shuffling notes:
+#   `2 pick` copies the element 2 positions down to the top — useful
+#   for keeping the work channel reachable for repeated sends without
+#   consuming it each time.
+#
+# Your task: bracket the send-and-receive with `time.now`, run all 4
+# items through the workers, compute elapsed time, leave it on top.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
@@ -18,27 +30,28 @@
 : test-throughput ( -- )
     chan.make   # work
     chan.make   # results
+    # Stack: ( work results )
 
-    # Spawn 2 workers: receive, sleep 10ms, add 1, send result
-    2dup [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
-    drop drop
-    2dup [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
-    drop drop
+    # Spawn 4 one-shot workers: each receives one item, sleeps 10ms,
+    # adds 1, sends result, exits.
+    [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
+    [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
+    [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
+    [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
 
-    # Send 4 items
-    over 10 swap chan.send drop
-    over 20 swap chan.send drop
-    over 30 swap chan.send drop
-    over 40 swap chan.send drop
-
+    # Stack going in: ( work results )
     # Your code here:
-    # Receive 4 results and sum them
-    # Remember: chan.receive returns ( value Bool ) - drop the Bool
-    # After receiving all 4, sum them up
-    # Clean up channels from stack, leave just the sum
+    # - take a start timestamp with time.now
+    # - send 4 items: 10, 20, 30, 40 (use `2 pick` to keep work alive)
+    # - receive 4 results, discarding the value each time
+    #   (use `1 pick` to keep results alive)
+    # - take another timestamp and subtract start to get elapsed
+    # - clean the two channels off the stack
+    # Stack coming out: ( elapsed )    -- elapsed time in us
     drop drop 0
 
     # Do not edit below this line
-    # 11 + 21 + 31 + 41 = 104
-    104 test.assert-eq
+    # elapsed should be < 25_000us (25ms) — proves parallelism.
+    # Serial execution would be ~40_000us; well above the threshold.
+    25000 i.< test.assert
 ;
