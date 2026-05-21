@@ -757,19 +757,57 @@ fn print_banner() {
     println!("    {}\n", "\"Look out! Broken programs below!\"".dimmed());
 }
 
+/// Walk through every exercise to populate the status cache, showing a
+/// transient single-line progress indicator. When the cache is hot every
+/// call short-circuits and this completes instantly; when the cache is
+/// cold (first run after a seqc upgrade, or many files touched) every
+/// `get_status` call invokes the compiler, which can take tens of
+/// seconds in aggregate. Without feedback the CLI looks hung.
+fn warm_cache(exercises: &[Exercise], cache: &mut StatusCache) {
+    use std::io::Write;
+    let total = exercises.len();
+    let start = std::time::Instant::now();
+    let mut last_render: Option<std::time::Instant> = None;
+    let mut ever_rendered = false;
+    for (i, ex) in exercises.iter().enumerate() {
+        // Only paint the line after a short delay, and at most every
+        // ~80ms thereafter — keeps the redraw quiet when the cache is
+        // hot and avoids flicker when it isn't.
+        let due = match last_render {
+            None => start.elapsed() >= Duration::from_millis(150),
+            Some(t) => t.elapsed() >= Duration::from_millis(80),
+        };
+        if due {
+            // \r returns to col 0; \x1B[K clears to end of line so a
+            // shorter name doesn't leave trailing fragments from a
+            // previous longer one.
+            eprint!(
+                "\r\x1B[K{} {}/{}: {}",
+                "Checking".dimmed(),
+                i + 1,
+                total,
+                ex.name.dimmed()
+            );
+            std::io::stderr().flush().ok();
+            last_render = Some(std::time::Instant::now());
+            ever_rendered = true;
+        }
+        cache.get_status(ex);
+    }
+    if ever_rendered {
+        // Clear the progress line so subsequent output starts clean.
+        eprint!("\r\x1B[K");
+        std::io::stderr().flush().ok();
+    }
+}
+
 /// Watch mode: continuously monitor exercises and provide feedback
 fn cmd_watch(exercises: &[Exercise]) {
     // Restore status cache from disk to avoid re-checking exercises whose
     // files (and the compiler) haven't changed since the last run.
     let mut cache = StatusCache::load_or_new();
 
-    // Warm up cache silently (transient progress indicator gets cleared before first frame)
-    use std::io::Write;
-    print!("{}", "Checking exercises...".dimmed());
-    std::io::stdout().flush().ok();
-    for ex in exercises.iter() {
-        cache.get_status(ex);
-    }
+    warm_cache(exercises, &mut cache);
     cache.save();
 
     // First frame: clear away the warmup line, render banner, then assessment
@@ -1034,6 +1072,7 @@ fn cmd_run(exercises: &[Exercise]) {
 /// List all exercises
 fn cmd_list(exercises: &[Exercise]) {
     let mut cache = StatusCache::load_or_new();
+    warm_cache(exercises, &mut cache);
 
     println!("\n{}\n", "Seqlings Exercises".green().bold());
 
@@ -1072,6 +1111,13 @@ fn cmd_list(exercises: &[Exercise]) {
 fn cmd_hint(exercises: &[Exercise], name: Option<String>) {
     let mut cache = StatusCache::load_or_new();
     let name_provided = name.is_some();
+    // Without a name, hint walks until the first incomplete exercise.
+    // If the cache is cold that walk invokes the compiler dozens of
+    // times silently — warm with progress so we don't look hung.
+    if !name_provided {
+        warm_cache(exercises, &mut cache);
+        cache.save();
+    }
     let exercise = match &name {
         Some(n) => exercises.iter().find(|e| &e.name == n),
         None => exercises.iter().find(|e| {
@@ -1115,6 +1161,11 @@ fn cmd_hint(exercises: &[Exercise], name: Option<String>) {
 /// in the binary at compile time.
 fn cmd_reset(exercises: &[Exercise], name: Option<String>) {
     let mut cache = StatusCache::load_or_new();
+    let name_provided = name.is_some();
+    if !name_provided {
+        warm_cache(exercises, &mut cache);
+        cache.save();
+    }
     let exercise = match name {
         Some(n) => exercises.iter().find(|e| e.name == n),
         None => exercises.iter().find(|e| {
@@ -1163,6 +1214,7 @@ fn cmd_reset(exercises: &[Exercise], name: Option<String>) {
 /// Verify all exercises
 fn cmd_verify(exercises: &[Exercise]) {
     let mut cache = StatusCache::load_or_new();
+    warm_cache(exercises, &mut cache);
 
     println!("\n{}\n", "Verifying all exercises...".green().bold());
 
@@ -1184,6 +1236,7 @@ fn cmd_verify(exercises: &[Exercise]) {
 /// Skip to next exercise
 fn cmd_next(exercises: &[Exercise]) {
     let mut cache = StatusCache::load_or_new();
+    warm_cache(exercises, &mut cache);
 
     // Find current incomplete
     let current_idx = exercises.iter().position(|e| {
