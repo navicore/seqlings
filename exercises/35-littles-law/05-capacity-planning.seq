@@ -41,9 +41,9 @@
     # Your code here:
     # - call spawn-worker 4 times (K = 4 from the math above)
     # - take a start timestamp
-    # - send 4 items (any values; we just want them processed)
-    #   use `2 pick` to keep work alive
-    # - receive 4 results, discarding values (`1 pick`)
+    # - send 4 items (any values; we just want them processed) —
+    #   push the value first, then `3 pick` for work
+    # - receive 4 results, discarding values — `1 pick` for results
     # - compute elapsed_us = time.now - start
     # - compute λ_achieved = N × 1_000_000 / elapsed_us
     #   (multiply N by 1_000_000 *before* dividing — integer math)

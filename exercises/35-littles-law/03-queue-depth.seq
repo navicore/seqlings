@@ -16,9 +16,13 @@
 # peak — that peak IS an L sample, and it's the easiest to capture.
 #
 # Stack-shuffling notes:
-#   `2 pick` copies the element 2 positions down. With the counter
-#   on top of ( w r counter ), `2 pick` reaches the work channel.
-#   Same trick with ( w r peak counter ) — `2 pick` reaches r.
+#   `N pick` copies the element N down to the top, non-destructively.
+#   - To send: push the value first, giving ( w r counter v ). The
+#     value is at depth 0, counter at 1, results at 2, work at 3.
+#     `3 pick` brings work to the top for `chan.send`.
+#   - To receive: nothing pushed first, so on ( w r peak counter )
+#     the counter is at depth 0, peak at 1, results at 2. `2 pick`
+#     brings results to the top for `chan.receive`.
 #
 # Your task: bracket the burst with a counter, capture the peak
 # value, then drain the queue. Leave the peak on top.
@@ -40,11 +44,12 @@
     # Stack going in: ( work results )
     # Your code here:
     # - push a 0 — that's our starting in-flight counter
-    # - for each of 4 items (1, 2, 3, 4): send it on work, then
-    #   increment the counter (use `2 pick` to reach work without
-    #   consuming it)
+    # - for each of 4 items (1, 2, 3, 4): push the value, then
+    #   `3 pick` for work, then `chan.send drop`, then `1 i.+` to
+    #   bump the counter
     # - `dup` the counter to save the peak value
     # - receive 4 results, decrementing the counter each time
+    #   (`2 pick` for results — counter and peak sit above it)
     # - drop the (now-zero) counter, then clean the two channels
     #   off the stack with `nip nip`
     # Stack coming out: ( peak-L )

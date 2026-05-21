@@ -17,9 +17,13 @@
 # workers really did overlap — proves λ scaled with worker count.
 #
 # Stack-shuffling notes:
-#   `2 pick` copies the element 2 positions down to the top — useful
-#   for keeping the work channel reachable for repeated sends without
-#   consuming it each time.
+#   `N pick` copies the element N positions down to the top, leaving
+#   the original in place — so you can reach a channel many times
+#   without consuming it. When the stack is ( work results start ),
+#   pushing a value gives ( work results start v ). At that point the
+#   value is at depth 0, start at 1, results at 2, and work at 3 — so
+#   `3 pick` copies work onto the top, ready for `chan.send` which
+#   wants ( value channel ).
 #
 # Your task: bracket the send-and-receive with `time.now`, run all 4
 # items through the workers, compute elapsed time, leave it on top.
@@ -42,9 +46,10 @@
     # Stack going in: ( work results )
     # Your code here:
     # - take a start timestamp with time.now
-    # - send 4 items: 10, 20, 30, 40 (use `2 pick` to keep work alive)
-    # - receive 4 results, discarding the value each time
-    #   (use `1 pick` to keep results alive)
+    # - send 4 items: 10, 20, 30, 40 — push the value first, then
+    #   `3 pick` to copy the work channel above it
+    # - receive 4 results, discarding the value each time —
+    #   `1 pick` reaches the results channel (nothing pushed above it)
     # - take another timestamp and subtract start to get elapsed
     # - clean the two channels off the stack
     # Stack coming out: ( elapsed )    -- elapsed time in us

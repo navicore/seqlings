@@ -10,12 +10,12 @@ spawn-worker
 
 time.now                           # ( w r start )
 
-2 pick 10 swap chan.send drop
-2 pick 20 swap chan.send drop
-2 pick 30 swap chan.send drop
-2 pick 40 swap chan.send drop
+10 3 pick chan.send drop           # push value, pick w (depth 3), send
+20 3 pick chan.send drop
+30 3 pick chan.send drop
+40 3 pick chan.send drop
 
-1 pick chan.receive drop drop
+1 pick chan.receive drop drop      # nothing pushed, so r at depth 1
 1 pick chan.receive drop drop
 1 pick chan.receive drop drop
 1 pick chan.receive drop drop

@@ -9,9 +9,9 @@
 
     time.now
 
-    2 pick 1 swap chan.send drop
-    2 pick 2 swap chan.send drop
-    2 pick 3 swap chan.send drop
+    1 3 pick chan.send drop
+    2 3 pick chan.send drop
+    3 3 pick chan.send drop
 
     0
 
