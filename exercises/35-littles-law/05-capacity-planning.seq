@@ -27,7 +27,6 @@
 # elapsed in microseconds, compute achieved λ in items/sec.
 # When done, delete the marker line below.
 
-# I AM NOT DONE
 
 : spawn-worker ( Channel Channel -- Channel Channel )
     [ over chan.receive drop 20 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
@@ -49,9 +48,31 @@
     #   (multiply N by 1_000_000 *before* dividing — integer math)
     # - clean the channels off the stack
     # Stack coming out: ( λ_achieved )   -- items per second
-    drop drop 0
+
+    spawn-worker
+    spawn-worker
+    spawn-worker
+    spawn-worker
+
+    time.now
+
+    10 3 pick chan.send drop
+    20 3 pick chan.send drop
+    30 3 pick chan.send drop
+    40 3 pick chan.send drop
+
+    1 pick chan.receive drop drop
+    1 pick chan.receive drop drop
+    1 pick chan.receive drop drop
+    1 pick chan.receive drop drop
+
+    time.now swap i.-
+    4 1000000 i.* swap i./ drop
+
+    nip nip
 
     # Do not edit below this line
     # Achieved must clear 160 items/sec (80% of the 200/sec target).
     160 i.>= test.assert
+
 ;
