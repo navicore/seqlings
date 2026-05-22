@@ -4,19 +4,21 @@
 #
 # Pattern: compute multiple things from inputs without stack juggling.
 #
-# Example - format a labeled value:
-#   "score" 42
-#   [ int->string ] dip         — convert 42 to "42", preserve "score"
-#   ": " string.concat swap string.concat  — build "score: 42"
+# Example — given two numbers, produce both their sum AND their diff
+# in one pass, without reshuffling:
+#   ( 10 3 )
+#   2dup i.+        — sum on top: ( 10 3 13 )
+#   [ i.- ] dip     — hide 13, subtract underneath: ( 7 13 )
+#
+# Remember: dip hides the TOP value and runs the quotation on what's
+# BELOW. So the trick is to compute one derived value first (while
+# both inputs are still on the stack), then use dip to "reach under"
+# that result and compute the other from the originals.
 #
 # Your task: Given two numbers on the stack, compute both their
 # sum AND their product using combinators instead of stack juggling.
 # Stack starts: ( 3 7 )
 # Result: ( 10 21 ) — sum on bottom, product on top.
-#
-# Hint: compute one of the two derived values while you still have
-# both inputs, then use dip to work on the other underneath the
-# first result.
 # When done, delete the marker line below.
 
 # I AM NOT DONE

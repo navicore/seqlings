@@ -1,0 +1,42 @@
+# Exercise: >aux and aux>
+#
+# Sometimes a value is in your way: you'd like the main stack
+# free for the next operation, but you can't drop the value —
+# you still need it later. The aux stack solves this.
+#
+#   >aux    moves the top of the main stack to the aux stack
+#   aux>    moves the top of the aux stack back to the main stack
+#
+# Every colon-defined word gets its own private aux stack. It
+# starts empty when the word begins and is discarded when the
+# word returns, so aux can't leak between words.
+#
+# Why bother, when `pick`, `roll`, and friends can reach any
+# depth? Because some operations (like calls into library words
+# you'll meet later) want the main stack arranged a particular
+# way. Stashing intermediate values to aux lets you keep the
+# main stack clean for those operations without juggling.
+#
+# Example: hold one value while you process the others.
+#
+#   ( a b c )
+#   swap >aux     ( a c )      aux: [b]
+#   i.+           ( a+c )      aux: [b]
+#   aux>          ( a+c b )    aux: []
+#
+# Your task: given ( 10 20 30 ) on the stack, produce ( 40 20 )
+# by stashing the middle value to aux, summing the other two,
+# then pulling the stashed value back.
+# When done, delete the marker line below.
+
+# I AM NOT DONE
+
+: test-aux ( -- )
+    10 20 30
+    # Your code here — replace the next line with the real answer
+    3drop 0 0
+
+    # Do not edit below this line
+    20 test.assert-eq
+    40 test.assert-eq
+;

@@ -92,6 +92,11 @@ name = "06-roll"
 path = "exercises/02-stack-advanced/06-roll.seq"
 mode = "test"
 
+[[exercises]]
+name = "07-aux"
+path = "exercises/02-stack-advanced/07-aux.seq"
+mode = "test"
+
 # ============================================================
 # 03-arithmetic: Integer Arithmetic
 # ============================================================

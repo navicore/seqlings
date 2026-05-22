@@ -1,6 +1,6 @@
 : test-keep ( -- )
     7
-    [ dup i.* ] keep
+    [ 1 i.+ ] keep
     7 test.assert-eq
-    49 test.assert-eq
+    8 test.assert-eq
 ;

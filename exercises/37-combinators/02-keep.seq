@@ -7,21 +7,29 @@
 # Think of it as: "compute something from x, but don't lose x."
 #
 # Examples:
-#   5 [ dup i.* ] keep     → ( 25 5 )  — squared it, kept original
-#   3 [ 2 i.+ ] keep       → ( 5 3 )   — added 2, kept original
+#   3 [ 1 i.+ ] keep       → ( 4 3 )   — added 1, kept original
+#   5 [ 2 i.* ] keep       → ( 10 5 )  — doubled it, kept original
+#
+# Notice there's no `dup` anywhere — `keep` is doing that work
+# for you, OUTSIDE the quotation. The quotation just transforms
+# the value; `keep` puts the original back on top afterward.
+#
+# Some quotations still need a `dup` inside — for example
+# `[ dup i.* ]` to square — but that `dup` is for the binary
+# operator, not for preservation. `keep` handles preservation.
 #
 # This replaces the common pattern: dup [ ... ] dip
 #
-# Your task: Use keep to compute the square of 7 while
-# preserving the original 7.
+# Your task: Use keep to increment 7 by 1 while preserving the
+# original 7.
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : test-keep ( -- )
     # Stack starts: ( 7 )
-    # Goal: square it but keep original
-    # Result: ( 49 7 )
+    # Goal: add 1 to it but keep original
+    # Result: ( 8 7 )
     7
     # Your code here
     drop 0
@@ -29,6 +37,6 @@
     # Do not edit below this line
     # Top should be 7 (preserved)
     7 test.assert-eq
-    # Second should be 49 (squared)
-    49 test.assert-eq
+    # Second should be 8 (incremented)
+    8 test.assert-eq
 ;

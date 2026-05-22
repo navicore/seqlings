@@ -16,6 +16,8 @@ The basic operations (`dup`, `drop`, `swap`, `over`, `rot`) can express any stac
 | `3drop` | `( a b c -- )`            | Drop top three elements            |
 | `pick`  | `( ...a n -- ...a x )`    | Copy element at depth n            |
 | `roll`  | `( ...a n -- ...b )`      | Rotate n elements                  |
+| `>aux`  | `( a -- )`                | Move top to the word's aux stack   |
+| `aux>`  | `( -- a )`                | Move aux top back to the main stack|
 
 ## Thinking in Compositions
 

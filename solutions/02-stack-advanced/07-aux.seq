@@ -1,0 +1,8 @@
+: test-aux ( -- )
+    10 20 30
+    swap >aux
+    i.+
+    aux>
+    20 test.assert-eq
+    40 test.assert-eq
+;
