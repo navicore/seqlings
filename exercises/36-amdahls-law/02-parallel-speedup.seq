@@ -21,12 +21,12 @@
     chan.make   # results
 
     # Spawn 2 workers: each processes 2 items
-    2dup [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop
-           over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop
+    2dup [ over chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
+           over chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
            drop drop ] strand.spawn drop
     drop drop
-    2dup [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop
-           over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop
+    2dup [ over chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
+           over chan.receive drop 10 time.sleep-ms 1 i.+ over chan.send drop
            drop drop ] strand.spawn drop
     drop drop
 

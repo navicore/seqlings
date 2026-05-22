@@ -23,7 +23,7 @@
 # I AM NOT DONE
 
 # Helper: spawn a worker that processes one item
-: spawn-one ( work results -- work results )
+: spawn-one ( Channel Channel -- Channel Channel )
     2dup [ over chan.receive drop 10 time.sleep-ms 1 i.+ swap chan.send drop drop ] strand.spawn drop
     drop drop
 ;
