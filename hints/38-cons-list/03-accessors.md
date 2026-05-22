@@ -5,7 +5,7 @@
 Field 0 holds the head:
 
 ```seq
-: head ( List -- T )
+: head ( Variant -- T )
     0 variant.field-at
 ;
 ```
@@ -15,7 +15,7 @@ Field 0 holds the head:
 Field 1 holds the tail:
 
 ```seq
-: tail ( List -- List )
+: tail ( Variant -- Variant )
     1 variant.field-at
 ;
 ```

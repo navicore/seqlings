@@ -6,7 +6,7 @@
 just before it on the stack:
 
 ```seq
-: empty ( -- List )
+: empty ( -- Variant )
     :Empty variant.make-0
 ;
 ```
@@ -17,12 +17,12 @@ that `variant.tag` (next exercise) will pull back out.
 ## prepend
 
 `variant.make-2` builds a two-field variant from the two values
-already on the stack. With effect `( T List -- List )`, the head
+already on the stack. With effect `( T Variant -- Variant )`, the head
 sits below the tail when prepend is called, which is exactly the
 order we want:
 
 ```seq
-: prepend ( T List -- List )
+: prepend ( T Variant -- Variant )
     :Cons variant.make-2
 ;
 ```

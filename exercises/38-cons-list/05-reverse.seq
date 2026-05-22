@@ -38,43 +38,32 @@
 # ───────────────────────────────────────────────────────────────
 
 : reverse-acc ( Variant Variant -- Variant )
-    # The recursion shape mirrors length-acc:
-    #   - swap so the input list is on top, dup it for empty?
-    #   - if empty: drop the input, return the accumulator
-    #   - if cons: take the head, prepend onto accumulator, recurse
-    #     with (tail of input, new accumulator)
-    #
-    # Plan for the cons branch starting from ( acc list ):
-    #     dup head           ( acc list head )
-    #     rot                ( list head acc )       -- rot moves third-to-top
-    #     prepend            ( list new-acc )
-    #     swap tail swap     ( tail new-acc )        -- replace input with its tail
-    #     reverse-acc
+    # Your code here — same recursion shape as length-acc, but the
+    # cons branch moves ONE element from the input list onto the
+    # front of the accumulator before recursing. The exact stack
+    # dance is in the hint file — this is the juggliest line in
+    # the chapter, so reach for the hint sooner rather than later.
     drop
 ;
 
 : reverse ( Variant -- Variant )
-    # Kick off with an empty accumulator.
+    # Your code here — kick off with an empty accumulator.
     drop empty
 ;
 
+# Do not edit below this line
+
 : test-reverse-empty ( -- )
-    empty reverse length
-    # Do not edit below this line
-    0 test.assert-eq
+    empty reverse length 0 test.assert-eq
 ;
 
 : test-reverse-head ( -- )
     # reverse of (1 2 3) is (3 2 1); head of that is 3
     empty 3 swap prepend 2 swap prepend 1 swap prepend
-    reverse head
-    # Do not edit below this line
-    3 test.assert-eq
+    reverse head 3 test.assert-eq
 ;
 
 : test-reverse-length-preserved ( -- )
     empty 4 swap prepend 3 swap prepend 2 swap prepend 1 swap prepend
-    reverse length
-    # Do not edit below this line
-    4 test.assert-eq
+    reverse length 4 test.assert-eq
 ;

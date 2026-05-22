@@ -21,34 +21,36 @@
 # Lisp lineage: `empty` is what Lisp calls `nil`; `prepend` is what
 # Lisp calls `cons`. Same operations, different names.
 #
-# Your task: Define the two constructors.
-#
-#   empty   ( -- List )         — an empty list
-#   prepend ( T List -- List )  — push an element onto the front
+# Your task: Define the two constructors below by replacing each
+# placeholder body with a real implementation. Each body is just
+# one short line — `variant.make-0` for empty, `variant.make-2`
+# for prepend — with the right tag symbol in front.
 #
 # When done, delete the marker line below.
 
 # I AM NOT DONE
 
 : empty ( -- Variant )
-    # Use :Empty variant.make-0
-    :Empty variant.make-0
+    # Your code here — should be `:Empty variant.make-0`
+    :Placeholder variant.make-0
 ;
 
 : prepend ( T Variant -- Variant )
-    # Use :Cons variant.make-2 — wraps the two stack values into a Cons cell
-    drop drop empty
+    # Your code here — should be `:Cons variant.make-2`
+    # The two stack values are already in the right order; just
+    # wrap them with the right tag.
+    nip
 ;
 
-: test-empty-runs ( -- )
-    empty drop
-    # Do not edit below this line
-    true test.assert
+# Do not edit below this line
+
+: test-empty-tag ( -- )
+    # `empty` must produce a variant tagged :Empty.
+    empty variant.tag :Empty symbol.= test.assert
 ;
 
 : test-prepend-tag ( -- )
-    # After prepend, the variant should have the :Cons tag, not :Empty.
+    # After prepend, the variant should have the :Cons tag.
     empty 1 swap prepend
-    # Do not edit below this line
     variant.tag :Cons symbol.= test.assert
 ;

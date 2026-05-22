@@ -5,7 +5,7 @@
 The accumulator pattern from chapter 09 in one shape:
 
 ```seq
-: length-acc ( List Int -- Int )
+: length-acc ( Variant Int -- Int )
     swap dup empty?
     [ drop ]                          # empty: drop the list, return acc
     [ tail swap 1 i.+ length-acc ]    # cons: walk to tail, bump acc
@@ -33,13 +33,13 @@ Trace through `length-acc` on `(1 2 3)` with acc = 0:
 The public word just kicks off with acc = 0:
 
 ```seq
-: length ( List -- Int )
+: length ( Variant -- Int )
     0 length-acc
 ;
 ```
 
 ## Why a separate `-acc` helper?
 
-It keeps the public signature clean (`( List -- Int )`) while the
+It keeps the public signature clean (`( Variant -- Int )`) while the
 recursion needs an extra slot for the accumulator. Same trick you
 used in `factorial` and `countdown` in chapter 09.

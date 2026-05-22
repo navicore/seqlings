@@ -5,7 +5,7 @@
 Pull the variant's tag, compare to `:Empty`:
 
 ```seq
-: empty? ( List -- Bool )
+: empty? ( Variant -- Bool )
     variant.tag :Empty symbol.=
 ;
 ```

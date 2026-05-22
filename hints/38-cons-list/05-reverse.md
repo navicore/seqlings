@@ -7,7 +7,7 @@ moves a value (the head) from the input list onto the accumulator
 list before recursing.
 
 ```seq
-: reverse-acc ( List List -- List )
+: reverse-acc ( Variant Variant -- Variant )
     swap dup empty?
     [ drop ]
     [ dup head rot prepend swap tail swap reverse-acc ]
@@ -38,7 +38,7 @@ input is empty and the accumulator has been built up as `(3 2 1)`.
 Kick off with an empty accumulator:
 
 ```seq
-: reverse ( List -- List )
+: reverse ( Variant -- Variant )
     empty reverse-acc
 ;
 ```

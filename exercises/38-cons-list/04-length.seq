@@ -36,28 +36,25 @@
 # ───────────────────────────────────────────────────────────────
 
 : length-acc ( Variant Int -- Int )
-    # Hint:
-    #   swap dup empty?
-    #   [ drop ]                                   # empty: return acc
-    #   [ tail swap 1 i.+ length-acc ]             # cons: walk and bump
-    #   if
+    # Your code here — recursive helper. Branch on empty?:
+    #   - empty case: return the accumulator
+    #   - cons case:  walk to the tail and bump the accumulator
+    # The exact stack shape is in the hint file.
     drop drop 0
 ;
 
 : length ( Variant -- Int )
-    # Push initial accumulator 0 and call length-acc.
+    # Your code here — push initial accumulator 0, call length-acc.
     drop 0
 ;
 
+# Do not edit below this line
+
 : test-length-empty ( -- )
-    empty length
-    # Do not edit below this line
-    0 test.assert-eq
+    empty length 0 test.assert-eq
 ;
 
 : test-length-three ( -- )
     empty 3 swap prepend 2 swap prepend 1 swap prepend
-    length
-    # Do not edit below this line
-    3 test.assert-eq
+    length 3 test.assert-eq
 ;

@@ -13,12 +13,9 @@
 #
 # 2. That "save the head, recurse, prepend on the way back"
 #    pattern needs us to keep the head alive *across* a recursive
-#    call. That's exactly what `dip` is for (chapter 37):
-#
-#      [ append ] dip
-#
-#    runs `append` on the values below the saved head, then
-#    restores the head on top — ready to be `swap prepend`'d.
+#    call. That's exactly what `dip` (chapter 37) is for: hide the
+#    top, run the quotation, restore the top. The hint file shows
+#    the exact shape if you get stuck.
 #
 # Your task: Define
 #
@@ -41,46 +38,38 @@
 # ───────────────────────────────────────────────────────────────
 
 : append ( Variant Variant -- Variant )
-    # Recipe for the cons branch starting from ( a b ):
-    #   1. over head           ( a b head-of-a )
-    #   2. rot tail rot        ( head tail-of-a b )    (two rots)
-    #   3. rot                 ( tail-of-a b head )    -- one more rot
-    #   4. [ append ] dip      ( appended head )       -- recurse, head saved
-    #   5. swap prepend        ( head : appended )
-    #
-    # Empty branch: if a is empty, drop a and return b.
+    # Your code here — recurse on the first list.
+    #   - if list A is empty, the result is just list B
+    #   - otherwise, save the head of A, recurse on (tail-of-A, B),
+    #     then prepend the saved head onto the result
+    # The "save head across a recursive call" part is what `dip`
+    # (chapter 37) was built for. Exact stack shape in the hint file.
     nip
 ;
+
+# Do not edit below this line
 
 : test-append-empty-left ( -- )
     empty
     empty 2 swap prepend 1 swap prepend
-    append length
-    # Do not edit below this line
-    2 test.assert-eq
+    append length 2 test.assert-eq
 ;
 
 : test-append-empty-right ( -- )
     empty 2 swap prepend 1 swap prepend
     empty
-    append length
-    # Do not edit below this line
-    2 test.assert-eq
+    append length 2 test.assert-eq
 ;
 
 : test-append-head ( -- )
     # (1 2) ++ (3 4) → (1 2 3 4); head should be 1
     empty 2 swap prepend 1 swap prepend
     empty 4 swap prepend 3 swap prepend
-    append head
-    # Do not edit below this line
-    1 test.assert-eq
+    append head 1 test.assert-eq
 ;
 
 : test-append-length ( -- )
     empty 2 swap prepend 1 swap prepend
     empty 4 swap prepend 3 swap prepend
-    append length
-    # Do not edit below this line
-    4 test.assert-eq
+    append length 4 test.assert-eq
 ;

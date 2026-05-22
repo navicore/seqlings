@@ -1,7 +1,7 @@
 # Hint: Append
 
 ```seq
-: append ( List List -- List )
+: append ( Variant Variant -- Variant )
     over empty? [
         nip
     ] [

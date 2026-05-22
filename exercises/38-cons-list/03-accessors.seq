@@ -32,26 +32,24 @@
 # ───────────────────────────────────────────────────────────────
 
 : head ( Variant -- T )
-    # field-at index 0
+    # Your code here — pull field 0 with variant.field-at.
     drop 0
 ;
 
 : tail ( Variant -- Variant )
-    # field-at index 1
+    # Your code here — pull field 1 with variant.field-at.
     drop empty
 ;
 
+# Do not edit below this line
+
 : test-head ( -- )
     empty 3 swap prepend 2 swap prepend 1 swap prepend
-    head
-    # Do not edit below this line
-    1 test.assert-eq
+    head 1 test.assert-eq
 ;
 
 : test-tail-head ( -- )
     # tail of (1 2 3) is (2 3); head of that is 2
     empty 3 swap prepend 2 swap prepend 1 swap prepend
-    tail head
-    # Do not edit below this line
-    2 test.assert-eq
+    tail head 2 test.assert-eq
 ;

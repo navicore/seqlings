@@ -6,9 +6,8 @@
     :Cons variant.make-2
 ;
 
-: test-empty-runs ( -- )
-    empty drop
-    true test.assert
+: test-empty-tag ( -- )
+    empty variant.tag :Empty symbol.= test.assert
 ;
 
 : test-prepend-tag ( -- )

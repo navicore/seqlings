@@ -34,18 +34,16 @@
 # ───────────────────────────────────────────────────────────────
 
 : empty? ( Variant -- Bool )
-    # Get the variant.tag, then compare to :Empty with symbol.=
+    # Your code here — check the variant's tag against :Empty.
     drop false
 ;
 
+# Do not edit below this line
+
 : test-empty-is-empty ( -- )
-    empty empty?
-    # Do not edit below this line
-    test.assert
+    empty empty? test.assert
 ;
 
 : test-cons-is-not-empty ( -- )
-    empty 1 swap prepend empty?
-    # Do not edit below this line
-    not test.assert
+    empty 1 swap prepend empty? not test.assert
 ;
