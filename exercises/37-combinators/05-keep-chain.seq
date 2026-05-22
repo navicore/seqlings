@@ -17,6 +17,7 @@
 # Result stack: ( 16 64 4 )
 # When done, delete the marker line below.
 
+# audit:allow(stub-lint-error)
 # I AM NOT DONE
 
 : test-keep-chain ( -- )

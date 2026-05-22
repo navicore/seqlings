@@ -48,14 +48,14 @@
     # Stack: ( public signature )
 
     # Verify with correct public key
-    "Important document" rot rot verify
+    "Important document" rot rot swap verify
     test.assert
 
     # Verification fails with wrong message
     generate-keypair
     "message" swap sign drop   # Get signature
     # Stack: ( public signature )
-    "different message" rot rot verify
+    "different message" rot rot swap verify
     not test.assert
 
     # Verification fails with wrong key
@@ -64,6 +64,6 @@
     # Stack: ( private1 public2 )
     "test" rot sign drop   # Sign with private1
     # Stack: ( public2 signature )
-    "test" rot rot verify   # Verify with public2
+    "test" rot rot swap verify   # Verify with public2
     not test.assert
 ;

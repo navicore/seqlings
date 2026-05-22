@@ -70,6 +70,25 @@ trap 'rm -rf "$TMP"' EXIT
 FINDINGS_FILE="$TMP/findings"
 : > "$FINDINGS_FILE"
 
+# Build a set of compile-mode exercise stubs from info.toml.
+# Compile-mode exercises (currently chapter 00) intentionally ship
+# with broken stubs — the lesson IS fixing the error — so they
+# should be exempt from stub-lint findings.
+declare -A COMPILE_MODE
+while IFS= read -r p; do
+  [[ -n "$p" ]] && COMPILE_MODE["$ROOT/$p"]=1
+done < <(awk '
+  /^\[\[exercises\]\]/ { path=""; next }
+  /^path = / {
+    gsub(/"/,"")
+    sub(/^path = /,"")
+    path=$0
+  }
+  /^mode = "compile"/ {
+    if (path != "") print path
+  }
+' "$ROOT/exercises/info.toml")
+
 # ============================================================
 # Helpers
 # ============================================================
@@ -142,6 +161,19 @@ check_stubs() {
     chapter_filter "$chap" || continue
     for stub in "$chap_dir"*.seq; do
       [[ -f "$stub" ]] || continue
+      if [[ -n "${COMPILE_MODE[$stub]:-}" ]]; then
+        log "stub: $stub (compile-mode, skipped)"
+        continue
+      fi
+      # Some stubs use a lint error AS the lesson's feedback signal:
+      # the learner reads "stack underflow" and figures out which
+      # primitive balances it. Marking these `# audit:allow(...)`
+      # lets the file opt out of the check without games like
+      # placeholder drops that muddy the lesson.
+      if grep -qE '^[[:space:]]*#[[:space:]]*audit:[[:space:]]*allow\(stub-lint-error\)' "$stub"; then
+        log "stub: $stub (audit:allow(stub-lint-error), skipped)"
+        continue
+      fi
       count=$((count + 1))
       log "stub: $stub"
       local rel="exercises/$chap/$(basename "$stub")"
