@@ -1,23 +1,9 @@
 # Hint: i.*
 
-`i.*` takes two integers and pushes their product.
+`i.*` multiplies two integers and leaves the product on the stack. Stack effect: `( a b -- product )`.
 
-## The Pattern
+Push both operands and apply `i.*`. The test wants 60, so pick operands that multiply to 60. Multiplication is commutative, so either order works.
 
-```seq
-a b i.*    # Leaves (a × b) on stack
-```
+## The `i.` prefix
 
-Since multiplication is commutative (a × b = b × a), order doesn't matter for the result.
-
-## Solution
-
-```seq
-12 5 i.*
-```
-
-Or equivalently:
-
-```seq
-5 12 i.*
-```
+Like every integer operator (`i.+`, `i.-`, `i./`), `i.*` lives in the `i.` family — one of the type-prefix conventions you saw in chapter 11. Seq's type-inferred `*` also works when the operand types are unambiguous, but the explicit `i.*` is universal.

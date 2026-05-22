@@ -1,29 +1,18 @@
 # Hint: Map Inspection
 
-## Solution
+Four words for poking at maps without modifying them:
 
-```seq
-: test-size ( -- )
-    make-test-map
-    map.size
-    3 test.assert-eq
-;
+- `map.size` — Int, the number of entries.
+- `map.empty?` — Bool, true if there are no entries.
+- `map.keys` — list of all keys.
+- `map.values` — list of all values.
 
-: test-empty ( -- )
-    map.make
-    "tmp" 0 map.set "tmp" map.remove
-    map.empty?
-    test.assert
-;
+Each test pushes a map (the stub already calls `make-test-map`) and applies one of these words. The bodies are one or two tokens each:
 
-: test-keys-count ( -- )
-    make-test-map
-    map.keys list.length
-    3 test.assert-eq
-;
-```
+- **`test-size`** wants the count — one word.
+- **`test-empty`** wants the Bool — one word.
+- **`test-keys-count`** wants a count of how many keys, so it's two words in sequence: one to get the keys, then `list.length` to count them.
 
-- `map.size` returns the number of key-value pairs
-- `map.empty?` returns `true` if the map has no entries — assert with plain `test.assert` (which expects a Bool), not `test.assert-eq` (which is integers-only)
-- `map.keys` returns a list of all keys
-- The `"tmp" 0 map.set "tmp" map.remove` dance in `test-empty` is just to bind the map's value type to `Int` so the typechecker is happy; the map ends up empty either way
+## The `"tmp" 0 map.set "tmp" map.remove` dance
+
+In `test-empty`, the empty-test map is built with a temporary entry that's immediately removed. Why? `map.make` alone gives an empty map whose value type the type-checker can't infer. Setting and removing an Int entry pins the type to `( Map String Int )` so the empty-check has a concrete map to work on. Same outcome (empty map), no type-inference complaint.

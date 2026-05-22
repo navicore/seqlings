@@ -1,31 +1,29 @@
 # Hint: roll
 
-`roll` rotates n elements, bringing the deepest one to the top.
+`n roll` rotates `n+1` items, bringing the value at depth `n` (0-indexed from the top) to the top.
 
-## Understanding roll
+So:
 
-```seq
-1 2 3 4  2 roll    # Rotates top 2: swap       Stack: ( 1 2 4 3 )
-1 2 3 4  3 roll    # Rotates top 3: rot        Stack: ( 1 3 4 2 )
-1 2 3 4  4 roll    # Rotates top 4             Stack: ( 2 3 4 1 )
-```
+- `0 roll` does nothing (rotates 1 item — itself).
+- `1 roll` is `swap` (rotates 2 items, brings depth-1 to top).
+- `2 roll` is `rot` (rotates 3 items, brings depth-2 to top).
+- `3 roll` rotates 4 items, brings depth-3 to top.
 
-## Generalizing Patterns
+## Generalizing patterns
 
-`roll` is a **generalization** of `swap` (2 roll) and `rot` (3 roll). When you see patterns that vary only in a number, you've found an opportunity for generalization.
+`roll` is a generalization of `swap` (which is `1 roll`) and `rot` (which is `2 roll`). When you see patterns that vary only in a number, you've found an opportunity for generalization. Same insight as:
 
-This is the same insight behind:
-- Loops instead of repeated code
-- Functions with parameters instead of hardcoded values
-- Generic types instead of specific types
+- Loops instead of repeated code.
+- Functions with parameters instead of hardcoded values.
+- Generic types instead of specific types.
 
-## The Solution
+## Solving this exercise
 
-The stack is `( 10 20 30 40 )`. You want to bring 10 to the top.
+The starting stack is `( 10 20 30 40 )`. To find the right `n`, count from the top using 0-indexing:
 
-Count the elements: 10 is 4th from top (or "4 elements need to rotate").
+- depth 0 = 40 (top)
+- depth 1 = 30
+- depth 2 = 20
+- depth 3 = 10
 
-```seq
-10 20 30 40
-4 roll
-```
+You want to bring 10 to the top, so `n` should match its depth.

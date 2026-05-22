@@ -1,61 +1,49 @@
 # Hint: Tail Call Optimization
 
-The key is making the recursive call the **last** action.
+The exercise stub already lays out the shape — your job is to fill in the body so the recursive call is the very last action.
 
-## Solution
+For `count-helper ( target current )`:
 
-```seq
-: count-helper ( Int Int -- Int )
-    # Stack: ( target current )
-    2dup i.<= [
-        # target <= current means we're done
-        nip                  # drop target, return current
-    ] [
-        1 i.+                # ( target current+1 )
-        count-helper         # tail call - MUST be last action!
-    ] if
-;
+- **Base case**: `current` has reached `target` → return `current`, drop `target`.
+- **Recursive case**: increment `current` by 1, recurse with the same `target` and the new `current`. Nothing after the recurse.
 
-: count-up-to ( Int -- Int )
-    0 count-helper
-;
-```
+That "nothing after the recurse" rule is THE point of the exercise. If you `dup` before the call and `i.+` after, the compiler can't optimize, and 100,000 frames overflow the stack. Re-read the stub's commented hint: "with no further work after it."
 
-## Why This Works for 100,000
+Two primitives that pair naturally with this shape: `2dup` to compare both values without consuming either, and `nip` to discard one of two stack values cleanly (the base case wants to drop `target` while keeping `current`).
+
+## Why this works for 100,000
 
 In non-tail recursion:
+
 ```
 sum(3) = 3 + sum(2)           # must WAIT for sum(2), then add
        = 3 + (2 + sum(1))     # stack grows with each call
-       = 3 + (2 + (1 + sum(0)))
        = 3 + (2 + (1 + 0))    # finally unwind all those frames
 ```
 
 In tail recursion:
+
 ```
 count-helper(3, 0)
-  -> count-helper(3, 1)       # no waiting - just jump!
+  -> count-helper(3, 1)       # no pending work — just jump
   -> count-helper(3, 2)       # same stack frame, new values
   -> count-helper(3, 3)       # done, return 3
 ```
 
-## The "Aha" Moment
+The compiler sees nothing happens after the recursive call and transforms:
 
-**Tail recursion + TCO = recursion as efficient as a while loop.**
-
-The compiler sees that nothing happens after the recursive call, so it transforms:
 ```
 count-helper(target, current+1)
 ```
+
 into essentially:
+
 ```
 current = current + 1
 goto start_of_function
 ```
 
-This is why functional languages love recursion - with TCO, it's just as efficient as imperative loops, but often clearer to reason about.
-
-## CS Concept: Tail Call Optimization
+## CS concept: Tail Call Optimization
 
 From the glossary: *"Compiler optimization transforming tail-recursive calls into loops, preventing stack overflow while maintaining elegant recursive code structure."*
 

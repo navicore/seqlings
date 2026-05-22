@@ -1,27 +1,15 @@
-# Hint: Building Vocabulary
+# Hint: Predicates and `i.modulo`
 
-A number is even if `n mod 2 = 0`. `i.modulo` returns
-`( Int Bool )` — the remainder and a success flag — so drop the
-flag before comparing.
+A number is even when its remainder mod 2 is zero. The trap: `i.modulo` doesn't just return the remainder — it returns `( remainder Bool )`, where the Bool is a success flag (false on divide-by-zero, which can't happen here, but the type system insists). You need to discard that Bool before comparing the remainder to 0.
 
-## Solution
-
-```seq
-: is-even? ( Int -- Bool )
-    2 i.modulo drop 0 i.=
-;
-```
-
-Step by step:
-1. `2 i.modulo` — compute n mod 2, leaves `(remainder true)`
-2. `drop` — drop the success flag
-3. `0 i.=` — compare remainder to 0
+So the body is three short pieces in sequence: compute the modulo, drop the flag, compare. Each piece is one or two tokens you already know.
 
 ## Naming Conventions
 
-Notice the `?` at the end of `is-even?`. This is a common convention for predicate words (words that return booleans). Other examples:
+The `?` at the end of `is-even?` is the convention for predicates — words that return a Bool. Other examples you'll meet later:
+
 - `string.empty?`
 - `list.contains?`
 - `file.exists?`
 
-Good names communicate intent.
+The trailing `?` is purely a naming convention; the compiler doesn't care. But human readers do — `is-even?` reads as a question that gets a yes/no answer, which is exactly what a predicate is.

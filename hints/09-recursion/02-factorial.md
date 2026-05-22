@@ -1,23 +1,10 @@
 # Hint: Factorial
 
-n! = n × (n-1)!
+Same recursion shape as `countdown` from the previous exercise — fill in the base and recursive case for `n!`:
 
-## Solution
+- **Base case**: `0! = 1` and `1! = 1`. Easiest check covers both: "n <= 1 returns 1".
+- **Recursive step**: `n × factorial(n-1)`.
 
-```seq
-: factorial ( Int -- Int )
-    dup 1 <= [
-        drop 1
-    ] [
-        dup 1 i.- factorial i.*
-    ] if
-;
-```
+The pattern transfers wholesale. If countdown worked, factorial is the same body shape with two changes: the base-case constant is 1 instead of 0, and the combining operator is `i.*` instead of `i.+`.
 
-## The Pattern
-
-Same structure as countdown:
-1. `dup` to preserve n
-2. Check base case
-3. Recursive call with n-1
-4. Combine result with n
+That's by design — this chapter teaches the *shape* of recursion, and the next exercises (fibonacci, accumulator) start varying it in interesting ways. Building the shape into muscle memory pays off there.

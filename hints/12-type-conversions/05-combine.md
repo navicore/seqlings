@@ -1,24 +1,14 @@
 # Hint: Chaining Conversions
 
-## Solution
+The pipeline for `string-to-quarter`:
 
-```seq
-: string-to-quarter ( String -- Int )
-    string->int int->float 4.0 f./ float->int
-;
-```
+1. Parse the string as an integer with `string->int`. **Watch out:** this returns `( Int Bool )` — the parsed value and a success Bool. You need to drop the Bool before continuing, or the type checker will complain about the next operation seeing the wrong stack shape.
+2. Promote that integer to a float with `int->float`.
+3. Divide by `4.0` using `f./`.
+4. Demote back to int with `float->int`. Truncation discards any fractional part.
 
-Step by step:
-1. `string->int` - "100" becomes 100
-2. `int->float` - 100 becomes 100.0
-3. `4.0 f./` - Divide by 4.0 to get 25.0
-4. `float->int` - Convert back to integer 25
+The same Bool-drop trap applies to `test-round-trip`: `int->string` returns just a String, but parsing the result back with `string->int` again returns `( Int Bool )`, so the final `drop` between `string->int` and the assertion is needed there too.
 
-## Round-Trip Conversions
+## Round-trip considerations
 
-Integer to string and back preserves the value exactly:
-```seq
-42 int->string string->int    # Still 42
-```
-
-Float round-trips may lose precision due to string formatting.
+Integer → string → integer round-trips preserve the value exactly. Float → string → float round-trips can lose precision because the string format doesn't always carry every bit of the float (e.g., `0.1` printed and re-parsed may not return to the same bits). Integers, by contrast, have an exact decimal representation that round-trips faithfully.

@@ -1,18 +1,19 @@
 # Hint: List Operations
 
-## Solution
+The big idea this exercise plants: **lists are variants under the hood.** That's why list indexing uses `variant.field-at` — there's no separate `list.at`, because a list IS a variant whose fields are its elements.
 
-```seq
-: test-list-first ( -- )
-    [ 5 10 15 ] 0 variant.field-at
-    5 test.assert-eq
-;
+So to grab an element, the recipe is:
 
-: test-list-last ( -- )
-    [ 5 10 15 ] 2 variant.field-at
-    15 test.assert-eq
-;
-```
+1. Get the list onto the stack (the exercise uses `string.split` to produce one from a string).
+2. Push the index you want (0-based).
+3. `variant.field-at` — pops both, leaves the element.
 
-Lists are variants - access elements with `variant.field-at` using index.
-Index 0 is first, index (length-1) is last.
+That's the entire pattern. The first-element test needs index 0; the last-element test (for the 3-element list "alpha beta gamma") needs index 2 — length minus one.
+
+The list-length and list-empty? tests are even simpler — those words take just the list and return their answer. The exercise prose lists them.
+
+## The variant-list connection
+
+Most languages keep lists and tagged unions as separate concepts. Seq merges them: a list is a variant tagged `:Cons` (with head and tail fields) or `:Empty` (no fields), and the same `variant.*` primitives work on both. You'll see this pattern again in chapter 38 when you build a cons-list from scratch.
+
+For now, the takeaway: when you need to reach into a list, reach for `variant.field-at`.
