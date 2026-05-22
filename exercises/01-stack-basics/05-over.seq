@@ -10,6 +10,7 @@
 # Your task: Use `over` to copy the 5 to the top.
 # When done, delete the marker line below.
 
+# audit:allow(stub-lint-error)
 # I AM NOT DONE
 
 : test-over ( -- )

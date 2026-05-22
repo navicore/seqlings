@@ -12,6 +12,7 @@
 # Your task: Use `tuck` to transform the stack.
 # When done, delete the marker line below.
 
+# audit:allow(stub-lint-error)
 # I AM NOT DONE
 
 : test-tuck ( -- )

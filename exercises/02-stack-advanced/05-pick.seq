@@ -16,6 +16,7 @@
 # Your task: Use pick to copy the 100 to the top.
 # When done, delete the marker line below.
 
+# audit:allow(stub-lint-error)
 # I AM NOT DONE
 
 : test-pick ( -- )

@@ -1,23 +1,12 @@
 # Hint: Integer Operations
 
-Both `i./` and `i.modulo` return `( Int Bool )` — the quotient
-(or remainder) plus a success flag that's `false` only when the
-divisor is zero. Assert the flag first, then assert the value.
+The shape for each test is the same: push the two operands the exercise prose tells you, apply the right operator, the assertion follows.
 
-## Solution
+The interesting thing here is the **Bool-flag trap** on division and modulo:
 
-```seq
-: test-int-divide ( -- )
-    17 5 i./
-    test.assert
-    3 test.assert-eq
-;
+- `i.+`, `i.-`, `i.*` return just an `Int`.
+- `i./` and `i.modulo` return `( Int Bool )` — the quotient/remainder plus a success flag that's `false` only when the divisor is zero.
 
-: test-int-mod ( -- )
-    17 5 i.modulo
-    test.assert
-    2 test.assert-eq
-;
-```
+That's why the two divide tests carry *two* assertions: the first checks the Bool (success), the second checks the value. If you forget the flag is there, your stack will be off by one and the type checker will refuse the file.
 
-Integer operations: `i.+`, `i.-`, `i.*`, `i./`, `i.modulo`.
+The four operator names you'll need are listed in the exercise prose. Match each to its test by what arithmetic it does, and leave the right number of items on the stack for the asserts that follow.

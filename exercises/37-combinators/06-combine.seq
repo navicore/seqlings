@@ -21,6 +21,7 @@
 # Result: ( 10 21 ) — sum on bottom, product on top.
 # When done, delete the marker line below.
 
+# audit:allow(stub-lint-error)
 # I AM NOT DONE
 
 # Compute sum and product of two numbers using combinators

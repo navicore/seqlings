@@ -1,30 +1,19 @@
 # Hint: Integer/Float Conversions
 
-## int->float
+Two new conversion words:
 
-Converts an integer to a floating-point number:
-```seq
-7 int->float    # Stack: ( 7.0 )
-```
+- `int->float ( Int -- Float )` — promotes an integer to its float form. `7` becomes `7.0`.
+- `float->int ( Float -- Int )` — demotes a float by **truncating toward zero**. `7.9` becomes `7`; `-2.9` becomes `-2` (not `-3` — toward zero, not toward `-∞`).
 
-## float->int
+The first test is a four-step pipeline: push 7, promote it to float, add 0.5 (with `f.+`, since we're now in float-land), demote back to int. Truncation discards the .5, so the final value is 7.
 
-Converts a float to an integer by truncating toward zero:
-```seq
-7.9 float->int    # Stack: ( 7 )
--2.9 float->int   # Stack: ( -2 )
-```
+The second test is given — it's a one-step demonstration that 9.9 truncates to 9.
 
-## Solution
+## Why truncation toward zero?
 
-```seq
-7 int->float 0.5 f.+ float->int
-```
+Different languages pick different rules:
 
-1. `7 int->float` gives 7.0
-2. `0.5 f.+` gives 7.5
-3. `float->int` truncates to 7
+- **Toward zero** (Seq, C, Java): `-2.9 → -2`, `2.9 → 2`. Symmetric around zero.
+- **Toward -∞** (Python's `//` on floats, math floor): `-2.9 → -3`, `2.9 → 2`. Always rounds down.
 
-## Key Insight
-
-Truncation always moves toward zero, not toward negative infinity. This matters for negative numbers.
+The first is what most CPUs do natively, so it's the default. If you want toward-`-∞`, use `f.floor` before `float->int`.

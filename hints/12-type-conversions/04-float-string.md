@@ -2,23 +2,23 @@
 
 ## string->float
 
-Parse a string as a floating-point number:
-```seq
-"3.5" string->float    # Stack: ( 3.5 )
-```
+Parses a string as a floating-point number — but watch the return shape: `( String -- Float Bool )`. The Bool is `false` if the string isn't a valid float. For this test the input is a clean `"3.5"`, so the Bool is always `true`; you need to drop it before continuing.
 
-## Solution
+The body is therefore four operations:
 
-```seq
-"3.5" string->float 1.5 f.+
-```
+1. Push the input string.
+2. Call `string->float`. Stack now has `( Float Bool )`.
+3. **`drop`** to discard the success flag, leaving just the Float.
+4. Add 1.5 with `f.+`.
 
-1. `"3.5" string->float` gives 3.5
-2. `1.5 f.+` adds to get 5.0
+The dropped-Bool step is the trap; without it, your next operation tries to add a Float to a Bool and the type checker stops you.
 
 ## float->string
 
-Convert a float to its string representation:
+The reverse direction. Stack effect `( Float -- String )` — no Bool to discard, because *any* Float has a string representation.
+
 ```seq
 3.14159 float->string    # Stack: ( "3.14159" )
 ```
+
+The asymmetry (string→float can fail, float→string can't) shows up across every parse/format pair you'll meet: ints, floats, JSON, dates, etc.

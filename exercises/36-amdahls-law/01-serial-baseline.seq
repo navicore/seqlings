@@ -17,6 +17,7 @@
 #
 # When done, delete the marker line below.
 
+# audit:allow(stub-lint-error)
 # I AM NOT DONE
 
 : test-serial-baseline ( -- )

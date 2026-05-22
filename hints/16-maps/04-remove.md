@@ -1,27 +1,14 @@
 # Hint: Removing Entries
 
-## map.remove
+Two new map words:
 
-Removes a key from the map and returns the updated map.
+- `map.remove ( Map Key -- Map )` — returns the map with that key gone. If the key wasn't there, returns the map unchanged.
+- `map.has? ( Map Key -- Bool )` — returns true if the key is present.
 
-## map.has?
+For **`test-remove`**: push the key to remove and call `map.remove`. The do-not-edit assertion afterwards looks up that same key with `map.has?` and expects the answer to be false.
 
-Checks if a key exists and returns a Bool.
+For **`test-contains`**: push the key to check and call `map.has?`, leaving the Bool on the stack for the assertion. Replace the `drop false` placeholder.
 
-## Solution
+## Asserting on Bools
 
-```seq
-: test-remove ( -- )
-    make-test-map
-    "b" map.remove
-    "b" map.has? test.assert-not
-;
-
-: test-contains ( -- )
-    make-test-map
-    "a" map.has?
-    test.assert
-;
-```
-
-`test.assert` asserts that the Bool on the stack is `true`; `test.assert-not` asserts it is `false`. (Note: `test.assert-eq` only works for integers — use `test.assert` / `test.assert-not` for Bool.)
+`test.assert` asserts the Bool on top is `true`; `test.assert-not` asserts it is `false`. `test.assert-eq` is integers-only — when an assertion uses it, you know the test produces an Int, not a Bool. When you see `string.equal?` or `map.has?` in front of `test.assert`, that's because those words produce Bools.

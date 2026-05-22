@@ -16,17 +16,17 @@
     "Important document" swap sign
     test.assert
 
-    "Important document" rot rot verify
+    "Important document" rot rot swap verify
     test.assert
 
     generate-keypair
     "message" swap sign drop
-    "different message" rot rot verify
+    "different message" rot rot swap verify
     not test.assert
 
     generate-keypair drop
     generate-keypair swap drop
     "test" rot sign drop
-    "test" rot rot verify
+    "test" rot rot swap verify
     not test.assert
 ;

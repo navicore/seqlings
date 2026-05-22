@@ -13,6 +13,7 @@
 # Your task: Use `nip` to remove the 100, keeping only 42.
 # When done, delete the marker line below.
 
+# audit:allow(stub-lint-error)
 # I AM NOT DONE
 
 : test-nip ( -- )

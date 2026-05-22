@@ -12,6 +12,7 @@
 # Your task: Use `2dup` to duplicate both values.
 # When done, delete the marker line below.
 
+# audit:allow(stub-lint-error)
 # I AM NOT DONE
 
 : test-2dup ( -- )

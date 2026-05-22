@@ -1,32 +1,31 @@
 # Hint: Accumulator Pattern
 
-Carry the result-so-far as a parameter.
+The transformation in question: turn recursion that *waits for its result and combines* into recursion that *passes the partial result forward*.
 
-## Solution
+The naive shape (what you'd write reflexively):
 
-```seq
-: sum-to-acc ( Int Int -- Int )
-    over 0 <= [
-        nip   # Return accumulator
-    ] [
-        over i.+      # acc + n
-        swap 1 i.- swap   # n-1, new-acc
-        sum-to-acc
-    ] if
-;
-
-: sum-to ( Int -- Int )
-    0 sum-to-acc
-;
+```
+sum-to(n) = n + sum-to(n-1)
 ```
 
-## Why This Matters
+The `+` happens AFTER the recursive call returns. So every call has unfinished work waiting on the call stack.
 
-The recursive call is the **last thing** that happens - nothing needs to be done after it returns. This is tail recursion, and compilers can optimize it to a loop.
+The tail-recursive shape (what this exercise teaches):
 
-## The Transformation
+```
+sum-to-acc(n, acc) = sum-to-acc(n - 1, acc + n)   until n hits zero
+sum-to-acc(0, acc) = acc
+```
 
-Non-tail: `result = n + sum(n-1)` - must wait for recursive result
-Tail: `sum(n-1, acc+n)` - pass partial result forward
+Nothing happens after the recursive call. The "+" was done BEFORE — folded into the new accumulator value that gets passed in.
 
-This pattern turns recursion into iteration under the hood.
+For the helper, the stack going in is `( n acc )`:
+
+- **Base case**: when n is 0 or below, the answer is whatever's in `acc`. Drop n, leave acc.
+- **Recursive case**: compute `acc + n` to get the new accumulator, decrement n, recurse with `( n-1, new-acc )`. The recursive call must be the very last thing.
+
+The wrapper `sum-to` kicks off with `acc = 0`, which is already done in the stub.
+
+## Why this matters
+
+The compiler sees that the recursive call is the LAST action — there's no pending arithmetic to do after it returns. That means each call can REUSE the current stack frame instead of pushing a new one. Tail-recursive code runs in constant stack space, which is the whole point. The next exercise drives this home with 100,000 iterations.

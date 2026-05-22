@@ -1,43 +1,11 @@
 # Hint: Stack Effects
 
-You need to produce BOTH the sum and the product. That means preserving both inputs.
+The stack effect `( Int Int -- Int Int )` tells you two things: two inputs, two outputs. To produce TWO results from two inputs, you can't just compute them in sequence — each binary op consumes both its inputs. So the first decision is "how do I keep material around for the second computation?"
 
-## Solution
+That's exactly what `2dup` is for: `( a b -- a b a b )`. With four copies on the stack you can compute one result (consumes two), then bring the surviving two inputs to the top for the second result. Words you might reach for to do that bringing-up: `rot rot`, `-rot` (if your dialect has it), or a couple of `swap`s.
 
-```seq
-: sum-and-product ( Int Int -- Int Int )
-    2dup i.*    # Stack: ( a b product )
-    rot rot i.+      # Stack: ( product sum )
-;
-```
+One more thing to check: the test pops the **sum** first, then the **product**. That means the sum needs to be on top of the stack when your word returns. Whichever result you compute first ends up BELOW the second one — plan the order accordingly.
 
-Wait, that's not quite right for the test. Let me trace more carefully:
+## Why the stack-effect comment matters
 
-```seq
-: sum-and-product ( Int Int -- Int Int )
-    2dup i.+      # ( a b sum )
-    rot rot         # ( sum a b )
-    i.*      # ( sum product )
-    swap            # ( product sum )
-;
-```
-
-Hmm, the test expects sum on top. Let me check the assertion order...
-
-The test does `7 test.assert-eq` then `12 test.assert-eq`, meaning it pops 7 first (sum) then 12 (product). So we need `( product sum )` - product below, sum on top.
-
-```seq
-: sum-and-product ( Int Int -- Int Int )
-    2dup i.*   # ( a b product )
-    -rot              # ( product a b )
-    i.+             # ( product sum )
-;
-```
-
-Or more simply:
-```seq
-: sum-and-product ( Int Int -- Int Int )
-    2dup i.*
-    rot rot i.+
-;
-```
+`( Int Int -- Int Int )` isn't just documentation — the type checker enforces it. If your body produces three values, you'll get a type error; if one, same. Writing the stack effect first and then matching the body to it is a habit worth building early.

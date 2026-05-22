@@ -15,6 +15,7 @@
 # Your task: Use bi to compute both the double and the triple of 6.
 # When done, delete the marker line below.
 
+# audit:allow(stub-lint-error)
 # I AM NOT DONE
 
 : test-bi ( -- )
