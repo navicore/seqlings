@@ -13,6 +13,10 @@ Interactive exercises for learning [Seq](https://git.navicore.tech/navicore/patc
 
 Inspired by [Rustlings](https://github.com/rust-lang/rustlings), Seqlings guides you through Seq's concepts with hands-on exercises that you complete in your editor.
 
+**Home Code Repository** is at [git.navicore.tech](https://git.navicore.tech/navicore/seqlings)
+
+**PRs and issues** welcome at [codeberg.org mirror](https://codeberg.org/navicore/seqlings)
+
 ## Prerequisites
 
 You need the Seq compiler (`seqc`) installed and available in your PATH.
