@@ -15,7 +15,7 @@ Inspired by [Rustlings](https://github.com/rust-lang/rustlings), Seqlings guides
 
 **Home Code Repository** is at [git.navicore.tech](https://git.navicore.tech/navicore/seqlings)
 
-**PRs and issues** welcome at [codeberg.org mirror](https://codeberg.org/navicore/seqlings)
+**PRs and issues** welcome at the [GitHub mirror](https://github.com/navicore/seqlings)
 
 ## Prerequisites
 
